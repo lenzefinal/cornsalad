@@ -1,0 +1,18 @@
+package com.devone.finalp.member.model.service;
+
+import org.springframework.stereotype.Service;
+
+import com.devone.finalp.member.model.vo.Member;
+
+@Service("memberService")
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public Member login(Member member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+}

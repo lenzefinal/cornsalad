@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>header.jsp</title>
+</head>
+
+<style>
+	header h1{
+		background-color: ivory;
+	}
+</style>
+
+<body>
+<header>
+	<hr>
+	<h1>header</h1>
+	<hr>
+</header>
+</body>
+</html>
