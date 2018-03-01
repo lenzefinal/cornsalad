@@ -11,6 +11,8 @@
 <h1 style="text-align:center">CORN SALAD 메인 페이지</h1>
 <a href="testAjax.do">ajax test page로 이동</a>
 
+<h1>테스트테스트</h1>
+
 <c:import url="footer.jsp"/>
 </body>
 </html>
