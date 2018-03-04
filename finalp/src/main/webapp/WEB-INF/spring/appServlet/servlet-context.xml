@@ -29,4 +29,18 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="100000"></beans:property>
 	</beans:bean>
+	
+	
+	
+	<!-- viewResolver의 레퍼런스 
+	클래스 명으로 viewResolver 내보내기 -->
+	<beans:bean id="jsonView"
+		class="net.sf.json.spring.web.servlet.view.JsonView">
+	</beans:bean>
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+	
+	
 </beans:beans>
