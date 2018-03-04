@@ -9,8 +9,11 @@
 </head>
 
 <style>
-	header #header-in{
-		background-color: ivory;
+	.main-color-cornsalad {
+		color: #F7D358;
+	}
+	.main-backgroundcolor-cornsalad {
+		background-color: #F7D358;
 	}
 </style>
 
