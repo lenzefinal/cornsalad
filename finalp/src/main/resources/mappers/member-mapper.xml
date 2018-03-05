@@ -6,7 +6,7 @@
 	<select id="login" resultType="Member" parameterType="Member">
 		<![CDATA[
 			SELECT * FROM MEMBER 
-			WHERE MEMBER_ID = #{ member_id }
+			WHERE EMAIL = #{ email }
 			AND MEMBER_PWD = #{ member_pwd }
 		]]>
 	</select>

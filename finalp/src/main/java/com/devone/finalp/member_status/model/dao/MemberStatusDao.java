@@ -1,13 +1,13 @@
-package com.devone.finalp.member.model.dao;
+package com.devone.finalp.member_status.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.devone.finalp.member.model.vo.Member;
+import com.devone.finalp.common.model.vo.Member;
 
-@Repository("memberDao")
-public class MemberDao {
+@Repository("memberStatusDao")
+public class MemberStatusDao {
 
 	@Autowired
 	private SqlSessionTemplate mybatis;

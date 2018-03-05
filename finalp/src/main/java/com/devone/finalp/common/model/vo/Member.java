@@ -1,4 +1,4 @@
-package com.devone.finalp.member.model.vo;
+package com.devone.finalp.common.model.vo;
 
 import java.sql.Date;
 
