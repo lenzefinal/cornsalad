@@ -7,13 +7,16 @@
 <meta charset="UTF-8">
 <title>header.jsp</title>
 </head>
-
+  <link rel="stylesheet" href="/finalp/resources/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <style>
 	.main-color-cornsalad {
 		color: #F7D358;
 	}
 	.main-backgroundcolor-cornsalad {
-		background-color: #F7D358;
+		background-color: #F3F781;
 	}
 </style>
 
@@ -41,17 +44,19 @@
 		position: relative; 
 		border: none;	
 		border-radius: 0; 
-		z-index: 10000; 
+		z-index: 999; 
 		font-family: Roboto,"Noto Sans KR",sans-serif; 
 		/* -webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;*/
 	} 
 	#headerBar {
-		position: relative;	
+		/* position: relative;	 */
+		position:fixed;
 		background: #fff; 
 		height: 48px; 
 		width: 100%; 
 		box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08); 
-		z-index: 10000;
+		z-index: 999;
+		top:0;
 	}
 	#headerBar .left-section { 
 		width: 100%;	
@@ -166,7 +171,7 @@
 	
 	
 
-	input[type="button" i], 
+	/* input[type="button" i], 
 	input[type="submit" i], 
 	input[type="reset" i], 
 	input[type="file" i]::-webkit-file-upload-button, 
@@ -177,7 +182,7 @@
 	input[type="submit" i], 
 	input[type="reset" i], 
 	input[type="file" i]::-webkit-file-upload-button, 
-	button {
+	/*button {
 		align-items: flex-start;
 		text-align: center;
 		cursor: default;
@@ -205,7 +210,7 @@
 	}
 	input, textarea, select, button, meter, progress {
 		-webkit-writing-mode: horizontal-tb;
-	}
+	} */
 
 	#headerBar .right-section .btn-search i {
 		font-size: 20px;
@@ -311,6 +316,7 @@
 
 		#headerBar {
 			height: 56px;
+			top:0;
 		}
 		#MowGnb {
 			display: none;	
@@ -516,6 +522,8 @@
 		padding: 0;
 	}
   </style>
+  
+  
 
 <body>
 <header>
@@ -559,23 +567,23 @@
 		
 		  <ul class="util-menu">
 		  <c:if test="${ empty loginUser }">
-		  	<li class="point"><a id="loginBtn" href="#" data-toggle="modal" data-target="#loginModal">로그인</a></li>
+		  	<li class="point"><a id="loginBtn" href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
 			<li class="point"><a href="#" onclick="registerLink()">회원가입</a></li>
 		  </c:if>
 		  <c:if test="${ !empty loginUser }">
 		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>
 		  	<li class="point"><a id="logoutBtn" href="logout.do">로그아웃</a></li>
+		  	<li class="point"><a href="#" onclick="">마이페이지</a></li>
 		  </c:if>
 		  </ul>
-		  <c:import url="/WEB-INF/views/member/loginModal.jsp"/>
+		  <%-- <c:import url="/WEB-INF/views/member/loginModal.jsp"/> --%>
 		
-		<button class="btn-search"><i class="icon-search"></i></button>
+		<!-- <button class="btn-search"><i class="icon-search"></i></button>
 		<form id="headSearchForm" action="/web/wcampaign/search" method="get">
-			<input type="search" name="keyword" id="headSearchInput" class="search-text" placeholder="프로젝트 검색하기"></form>
+			<input type="search" name="keyword" id="headSearchInput" class="search-text" placeholder="프로젝트 검색하기"></form> -->
        
 	  </div>
 	</div>
-	<h1>보람보람</h1>
 	
 </div>
 <!-- 
@@ -586,5 +594,43 @@
 </div> -->
 
 </header>
+	
+	<!-- 로그인 modal -->
+	<link href="/finalp/resources/css/modalcss/loginModal.css" rel="stylesheet">
+	
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; z-index:9999;">
+ 		<div class="modal-dialog">
+			<div class="loginmodal-container">
+				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x"></i></a>
+				<h1>Login</h1><br>	
+			 	<form action="#" method="post">
+					<input type="text" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password">
+					<input type="submit" name="login" class="login loginmodal-submit main-backgroundcolor-cornsalad" value="Login">
+			  	</form>
+				
+				<div class="login-help">
+					<a href="#">회원가입</a> - <a href="#" data-toggle="modal" data-target="#searchPwd-modal" onclick="test();">비밀번호 찾기</a> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 비밀번호 찾기 modal -->
+	<div class="modal fade" id="searchPwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" style="display: none; z-index:9999;">
+	 	<div class="modal-dialog">
+			<div class="loginmodal-container">
+				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x" onclick="location.href='/doubleb/index.jsp'"></i></a>
+				<h1>비밀번호 찾기</h1><br>
+			 	<form action="#" method="post">
+					<input type="text" name="email" placeholder="Email">
+					<input type="submit" name="login" class="login loginmodal-submit" value="보내기">
+				
+			  	</form>
+			  	<p>E-mail 주소로 임시 비밀번호가 발송 됩니다.<br>
+					로그인 후 비밀번호를 바꿔주세요.</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
