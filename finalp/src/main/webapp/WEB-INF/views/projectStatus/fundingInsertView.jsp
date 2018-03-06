@@ -10,6 +10,7 @@
 <c:import url="/WEB-INF/views/header.jsp"/>
 
 <!-- tetestete 데스크탑에서 수정 -->
+<!-- tetestete 노트북에서 수정 --> 
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
 <style>
