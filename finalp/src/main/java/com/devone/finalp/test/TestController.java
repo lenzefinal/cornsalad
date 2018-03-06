@@ -101,4 +101,10 @@ public class TestController {
 		out.flush();
 		out.close();*/
 	}
+	
+	@RequestMapping(value="/projectlist.do")
+	public String selectProjectList() {
+		System.out.println("아아");
+		return "project/projectListView";
+	}
 }

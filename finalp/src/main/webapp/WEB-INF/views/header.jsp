@@ -312,7 +312,7 @@
 
 
 
-	@media screen and (min-width: 960px){
+	@media screen and (min-width: 1080px){
 
 		#headerBar {
 			height: 56px;
@@ -550,7 +550,7 @@
 			</h1>
 			<div class="menu-list">
 			  <ul>
-				<li><a href="/web/winvest/main">프로젝트</a></li>
+				<li><a href="projectlist.do">프로젝트</a></li>
 				<li><a href="/web/wreward/main">공동구매</a></li>
 				<li><a href="/web/wcomingsoon/main">오픈예정</a></li>
 			  </ul>
