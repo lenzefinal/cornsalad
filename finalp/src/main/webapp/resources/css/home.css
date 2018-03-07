@@ -10,12 +10,14 @@ html, body {
     }
 
     .slider {
-        width: 1080px;
+        /*width: 1080px;*/
+        width:900px;
         margin: 100px auto;
     }
 
     .slick-slide {
       margin: 0px 20px;
+      /*width: 280px !important;*/
     }
 
     .slick-slide img {
@@ -134,7 +136,7 @@ html, body {
 	
 	.thumnailContent {
 		width: 100%;
-		margin: 1rem;
+		/*margin: 1rem;*/
 	}
 	.thumnailContent:hover{
 		background-image:url('img_ov.png');
@@ -286,7 +288,7 @@ html, body {
 		color: #3c3737;
 	}
 
-	@media (max-width: 320px){
+	/* @media (max-width: 320px){
 		.thumnailAtag {
 			min-height: 90px;
 			height: auto;
@@ -300,9 +302,9 @@ html, body {
 			word-break: break-all;
 			margin-bottom: 0.3rem;
 		}
-	}
+	} */
 
-	@media (max-width: 1080px){
+	/* @media (max-width: 1080px){
 		.thumnailImage {
 			margin-right: 0;
 			position: relative;
@@ -326,8 +328,8 @@ html, body {
 			padding: 0 1rem 0 0.6rem;
 		}
 	}
-
-	@media (min-width: 1080px){
+ */
+	/* @media (min-width: 1080px){ */
 		.thumnailContainer {
 			/* -webkit-flex-direction: row;
 			-ms-flex-direction: row;
@@ -354,7 +356,7 @@ html, body {
 			-webkit-transition: box-shadow 0.2s ease;
 			transition: box-shadow 0.2s ease;
 
-			max-width: 240px;
+			/*max-width: 240px;*/
 		}
 		.thumnailImage {
 			width: 240px; 
@@ -371,4 +373,4 @@ html, body {
 			font-size: 1rem;
 			word-spacing: -1px;
 		}
-	}
+	/* } */

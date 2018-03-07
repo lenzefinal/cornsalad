@@ -201,24 +201,94 @@
 		font-weight: 700;
 		color: #3c3737;
 	}
-
+	
+	/*----- 알려드립니다 부분-------*/
 	#noticeSection {
-    margin-bottom: 25px;
-    padding: 15px;
-    text-align: center;
-    background: #F9EDEE;
-    border: 1px solid #F98F9B;
-}
-#noticeSection p.title {
-    margin-bottom: 8px;
-    font-size: 14px;
-    line-height: 22px;
-    color: #FF6879;
-}
-#noticeSection p.text {
-    font-size: 12px;
-    line-height: 18px;
-}
+	    margin-bottom: 25px;
+	    padding: 15px;
+	    text-align: center;
+	    background: #F9EDEE;
+	    border: 1px solid #F98F9B;
+	}
+	#noticeSection p.title {
+	    margin-bottom: 8px;
+	    font-size: 14px;
+	    line-height: 22px;
+	    color: #FF6879;
+	}
+	#noticeSection p.text {
+	    font-size: 12px;
+	    line-height: 18px;
+	}
+	
+	/*---- 검색 부분 ------------*/
+	#searchSortArea {
+		width: 100%;
+	   /* margin-bottom: 15px;*/
+	}
+	#searchSortArea:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+	#searchSortArea .search-area {
+		float: left;
+		padding-left: 10px;
+		width: 180px;
+		height: 34px;
+		background-color: #fff;
+		border: 1px solid #e4e4e4;
+		border-radius: 2px;
+	}
+	#searchSortArea .search-area input[type=text] {
+		display: inline-block;
+		width: 150px;
+		height: 34px;
+		padding: 0;
+		line-height: 14px;
+		font-size: 13px;
+		border: none;
+		background: none;
+		-webkit-appearance: none;
+		vertical-align: middle;
+		outline: none;
+	}
+	#searchSortArea .search-area button {
+		width: 28px;
+		height: 34px;
+		vertical-align: middle;
+		padding: 0;
+		background: url(/finalp/resources/images/icon/icon_gray_search.png) no-repeat 10px center;
+		border: none;
+		background-size: 14px 14px;
+	}
+	#searchSortArea .selects-wrap {
+		float: none;
+		text-align: left;
+		padding-top: 8px;
+		clear: both;
+	}
+	#searchSortArea .select-list {
+		display: inline-block;
+	}
+	#searchSortArea .select-list select {
+		display: inline-block;
+		height: 34px;
+		padding: 0 10px 0 25px;
+		line-height: 34px;
+		font-size: 13px;
+		background-color: #fff;
+		border: 1px solid #e4e4e4;
+		border-radius: 2px;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		background: url(/finalp/resources/images/icon/icon_select_down.png) no-repeat 10px center #fff;
+		background-size: 8px 12px;
+		outline: none;
+	}
+	
 
 	@media (max-width: 320px){
 		.thumnailAtag {
@@ -305,6 +375,21 @@
 			font-size: 1rem;
 			word-spacing: -1px;
 		}
+		
+		#searchSortArea .search-area {
+			width: 288px;
+			margin-left:15px;
+		}
+		#searchSortArea .search-area input[type=text] {
+			width: 250px;
+		}
+		#searchSortArea .selects-wrap {
+			float: right;
+			text-align: right;
+			padding-top: 0px;
+			clear: none;
+			margin-right:15px;
+		}
 	}
 </style>
 </head>
@@ -318,6 +403,33 @@
 		</div>
 
 		<div class="hEIXJa"></div>
+		
+		<div id="searchSortArea">
+			<div class="search-area">
+				<input type="text" id="keyword" name="keyword" placeholder="프로젝트 검색하기">
+				<button type="button" onclick="keywordSearch()" style="box-sizing:inherit !important;"></button>
+			</div>
+				<div class="selects-wrap">
+					<div class="select-list">
+						<select id="endYn" name="endYn">
+							<option value="" selected="selected">전체</option>
+							<option value="N">펀딩중</option>
+							<option value="Y">종료된</option>
+						</select>
+					</div>
+					<div class="select-list">
+						<select id="order" name="order">
+							<option value="recommend" selected="selected">추천순</option>
+							<option value="popular">인기순</option>
+							<option value="amount">펀딩액순</option>
+							<option value="closing">마감임박순</option>
+							<option value="recent">최신순</option>
+							<option value="support">응원참여자순</option>
+						</select>
+					</div>
+				</div>
+		</div>
+		
 		<div class="thumnailContainer">
 			<div class="thumnailContent">
 
