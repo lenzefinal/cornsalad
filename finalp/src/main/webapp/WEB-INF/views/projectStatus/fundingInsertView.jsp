@@ -206,11 +206,138 @@
 	.project-element-content-div select{
 		margin: 14px 5px;
 		border: 2px solid #dddddd;
-		width: 100px;
+		width: 150px;
 		height: 34px;
 	}
 	
+	
+	/* 업로드 버튼 ------------------------------------------------------------*/
+	.filebox input[type="file"] { 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+	} 
+	.filebox label { 
+		display: inline-block; 
+		padding: .5em .75em; 
+		color: #999; 
+		font-size: inherit; 
+		line-height: normal; 
+		vertical-align: middle; 
+		background-color: #fdfdfd; 
+		cursor: pointer; 
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2; 
+		border-radius: .25em; 
+		margin-top: 8px;
+	} 
+	/* named upload */ 
+	.filebox .upload-name { 
+		display: inline-block; 
+		padding: .5em .75em; /* label의 패딩값과 일치 */ 
+		font-size: inherit; 
+		font-family: inherit; 
+		line-height: normal; 
+		vertical-align: middle; 
+		background-color: #f5f5f5; 
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2; 
+		border-radius: .25em; 
+		-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+		-moz-appearance: none; 
+		appearance: none; 
+	}
+	
+	/* 미리보기 이미지 ----------------------------------------------- */
+	/* imaged preview */ 
+	.filebox .upload-display { /* 이미지가 표시될 지역 */ 
+		margin-bottom: 5px; 
+	} 
+	@media(min-width: 768px) { 
+		.filebox .upload-display { 
+			display: inline-block; 
+			margin-right: 5px; 
+			margin-bottom: 0; 
+		} 
+	} 
+	.filebox .upload-thumb-wrap { /* 추가될 이미지를 감싸는 요소 */ 
+		display: inline-block; 
+		width: 60%; 
+		padding: 2px; 
+		vertical-align: middle; 
+		border: 1px solid #ddd; 
+		border-radius: 5px; 
+		background-color: #fff; 
+	} 
+	.filebox .upload-display img { /* 추가될 이미지 */ 
+		display: block; 
+		max-width: 100%; 
+		width: 100% \9; 
+		height: auto; 
+	}
+	/* http://webdir.tistory.com/435 */
+
+
 </style>
+<script>
+$(function(){
+	var fileTarget = $('.filebox .upload-hidden'); 
+	
+	fileTarget.on('change', function(){ // 값이 변경되면 
+		if(window.FileReader){ // modern browser 
+			var filename = $(this)[0].files[0].name; 
+		} 
+		else { // old IE 
+			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+		} 
+	
+		// 추출한 파일명 삽입 
+		$(this).siblings('.upload-name').val(filename); 
+	});
+	
+	
+	
+	//preview image 
+	var imgTarget = $('.preview-image .upload-hidden'); 
+	
+	imgTarget.on('change', function(){ 
+		var parent = $(this).parent(); 
+		parent.children('.upload-display').remove(); 
+		
+		if(window.FileReader){ 
+			//image 파일만 
+			/* if (!$(this)[0].files[0].type.match(/image\//)) return;  */
+			
+			var reader = new FileReader(); 
+			reader.onload = function(e){ 
+				var src = e.target.result; 
+				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
+						+ src + '" class="upload-thumb"></div></div>'); 
+			} 
+			reader.readAsDataURL($(this)[0].files[0]); 
+		} 
+		else { 
+			$(this)[0].select(); 
+			$(this)[0].blur(); 
+			
+			var imgSrc = document.selection.createRange().text; 
+			parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>'); 
+			
+			var img = $(this).siblings('.upload-display').find('img'); 
+			img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""
+					+ imgSrc + "\")"; 
+		} 
+	});
+
+});
+
+
+</script>
 
 <div id="session-0" class="project-bgcol-white">
 	<h2 class="project-header-title"> 프로젝트 등록 </h2>
@@ -256,37 +383,40 @@
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-title-div project-element-in-div project-element-in-title">프로젝트 카테고리</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">프로젝트 카테고리</div>
 			<div class="project-element-in-div project-description-button">설명</div>
-			<div class="project-element-content-div project-element-in-div">
-				<table align="center">
-					<tr>
-						<td>
-							<select id="project-category" name="category">
-								<option value>선택하세요.</option>
-								<option value="cate_id">문학</option>
-								<option value="cate_id">문학</option>
-								<option value="cate_id">골동품</option>
-								<option value="cate_id">옷</option>
-							</select>
-						</td>
-						<td>
-							<select id="project-sub-category" name="sub_category">
-								<option value>선택하세요.</option>
-								<option value="sub_cate_id">카테고리에 따라</option>
-								<option value="sub_cate_id">카테고리에 따라 달</option>
-								<option value="sub_cate_id">카테고리에 따라 달라</option>
-								<option value="sub_cate_id">카테고리에 따라 달라짐</option>
-							</select>
-						</td>
-					</tr>
-				</table>
+			<div class="project-element-in-div project-element-content-div">
+				<!-- <div align="center"> -->
+				<select id="project-category" name="category" >
+					<option value>선택하세요.</option>
+					<option value="cate_id">문학</option>
+					<option value="cate_id">문학</option>
+					<option value="cate_id">골동품</option>
+					<option value="cate_id">옷</option>
+				</select>
+				<select id="project-sub-category" name="sub_category">
+					<option value>선택하세요.</option>
+					<option value="sub_cate_id">카테고리에 따라</option>
+					<option value="sub_cate_id">카테고리에 따라 달</option>
+					<option value="sub_cate_id">카테고리에 따라 달라</option>
+					<option value="sub_cate_id">카테고리에 따라 달라짐</option>
+				</select>
+				<!-- </div> -->
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-title-div project-element-in-div project-element-in-title">프로젝트 대표 이미지</div>
 			<div class="project-element-in-div project-description-button">설명</div>
-			<div class="project-element-content-div project-element-in-div">내용을 입력하시오.</div>
+		
+			<!-- <div class="preview-image"></div> -->
+
+			<div class="project-element-content-div project-element-in-div">
+				<div class="filebox preview-image"> 
+					<input class="upload-name" value="파일선택" disabled> 
+					<label for="ex_filename">업로드</label> 
+					<input type="file" id="ex_filename" class="upload-hidden"> 
+				</div>
+			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-title-div project-element-in-div project-element-in-title">프로젝트 문구</div>
