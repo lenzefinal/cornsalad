@@ -546,13 +546,13 @@
 		<div id="FbwGnb" class="device-gnb">
 		  <div class="gnbsub-menu">
 			<h1>
-				<img src="/finalp/resources/images/logo.png" style="width:120px;height:50px;"> <!-- PC일 경우 로고 적용 부분 -->
+				<a href="home.do"><img src="/finalp/resources/images/logo.png" style="width:120px;height:50px;"></a> <!-- PC일 경우 로고 적용 부분 -->
 			</h1>
 			<div class="menu-list">
 			  <ul>
 				<li><a href="projectlist.do">프로젝트</a></li>
-				<li><a href="/web/wreward/main">공동구매</a></li>
-				<li><a href="/web/wcomingsoon/main">오픈예정</a></li>
+				<li><a href="#">공동구매</a></li>
+				<li><a href="#">오픈예정</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -561,8 +561,8 @@
 
 	  <div class="right-section">
 		<ul class="util-menu pc-only">
-			<li><a href="/web/wsub/openfunding" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
-			<li><a href="/web/fthelpCenter" target="_blank">이용가이드</a></li>
+			<li><a href="#" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
+			<li><a href="#" target="_blank">이용가이드</a></li>
 		</ul>
 		
 		  <ul class="util-menu">
