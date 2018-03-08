@@ -554,7 +554,7 @@
 			<div class="menu-list">
 			  <ul>
 				<li><a href="projectlist.do">프로젝트</a></li>
-				<li><a href="#">공동구매</a></li>
+				<li><a href="projectdetail.do">공동구매</a></li>
 				<li><a href="#">오픈예정</a></li>
 			  </ul>
 			</div>
