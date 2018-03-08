@@ -23,9 +23,10 @@
 		width: 100%;
 	}
 	#mainProjectBanner {
-		float: left;
-		width: 65%;
+		/*float: left;*/
+		/* width: 65%; */
 		margin-bottom: 15px;
+		margin-top: 20px;
 	}
 	.banner-key-invest, .banner-key-main, .banner-key-main-projects {
 		position: relative;
@@ -115,7 +116,7 @@
 	#rankingSection .ranking-list li p{display:block;width:100%;height:17px;}
 	#rankingSection .ranking-list li p.real{margin-bottom:3px}
 	#rankingSection .ranking-list li em{float:left;display:block;width:15px;height:15px;margin-right:8px;line-height:16px;text-align:center;border:1px solid #a0a0a0;font-size:10px;}
-	#rankingSection .ranking-list li a{float:left;display:block;max-width:230px;font-size:13px;line-height:17px;letter-spacing:-.02em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+	#rankingSection .ranking-list li a{float:left;display:block;/*max-width:230px*/;font-size:13px;line-height:17px;letter-spacing:-.02em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 	#rankingSection .ranking-list li i.icon-new{display:inline-block;vertical-align:middle;margin-left:3px;width:13px;height:13px;background:url(/resources/static/img/common/icon_rd_new.png) no-repeat 0 0;background-size:cover;}
 	@keyframes flip {0%{top:0;}10%{top:-19px;}100%{top:-19px;}}
 
@@ -184,6 +185,11 @@
 			clear: both;
 			display: block;
 		}
+		#mainProjectBanner{
+			float:left;
+			width: 65%;
+			margin-top: 0;
+		}
 		.banner-key-main-projects {
 			height: 440px;
 		}
@@ -213,6 +219,9 @@
 			float: right;
 			width: 300px;
 			padding: 0;
+		}
+		#rankingSection .ranking-list li a{
+			max-width:230px;
 		}
 
 		#noticeList {
