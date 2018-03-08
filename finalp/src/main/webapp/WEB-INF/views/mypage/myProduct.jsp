@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>찜한 목록 보기</title>
-<link href="/finalp/resources/css/mypage.css" rel="stylesheet">
 <style>
 	#side{
 		position: absolute;
@@ -69,7 +68,7 @@
 	}
 </style>
 </head>
- <body class="skin_main" style="height:2000px;">
+ <body class="skin_main" >
 <c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
