@@ -234,7 +234,7 @@
   	<link rel="stylesheet" type="text/css" href="/finalp/resources/slick/slick-theme.css">
   	<link rel="stylesheet" type="text/css" href="/finalp/resources/css/home.css">
   	<div class="wrap">
-  		<p style="margin: 40px 20px 10px;">분야별인기리스트</p>
+  		<p style="margin: 0 20px 10px;">분야별인기리스트</p>
 		<section class="responsive slider">
 		    <div>
 		      <div class="thumnailContent">
