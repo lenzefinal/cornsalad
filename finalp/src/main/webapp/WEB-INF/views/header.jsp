@@ -6,15 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>header.jsp</title>
-</head>
-  <link rel="stylesheet" href="/finalp/resources/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
 <style>
-	button{
-		outline:none;
-	}
 	.main-color-cornsalad {
 		color: #F7D358;
 	}
@@ -172,49 +165,6 @@
 		border: none;
 	}	
 	
-	
-
-	/* input[type="button" i], 
-	input[type="submit" i], 
-	input[type="reset" i], 
-	input[type="file" i]::-webkit-file-upload-button, 
-	button {
-		padding: 1px 6px;
-	}
-	input[type="button" i], 
-	input[type="submit" i], 
-	input[type="reset" i], 
-	input[type="file" i]::-webkit-file-upload-button, 
-	/*button {
-		align-items: flex-start;
-		text-align: center;
-		cursor: default;
-		color: buttontext;
-		background-color: buttonface;
-		box-sizing: border-box;
-		padding: 2px 6px 3px;
-		border-width: 2px;
-		border-style: outset;
-		border-color: buttonface;
-		border-image: initial;
-	}
-	input, textarea, select, button {
-		text-rendering: auto;
-		color: initial;
-		letter-spacing: normal;
-		word-spacing: normal;
-		text-transform: none;
-		text-indent: 0px;	
-		text-shadow: none;
-		display: inline-block;
-		text-align: start;
-		margin: 0em;
-		font: 400 13.3333px Arial;
-	}
-	input, textarea, select, button, meter, progress {
-		-webkit-writing-mode: horizontal-tb;
-	} */
-
 	#headerBar .right-section .btn-search i {
 		font-size: 20px;
 		padding: 14px;
@@ -311,8 +261,28 @@
 	#globalNav .menu-list ul.end {
 		border-bottom: none;
 	}
+	
+	#globalNavWrap{position:fixed;top:-100%;top:-100vh;left:0;width:100%;height:100%;height:100vh;background:#fff;overflow-y:auto;-webkit-transition-property:all;transition-property:all;-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-delay:0s;transition-delay:0s;transition-timing-function:ease-out;/*z-index:1000*/;-webkit-overflow-scrolling:touch}
+	#globalNav{padding: 64px 24px;padding-left:max(24px, calc(env(safe-area-inset-left) + 8px));padding-right:max(24px, calc(env(safe-area-inset-right) + 8px))}
+	#headerBar ~ #globalNavWrap #globalNav{/*padding-top: 119px;*/}
+	#globalNav .menu-list ul{margin-bottom:8px;padding:7px 0 8px;border-bottom:1px solid #E6EAED}
+	#globalNav .menu-list ul.end{border-bottom:none}
+	#globalNav .menu-list li{height:48px;}
+	#globalNav .menu-list li a{display:block;font-size:17px;font-weight:300;line-height:48px;color:#44484b}
+	#globalNav .menu-list li.active a{color:#00b383}
+	#globalNavOpener {display: none;}
+	#globalNavOpener:checked ~ #globalNavWrap {top:0px;}
+	#globalNavOpener:checked ~ .contents {width:100%;}
+	#globalNavOpener:checked ~ #headerBar h1 i{transform:rotate(180deg);}
+	#globalSubNavWrap{display:none}
+	#globalSubNavOpener{display:none;}
+	.btn-mynews-popup-close,
+	.btn-gnbsub-close{position:fixed;top:0;left:0;width: 100%;height:100%;height:100vh;background:rgba(0,0,0,0);cursor:pointer;-webkit-transition-property: all;transition-property: all;-webkit-transition-duration: .2s;transition-duration: .2s;-webkit-transition-delay: 0s;transition-delay: 0s;transition-timing-function:ease-out;visibility: hidden;opacity: 0;}
+	.btn-rnb-close{position:fixed;top:0;right:0;width:100%;height:100%;height:100vh;background:rgba(0,0,0,0);cursor:pointer;-webkit-transition-property: all;transition-property: all;-webkit-transition-duration: .2s;transition-duration: .2s;-webkit-transition-delay: 0s;transition-delay: 0s;transition-timing-function:ease-out;visibility: hidden;opacity: 0;}
+	
 
-
+	.opened-nav{overflow-y:scroll}
+	.opened-nav body{position:fixed;width:100%;top:0}
 
 
 	@media screen and (min-width: 1080px){
@@ -525,15 +495,48 @@
 		padding: 0;
 	}
   </style>
+  <link rel="stylesheet" href="/finalp/resources/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <!--  <script type="text/javascript" src="/finalp/resources/js/vendor.js"></script> -->
+ 	<!-- <script type="text/javascript" src="https://cdn.wadiz.kr/resources/assets/base.js?991cc506282739c2e8f8"></script> -->
+  <!-- <script type="text/javascript" src="/finalp/resources/js/wMotion.js"></script> -->
   
-  
-
+ </head>
 <body>
-<header>
 
+<!-- <script type="text/javascript" src="/finalp/resources/js/common.js"></script>
+<script type="text/javascript" src="https://cdn.wadiz.kr/resources/assets/vendor.js"></script> -->
+<!-- <header> -->
+<script type="text/javascript">
+  (function($) {
+	  var $window = $(window);
+	  var $html = $(document.documentElement);
+	  var $body;
+	  console.log($html);
+	  // dom ready
+	  $(document).ready(function(){
+	    $body = $(document.body);
+	
+	    // Header
+	    var navCheckbox = $("#globalNavOpener");
+	    $html = $(document.documentElement);
+	    navCheckbox.on('change', function(){
+	      if(navCheckbox.is(":checked")) {
+	        $html.addClass('opened-nav');
+	      }else{
+	        $html.removeClass('opened-nav');
+	      }
+	    });
+	  }); // dom ready
+
+  })(jQuery);
+  
+    </script>
 
 <div id="wadizHeader">
-
+	<input type="checkbox" id="globalNavOpener">
 	<div id="headerBar">
 	  <div class="left-section">
 		<!-- MOW GNB -->
@@ -589,6 +592,36 @@
 	  </div>
 	</div>
 	
+	<!-- 03/08 추가 테스트 반응형 1080보다 작을 경우 로고 클릭시 서브 메뉴 아래로 출력 -->
+	<div id="globalNavWrap">
+		<nav id="globalNav">
+			<div class="menu-list">
+				<ul>
+					<li><a href="#">홈</a></li>
+					<li><a href="projectlist.do">프로젝트</a></li>
+					<li><a href="#">공동구매</a></li>
+					<li><a href="#">물품등록하기</a></li>
+				</ul>
+				<ul>
+					<li><a href="#">공지사항</a></li>
+					<li><a href="#">나눔게시판</a></li>
+					<li><a href="#">문의하기</a></li><!-- 
+					<li><a href="#">와디즈 파트너</a></li>
+					<li><a href="#">성공 프로젝트</a></li> -->
+				</ul>
+				<ul>
+					<li><a href="#" onclick="">앱 다운로드</a></li>
+           			<li><a href="#">이벤트</a></li>
+					<li><a href="fundingInsertView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">펀딩오픈 신청하기</a></li>
+				</ul>
+				<ul class="end">
+					<li><a href="#" target="_blank">이용가이드</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<label class="btn-gnbsub-close" for="globalSubNavOpener"></label>
+	<!-- 03/08 끝 -->
 </div>
 <!-- 
 <div id="header-in">
@@ -597,7 +630,7 @@
 <hr>
 </div> -->
 
-</header>
+<!-- </header> -->
 	
 	<!-- 로그인 modal -->
 	<link href="/finalp/resources/css/modalcss/loginModal.css" rel="stylesheet">
