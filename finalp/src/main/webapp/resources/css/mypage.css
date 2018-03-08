@@ -139,6 +139,7 @@ div {
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	background: #fff;
+	height:185px;
 }
 
 .sh_header {
@@ -281,20 +282,6 @@ btn_model[href] .btn2 {
 	color: #a3a3a3;
 }
 
-
-.section_home .btn_area_btm {
-	font-size: 0;
-	padding-left: 1px;
-}
-
-p {
-	display: block;
-	-webkit-margin-before: 1em;
-	-webkit-margin-after: 1em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-}
-
 .btn_model b, .btn_model>em, .btn_model>span {
 	display: inline-block;
 	overflow: hidden;
@@ -380,9 +367,6 @@ dl {
 		background: #fff;
 	}
 }
-
-/*mypage 회원 정보 수정*/
-
 /*mypage 회원 탈퇴*/
 .c_header {
 	padding-bottom: 43px;
