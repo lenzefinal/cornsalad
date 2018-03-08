@@ -107,4 +107,13 @@ public class TestController {
 		System.out.println("아아");
 		return "project/projectListView";
 	}
+	
+	@RequestMapping(value="/projectdetail.do")
+	public String detailView() {
+		return "project/projectDetailView";
+	}
+	@RequestMapping(value="/projectSupporter.do")
+	public String proSupporter() {
+		return "project/projectSupporter";
+	}
 }

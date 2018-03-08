@@ -580,7 +580,7 @@
 		  <c:if test="${ !empty loginUser }">
 		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>
 		  	<li class="point"><a id="logoutBtn" href="logout.do">로그아웃</a></li>
-		  	<li class="point"><a href="#" onclick="">마이페이지</a></li>
+		  	<li class="point"><a href="mypageIndex.do" onclick="">마이페이지</a></li>
 		  </c:if>
 		  </ul>
 		  <%-- <c:import url="/WEB-INF/views/member/loginModal.jsp"/> --%>
