@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mypageIndex</title>
+<title>마이 페이지</title>
 <link href="/finalp/resources/css/mypage.css" rel="stylesheet">
 </head>
  <body class="skin_main">
@@ -14,8 +14,14 @@
  <div id="lnb_area">
 	 <div class="lnb">
 		<ul> 
-			<li class="on">
-				<a href="mypageIndex.do" style="color:black;">내 정보<em style="color:black"></em></a>
+			<li id="myInfo" class="on">
+				<a href="mypageIndex.do" style="color:black;">나의 정보<em style="color:black"></em></a>
+			</li>
+			<li id="myStatus" class="on">
+				<a href="mypageStatus.do" style="color:black;">현황 보기</a>
+			</li>
+			<li id="Likes" class="on">
+				<a href="mypageLikes.do" style="color:black;">찜한 상품</a>
 			</li>
 		</ul>
 	</div>
@@ -47,7 +53,7 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>찜</h2>
-					<a href="#" class="all" style="color:#a3a3a3;">전체보기</a>
+					<a href="mypageLikes.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">
@@ -64,7 +70,7 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>현황</h2>
-					<a href="#" class="all" style="color:#a3a3a3;">전체보기</a>
+					<a href="mypageStatus.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Withdrawal</title>
+<title>회원 탈퇴</title>
 <link href="/finalp/resources/css/mypage.css" rel="stylesheet">
 <style type="text/css">
 	.dtitle {
@@ -54,8 +54,14 @@
  <div id="lnb_area">
 	 <div class="lnb">
 		<ul> 
-			<li class="on">
-				<a href="mypageIndex.do" style="color:black;">내 정보<em style=""color:black"></em></a>
+			<li id="myInfo" class="on">
+				<a href="mypageIndex.do" style="color:black;">나의 정보<em style="color:black"></em></a>
+			</li>
+			<li id="myStatus" class="on">
+				<a href="mypageStatus.do" style="color:black;">현황 보기</a>
+			</li>
+			<li id="Likes" class="on">
+				<a href="mypageLikes.do" style="color:black;">찜한 상품</a>
 			</li>
 		</ul>
 	</div>
