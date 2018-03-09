@@ -14,13 +14,17 @@
 	div#stat{
 		font-family:"맑은 고딕";
 		margin-top:2%;
-		margin-left:5%;
+		margin-left:25%;
 		margin-right:10%;
 		display:inline-block;
 		width: 60%;
 		float:center;
 		font-size: 13px;
  	}
+ 	hr.hrst{
+		background-color:#F7D358;
+		border:1.5px solid #F7D358; 
+	}
 @media (max-width: 320px){
 	display:block;
  }
@@ -39,10 +43,41 @@
 	#stat ul.stli{
 		background-color:#F6FFCC;
 	}
+	#stat .tab{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		}
+	#stat .tab li{
+		float: left;
+	}
+	#stat .tab li a {
+		display: inline-block;
+		color: #000;
+		text-align: center;
+		text-decoration: none;
+		padding: 14px 16px;
+		font-size: 15px;
+		transition:0.3s;
+	}
+	#stat .tabcontent {
+		display: none;
+		background-color:#F6FFCC;
+		padding: 6px 12px;
+		color:black;
+	}
+	#stat ul.tab li.current{
+		background-color: #F6FFCC;
+		color: black;
+	}
+	#stat .tabcontent.current {
+		display: block;
+	}
  </style>
  </head>
   <body class="skin_main">
- <c:import url="adminMenu.jsp"/>
+ <c:import url="adminMenu.jsp"/> 
    <div id="lnb_area">
     <div class="lnb">
       <ul> 
@@ -54,39 +89,44 @@
 </div>
  
 <div id="stat">
-  <h2>통계</h2>
-  <ul class="nav nav-tabs stli">
-    <li class="active"><a href="#home" id="sta">PROJECT</a></li>
-    <li><a href="#menu1" id="sta">PRODUCT</a></li>
-    <li><a href="#menu2" id="sta">SPONSOR</a></li>
+  <h3>통계</h3>
+  <hr class="hrst">
+  <ul class="tab">
+    <li class="current" data-tab="tab1"><a href="#" id="sta">PROJECT</a></li>
+    <li data-tab="tab2"><a href="#" id="sta">PRODUCT</a></li>
+    <li data-tab="tab3"><a href="#" id="sta">SPONSOR</a></li>
   </ul>
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
+
+    <div id="tab1" class="tabcontent current">
     <br>
       <h4><strong>프로젝트</strong> 매출 TOP 10</h4>
 	  <hr>
       <div class="stback"></div>
     </div>
-    <div id="menu1" class="tab-pane fade">
+    <div id="tab2" class="tabcontent">
     <br>
       <h4><strong>공동구매</strong> 매출 TOP 10</h4>
       <hr>
 	  <div class="stback"></div>
     </div>
-    <div id="menu2" class="tab-pane fade">
+    <div id="tab3" class="tabcontent">
     <br>
       <h4><strong>후원자</strong> TOP 3</h4>
       <hr>
 	  <div class="stback"></div>
     </div>
   </div>
-</div>
+
 
 <script>
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
+$(function() {
+	$('ul.tab li').click(function() {
+		var activeTab = $(this).attr('data-tab');
+		$('ul.tab li').removeClass('current');
+		$('.tabcontent').removeClass('current');
+		$(this).addClass('current');
+		$('#' + activeTab).addClass('current');
+	})
 });
 </script>
 

@@ -22,6 +22,7 @@ body{
 		float:left;
 		margin-left: 8%;
 		margin-top: 7%;
+		position:absolute;
 	}
 	#menunav ul.menunav{
 		width: 100px;
@@ -67,9 +68,10 @@ body{
 		float:left;
 		margin-left: 8%;
 		margin-top: 7%;
+		position:absolute;
 	}
 	#menunav ul.menunav{
-		width: 100px;
+		width: 150px;
 		height: 150px;
 		border-radius: 5%;
 		background-color: #212121;
@@ -104,6 +106,27 @@ $(function(){
 		});
 	});
 });
+
+$(document).ready(function() {
+	   // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+	   var side = parseInt($("#menunav").css('top'));
+	   // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+	   $(window).scroll(function() {
+	      // 현재 스크롤 위치를 가져온다.
+	      var scrollTop = $(window).scrollTop();
+	      var newPosition = scrollTop + side + "px";
+	      /* 애니메이션 없이 바로 따라감
+	       $("#floatMenu").css('top', newPosition);
+	       */
+	 
+	      $("#menunav").stop().animate({
+	         "top" : newPosition
+	      }, 500);
+	 
+	   }).scroll();
+	 
+	});
+	
 </script>
 </head>
 <body>

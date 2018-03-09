@@ -14,13 +14,17 @@
   div#notice{
 		font-family:"맑은 고딕";
 		margin-top:2%;
-		margin-left:5%;
+		margin-left:25%;
 		margin-right:10%;
 		display:inline-block;
 		width: 60%;
 		float:center;
 		font-size: 13px;
   }
+  hr.hrst{
+		background-color:#F7D358;
+		border:1.5px solid #F7D358; 
+	}
   #notice span.btnspan{
 		float:right;
   }
@@ -39,6 +43,20 @@
   #notice #nomodal div.modal-body #ndate , #notice #nomodal2 div.modal-body #ndate{
 		width:330px;
   }
+  #notice button.inbt{
+		font-size:14px;
+		background-color:#F7D358;
+  }
+  #notice button.mobt{
+  		background-color:#654693;
+  		font-size: 11px;
+  		color:white;
+  }
+  #notice button.debt{
+  		background-color:#1D004B;
+  		font-size: 11px;
+  		color:white;
+  }
   </style>
  </head>
  <body class="skin_main">
@@ -54,56 +72,64 @@
 </div>
 
 <div id="notice">
-  <h2>공지사항</h2>
-	<hr>
-	<button class="btn btn-warning" data-toggle="modal" data-target="#nomodal">공지사항 등록</button>
+  <h3>공지사항</h3>
+	<hr class="hrst">
 	<br>
-	<hr>
+	<button type="button" class="btn inbt" data-toggle="modal" data-target="#nomodal">공지사항 등록</button>
+	<br><br>
+	
 	<div class="panel-group" id="accordion">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">공지사항1</a>
-		  <span class="btnspan"><button class="btn btn-success" data-toggle="modal" data-target="#nomodal2">수정</button>&nbsp;<button class="btn btn-danger">삭제</button></span>
+          <a data-toggle="collapse" data-parent="#accordion" href="#notice1">공지사항1</a>
+		  <span class="btnspan"><button class="btn mobt" data-toggle="modal" data-target="#nomodal2">수정</button>&nbsp;<button class="btn debt">삭제</button></span>
         </h4>
       </div>
-      <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      <div id="notice1" class="panel-collapse collapse in">
+        <div class="panel-body">
+        	<table class="table">
+        		<tr>
+        		<th>안녕</th>
+        		</tr>
+        		<tr>
+        		<td>안녕</td>
+        		</tr>
+        	</table>
+        </div>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">공지사항2</a>
-		  <span class="btnspan"><button class="btn btn-success" >수정</button>&nbsp;<button class="btn btn-danger">삭제</button></span>
+          <a data-toggle="collapse" data-parent="#accordion" href="#notice2">공지사항2</a>
+		  <span class="btnspan"><button class="btn mobt" >수정</button>&nbsp;<button class="btn debt">삭제</button></span>
         </h4>
       </div>
-      <div id="collapse2" class="panel-collapse collapse">
-        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      <div id="notice2" class="panel-collapse collapse">
+        <div class="panel-body">
+        	공지사항2
+        </div>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">공지사항3</a>
-		  <span class="btnspan"><button class="btn btn-success">수정</button>&nbsp;<button class="btn btn-danger">삭제</button></span>
+          <a data-toggle="collapse" data-parent="#accordion" href="#notice3">공지사항3</a>
+		  <span class="btnspan"><button class="btn mobt">수정</button>&nbsp;<button class="btn debt">삭제</button></span>
         </h4>
       </div>
-      <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      <div id="notice3" class="panel-collapse collapse">
+        <div class="panel-body">
+        	공지사항3
+        </div>
       </div>
     </div>
   </div> 
 
   <hr>
  
-<!--  <div class="page">
+<!--  <div class="pagediv">
   <ul class="pagination">
     <li><a href="#">1</a></li>
     <li><a href="#">2</a></li>
@@ -150,7 +176,8 @@
 				<label for="qcontent">내용 : </label>
 				<textarea class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10"></textarea>
 				<br>
-				<span class="btnspan"><button class="btn btn-defult" data-dismiss="modal">등록</button>&nbsp;<button class="btn" data-dismiss="modal">취소</button></span>
+				<span class="btnspan"><button class="btn btn-defult" data-dismiss="modal">등록</button>&nbsp;
+				<button class="btn" data-dismiss="modal">취소</button></span>
 				<br>
 			</div>
 			

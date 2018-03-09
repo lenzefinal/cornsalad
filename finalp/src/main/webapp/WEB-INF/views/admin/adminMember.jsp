@@ -8,13 +8,20 @@
 <title>관리자테스트</title>
 <link href="/finalp/resources/css/adminPage.css" rel="stylesheet">
 <style>
-	img.iconi{
+	#adminMain img.iconi{
 		width:18px;
 	}
-	button#bid{
+	hr.hrst{
+		background-color:#F7D358;
+		border:1.5px solid #F7D358; 
+	}
+	#adminMain div.memtable{
+		text-align:center;
+	}
+	#adminMain button#bid{
 		border:1px solid #ced4da;
 	}
-	div.adminMain{
+	div#adminMain{
 		font-family:"맑은 고딕";
 		margin-top:2%;
 		margin-left:5%;
@@ -23,24 +30,29 @@
 		width: 80%;
 		float:center;
 	}
-	div.searchdiv{
+	#adminMain div.searchdiv{
 		width: 40%;
 		float:right;
 		margin-bottom: 5%;
 	}
 
 @media screen and (min-width: 960px){ 
-	div.adminMain{
+	div#adminMain{
 		font-family:"맑은 고딕";
-		margin-left:5%;
+		margin-left:25%;
 		margin-right:10%;
 		display:inline-block;
 		width: 60%;
 		float:center;
 		font-size: 13px;
 	}
-	div.searchdiv{
-		width: 20%;
+	#adminMain div.searchdiv{
+		width: 140px;
+		margin-right: 30px;
+	}
+	hr.hrst{
+		background-color:#F7D358;
+		border:1.5px solid #F7D358; 
 	}
 	
  } 
@@ -59,11 +71,13 @@
    </div>
 </div>
 
-<div class="adminMain">
+<div id="adminMain">
 <h3>회원관리</h3>
+<hr class="hrst">
+<br>
 <div class="searchdiv">
   <form action="#">
-    <div class="input-group sfo">
+    <div class="input-group">
       <input type="text" class="form-control" placeholder="Search" name="search">
       <div class="input-group-btn">
         <button id="bid" class="btn btn-default" type="submit">
@@ -76,7 +90,7 @@
 <br>
 
   <div class="memtable">
-  <table class="table table-hover" >
+  <table class="table table-bordered table-hover" >
     <thead>
       <tr class="active">
         <th>아이디</th>
@@ -88,18 +102,18 @@
     </thead>
     <tbody>
       <tr>
-        <td>user11</td>
+        <td><a href="adminMemberDetail.do">user11</a></td>
         <td>안녕안녕</td>
 		<td>20000</td>
 		<td>3</td>
-		<td><button class="btn btn-default">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
+		<td><button class="btn btn-primary">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
       </tr>
       <tr>
-        <td>user22</td>
+        <td><a href="adminMemberDetail.do">user22</a></td>
         <td>--</td>
 		<td>--</td>
 		<td>5</td>
-		<td><button class="btn btn-default">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
+		<td><button class="btn btn-primary">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
       </tr>
     </tbody>
   </table>

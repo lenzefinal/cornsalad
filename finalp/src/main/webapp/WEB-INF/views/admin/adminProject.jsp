@@ -14,28 +14,26 @@
 	div#projec{
 		font-family:"맑은 고딕";
 		margin-top:2%;
-		margin-left:5%;
+		margin-left:25%;
 		margin-right:10%;
 		display:inline-block;
 		width: 60%;
 		float:center;
 		font-size: 13px;
 	}
+	hr.hrst{
+		background-color:#F7D358;
+		border:1.5px solid #F7D358; 
+	}
 	#projec div.okptable{
 		background-color:#F6FFCC;
-	}
-	#projec div.searchdiv{
-		width: 20%;
-		float:right;
+		text-align:center;
 	}
 	#projec img.iconi{
 		width:18px;
 	}
 	#projec button#bid{
 		border:1px solid #ced4da;
-	}
-	#adtitle{
-		background-color:#F3F781;
 	}
 	#projec div.pagediv{
 		margin-left: 40%;
@@ -45,6 +43,20 @@
 	}
 	#projec ul.pagination > li > a:hover{
 		color:gray;
+	}
+	#projec div.allptable{
+		text-align:center;
+	}
+	#projec div.searchdiv{
+		float:right;
+		margin-right: 30px;
+	}
+	#projec select.searchse{
+		margin-top:5px;
+		width: 60px;
+	}
+	#projec div.searchin{
+		width: 140px;
 	}
   </style>
  </head>
@@ -62,9 +74,9 @@
 
 <div id="projec">
   <h3>승인 요청 PROJECT</h3>
-  <hr>
+  <hr class="hrst">
 	  <div class="okptable">
-  <table class="table table-condensed" >
+  <table class="table table-bordered table-condensed" >
     <thead>
       <tr class="active">
         <th>카테고리</th>
@@ -78,7 +90,7 @@
         <td>aaa</td>
         <td>Anna</td>
 		<td>Anna</td>
-		<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal">승인</button></td>
+		<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
       </tr>
       <tr>
         <td>aaaa</td>
@@ -95,33 +107,35 @@
     </tbody>
   </table>
   </div>
-  
-  <hr>
-  
+ 
+ 
+ <br>
   <h3>모든 PROJECT</h3>
-  <hr>
+  <hr class="hrst">
   
 <div class="searchdiv">
   <form action="#">
     <div class="input-group">
-      <select class="form-control">
+      <select class="form-control searchse">
 		<option>전체</option>
 		<option>프로젝트</option>
 		<option>공동구매</option>
-	  </select>
-	  </div>
-	  <br>
-	  <input type="text" class="form-control" placeholder="Search" name="search">
+	  </select>&nbsp;
+	  <div class="input-group searchin">
+      <input type="text" class="form-control" placeholder="Search" name="search">
       <div class="input-group-btn">
-        <button class="btn btn-default" type="submit">
+        <button id="bid" class="btn btn-default" type="submit">
         <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
+      </div>
     </div>
+   </div> 
   </form>
 </div>
 
-<br>
+<br><br><br>
+
 <div class="allptable">
-  <table class="table table-condensed" >
+  <table class="table table-bordered table-condensed" >
     <thead>
       <tr class="active">
         <th>카테고리</th>
