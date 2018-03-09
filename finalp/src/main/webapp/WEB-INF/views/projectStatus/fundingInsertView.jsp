@@ -33,12 +33,16 @@
 		background-color: rgba(253,255,232,0.5);
 	}
 
+
 	.project-header-title{
 		padding-top: 100px;
 		padding-bottom: 50px;
-		margin-bottom: 20px;
+		margin-bottom: 0px;
 		text-align: center;
 		text-weight: bold;
+		border: 1px solid rgba(0,0,0,0.1);
+		border-left: none;
+		border-right: none;
 	}
 	
 	/* 충돌 테스트 */
@@ -96,9 +100,9 @@
 		}
 	}
 	
-	/* .project-tap{
-		font-size: 0.9rem;
-	} */
+	
+	
+	/* 탭 버튼 ---------------------------------------------------*/
 	.project-tap-table{
 		margin: auto;
 		cellspacing: 0;
@@ -107,24 +111,35 @@
 		padding: .92857143em 1.42857143em;
 		border-radius: .28571429rem .28571429rem 0 0!important;
 		cursor: pointer;
+		position: relative;
 	}
-	.project-tap-table .project-tap-on{
-		border: 1px solid rgba(0,0,0,0.1);
-		border-bottom: none;
-		background-color: rgba(253,255,232,0.5);
-	}
-	.project-tap-table .project-tap-off{
-		border: 1px solid rgba(0,0,0,0.0);
-		border-bottom: none;
-	}
-	.project-tap-table .project-tap-off:hover{
-		background-color: rgba(221,242,200,0.5);
+	.project-tap-table .tap em {
+		position: absolute;
+		z-index: 10;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-bottom: 3px solid #F7D358;
+		opacity: 0;
+		transition: 0.4s;
 	}
 	
-	#session-1{
-		/* font-size: 0.9rem; */
-		/* color: #767676; */
+	.project-tap-table .tap .project-tap-em-active{
+		opacity: 1;
+		transition: 0.4s;
 	}
+	.project-tap-table .tap .project-tap-em-hover{
+		opacity: 1;
+		transition: 0.4s;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	.session,
 	session-tap {
 		/* font-size: 0.9rem; */
@@ -360,23 +375,35 @@
 
 
 
-	.project-gift-table{
+	/* 선물 안 아이템 테이블 -----------------------------------------------------*/
+	.project-gift-in-item-table{
 	    border-collapse: collapse;
 	    width: 100%;
 	    background-color:white;
 	    margin-bottom:0px;
 	}
-	.project-gift-table th, 
-	.project-gift-table td{
+	.project-gift-in-item-table th, 
+	.project-gift-in-item-table td{
 		padding: 8px;
 	    text-align: center;
 	}
-	.project-gift-table th{
+	.project-gift-in-item-table th{
 		background-color: rgba(0,0,0,0.1);
 	}
-	.project-gift-table td{
+	.project-gift-in-item-table td{
 		 border-top: 1px solid #ddd;
+		 
 	}
+	.project-gift-in-item-table tr{
+		transition: 0.4s;
+	}
+	
+	.project-gift-in-item-table .project-gift-in-item-check{
+		background-color: rgba(232,74,74,0.4);
+		transition: 0.4s;
+	}
+	
+	
 	
 	
 	
@@ -419,6 +446,34 @@
 		stroke: #FFFFFF;
 		transition: 0.4s;
 	}
+	
+	
+	/* 선물 안 아이템 수량 ----------------------------------------------*/
+	..itemcount-minus,
+	.itemcount-plus{
+		cursor: pointer;
+	}
+	.itemcount-minus circle,
+	.itemcount-plus circle {
+		fill: #E2E2E2;
+		transition: 0.4s;
+	}
+	
+	.itemcount-minus line,
+	.itemcount-plus line {
+		stroke: #000000;
+	}
+	
+	.itemcount-minus:hover circle,
+	.itemcount-plus:hover circle {
+		fill: #F7D358;
+		transition: 0.4s;
+	}
+	
+	.itemcount-minus_plus-mousedown line{
+		stroke: #FFFFFF;
+	}
+	
 	
 </style>
 
@@ -484,22 +539,89 @@
 		//처음에는 처음 탭 영역만 보이도록 -----------------------------------------
 		 $(".session").attr('style', "display:none");
 		 $("#session-1").attr("style", "display:block");
+		 
+		//탭 버튼에 hover됐을 때
+		$(".tap").on("mouseover", function(){
+			$("#"+this.id+" em").addClass("project-tap-em-hover");
+		});
+		$(".tap").on("mouseout", function(){
+			$("#"+this.id+" em").removeClass("project-tap-em-hover");
+		});
 	
 		 
 	    //선물 체크 버튼 ----------------------------------------------------
 	    $(".gift-chk-btn").on("click", function(){
 	    	$(this).toggleClass("gift-chk-btn-active");
+	    	$("#"+$(this).attr("value")).toggleClass("project-gift-in-item-check");
 	    });
 	    
 	    //수량 버튼 -------------------------------------------------------
-	/*     $(window).mousedown(function(e) {
+		$(".itemcount-minus").on("mousedown", function() {
 	        clearTimeout(this.downTimer);
-	        this.downTimer = setTimeout(function() {
-	            // do your thing 
-	        }, 2000);
+	        
+	        var thisValue = $(this).attr("value");
+	       
+	        this.downTimer = setInterval(function() {
+	        	//버튼 눌렀을 때 실행될 코드
+	            var itemcountTagId = "#" + thisValue + " .gift-in-item-count";
+	        	var itemCount = Number($(itemcountTagId).attr("value"));
+	        	var totalCount = 0;
+	        	
+	        	if(itemCount > 0){
+	        		totalCount = itemCount - 1;
+	        		$(itemcountTagId).attr("value", totalCount);
+		        	$(itemcountTagId).text(totalCount);
+	        	}
+	        	
+	        }, 300);
+	       
+	        $(this).addClass("itemcount-minus_plus-mousedown");
+	        
 	    }).mouseup(function(e) {
 	        clearTimeout(this.downTimer);
-	    }); */
+	        $(this).removeClass("itemcount-minus_plus-mousedown");
+	    });
+	    
+		$(".itemcount-plus").mousedown(function(e) {
+			clearTimeout(this.downTimer);
+		        
+	        var thisValue = $(this).attr("value");
+	       
+	        this.downTimer = setInterval(function() {
+	        	//버튼 눌렀을 때 실행될 코드
+	            var itemcountTagId = "#" + thisValue + " .gift-in-item-count";
+	        	var totalCount = Number($(itemcountTagId).attr("value")) + 1;
+	        	
+	        	console.log("id:"+itemcountTagId);
+	        	console.log("value:"+$(itemcountTagId).attr("value"));
+	        	console.log("totalCount:"+totalCount);
+	        	
+	        	$(itemcountTagId).attr("value", totalCount);
+	        	$(itemcountTagId).text(totalCount);
+	        	
+	        }, 300);
+	       
+	        $(this).addClass("itemcount-minus_plus-mousedown");
+	        
+	    }).mouseup(function(e) {
+	    	 clearTimeout(this.downTimer);
+		     $(this).removeClass("itemcount-minus_plus-mousedown");
+	    });
+	
+		
+		//영역을 벗어나고 mousedown 이벤트가 발생했을 때 계속 증감되는 버그 방지 코드
+		window.addEventListener("mouseup", function(){
+			console.log("들어옴");
+			clearTimeout($(".itemcount-plus").downTimer);
+			$(".itemcount-plus").removeClass("itemcount-minus_plus-mousedown");
+			
+			clearTimeout($(".itemcount-minus").downTimer);
+			$(".itemcount-minus").removeClass("itemcount-minus_plus-mousedown");
+		});
+		/* $(window).mouseup(function(){
+			
+		}); */
+	    //itemcount-minus_plus-mousedown
 	});
 
 	
@@ -508,12 +630,15 @@
 		$(".session").attr("style", "display:none");
 		$(sessionDivId).attr("style", "display:block");
 		
-		$(".tap").removeClass("project-tap-on");
+		/* $(".tap").removeClass("project-tap-on");
 		$(".tap").addClass("project-tap-off");
 		
 		
 		$(sessionTapId).removeClass("project-tap-off");
-		$(sessionTapId).addClass("project-tap-on");
+		$(sessionTapId).addClass("project-tap-on"); */
+		
+		$(".tap em").removeClass("project-tap-em-active")
+		$(sessionTapId + " em").addClass("project-tap-em-active");
 	}
 	
 	//에디터 ----------------------------------------------------------
@@ -593,23 +718,27 @@
 						<span>펀딩</span> 
 						<span>개요</span>
 					</span>
+					<em class="project-tap-em-active" style="color:black"></em>
 				</div></th>
 				<th><div id="session2-tap" class="tap project-tap-off" onclick="tapChange('#session-2', '#session2-tap');">
 					<span class="tap-span">
 						<span>펀딩</span> 
 						<span>구성</span>
 					</span> 
+					<em style="color:black"></em>
 				</div></th>
 				<th><div id="session3-tap" class="tap project-tap-off" onclick="tapChange('#session-3', '#session3-tap');">
 					<span>
 						상세 내용
 					</span>
+					<em style="color:black"></em>
 					</div></th>
 				<th><div id="session4-tap" class="tap project-tap-off" onclick="tapChange('#session-4', '#session4-tap');">
 					<span class="tap-span">
 						<span>계좌</span> 
 						<span>설정</span>
 					</span>
+					<em style="color:black"></em>
 				</div></th>
 			</tr>
 		</table>
@@ -756,7 +885,7 @@
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<div style="border:1px solid rgba(0,0,0,0.15); border-radius: 3px;">
-				<table class="project-gift-table">
+				<table class="project-gift-in-item-table">
 					<colgroup>
 						<col style="width: 7%;">
 						<col style="width: 72%;">
@@ -764,32 +893,31 @@
 						<col style="width: 5%;">
 						<col>
 					</colgroup>
-					<thead><tr>
-						<th>선택</th><th style="text-align:left;">아이템 이름</th><th colspan="3">수량</th>
-					</tr></thead>
-					<tbody>
 					<tr>
+						<th>선택</th><th style="text-align:left;">아이템 이름</th><th colspan="3">수량</th>
+					</tr>
+					<tr id="gift-in-item0">
 						<td><!-- 아이디 앞에 gift가 붙어있으면 update 아니면  insert -->
 							<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="gift-chk-btn">
+							 <g class="gift-chk-btn" value="gift-in-item0">
 							  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
 							  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
 							 </g>
 							</svg>
 						</td>
-						<td style="text-align:left;">아이템이름이름</td>
+						<td style="text-align:left;"><div class="gift-in-item-name" value="아이템이름이름">아이템이름이름</div></td>
 						<td>
 							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g>
+							 <g class="itemcount-minus" value="gift-in-item0">
 							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
 							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
 							 </g>
 							</svg>
 						</td>
-						<td>3434</td>
+						<td><div class="gift-in-item-count" value="10" >10</div></td>
 						<td>
 							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g>
+							 <g class="itemcount-plus" value="gift-in-item0">
 							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
 							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
 							  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
@@ -797,10 +925,10 @@
 							</svg>
 						</td>
 					</tr>
-					<tr>
+					<tr id="gift-in-item1">
 						<td>
 							<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="gift-chk-btn">
+							 <g class="gift-chk-btn" value="gift-in-item1">
 							  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
 							  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
 							 </g>
@@ -809,16 +937,16 @@
 						<td style="text-align:left;">아이템이름이름</td>
 						<td>
 							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g>
+							 <g class="itemcount-minus" value="gift-in-item1">
 							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
 							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
 							 </g>
 							</svg>
 						</td>
-						<td>1</td>
+						<td><div class="gift-in-item-count" value="1">1</div></td>
 						<td>
 							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g>
+							 <g class="itemcount-plus" value="gift-in-item1">
 							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
 							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
 							  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
@@ -826,11 +954,10 @@
 							</svg>
 						</td>
 					</tr>
-					</tbody>
 				</table>
 				</div>
 				<br>
-				<div align="right"><button class="btn btn-primary">아이템 관리</button></div>
+				<div align="right"><button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal">아이템 관리</button></div>
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -961,6 +1088,21 @@
 	</div>
 </div>
 </div>
+
+
+<!-- 아이템 관리 modal -------------------------------------------------------------- -->
+<link href="/finalp/resources/css/modalcss/itemManagerModal.css" rel="stylesheet">
+
+<div class="modal fade" id="itemManager-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; z-index:9999;">
+ 		<div class="modal-dialog">
+			<div class="itemManagermodal-container">
+				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x"></i></a>
+				<div><h2>아이템 관리</h2></div>
+				<hr>	
+			 	
+			</div>
+		</div>
+	</div>
 
 
 <script>
