@@ -490,6 +490,16 @@
 	    $(".gift-chk-btn").on("click", function(){
 	    	$(this).toggleClass("gift-chk-btn-active");
 	    });
+	    
+	    //수량 버튼 -------------------------------------------------------
+	/*     $(window).mousedown(function(e) {
+	        clearTimeout(this.downTimer);
+	        this.downTimer = setTimeout(function() {
+	            // do your thing 
+	        }, 2000);
+	    }).mouseup(function(e) {
+	        clearTimeout(this.downTimer);
+	    }); */
 	});
 
 	
@@ -951,6 +961,7 @@
 	</div>
 </div>
 </div>
+
 
 <script>
 	//설명 버튼 ----------------------------------------------------
