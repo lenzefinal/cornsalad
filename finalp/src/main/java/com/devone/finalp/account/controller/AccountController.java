@@ -20,4 +20,9 @@ public class AccountController {
 	public String accountMethod3() {
 		return "account/account3";
 	}
+	
+	@RequestMapping("payoption.do")
+	public String payOption(String popup) {
+		return "account/pay-"+popup;
+	}
 }

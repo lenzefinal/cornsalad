@@ -70,8 +70,8 @@ em{
 		border-radius:0;
 		height:60px;
 		width:100%;
-		background-color:#00CCA3;
-		color:white;
+		background-color:#EAEAEA;
+		color:#BDBDBD;
 }
 .back{
 		color:#D8D8D8;
@@ -989,6 +989,11 @@ ul.ulli a:hover{
 
 ul.share-list{
 	padding:0;
+}
+
+button#closemodal.act{
+	background-color:#00CCA3;
+	color:white;
 }
 /* 모바일 용   */
 @media screen and (min-width: 960px){
