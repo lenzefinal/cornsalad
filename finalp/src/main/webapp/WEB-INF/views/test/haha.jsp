@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>김용은 바보</h1>
+	<h1>강보람 바보</h1>
 	<!-- 똥개 -->
+	<!-- 빡 -->
 </body>
 </html>
