@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>header.jsp</title>
   
@@ -558,7 +559,7 @@
 			  <ul>
 				<li><a href="projectlist.do">프로젝트</a></li>
 				<li><a href="projectdetail.do">공동구매</a></li>
-				<li><a href="#">오픈예정</a></li>
+				<li><a href="blist.do">오픈예정</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -641,7 +642,7 @@
 				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x"></i></a>
 				<h1>Login</h1><br>	
 			 	<form action="login.do" method="post">
-					<input type="text" name="email" placeholder="Email">
+					<input type="text" name="member_id" placeholder="Id">
 					<input type="password" name="member_pwd" placeholder="Password">
 					<input type="submit" name="login" class="login loginmodal-submit main-backgroundcolor-cornsalad" value="Login">
 			  	</form>

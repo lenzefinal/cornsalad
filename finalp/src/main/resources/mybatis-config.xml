@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE configuration PUBLIC
 "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -7,10 +7,12 @@
 	<!-- vo 등록 -->
 	<typeAliases>
 		<typeAlias type="com.devone.finalp.common.model.vo.Member" alias="Member" />
+		<typeAlias type="com.devone.finalp.board.model.vo.Board" alias="Board" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/board-mapper.xml" />
 	</mappers>
 </configuration>

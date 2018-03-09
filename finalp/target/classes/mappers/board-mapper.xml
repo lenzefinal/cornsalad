@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<resultMap id="boardMap" type="Board">
+		<result property="board_id" column="board_id" />
+		<result property="board_category_id" column="board_category_id" />
+		<result property="board_category_name" column="board_category_name" />
+		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="creation_date" column="creation_date" />
+		<result property="readcount" column="readcount" />
+		<result property="recommend_count" column="recommend_count" />
+		<result property="ori_filename" column="ori_filename" />
+		<result property="re_filename" column="re_filename" />
+		<result property="report_count" column="report_count" />
+	</resultMap>
+	<select id="selectbList" resultMap="boardMap">
+		 <![CDATA[
+			SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) ORDER BY BOARD_id DESC
+		]]> 
+	</select>
+	<insert id="insertBoard" parameterType="Board">
+		<![CDATA[
+			insert into board (board_id,board_category_id,member_id, title, content, creation_date, readcount, recommend_count, report_count,ori_filename,re_filename) values((select max(board_id)+1 from board),#{board_category_id},#{member_id},#{title},#{content},sysdate,0,0,0,#{ori_filename},#{re_filename})
+		]]>
+	</insert>
+
+</mapper>
