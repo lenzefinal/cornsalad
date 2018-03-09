@@ -244,17 +244,6 @@ $(function(){
 						<input type="file" id="ex_filename" class="upload-hidden"> 
 						<button class="cancel" style="margin-bottom:5%"><b>이미지 삭제</b></button>
 					</div>
-				<dl class="accoutinfo">
-					<dt><b>은행명</b></dt>
-					<select style="margin-bottom:5%; height:30px;">
-						<option>하나은행</option>
-						<option>신한은행</option>
-						<option>농협</option>
-						<option>아무튼은행</option>
-					</select>
-				<dt><b>계좌번호</b></dt>
-					<dd><input type="text" style="height:20px;"></dd>
-				</dl>
 			</div>
 			<div class="column">
 					<dl class="myinfo">
@@ -272,6 +261,17 @@ $(function(){
 						<dd><input type="email"/>
 						<dt><b>주소</b></dt>
 						<dd>주소 넣기</dd>
+						<dt><b>은행명</b></dt>
+							<select style="margin-bottom:5%; height:30px;" name="bank">
+								<otpgroup label="은행명">
+									<option>하나은행</option>
+									<option>신한은행</option>
+									<option>농협</option>
+									<option>아무튼은행</option>
+								</otpgroup>
+							</select>
+						<dt><b>계좌번호</b></dt>
+						<dd><input type="text" style="height:20px;"></dd>
 					</dl>
 					<button type="submit" class="modify" style="margin-left:0%">수정하기</button> &nbsp;
 			 		<button type="submit" class="cancel">취소</button>
