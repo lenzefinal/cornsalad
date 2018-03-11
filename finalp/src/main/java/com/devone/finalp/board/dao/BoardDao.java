@@ -19,12 +19,10 @@ public class BoardDao {
 		
 	}
 	public List<Board_Reply> selectbrList() {
-		// TODO Auto-generated method stub
-		return null;
+		return mDB.selectList("boardMapper.selectbrList");
 	}
 	public Board selectb(int board_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return mDB.selectOne("boardMapper.selectb", board_id);
 	}
 
 	public Board_Reply selectbr(int board_reply_id) {

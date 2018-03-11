@@ -18,6 +18,7 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Project" alias="Project" />
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectAccount" alias="ProjectAccount" />
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectContent" alias="ProjectContent" />
+		<typeAlias type="com.devone.finalp.board.model.vo.Board_Reply" alias="Board_Reply" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->

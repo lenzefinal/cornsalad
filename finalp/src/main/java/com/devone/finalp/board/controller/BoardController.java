@@ -1,16 +1,21 @@
 package com.devone.finalp.board.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,7 +30,6 @@ public class BoardController {
 	@RequestMapping(value="blist.do")
 	public String boardList(Model model) {
 		model.addAttribute("blist",bService.selectbList());
-		System.out.println("1");
 		return "board/boardList";
 	}
 	@RequestMapping(value="writeForm.do")
@@ -60,5 +64,45 @@ public class BoardController {
 			bService.insertBoard(b);
 					
 			return "redirect:blist.do";
+	}
+	@RequestMapping(value="bdetail.do")
+	public String BoardDetail(Model model, Board b) {
+		model.addAttribute("board",bService.selectb(b.getBoard_id()));
+		model.addAttribute("brlist",bService.selectbrList());
+		return "board/boardDetail";
+	}
+	@RequestMapping("/bdownfile.do")
+	public void fileDownload(
+			@RequestParam(value="rfile") String rfileName, 
+			@RequestParam(value="ofile") String ofileName,
+			HttpServletResponse response,
+			HttpServletRequest request){
+		// 프로젝트 내에 파일이 저장된 곳의 위치를 얻어옴
+		String saveFolder = request.getSession().getServletContext().getRealPath("/uploadFiles/");			 
+		
+		BufferedInputStream buf = null;
+		ServletOutputStream downOut = null;
+			 
+		try {		  
+		   downOut = response.getOutputStream();
+		   File downfile = new File(saveFolder + "/" + rfileName);
+		   response.setContentType("text/plain; charset=utf-8");		
+			//한글 파일명 인코딩 처리
+			response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(ofileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+		   response.setContentLength((int)downfile.length());
+				  
+		   FileInputStream input = new FileInputStream(downfile);
+		   buf = new BufferedInputStream(input);
+		   int readBytes = 0;
+
+		   while ((readBytes = buf.read()) != -1){
+			downOut.write(readBytes);
+		   }
+		   downOut.close();
+		   buf.close();
+		} catch (Exception e) {
+		   e.printStackTrace();
+		}
+		
 	}
 }

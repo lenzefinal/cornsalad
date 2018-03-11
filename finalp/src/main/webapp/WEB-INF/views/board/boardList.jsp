@@ -12,18 +12,32 @@
 	table{
 		font-size : 1.5em;
 	}
-	.left-side{
-		margin-top : 5%;
-		text-align : center;
-		width : 100%;
-		height : 2em;
-		border : 1px solid black;
-		font-size : 2em;
-		border-radius: 4px;
-	}
 	a:link { color: red; text-decoration: none;}
  	a:visited { color: black; text-decoration: none;}
  	a:hover { color: blue; text-decoration: underline;}
+ 	.pageCenter{
+ 		position: relative;
+ 		margin: auto;
+ 		display: table;
+ 	}
+ 	.pageCenter>ol>li>a{
+ 		font-size: 1.5em;
+ 	}
+ 	a{
+ 		text-decoration: none !important;
+ 	}
+ 	.left-side{
+ 		border: 1px solid #999;
+ 		border-radius: 5px;
+ 		padding:5px 10px;
+ 	}
+ 	.left-side a{
+ 		color: #444;
+ 		font-size: 1.7em;
+ 	}
+ 	.active{
+ 		background: pink;
+ 	}
 	
 </style>
 <meta charset="UTF-8">
@@ -33,35 +47,36 @@
 	<c:import url="/WEB-INF/views/header.jsp" />
 
 	<div class="container" style="margin-top: 5%">
-	<div>
-	<div class="col-lg-2"></div>
-			<div class="col-lg-10"><h2>게시판</h2></div>
-	<div>
-		<div>
-			<div class="col-lg-2">
-						<div class="left-side">
-							<a href="#" style="color : black; background : white">
-								전체 게시판
-							</a>
-						</div>
-						<div class="left-side">
-							<a href="#" style="color : black; background : white">
-								물품 나눔 게시판
-							</a>
-						</div>
-						<div class="left-side" style="color : white; background : gray; border-radius: 4px;">
-							<a href="#">
-								지식 나눔  게시판
-							</a>
-						</div>
+		<div class="col-lg-2">
+			<div class="left-side">
+				<a href="#">
+					전체 게시판
+				</a>
 			</div>
-			<div class="col-lg-10">
-				<table id="dt_basic"
-					class="table table-striped table-bordered table-hover" width="80%"
-					style="background: white;">
+			<div class="left-side" style="margin: 5px 0;">
+				<a href="#">
+					물품 나눔 게시판
+				</a>
+			</div>
+			<div class="left-side active">
+				<a href="#">
+					지식 나눔  게시판
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-10">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="col-lg-4" style="background: green">리스트</div>
+					<div class="col-lg-4" style="background: yellow">리스트</div>
+					<div class="col-lg-4" style="background: green">리스트</div>
+				</div>
+			</div>
+			
+			<div style="margin-top: 10px;">
+				<table id="dt_basic" class="table table-striped table-bordered table-hover" width="80%" style="background: white;">
 					<thead>
 						<tr>
-							<th>No.</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
@@ -72,8 +87,10 @@
 					<tbody>
 						<c:forEach var="board" items="${blist}">
 							<tr>
-								<td>${board.board_id}</td>
-								<td><a href="bDetail.jsp" class="pointer noticeClick">${board.title}
+								<c:url var ="bdetail" value="bdetail.do">
+									<c:param name="board_id" value="${board.board_id}"/>
+								</c:url>
+								<td><a href="${bdetail}" class="pointer noticeClick">${board.title}
 								</a></td>
 								<td>${board.member_name}</td>
 								<td>${board.creation_date}</td>
@@ -83,24 +100,34 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
 				<hr />
+				
 				<div>
 					<c:url var="writeform" value="writeForm.do">
 						<c:param name="member_id" value="${loginUser.member_id}"/>
 						<c:param name=""/>
 					</c:url>
 					<c:if test="${loginUser != null}">
-					<a href="${writeform}" class="btn pull-right" style="background: gray; font-size : 1.5em">글쓰기</a>
+					<a href="${writeform}" class="btn pull-right" style="background: #efefef; border: 1px solid #999; font-size : 1.5em">글쓰기</a>
 					</c:if>
 				</div>
-				<div>
+				<div class="pageCenter" style="clear: both;">
 					<ol class="text-center pagination" >
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
 						<li><a href="#">1</a></li>
 						<li><a href="#">1</a></li>
 					</ol>
 				</div>
 			</div>
 		</div>
+	
 	</div>
 
 </body>

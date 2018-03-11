@@ -21,14 +21,12 @@ public class BoardServiceimpl implements BoardService{
 
 	@Override
 	public List<Board_Reply> selectbrList() {
-		// TODO Auto-generated method stub
-		return null;
+		return bDao.selectbrList();
 	}
 
 	@Override
 	public Board selectb(int board_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return bDao.selectb(board_id);
 	}
 
 	@Override
