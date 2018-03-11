@@ -240,6 +240,8 @@
 		text-align: center;
 	}
 	
+	/* 기본 색 ------------------------------------------------------*/
+	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
 		border: 1px solid rgba(0,0,0,0.1);
@@ -584,6 +586,134 @@ function getBankList(){
 		}
 	});
 }
+
+
+//insert ========================================================================
+/* function insertProjectFunc(){
+	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
+	//서버 쪽 컨트롤러로 전송하기 
+	
+	var project = new Object();
+	project.project_category_id = 'PC-FUND';
+	project.category_sub_id = $("#project-sub-category").val();
+	project.project_name = $("#project-title-input").val();
+	project.image_oriname = $('.upload-name').val();
+	project.rep_content = $("#repcontent-textarea").val();
+	project.target_amount = $("#goalprice-input").val();
+	project.end_date = $("#fundingDatepicker").val();
+	project.refund_role = $("#refundrole-textarea").val();
+	project.certif_flag = $("#certifflag_input").val();
+	
+	console.log("project:" + project);
+	
+	$.ajax({
+		url: "test5.do",
+		data: JSON.stringify(project),
+		type: "post",
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			alert("서버로 전송 성공" + result);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+
+	
+	$("#submit-project_category_id").val('PC-FUND');
+	$("#submit-category_sub_id").val($("#project-sub-category").val());
+	$("#submit-project_name").val($("#project-title-input").val());
+	$("#submit-image_oriname").val($('.upload-name').val());
+	$("#submit-rep_content").val($("#repcontent-textarea").val());
+	$("#submit-target_amount").val($("#goalprice-input").val());
+	$("#submit-end_date").val($("#fundingDatepicker").val());
+	$("#submit-refund_role").val($("#refundrole-textarea").val());
+	$("#submit-certif_flag").val($("#certifflag_input").val());
+	
+} */
+function insertProjectFunc(){
+	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
+	//서버 쪽 컨트롤러로 전송하기 
+	
+	$.ajax({
+		url: "insertProject.do",
+		data: {"projectCategoryId" : "PC-FUND"},
+		type: "post",
+		success: function(result){
+			console.log("ajax로 받은아이디]"+result);
+			$("#project-id-input").val(result);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+
+}
+
+function projectPreImgUploadFunc(){
+	
+	console.log("대표이미지 ajax로 등록");
+	var form = $("#projectRepImageUploadForm")[0];
+	var formData = new FormData(form);
+	formData.append("fileObj", $("#ex_filename")[0].files[0]);
+	/* formData.append("project_id", $("#project-id-input").val()); */
+
+	$.ajax({
+		url: "projectRepImageUpload.do",
+		processData: false,
+		contentType: false,
+		data: formData,
+		type: 'POST',
+		success: function(){
+			console.log("대표 이미지 업로드 성공");
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
+function updateProjectFunc(){
+	
+	var project = new Object();
+	project.project_id = $("#project-id-input").val();
+	project.category_sub_id = $("#project-sub-category").val();
+	project.project_name = $("#project-title-input").val();
+	project.rep_content = $("#repcontent-textarea").val();
+	project.target_amount = $("#goalprice-input").val();
+	project.end_date = $("#fundingDatepicker").val();
+	project.refund_role = $("#refundrole-textarea").val();
+	project.certif_flag = $("#certifflag_input").val();
+	
+	if(project.target_amount == "undefined"){
+		project.target_amount = 0;
+	}
+	
+	console.log("project:" + project);
+	
+	$.ajax({
+		url: "updateProject.do",
+		data: JSON.stringify(project),
+		type: "post",
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			console.log("프로젝트 업데이트 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+
+}
+
 </script>
 
 <script>
@@ -609,6 +739,9 @@ function getBankList(){
 		
 			// 추출한 파일명 삽입 
 			$(this).siblings('.upload-name').val(filename); 
+			
+			//대표이미지 서버에 등록 --------------------------------------
+			projectPreImgUploadFunc();
 		});
 		
 		
@@ -819,11 +952,15 @@ function getBankList(){
 		//설명 버튼 이벤트 연결
 		descriptionBtnFunc();
 		
+		//처음에 페이지 들어올 때 프로젝트를 생성	-------------------insert-------------------------------------
+		insertProjectFunc();
+		
 		
 		//페이지 나갈 때 실행되는 함수 ============================================================================
-		$(window).on("beforeunload", function (){
+		/* $(window).on("beforeunload", function (){
 			
 			//PROJECT 
+			insertProjectFunc();
 			
 			//PROJECT_CONTENT
 			
@@ -836,7 +973,11 @@ function getBankList(){
 			//GIFT_IN_ITEM
 			
 			return "레알 나감????????????";
-		});
+		}); */
+		
+		window.onbeforeunload = function(){
+			updateProjectFunc();
+		};
 		 
 	});//ready end
 	
@@ -1351,7 +1492,7 @@ function getBankList(){
 				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="title" placeholder="프로젝트 제목을 입력해주세요.">
+				<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요.">
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1378,15 +1519,18 @@ function getBankList(){
 			<div class="project-description-button-panel">
 				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
-			<div class="project-element-content-div project-element-in-div">
-				<div class="filebox preview-image"> 
-					<div>
-						<input class="upload-name" value="파일선택" disabled> 
-						<label for="ex_filename">업로드</label> 
-						<input type="file" id="ex_filename" class="upload-hidden"> 
+			<form id="projectRepImageUploadForm" action="projectRepImageUpload.do" method="post" enctype="multipart/form-data">
+				<div class="project-element-content-div project-element-in-div">
+					<div class="filebox preview-image"> 
+						<div>
+							<input class="upload-name" value="파일선택" disabled> 
+							<label for="ex_filename">업로드</label> 
+							<input type="file" id="ex_filename" name="file" class="upload-hidden"> 
+						</div>
 					</div>
 				</div>
-			</div>
+				<input type="hidden" id="project-id-input" name="project_id"/>
+			</form>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-title-div project-element-in-div project-element-in-title">대표 문구</div>
@@ -1395,7 +1539,7 @@ function getBankList(){
 				<p>후원자 분들에게 본 프로젝트를 간략하게 소개해 봅시다.</p>
 			</div>
 			<div class="project-element-content-div project-element-in-div">
-				<textarea name="text" maxlength="400" class="reward-input" placeholder="대표 문구 및 요약" title="상세설명"></textarea>
+				<textarea id="repcontent-textarea" name="text" maxlength="400" class="reward-input" placeholder="대표 문구 및 요약" title="상세설명"></textarea>
 			</div>
 		</div>
 	</div>
@@ -1417,7 +1561,7 @@ function getBankList(){
 				</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="goalPrice" style="width:200px;" placeholder="최소 1000원 이상"> 원
+				<input id="goalprice-input" type="text" name="goalPrice" style="width:200px;" placeholder="최소 1000원 이상"> 원
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1585,7 +1729,7 @@ function getBankList(){
 				<p>마감일 다음날 결제가 일괄 진행되며 결제된 금액은 자동으로 진행자에게 전달되므로, 그 후의 환불 및 교환 요청은 전적으로 진행자가 약속하는 정책을 따릅니다. 이 프로젝트에 꼭 맞는 환불 및 교환 정책을 신중하게 작성해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<textarea name="text" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
+				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
 			</div>
 		</div>
 	</div>
@@ -1645,6 +1789,7 @@ function getBankList(){
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				휴대폰 인증
+				<input type="hidden" id="certifflag_input" value="N"/>
 			</div>
 		</div>
 	</div>

@@ -199,6 +199,6 @@ public class Project implements java.io.Serializable{
 				+ ", project_onoff_flag=" + project_onoff_flag + ", report_count=" + report_count + ", certif_flag="
 				+ certif_flag + "]";
 	}
-	
+	 
 	
 }

@@ -38,5 +38,57 @@
 			SELECT * FROM BANK
 		]]>
 	</select>
+	
+	<select id="insertProject" parameterType="Project">
+		<![CDATA[
+			INSERT INTO PROJECT VALUES( #{ project_id }, #{ project_category_id }, NULL,
+							NULL, #{ member_id }, NULL, NULL, 
+							NULL, DEFAULT, SYSDATE, NULL, NULL, 
+							NULL, NULL, 'N', DEFAULT, 'N'
+			)
+		]]>
+	</select>
+	
+	<select id="updateProject" parameterType="Project">
+		<![CDATA[
+			UPDATE PROJECT SET
+			CATEGORY_SUB_ID = #{ category_sub_id },
+			PROJECT_NAME = #{ project_name },
+			REP_CONTENT = #{ rep_content },
+			TARGET_AMOUNT = #{ target_amount },
+			END_DATE = #{ end_date },
+			PAYMENT_DATE = #{ end_date } + 7,
+			REFUND_ROLE = #{ refund_role },
+			CERTIF_FLAG = #{ certif_flag }
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="selectOneProject" parameterType="string"
+		resultType="Project">
+		<![CDATA[
+				SELECT * 
+				FROM PROJECT
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</select>
+	
+	<update id="updateProjectToUploadImg" parameterType="Project">
+		<![CDATA[
+				UPDATE PROJECT SET
+				IMAGE_ORINAME = #{ image_oriname },
+				IMAGE_RENAME = #{ image_rename }
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</update>
+
+	<select id="selectOneProjectIdSeq" resultType="int">
+		<![CDATA[
+				SELECT PROJECT_ID_SEQ.NEXTVAL 
+				FROM DUAL
+		]]>
+	</select>
 
 </mapper>
