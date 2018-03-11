@@ -104,3 +104,42 @@
 .itemManager-body{
 	
 }
+
+
+/* 선물 안 아이템 테이블 -----------------------------------------------------*/
+/* .modal-item-table{
+    border-collapse: collapse;
+    width: 100%;
+    background-color:white;
+    margin-bottom:0px;
+}
+.modal-item-table th, 
+.modal-item-table td{
+	padding: 8px;
+    text-align: center;
+}
+.modal-item-table th{
+	background-color: rgba(0,0,0,0.1);
+}
+.modal-item-table td{
+	 border-top: 1px solid #ddd;
+	 
+}
+.modal-item-table tr{
+	transition: 0.4s;
+}
+
+.modal-item-add-div{
+	padding: 1.5em;
+	margin: 0.5em;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: .25rem;
+	background-color:white;
+} */
+
+
+/* .modal-item-table .modal-item-check{
+	background-color: rgba(232,74,74,0.4);
+	transition: 0.4s;
+}
+ */
