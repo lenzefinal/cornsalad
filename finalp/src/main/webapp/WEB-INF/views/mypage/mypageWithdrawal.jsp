@@ -96,11 +96,10 @@
 			<div class="loginmodal-container">
 				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x" onclick="location.href='/doubleb/index.jsp'"></i></a>
 				<h1>정말 탈퇴하시나요?</h1><br>
-			 	<form action="mDelete.do" method="post">
-			 		<input type="hidden" name="member_id" value='${loginUser.member_id }'>
+			 	<form action="mDelete.do" method="post" id="deleteMember">
+			 		<input type="hidden" name="member_id" value='${loginUser.member_id }'/>
 					<input type="password" name="member_pwd" placeholder="비밀번호를 입력해주세요.">
 					<input type="submit" name="login" class="login loginmodal-submit" value="탈퇴">
-				
 			  	</form>
 			  	<p>'탈퇴' 버튼을 누르면 되돌릴 수 없습니다.<br>
 					신중히 생각 후 결정하세요!</p>

@@ -30,7 +30,7 @@
 					<dt class="blind">&nbsp;</dt>
 					<dd class="intro_desc">&nbsp;</dd>
 					<dt class="nic_tit">아이디</dt>
-					<dd class="nic_desc">abcde123456</dd>
+					<dd class="nic_desc">${loginUser.member_id}</dd>
 					</dl>
 				</div>
 			<p class="btn_area_btm"><a href="mypageModify.do" class="btn_model"><b class="btn2">수정</b></a></p>
