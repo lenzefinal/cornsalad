@@ -9,8 +9,6 @@
 <body>
 <c:import url="/WEB-INF/views/header.jsp"/>
 
-<!-- tetestete 데스크탑에서 수정 -->
-<!-- tetestete 노트북에서 수정 --> 
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
 <link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
@@ -177,7 +175,7 @@
 	}
 	
 	.project-element-div{
-		padding: 1.5em;
+		padding: 1.0em 1.5em 1.0em 1.5em;
 	}
 	
 	.project-element-in-div{
@@ -491,8 +489,112 @@
 
 
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=n950z8giku55kswh4gbnzrjj5d4wgtd69uzc7hg7jkp1r2yd"></script>
+
+
+<script>
+//ajax용
+
+//카테고리 전체 가져오기
+function getCategoryListFunc(){
+	//컨트롤러로 부터 리스트를 받아서 출력 처리함
+	$.ajax({
+		url: "proStscategoryList.do",
+		type: "post",
+		dataType: "json",
+		success: function(data){
+			//리턴된 하나의 객체를 문자열로 변환
+			var jsonStr = JSON.stringify(data);
+			//변환된 문자열을 json 객체로 변환
+			var json = JSON.parse(jsonStr);
+			
+			var values = "<option>선택하세요.</option>";
+			
+			for(var i in json.list){
+				values += '<option value="'+ json.list[i].categoryId +'">' +
+						decodeURIComponent(json.list[i].categoryName) +'</option>';
+			}
+			
+			$("#project-category").html(values);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
+//카테고리 아이디에 따라 서브 카테고리 리스트 가져오기
+function getSubCategoryListFunc(categoryId){
+	//컨트롤러로 부터 리스트를 받아서 출력 처리함
+	$.ajax({
+		url: "proStsSubcategoryListByCaId.do",
+		type: "post",
+		data: {"categoryId": categoryId},
+		dataType: "json",
+		success: function(data){
+			//리턴된 하나의 객체를 문자열로 변환
+			var jsonStr = JSON.stringify(data);
+			//변환된 문자열을 json 객체로 변환
+			var json = JSON.parse(jsonStr);
+			
+			var values = "<option>선택하세요.</option>";
+			
+			for(var i in json.list){
+				values += '<option value="'+ json.list[i].subCategoryId +'">' +
+						decodeURIComponent(json.list[i].subCategoryName) +'</option>';
+			}
+			
+			$("#project-sub-category").html(values);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
+//은행 명 리스트 가져오기
+function getBankList(){
+	//컨트롤러로 부터 리스트를 받아서 출력 처리함
+	$.ajax({
+		url: "proStsBankList.do",
+		type: "post",
+		dataType: "json",
+		success: function(data){
+			//리턴된 하나의 객체를 문자열로 변환
+			var jsonStr = JSON.stringify(data);
+			//변환된 문자열을 json 객체로 변환
+			var json = JSON.parse(jsonStr);
+			
+			var values = "<option>선택하세요.</option>";
+			
+			for(var i in json.list){
+				values += '<option value="'+ json.list[i].bankId +'">' +
+						decodeURIComponent(json.list[i].bankName) +'</option>';
+			}
+			
+			$("#project-bank").html(values);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+</script>
+
 <script>
 	$(function(){
+		
+		//ajax로 값 가져오기 ====================================================================================
+		//카테고리 리스트
+		getCategoryListFunc();
+		
+		//은행 리스트
+		getBankList();
 		
 		//대표 이미지 미리 보기 ---------------------------------------------------------------------
 		var fileTarget = $('.filebox .upload-hidden'); 
@@ -586,6 +688,8 @@
 	    
 	    //선물 추가 버튼
 	    $(".gift-add-btn").on("click", function(){
+	    	descriptionBtnFunc();
+	    	
 	    	var giftId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
@@ -711,8 +815,30 @@
 		
 		//아이템 리스트는 처음에 보여서는 안 됨(처음은 아이템 리스트가 없기 때문)
 		$("#modal-item-list-box").hide();
+		
+		//설명 버튼 이벤트 연결
+		descriptionBtnFunc();
+		
+		
+		//페이지 나갈 때 실행되는 함수 ============================================================================
+		$(window).on("beforeunload", function (){
+			
+			//PROJECT 
+			
+			//PROJECT_CONTENT
+			
+			//PROJECT_ACCOUNT
+			
+			//ITEM
+			
+			//GIFT
+			
+			//GIFT_IN_ITEM
+			
+			return "레알 나감????????????";
+		});
 		 
-	});
+	});//ready end
 	
 	//빈 아이템 추가 함수 ---------------------------------------------------
 	function addEmptyItemFunc(giftId){
@@ -826,6 +952,7 @@
 	    	 clearTimeout(this.downTimer);
 		     $(this).removeClass("itemcount-minus_plus-mousedown");
 	    });
+		
 	}
 
 	
@@ -1154,6 +1281,19 @@
 	
 	
 	
+	//카테고리 선택 이벤트
+	function categorySelectEvent(){
+		var categoryId = $("#project-category").val();
+		console.log("categoryId]"+categoryId);
+		if(categoryId != "undefined"){
+			getSubCategoryListFunc(categoryId);
+		} else{
+			var values = "<option>선택하세요.</option>";
+			
+			$("#project-sub-category").html(values);
+		}
+	}
+	
 	//임시
 	function testtinymce(){
 		console.log(tinymce.get("jieuntextarea").getContent());
@@ -1222,22 +1362,14 @@
 				(프로젝트 성격과 맞지 않는 카테고리를 선택하실 시 후원자가 해당 프로젝트를 찾기 어려워지기에 에디터에 의해 조정될 수 있습니다.)</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<!-- <div align="center"> -->
-				<select id="project-category" name="category" >
+				<select id="project-category" name="category" onchange="categorySelectEvent()">
 					<option value>선택하세요.</option>
-					<option value="cate_id">문학</option>
-					<option value="cate_id">문학</option>
-					<option value="cate_id">골동품</option>
-					<option value="cate_id">옷</option>
+					
 				</select>
 				<select id="project-sub-category" name="sub_category">
 					<option value>선택하세요.</option>
-					<option value="sub_cate_id">카테고리에 따라</option>
-					<option value="sub_cate_id">카테고리에 따라 달</option>
-					<option value="sub_cate_id">카테고리에 따라 달라</option>
-					<option value="sub_cate_id">카테고리에 따라 달라짐</option>
+					
 				</select>
-				<!-- </div> -->
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1528,11 +1660,8 @@
 			<div class="project-element-in-div project-element-title-div project-element-in-title">거래 은행</div>
 			<div class="project-element-in-div project-element-content-div">
 				<select id="project-bank" name="bank" >
-					<option value="cate_id">선택하세요.</option>
-					<option value="cate_id">국민은행</option>
-					<option value="cate_id">우리은행</option>
-					<option value="cate_id">하나은행</option>
-					<option value="cate_id">우체국</option>
+					<option>선택하세요.</option>
+				
 				</select>
 			</div>
 		</div>
@@ -1729,6 +1858,9 @@
 		  });
 		}	
 	}
+	
+
+
 </script>
 
 <c:import url="/WEB-INF/views/footer.jsp"/>
