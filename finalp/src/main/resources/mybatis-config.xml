@@ -11,6 +11,13 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Category" alias="Category" />
 		<typeAlias type="com.devone.finalp.common.model.vo.SubCategory" alias="SubCategory" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Bank" alias="Bank" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Gift" alias="Gift" />
+		<typeAlias type="com.devone.finalp.common.model.vo.GiftInItems" alias="GiftInItems" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Item" alias="Item" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Product" alias="Product" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Project" alias="Project" />
+		<typeAlias type="com.devone.finalp.common.model.vo.ProjectAccount" alias="ProjectAccount" />
+		<typeAlias type="com.devone.finalp.common.model.vo.ProjectContent" alias="ProjectContent" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
