@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="projectstatusMapper">
+
+	<resultMap id="CategoryResultMap" type="Category">
+		<result column="category_id" property="category_id"/>
+		<result column="category_name" property="category_name"/>
+	</resultMap>
+	<select id="selectAllCategory" resultMap="CategoryResultMap">
+		<![CDATA[
+			SELECT * FROM CATEGORY 
+		]]>
+	</select>
+	
+	<resultMap id="subCategoryResultMap" type="SubCategory">
+		<result column="category_sub_id" property="category_sub_id"/>
+		<result column="category_sub_name" property="category_sub_name"/>
+		<result column="category_id" property="category_id"/>
+	</resultMap>
+	<select id="selectListSubCategoryByCaId" resultMap="subCategoryResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM CATEGORY_SUB
+			WHERE CATEGORY_ID = #{ categotyIf }
+		]]>
+	</select>
+	
+	<resultMap id="bankResultMap" type="Bank">
+		<result column="category_sub_id" property="category_sub_id"/>
+		<result column="category_sub_name" property="category_sub_name"/>
+		<result column="category_id" property="category_id"/>
+	</resultMap>
+	<select id="selectAllBank" resultMap="bankResultMap">
+		<![CDATA[
+			SELECT * FROM BANK
+		]]>
+	</select>
+	
+	<select id="insertProject" parameterType="Project">
+		<![CDATA[
+			INSERT INTO PROJECT VALUES( #{ project_id }, #{ project_category_id }, NULL,
+							NULL, #{ member_id }, NULL, NULL, 
+							NULL, DEFAULT, SYSDATE, NULL, NULL, 
+							NULL, NULL, 'N', DEFAULT, 'N'
+			)
+		]]>
+	</select>
+	
+	<select id="updateProject" parameterType="Project">
+		<![CDATA[
+			UPDATE PROJECT SET
+			CATEGORY_SUB_ID = #{ category_sub_id },
+			PROJECT_NAME = #{ project_name },
+			REP_CONTENT = #{ rep_content },
+			TARGET_AMOUNT = #{ target_amount },
+			END_DATE = #{ end_date },
+			PAYMENT_DATE = #{ end_date } + 7,
+			REFUND_ROLE = #{ refund_role },
+			CERTIF_FLAG = #{ certif_flag }
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="selectOneProject" parameterType="string"
+		resultType="Project">
+		<![CDATA[
+				SELECT * 
+				FROM PROJECT
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</select>
+	
+	<update id="updateProjectToUploadImg" parameterType="Project">
+		<![CDATA[
+				UPDATE PROJECT SET
+				IMAGE_ORINAME = #{ image_oriname },
+				IMAGE_RENAME = #{ image_rename }
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</update>
+
+	<select id="selectOneProjectIdSeq" resultType="int">
+		<![CDATA[
+				SELECT PROJECT_ID_SEQ.NEXTVAL 
+				FROM DUAL
+		]]>
+	</select>
+
+</mapper>

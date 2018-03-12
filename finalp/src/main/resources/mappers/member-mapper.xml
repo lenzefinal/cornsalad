@@ -5,12 +5,20 @@
 <mapper namespace="memberMapper">
 	<select id="login" resultType="Member" parameterType="Member">
 		<![CDATA[
-			SELECT * FROM MEMBER 
-			WHERE EMAIL = #{ email }
-			AND MEMBER_PWD = #{ member_pwd }
+			SELECT * FROM MEMBER WHERE member_id=#{member_id} AND MEMBER_PWD = #{member_pwd}
 		]]>
 	</select>
-
+	
+	<delete id="deleteMember" parameterType="Member">
+		<![CDATA[
+			delete member where member_id=#{member_id} and member_pwd=#{member_pwd}
+		]]>
+	</delete>
+	<update id="modifyMember" parameterType="Member">
+		<![CDATA[
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email} where member_id=#{member_id}
+		]]>	
+	</update>
 
 
 </mapper>

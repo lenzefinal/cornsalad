@@ -5,21 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mypageIndex</title>
-<link href="/finalp/resources/css/mypage.css" rel="stylesheet">
+<title>마이 페이지</title>
 </head>
  <body class="skin_main">
 <c:import url="../header.jsp"/>
+<c:import url="mypageIndexHeader.jsp"/>
 
- <div id="lnb_area">
-	 <div class="lnb">
-		<ul> 
-			<li class="on">
-				<a href="mypageIndex.do" style="color:black;">내 정보<em style="color:black"></em></a>
-			</li>
-		</ul>
-	</div>
-</div>
   <div id="container" style="height:724px;">
 	<div id="content" class="section_home">
 		<div class="column">
@@ -39,7 +30,7 @@
 					<dt class="blind">&nbsp;</dt>
 					<dd class="intro_desc">&nbsp;</dd>
 					<dt class="nic_tit">아이디</dt>
-					<dd class="nic_desc">abcde123456</dd>
+					<dd class="nic_desc">${loginUser.member_id}</dd>
 					</dl>
 				</div>
 			<p class="btn_area_btm"><a href="mypageModify.do" class="btn_model"><b class="btn2">수정</b></a></p>
@@ -47,7 +38,7 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>찜</h2>
-					<a href="#" class="all" style="color:#a3a3a3;">전체보기</a>
+					<a href="mypageLikes.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">
@@ -64,7 +55,7 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>현황</h2>
-					<a href="#" class="all" style="color:#a3a3a3;">전체보기</a>
+					<a href="mypageStatus.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">
