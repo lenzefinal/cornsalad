@@ -90,5 +90,45 @@
 				FROM DUAL
 		]]>
 	</select>
-
+	
+	<select id="insertProjectContent" parameterType="ProjectContent">
+		<![CDATA[
+			INSERT INTO PROJECT_CONTENT VALUES( #{ project_id }, #{ video_url }, #{ content } )
+		]]>
+	</select>
+	
+	<select id="updateProjectContent" parameterType="ProjectContent">
+		<![CDATA[
+			UPDATE PROJECT_CONTENT SET
+			VIDEO_URL = #{ video_url },
+			CONTENT = #{ content }
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="insertProjectAccount" parameterType="ProjectAccount">
+		<![CDATA[
+			INSERT INTO PROJECT_ACCOUNT VALUES( #{ project_id }, #{ bank_id }, #{ account_name }, #{ account_number } )
+		]]>
+	</select>
+	
+	<select id="insertGift" parameterType="Gift">
+		<![CDATA[
+			INSERT INTO GIFT VALUES( #{ gift_id }, #{ support_price }, #{ capacity }, #{ project_id } )
+		]]>
+	</select>
+	
+	<select id="insertItem" parameterType="Item">
+		<![CDATA[
+			INSERT INTO ITEM VALUES( #{ item_id }, #{ item_name }, #{ project_id } )
+		]]>
+	</select>
+	
+	<select id="insertGiftInItem" parameterType="GiftInItems">
+		<![CDATA[
+			INSERT INTO GIFT_IN_ITEMS VALUES( #{ gift_id }, #{ item_id }, #{ count } )
+		]]>
+	</select>
+	
+	
 </mapper>

@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Category;
+import com.devone.finalp.common.model.vo.Gift;
+import com.devone.finalp.common.model.vo.GiftInItems;
+import com.devone.finalp.common.model.vo.Item;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.ProjectAccount;
+import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.project_status.model.dao.ProjectStatusDao;
 
@@ -55,6 +60,36 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 	@Override
 	public int updateProject(Project project) {
 		return projectStatusDao.updateProject(project);
+	}
+
+	@Override
+	public int updateProjectContent(ProjectContent projectCon) {
+		return projectStatusDao.updateProjectContent(projectCon);
+	}
+
+	@Override
+	public int insertProjectContent(ProjectContent projectCon) {
+		return projectStatusDao.insertProjectContent(projectCon);
+	}
+
+	@Override
+	public int insertProjectAccount(ProjectAccount projectAcc) {
+		return projectStatusDao.insertProjectAccount(projectAcc);
+	}
+
+	@Override
+	public int insertGift(Gift gift) {
+		return projectStatusDao.insertGift(gift);
+	}
+
+	@Override
+	public int insertItem(Item item) {
+		return projectStatusDao.insertItem(item);
+	}
+
+	@Override
+	public int insertGiftInItem(GiftInItems giftInItem) {
+		return projectStatusDao.insertGiftInItem(giftInItem);
 	}
 
 }
