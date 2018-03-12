@@ -1224,9 +1224,17 @@ function insertGiftInItemFunc(){
 	    		$(countSelector).text(0);
 	    	} 
 	    	else{
-	   
-	    		$(countSelector).attr("value", 1);
-	    		$(countSelector).text(1);
+	    		var count = 0;
+	    		
+	   			if($(countSelector).attr("value") == 0){
+	   				count = 1;
+	   			} 
+	   			else{
+	   				count = $(countSelector).attr("value");
+	   			}
+	   			
+	    		$(countSelector).attr("value", count);
+	    		$(countSelector).text(count);
 	    	}
 	    	
 	    	$(this).toggleClass("gift-chk-btn-active");
@@ -1252,7 +1260,7 @@ function insertGiftInItemFunc(){
 		        	$(itemcountTagId).text(totalCount);
 	        	}
 	        	
-	        }, 300);
+	        }, 100);
 	       
 	        $(this).addClass("itemcount-minus_plus-mousedown");
 	        
@@ -1271,14 +1279,10 @@ function insertGiftInItemFunc(){
 	            var itemcountTagId = thisValue + " .gift-in-item-count";
 	        	var totalCount = Number($(itemcountTagId).attr("value")) + 1;
 	        	
-	        	/* console.log("id:"+itemcountTagId);
-	        	console.log("value:"+$(itemcountTagId).attr("value"));
-	        	console.log("totalCount:"+totalCount); */
-	        	
 	        	$(itemcountTagId).attr("value", totalCount);
 	        	$(itemcountTagId).text(totalCount);
 	        	
-	        }, 300);
+	        }, 100);
 	       
 	        $(this).addClass("itemcount-minus_plus-mousedown");
 	        
