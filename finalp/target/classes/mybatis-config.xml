@@ -8,11 +8,23 @@
 	<typeAliases>
 		<typeAlias type="com.devone.finalp.common.model.vo.Member" alias="Member" />
 		<typeAlias type="com.devone.finalp.board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Category" alias="Category" />
+		<typeAlias type="com.devone.finalp.common.model.vo.SubCategory" alias="SubCategory" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Bank" alias="Bank" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Gift" alias="Gift" />
+		<typeAlias type="com.devone.finalp.common.model.vo.GiftInItems" alias="GiftInItems" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Item" alias="Item" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Product" alias="Product" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Project" alias="Project" />
+		<typeAlias type="com.devone.finalp.common.model.vo.ProjectAccount" alias="ProjectAccount" />
+		<typeAlias type="com.devone.finalp.common.model.vo.ProjectContent" alias="ProjectContent" />
+		<typeAlias type="com.devone.finalp.board.model.vo.Board_Reply" alias="Board_Reply" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/board-mapper.xml" />
+		<mapper resource="mappers/projectstatus-mapper.xml" />
 	</mappers>
 </configuration>
