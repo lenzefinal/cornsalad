@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>header.jsp</title>
   
@@ -558,7 +559,7 @@
 			  <ul>
 				<li><a href="projectlist.do">프로젝트</a></li>
 				<li><a href="projectdetail.do">공동구매</a></li>
-				<li><a href="#">오픈예정</a></li>
+				<li><a href="blist.do">오픈예정</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -567,8 +568,9 @@
 
 	  <div class="right-section">
 		<ul class="util-menu pc-only">
-
+		<c:if test="${ !empty loginUser }">
 			<li><a href="fundingInsertView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
+		</c:if>
 			<li><a href="/web/fthelpCenter" target="_blank">이용가이드</a></li>
 		</ul>
 		
@@ -641,7 +643,7 @@
 				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x"></i></a>
 				<h1>Login</h1><br>	
 			 	<form action="login.do" method="post">
-					<input type="text" name="email" placeholder="Email">
+					<input type="text" name="member_id" placeholder="Id">
 					<input type="password" name="member_pwd" placeholder="Password">
 					<input type="submit" name="login" class="login loginmodal-submit main-backgroundcolor-cornsalad" value="Login">
 			  	</form>

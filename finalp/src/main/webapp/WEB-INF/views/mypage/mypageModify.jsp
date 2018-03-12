@@ -92,6 +92,24 @@ $(function(){
 		'Apple SD GothicNeo', Sans-serif;
    		line-hieght:10px;
     }
+    .confirm{
+    	width:100px;
+    	height:40px;
+    	text-align:center;
+	    background-color: #f5f6f8;
+	    color: gray;
+	    border: 2px solid #7D54FA; 
+	    -webkit-transition-duration: 0.4s;
+   		transition-duration: 0.4s;
+   		font-size:14px;
+   		font-family: NanumGothic, 'Malgun Gothic', Dotum, Helvetica,
+		'Apple SD GothicNeo', Sans-serif;
+   		line-hieght:10px;
+    }
+    .confirm:hover{
+    	color:white;
+    	background-color: #7D54FA;
+    }
     .cancel:hover {
     	color:white;
     	background-color:red;	
@@ -228,6 +246,20 @@ $(function(){
 		}
 	}
 </style>
+<script>
+	function pwdCheck(){
+	     var pw = document.getElementById("member_pwd").value;
+	     var pwck = document.getElementById("pwd_check").value;
+	 
+	        if (pw != pwck) {
+	            $('#same').html("비밀번호가 일치하지 않습니다!");
+	            $('#same').css('color', 'red');
+	        } else {
+	        	$('#same').html("비밀번호가 잘 맞네요!")
+	        	  $('#same').css('color', 'blue');
+	        }
+	}
+</script>
 
 	 <div id="container" style="height:724px;">
 		<div id="content" class="section_home">
@@ -235,7 +267,7 @@ $(function(){
 				<h2>내 정보 변경</h2>
 				<p class="contxt">회원님의 정보를 확인하고 변경할 수 있습니다.</p>
 			</div>
-		<form>
+		<form action="mModify.do" method="post">
 			<div class="column">
 				<img src="https://www.artistudy.com/files/attach/images/4672/776/005/13d6061ae653f3bfbc557879b8734dd0.jpg"/><br>
 					<div class="filebox preview-image" > 
@@ -244,37 +276,37 @@ $(function(){
 						<input type="file" id="ex_filename" class="upload-hidden"> 
 						<button class="cancel" style="margin-bottom:5%"><b>이미지 삭제</b></button>
 					</div>
-				<dl class="accoutinfo">
-					<dt><b>은행명</b></dt>
-					<select style="margin-bottom:5%; height:30px;">
-						<option>하나은행</option>
-						<option>신한은행</option>
-						<option>농협</option>
-						<option>아무튼은행</option>
-					</select>
-				<dt><b>계좌번호</b></dt>
-					<dd><input type="text" style="height:20px;"></dd>
-				</dl>
 			</div>
 			<div class="column">
 					<dl class="myinfo">
 						<dt><b>ID</b></dt>
-						<dd>ID IS NOT MODIFY</dd>
-						<dt><b>현재 비밀번호</b></dt>
-						<dd><input type="password" maxlength="16"></dd>
+						<input type="hidden" name="member_id" value="${loginUser.member_id }"/>
+						<dd>${loginUser.member_id }</dd>
 						<dt><b>변경할 비밀번호</b></dt>
-						<dd><input type="password" maxlength="16"></dd>
+						<dd><input type="password" maxlength="16" id="member_pwd" name="member_pwd" required></dd>
 						<dt><b>비밀번호 확인</b></dt>
-						<dd><input type="password" maxlength="16"></dd>
+						<dd><input type="password" maxlength="16" id="pwd_check" onchange="pwdCheck()" required>&nbsp;&nbsp;<span id="same"></span></dd>
+						
 						<dt><b>Phone</b></dt>
-						<dd><input type="tel" maxlength="16"></dd>
+						<dd><input type="tel" name="phone" maxlength="16" value="${loginUser.phone }"></dd>
 						<dt><b>E-mail</b></dt>
-						<dd><input type="email"/>
-						<dt><b>주소</b></dt>
+						<dd><input type="email" name="email" value="${loginUser.email }"/>
+						<!-- <dt><b>주소</b></dt>
 						<dd>주소 넣기</dd>
+						<dt><b>은행명</b></dt>
+							<select style="margin-bottom:5%; height:30px;" name="bank">
+								<otpgroup label="은행명">
+									<option>하나은행</option>
+									<option>신한은행</option>
+									<option>농협</option>
+									<option>아무튼은행</option>
+								</otpgroup>
+							</select>
+						<dt><b>계좌번호</b></dt>
+						<dd><input type="text" style="height:20px;"></dd> -->
 					</dl>
 					<button type="submit" class="modify" style="margin-left:0%">수정하기</button> &nbsp;
-			 		<button type="submit" class="cancel">취소</button>
+			 		<input type="button" onclick="javascript:history.back(-1)" class="cancel" value="취소"></button>
 			</div>
 			</form> 
 		</div>

@@ -191,8 +191,8 @@
             <div id="wpurchaseType" class="wpurchase-type">
               <h3><em>결제예약 수단 선택</em></h3>
               <ul>
-                <li><input type="radio" name="ra01" id="rdpt01" checked="checked" /><label for="rdpt01"> &nbsp; 신용(체크)카드</label></li>
-                <li><input type="radio" name="ra01" id="rdpt02" /><label for="rdpt02"> &nbsp; 카카오 페이</label></li>
+                <li><input type="radio" name="ra01" id="rdpt01" checked="checked" value="card" /><label for="rdpt01"> &nbsp; 신용(체크)카드</label></li>
+                <li><input type="radio" name="ra01" id="rdpt02" value="kakao" /><label for="rdpt02"> &nbsp; 카카오 페이</label></li>
               </ul>
             </div>
             
@@ -201,7 +201,7 @@
 			<hr>
 				<div class="btn-wrap">
     				<p class="confirm">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
-    				<button class="btn-rd-violet" onclick="purchaseNextStep();">다음 단계로 &gt;</button>
+    				<button class="btn-rd-violet" onclick="openPay()">다음 단계로 &gt;</button>
     			</div>
 
 </div>

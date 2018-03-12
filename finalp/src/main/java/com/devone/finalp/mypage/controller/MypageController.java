@@ -1,10 +1,21 @@
 package com.devone.finalp.mypage.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.mypage.service.MypageService;
+
 @Controller
 public class MypageController {
+
+	@Autowired
+	private MypageService mypageService;
+
 	// 마이페이지 메인
 	@RequestMapping("mypageIndex.do")
 	public String mypageIndex() {
@@ -92,5 +103,28 @@ public class MypageController {
 
 		return "mypage/productLikes";
 	}
+	
+	//회원 정보 수정 기능
+	@RequestMapping("mModify.do")
+	public String memberModify(Member member) {
+		System.out.println(member);
+		mypageService.memberModify(member);
+		
+		return "mypage/mypageModify";
+	}
 
+	// 회원 탈퇴 기능
+	@RequestMapping("mDelete.do")
+	public String memberDelete(Member member, HttpSession session, HttpServletRequest request) {
+		System.out.println(member);
+		mypageService.memberDelete(member);
+		session = request.getSession(false);
+
+		if (session != null) {
+			session.invalidate();
+		}
+
+		System.out.println("회원 탈퇴 완료");
+		return "home";
+	}
 }

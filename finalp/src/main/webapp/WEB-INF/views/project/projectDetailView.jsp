@@ -904,7 +904,7 @@ button * {
 					<p class="total-supporter"><strong>471</strong>명의 서포터</p>
                 </div>
                 <div class="btn-wrap funding">
-                   <button onclick="backMoney('backing', 'false');" class="wz-btn primary large block">펀딩하기</button>
+                   <button onclick="location.href='account.do'" class="wz-btn primary large block">펀딩하기</button>
                 </div>
                 
                 <div class="btn-wrap share">
