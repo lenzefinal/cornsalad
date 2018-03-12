@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -335,9 +335,17 @@ public class ProjectStatusController {
 		GregorianCalendar gcal = new GregorianCalendar();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
-		gcal.setTime(sdf.parse(endDateStr));
 		
-		Date date = new Date(gcal.getTimeInMillis());
+		
+		Date date = null;
+		
+		try {
+			gcal.setTime(sdf.parse(endDateStr));
+			date = new Date(gcal.getTimeInMillis());
+			
+		} catch(ParseException e) {
+			date = null;
+		}
 		
 		System.out.println(endDateStr);
 		System.out.println(date);
