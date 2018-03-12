@@ -11,6 +11,6 @@ public interface MypageService {
 	int memberDelete(Member member);
 	Member selectMember(Member member);
 	MemberAccount selectAccount(MemberAccount account);
-	List selectBank(Bank bank);
+	List bankList();
 	int accountModify(MemberAccount account);
 }

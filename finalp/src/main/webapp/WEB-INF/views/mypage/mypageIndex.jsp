@@ -23,7 +23,7 @@
 					<dt class="blind">프로필 사진</dt>
 					<dd class="pic_desc">
 						<a href="#">
-							<img style="border-radius:100%" src="https://www.artistudy.com/files/attach/images/4672/776/005/13d6061ae653f3bfbc557879b8734dd0.jpg" width="80" height="80" alt="">
+							<img style="border-radius:100%" src="resources/images/mypageProfiles/defaultProfile.jpg" width="80" height="80" alt="">
 							<span class="spimg img_frame"></span>
 						</a>
 					</dd>

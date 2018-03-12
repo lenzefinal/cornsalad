@@ -16,7 +16,8 @@
 	</delete>
 	<update id="modifyMember" parameterType="Member">
 		<![CDATA[
-			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address=#{address} where member_id=#{member_id}
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address=#{address}, profile_img_oriname=#{profile_img_oriname},
+			profile_img_rename=#{profile_img_rename} where member_id=#{member_id}
 		]]>	
 	</update>
 	

@@ -34,8 +34,8 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectAccount(account);
 	}
 	@Override
-	public List selectBank(Bank bank) {
-		return mypageDao.selectBank(bank);
+	public List bankList() {
+		return mypageDao.bankList();
 	}
 	@Override
 	public int accountModify(MemberAccount account) {

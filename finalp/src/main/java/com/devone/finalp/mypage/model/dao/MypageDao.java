@@ -35,9 +35,9 @@ public class MypageDao {
 		return mybatis.selectOne("accountMapper.accountInfo", account);
 	}
 
-	public List selectBank(Bank bank) {
+	public List bankList() {
 		// TODO Auto-generated method stub
-		return mybatis.selectList("accountMapper.bankInfo", bank);
+		return mybatis.selectList("accountMapper.bankInfo");
 	}
 
 	public int accountModify(MemberAccount account) {
