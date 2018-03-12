@@ -33,7 +33,10 @@
 					<dd class="nic_desc">${loginUser.member_id}</dd>
 					</dl>
 				</div>
-			<p class="btn_area_btm"><a href="mypageModify.do" class="btn_model"><b class="btn2">수정</b></a></p>
+				<c:url var="modify" value="mypageModify.do">
+					<c:param name="member_id" value="${loginUser.member_id }"/>
+				</c:url>
+			<p class="btn_area_btm"><a href="${modify }" class="btn_model"><b class="btn2">수정</b></a></p>
 			</div>
 			<div class="sh_group">
 				<div class="sh_header">

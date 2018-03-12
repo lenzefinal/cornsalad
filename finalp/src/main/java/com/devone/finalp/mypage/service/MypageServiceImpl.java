@@ -1,9 +1,13 @@
 package com.devone.finalp.mypage.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.memberaccount.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.dao.MypageDao;
 
 @Service("mypageService")
@@ -21,5 +25,20 @@ public class MypageServiceImpl implements MypageService {
 	public int memberDelete(Member member) {
 		return mypageDao.memberDelete(member);
 	}
-	
+	@Override
+	public Member selectMember(Member member) {
+		return mypageDao.selectMember(member);
+	}
+	@Override
+	public MemberAccount selectAccount(MemberAccount account) {
+		return mypageDao.selectAccount(account);
+	}
+	@Override
+	public List selectBank(Bank bank) {
+		return mypageDao.selectBank(bank);
+	}
+	@Override
+	public int accountModify(MemberAccount account) {
+		return mypageDao.accountModify(account);
+	}
 }

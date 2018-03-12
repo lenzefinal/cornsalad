@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountMapper">
+
+	<select id="accountInfo" resultType="MemberAccount" parameterType="MemberAccount">
+		<![CDATA[
+			SELECT account_number FROM MEMBER_ACCOUNT WHERE MEMBER_ID=#{member_id}
+		]]>
+	</select>
+	
+	<select id="bankInfo" resultType="Bank" parameterType="Bank">
+		<![CDATA[
+			select * from bank
+		]]>
+	</select>
+	
+	<update id="modifyAccount" parameterType="MemberAccount">
+		update member_account set bank_id=#{bank_id}, account_number=#{account_number} where member_id=#{member_id}
+	</update>
+</mapper>
