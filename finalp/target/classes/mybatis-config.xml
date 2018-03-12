@@ -6,7 +6,7 @@
 	
 	<!-- vo 등록 -->
 	<typeAliases>
-		<typeAlias type="com.devone.finalp.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Member" alias="Member" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
