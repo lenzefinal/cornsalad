@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Category;
+import com.devone.finalp.common.model.vo.Gift;
+import com.devone.finalp.common.model.vo.GiftInItems;
+import com.devone.finalp.common.model.vo.Item;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.ProjectAccount;
+import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 
 @Repository("projectStatusDao")
@@ -47,5 +52,29 @@ public class ProjectStatusDao {
 
 	public int updateProject(Project project) {
 		return mybatis.update("projectstatusMapper.updateProject", project);
+	}
+
+	public int updateProjectContent(ProjectContent projectCon) {
+		return mybatis.update("projectstatusMapper.updateProjectContent", projectCon);
+	}
+
+	public int insertProjectContent(ProjectContent projectCon) {
+		return mybatis.insert("projectstatusMapper.insertProjectContent", projectCon);
+	}
+
+	public int insertProjectAccount(ProjectAccount projectAcc) {
+		return mybatis.insert("projectstatusMapper.insertProjectAccount", projectAcc);
+	}
+
+	public int insertGift(Gift gift) {
+		return mybatis.insert("projectstatusMapper.insertGift", gift);
+	}
+
+	public int insertItem(Item item) {
+		return mybatis.insert("projectstatusMapper.insertItem", item);
+	}
+
+	public int insertGiftInItem(GiftInItems giftInItem) {
+		return mybatis.insert("projectstatusMapper.insertGiftInItem", giftInItem);
 	}
 }

@@ -23,7 +23,7 @@
 					<dt class="blind">프로필 사진</dt>
 					<dd class="pic_desc">
 						<a href="#">
-							<img style="border-radius:100%" src="https://www.artistudy.com/files/attach/images/4672/776/005/13d6061ae653f3bfbc557879b8734dd0.jpg" width="80" height="80" alt="">
+							<img style="border-radius:100%" src="resources/images/mypageProfiles/defaultProfile.jpg" width="80" height="80" alt="">
 							<span class="spimg img_frame"></span>
 						</a>
 					</dd>
@@ -33,7 +33,10 @@
 					<dd class="nic_desc">${loginUser.member_id}</dd>
 					</dl>
 				</div>
-			<p class="btn_area_btm"><a href="mypageModify.do" class="btn_model"><b class="btn2">수정</b></a></p>
+				<c:url var="modify" value="mypageModify.do">
+					<c:param name="member_id" value="${loginUser.member_id }"/>
+				</c:url>
+			<p class="btn_area_btm"><a href="${modify }" class="btn_model"><b class="btn2">수정</b></a></p>
 			</div>
 			<div class="sh_group">
 				<div class="sh_header">

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountMapper">
+
+	<resultMap id="bankList" type="Bank">
+  		<result property="bank_id" column="bank_id"/>
+  		<result property="bank_name" column="bank_name"/>
+	</resultMap>
+
+	<select id="accountInfo" resultType="MemberAccount" parameterType="MemberAccount">
+		<![CDATA[
+			SELECT M.MEMBER_ID, M.BANK_ID, B.BANK_NAME, M.ACCOUNT_NUMBER 
+			FROM MEMBER_ACCOUNT M 
+			JOIN BANK B ON(M.BANK_ID=B.BANK_ID)
+			WHERE MEMBER_ID=#{member_id}
+		]]>
+	</select>
+	
+	<select id="bankInfo" resultMap="bankList">
+		<![CDATA[
+			select * from bank
+		]]>
+	</select>
+	
+	<update id="modifyAccount" parameterType="MemberAccount">
+		<![CDATA[
+			update member_account set bank_id=#{bank_id}, account_number=#{account_number} where member_id=#{member_id}
+		]]>
+		
+	</update>
+</mapper>
