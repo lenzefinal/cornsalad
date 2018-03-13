@@ -92,4 +92,29 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 		return projectStatusDao.insertGiftInItem(giftInItem);
 	}
 
+	@Override
+	public ProjectContent selectOneProjectContentByProId(String projectId) {
+		return projectStatusDao.selectOneProjectContentByProId(projectId);
+	}
+
+	@Override
+	public ProjectAccount selectOneProjectAccountByProId(String projectId) {
+		return projectStatusDao.selectOneProjectAccountByProId(projectId);
+	}
+
+	@Override
+	public List<Item> selectListItem(String projectId) {
+		return projectStatusDao.selectListItem(projectId);
+	}
+
+	@Override
+	public List<Gift> selectListGift(String projectId) {
+		return projectStatusDao.selectListGift(projectId);
+	}
+
+	@Override
+	public List<GiftInItems> selectListGiftInItems(String projectId) {
+		return projectStatusDao.selectListGiftInItems(projectId);
+	}
+
 }
