@@ -577,7 +577,7 @@
 		  <ul class="util-menu">
 		  <c:if test="${ empty loginUser }">
 		  	<li class="point"><a id="loginBtn" href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
-			<li class="point"><a href="#" onclick="registerLink()">회원가입</a></li>
+			<li class="point"><a href="enroll.do">회원가입</a></li>
 		  </c:if>
 		  <c:if test="${ !empty loginUser }">
 		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>
