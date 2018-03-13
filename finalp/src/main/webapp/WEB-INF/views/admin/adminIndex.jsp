@@ -40,9 +40,9 @@
 			   <dt>&nbsp;</dt>
                <dd>&nbsp;</dd>
                <dt>총 회원 수</dt>
-               <dd>23456</dd>
+               <dd>${ aalarm.membercount } 명</dd>
                <dt>BLACKLIST</dt>
-               <dd>60</dd>
+               <dd>${ aalarm.blacklistcount } 명</dd>
                </dl>
             </div>
          </div>
@@ -68,7 +68,7 @@
                <dt>&nbsp;</dt>
                <dd>&nbsp;</dd>
 			   <dt>신고된 게시글</dt>
-               <dd>3 건</dd>
+               <dd>${ aalarm.reportcount } 건</dd>
                </dl>
             </div>
          </div>
@@ -83,11 +83,11 @@
             <div class="sh_content">
                <dl class="sh_lst2">
                   <dt>프로젝트</dt>
-                  <dd>12345 개</dd>
+                  <dd>${ aalarm.projectcount } 개</dd>
                   <dt>공동구매</dt>
-                  <dd>2166 건</dd>
+                  <dd>${ aalarm.productcount } 건</dd>
 				  <dt>승인 요청</dt>
-                  <dd>5 건</dd>
+                  <dd>${ aalarm.offprojectcount } 건</dd>
                </dl>
             </div>
          </div>
@@ -101,7 +101,7 @@
                <dt>&nbsp;</dt>
                <dd>&nbsp;</dd>
 			   <dt>답변하지 않은 문의글</dt>
-               <dd>10 건</dd>
+               <dd>${ aalarm.questioncount } 건</dd>
                </dl>   
             </div>
          </div>

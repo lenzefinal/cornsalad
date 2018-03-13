@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminmapper">
+
+	<resultMap id="Aalarmmap" type="AAlarm">
+		<result property="membercount" column="membercount" />
+		<result property="blacklistcount" column="blacklistcount" />
+		<result property="projectcount" column="projectcount" />
+		<result property="productcount" column="productcount" />
+		<result property="offprojectcount" column="offprojectcount" />
+		<result property="questioncount" column="questioncount" />
+		<result property="reportcount" column="reportcount" />
+	</resultMap>
+	
+	<select id="adminalarm" resultMap="Aalarmmap">
+		<![CDATA[
+			SELECT * FROM V_ALARM 
+		]]>
+	</select>
+	
+	<resultMap id="Taboomap" type="Taboo">
+		<result property="content" column="content" />
+	</resultMap>
+	
+	<select id="taboolist" resultMap="Taboomap">
+		<![CDATA[
+			SELECT * FROM TABOO 
+		]]>
+	</select>
+	
+	<insert id="inserttaboo" parameterType="Taboo">
+		<![CDATA[
+			INSERT INTO TABOO VALUES(#{ content })
+		]]>
+	</insert>
+	
+	<resultMap id="AReportmap" type="AReport">
+		<result property="rnum" column="rnum" />
+		<result property="report_id" column="report_id" />
+		<result property="report_category_name" column="report_category_name" />
+		<result property="project_id" column="project_id" />
+		<result property="project_reply_id" column="project_reply_id" />
+		<result property="board_id" column="board_id" />
+		<result property="board_reply_id" column="board_reply_id" />
+		<result property="black_id" column="black_id" />
+		<result property="report_reason" column="report_reason" />
+		<result property="member_id" column="member_id" />
+		<result property="report_date" column="report_date" />
+		<result property="report_project_name" column="report_project_name" />
+		<result property="reply_content" column="reply_content" />
+		<result property="report_count" column="report_count" />
+		<result property="report_read_flag" column="report_read_flag" />
+	</resultMap>
+	
+	<select id="reportlist" resultMap="AReportmap">
+		<![CDATA[
+			SELECT * FROM V_REPORT 
+		]]>
+	</select>
+	
+	<select id="reportdetail" parameterType="int">
+		<![CDATA[
+			SELECT * FROM V_REPORT WHERE REPORT_ID = ${ rid }
+		]]>
+	</select>
+
+</mapper>
