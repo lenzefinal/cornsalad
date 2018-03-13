@@ -19,7 +19,7 @@
 	
 	.projectview-btnbox{
 		position: absolute;
-		top: 50%;
+		top: 47%;
 		left: 37%;
 	}
 	
@@ -69,19 +69,21 @@
          
          <div class="carousel-inner" role="listbox" style="background-color:black">
              <!-- Slide One - Set the background image for this slide in the line below -->
-            <div class="carousel-item active main-color-cornsalad" style="background-color:black">
-				<dl style="padding: 70px 0;color: #fff;margin-top: 60px;margin-left: 10%;">
-	                 <dt class="" style="opacity: 1; transform: translateY(0px);font-size: 60px;font-family: 'nanum_eb';line-height: 55px;margin-left: 15px;">CORNSALAD에서 <br> 수익을 창출하세요!</dt><!-- [D] 영문 20자 / 한글 16자 내외(공백포함) -->
-	                 <!-- <dd class="" style="opacity: 1; transform: translateY(0px);width: 450px;margin: 0 auto;font-size: 16px;margin-top: 10px;line-height: 26px;word-break: keep-all;">Welcome!</dd> -->
-             	</dl>
+            <div class="carousel-item active main-color-cornsalad" 
+            	style="background-image:url('/finalp/resources/images/sliderimage/projectslider01.png');">
+				<!-- <dl style="padding: 70px 0;color: #fff;margin-left: 10%;">
+	                 <dt class="" style="opacity: 1; transform: translateY(0px);font-size: 60px;font-family: 'nanum_eb';line-height: 55px;margin-left: 15px;">CORNSALAD에서 <br> 수익을 창출하세요!</dt>[D] 영문 20자 / 한글 16자 내외(공백포함)
+	                 <dd class="" style="opacity: 1; transform: translateY(0px);width: 450px;margin: 0 auto;font-size: 16px;margin-top: 10px;line-height: 26px;word-break: keep-all;">Welcome!</dd>
+             	</dl> -->
 			</div>
             
             <!-- Slide Two - Set the background image for this slide in the line below -->
-            <div class="carousel-item main-color-cornsalad" style="background-color:black">
-            	<dl style="padding: 70px 0;color: #fff;margin-top: 60px;margin-left: 10%;">
-	                 <dt class="" style="opacity: 1; transform: translateY(0px);font-size: 60px;font-family: 'nanum_eb';line-height: 55px;margin-left: 15px;">여기를 어떻게<br>바꿔야 할까ㅠㅠㅠ</dt><!-- [D] 영문 20자 / 한글 16자 내외(공백포함) -->
-	                 <!-- <dd class="" style="opacity: 1; transform: translateY(0px);width: 450px;margin: 0 auto;font-size: 16px;margin-top: 10px;line-height: 26px;word-break: keep-all;">Welcome!</dd> -->
-             	</dl>
+            <div class="carousel-item main-color-cornsalad" 
+            	style="background-image:url('/finalp/resources/images/sliderimage/projectslider02.png');">
+            	<!-- <dl style="padding: 70px 0;color: #fff;margin-left: 10%;">
+	                 <dt class="" style="opacity: 1; transform: translateY(0px);font-size: 60px;font-family: 'nanum_eb';line-height: 55px;margin-left: 15px;">여기를 어떻게<br>바꿔야 할까ㅠㅠㅠ</dt>[D] 영문 20자 / 한글 16자 내외(공백포함)
+	                 <dd class="" style="opacity: 1; transform: translateY(0px);width: 450px;margin: 0 auto;font-size: 16px;margin-top: 10px;line-height: 26px;word-break: keep-all;">Welcome!</dd>
+             	</dl> -->
             </div>
          </div>
       </div>
