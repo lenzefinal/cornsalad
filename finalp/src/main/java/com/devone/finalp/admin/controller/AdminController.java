@@ -110,13 +110,13 @@ public class AdminController {
 	
 	//관리자 신고댓글 상세보기
 	@ResponseBody
-	@RequestMapping("adminReportDetail.do")
-	public String adminReportDetail(
-			HttpServletResponse response,@RequestParam(value = "reportid") int rid) 
-					throws IOException{
+	@RequestMapping(value="adminReportDetail.do", method=RequestMethod.POST)
+	public String adminReportDetail(HttpServletResponse response,
+			@RequestParam(value = "reportid") int report_id) throws IOException {
+		
 		response.setContentType("application/json; charset=utf-8");
+		AReport report=adminService.reportDetail(report_id);
 		JSONObject job=new JSONObject();
-		AReport report=adminService.reportDetail(rid);
 		job.put("rnum", report.getRnum());
 		job.put("report_id", report.getReport_id() );
 		job.put("report_category_name", URLEncoder.encode(report.getReport_category_name(),"utf-8"));

@@ -116,48 +116,39 @@
 						+ "error : " + errorData );	
 				}
   	  		});
-  		})
+  		});
   		
   		//상세보기 MODAL
-  		$('#reportbtn1').on("click",function(){
-  			var reportid=document.getElementById("reportid");
+  		$('#reportbt').on("click",function(){
+  			var reportid=document.getElementById("reportid").value;
+  			console.log(reportid);
   			$.ajax({
-  	  			url:"adminReportDetail.do?reportid="+ reportid ,
+  	  			url:"adminReportDetail.do?reportid="+reportid ,
+  	  			/* data: { reportid : reportid }, */
   	  			type: "post",
   	  			dataType: "json",
   	  			success:function(data){
-  	  				console.log(data);
+  	  				
+  	  				console.log("data"+data);
 					
 					$("#redemo").empty();
-					var values = $("#redemo").html();
-					values +="<div class='form-inline'> <div class='form-group'> <label for='rmember'>신고회원 : &nbsp;</label>"+
-					"<input type='text' class='form-control' id='rmember' value='"+${ reporr.member_id  }+"' readonly >&nbsp;" +
+					$("#redemo").html(
+					
+					"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
+					"<input type='text' class='form-control' id='rmember' value='"+ data.black_id +"' readonly >&nbsp;" +
 					"</div> <br><br><br> <div class='form-group'> <label for='rwriter'>신고 작성자 : &nbsp;</label>" +
-					/* <input type='text' class='form-control' id='rwriter' value='id' readonly>
-				</div>
-				
-				<div class='form-group'>
-					<label for='rdate'> 신고 날짜 : &nbsp;</label>
-					<input type='date' class='form-control' id='rdate' value=' '>
-				</div>
-				</div>
-				<br>
-				<div class='form-group'>
-					<label for='rcontent'>신고 사유  </label>
-					<textarea class='form-control' id='rcontent' cols='90' rows='10'></textarea>
-				</div>
-				<div class='form-group'>
-					<label for='rcategory'>카테고리 : &nbsp;</label>
-					<input type='text' class='form-control' id='rcategory' value='카테고리' readonly >
-				</div>
-				<div class='form-group'>
-					<label for='racontent'>신고 댓글  </label> <span class='colorspan'>해당 댓글 신고 횟수 :  </span>
-					<textarea class='form-control' id='racontent' placeholder='신고댓글내용' cols='60' rows='10'></textarea>
-					<br>
-					<span class='btnspan'><button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span>
-					<br>
-				</div> */";
-					$("#tamodal").html(values);
+					"<input type='text' class='form-control' id='writer' value='"+ data.member_id +"' readonly> </div> <div class='form-group'>"+
+					"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' value='"+
+					data.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
+					" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+					decodeURIComponent(data.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
+					" <div class='form-group'> <label for='rcategory'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
+					decodeURIComponent(data.report_category_name) + "' readonly > </div> <div class='form-group'> <label for='racontent'>신고 댓글  </label>"+
+					"<span class='colorspan'>해당 댓글 신고 횟수 : "+ data.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
+					decodeURIComponent(data.reply_content.replace(/\+/g," ")) + "</textarea> <br> <span class='btnspan'> "+
+					"<button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span> <br> </div> ");
+					
+					
   	  			},
   	  			error: function(request, status, errorData){
 					alert("error code : " + request.status + "\n" 
@@ -165,7 +156,7 @@
 						+ "error : " + errorData );	
 				}
   	  		});
-  		})
+  		});
   	});
   </script>
  </head>
@@ -217,7 +208,7 @@
     <c:choose>
     	<c:when test="${ fn:length(rlist) > 0}">
     		<c:forEach items="${ rlist }" var="rrow">
-    		<input type="hidden" id="reportid" value="${ rrow.report_id }" />
+    		<input type="hidden" id="reportid" value="${ rrow.report_id }" >
       			<tr>
         			<td>${ rrow.report_category_name }</td>
 					<td>${ rrow.member_id }</td>
@@ -227,16 +218,16 @@
 					<td>
 					<c:choose>
 						<c:when test="${ rrow.report_category_name eq '프로젝트 신고' }">
-					 		<button class="btn btn-primary" id="reportbtn1" data-toggle="modal"  data-target="#redetail2">상세보기</button>
+					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal"  data-target="#redetail2">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 신고' }">
-					 		<button class="btn btn-primary" id="reportbtn1" data-toggle="modal" data-target="#redetail2">상세보기</button>
+					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail2">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '프로젝트 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbtn2" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbtn2" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
       					</c:when>
       				</c:choose>
       				</td>
@@ -286,34 +277,34 @@
          <h4 class="modal-title">신고 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body redemo">
+        <div class="modal-body" id="redemo">
 			<div class="form-inline">
 			<div class="form-group">
-				<label for="rmember">신고회원 : &nbsp;</label>
+				<label for="member">신고회원 : &nbsp;</label>
 				<input type="text" class="form-control" id="rmember" value="id" readonly >&nbsp;
 			</div>
 			<br><br><br>
 			<div class="form-group">
-				<label for="rwriter">신고 작성자 : &nbsp;</label>
+				<label for="writer">신고 작성자 : &nbsp;</label>
 				<input type="text" class="form-control" id="rwriter" value="id" readonly>
 			</div>
 			
 			<div class="form-group">
-				<label for="rdate"> 신고 날짜 : &nbsp;</label>
+				<label for="date"> 신고 날짜 : &nbsp;</label>
 				<input type="date" class="form-control" id="rdate">
 			</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="rcontent">신고 사유  </label>
+				<label for="content">신고 사유  </label>
 				<textarea class="form-control" id="rcontent" placeholder="신고사유" cols="90" rows="10"></textarea>
 			</div>
 			<div class="form-group">
-				<label for="rcategory">카테고리 : &nbsp;</label>
+				<label for="category">카테고리 : &nbsp;</label>
 				<input type="text" class="form-control" id="rcategory" value="카테고리" readonly >
 			</div>
 			<div class="form-group">
-				<label for="racontent">신고 댓글  </label> <span class="colorspan">해당 댓글 신고 횟수 :  </span>
+				<label for="acontent">신고 댓글  </label> <span class="colorspan">해당 댓글 신고 횟수 :  </span>
 				<textarea class="form-control" id="racontent" placeholder="신고댓글내용" cols="60" rows="10"></textarea>
 				<br>
 				<span class="btnspan"><button class="btn btn-danger" data-dismiss="modal">해당 댓글 삭제</button>&nbsp;</span>
@@ -334,30 +325,30 @@
          <h4 class="modal-title">신고 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body vodemo">
+        <div class="modal-body" id="redemo">
 			<div class="form-inline">
 			<div class="form-group">
-				<label for="rmember">신고회원 : &nbsp;</label>
-				<input type="text" class="form-control" id="rmember" value="id" readonly >&nbsp;
+				<label for="member">신고회원 : &nbsp;</label>
+				<input type="text" class="form-control" id="rmember2" value="id" readonly >&nbsp;
 			</div>
 			<br><br><br>
 			<div class="form-group">
-				<label for="rwriter">신고 작성자 : &nbsp;</label>
-				<input type="text" class="form-control" id="rwriter" value="id" readonly>
+				<label for="writer">신고 작성자 : &nbsp;</label>
+				<input type="text" class="form-control" id="rwriter2" value="id" readonly>
 			</div>
 			<div class="form-group">
-				<label for="rdate"> 신고 날짜 : &nbsp;</label>
-				<input type="date" class="form-control" id="rdate">
+				<label for="date"> 신고 날짜 : &nbsp;</label>
+				<input type="date" class="form-control" id="rdate2">
 			</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="rcontent">신고 사유  </label>
-				<textarea class="form-control" id="rcontent" placeholder="신고사유" cols="90" rows="10"></textarea>
+				<label for="content">신고 사유  </label>
+				<textarea class="form-control" id="rcontent2" placeholder="신고사유" cols="90" rows="10"></textarea>
 			</div>
 			
 			<div class="form-group">
-				<label for="ratitle">신고 당한 글 바로가기  </label><span class="colorspan">해당 글 신고 횟수 :  </span>
+				<label for="atitle">신고 당한 글 바로가기  </label><span class="colorspan">해당 글 신고 횟수 :  </span>
 
 				<table class="table table-bordered">
 					<tr class="active"><th>카테고리</th><th>제목</th></tr>

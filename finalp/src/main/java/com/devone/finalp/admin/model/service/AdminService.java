@@ -12,5 +12,5 @@ public interface AdminService {
 	List<Taboo> selectTabooList();
 	int insertTaboo(Taboo taboo);
 	List<AReport> selectReportList();
-	AReport reportDetail(int rid);	
+	AReport reportDetail(int report_id);	
 }

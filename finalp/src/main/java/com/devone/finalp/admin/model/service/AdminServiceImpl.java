@@ -42,8 +42,8 @@ public class AdminServiceImpl implements AdminService {
 
 	//관리자 신고글 상세보기
 	@Override
-	public AReport reportDetail(int rid) {
-		return adminDao.reportDetail(rid);
+	public AReport reportDetail(int report_id) {
+		return adminDao.reportDetail(report_id);
 	}
 	
 	

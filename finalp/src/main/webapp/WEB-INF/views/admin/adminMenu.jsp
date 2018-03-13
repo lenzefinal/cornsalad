@@ -138,7 +138,8 @@ $(document).ready(function() {
 		<li class="list-group-item menu"><a class="menua" href="adminNotice.do">NOTICE</a></li>
 		<li class="list-group-item menu"><a class="menua" href="adminQuestion.do">QUESTION</a></li>
 		<li class="list-group-item menu"><a class="menua" href="adminReport.do">REPORT</a></li>
-		<li class="list-group-item menu"><a class="menua" href="adminStat.do">STAT</a></li>
+		<li class="list-group-item menu"><a class="menua" href="adminStat.do">STATISTICS</a></li>
+<!-- 		<li class="list-group-item menu"><a class="menua" href="adminProject.do">REFUND REQUEST</a></li> -->
 	</ul>
 </div>
 <div id="menubt">

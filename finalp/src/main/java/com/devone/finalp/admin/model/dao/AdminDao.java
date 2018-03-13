@@ -33,8 +33,8 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.reportlist");
 	}
 
-	public AReport reportDetail(int rid) {
-		return mybatis.selectOne("adminmapper.reportdetail", rid);
+	public AReport reportDetail(int report_id) {
+		return mybatis.selectOne("adminmapper.reportdetail", report_id);
 	}
 
 }

@@ -13,6 +13,7 @@
 		margin-top:2%;
 		margin-left:25%;
 		margin-right:10%;
+		margin-bottom: 20%;
 		display:inline-block;
 		width: 60%;
 		float:center;
@@ -41,7 +42,6 @@
 		margin:10px;
 	}
 	#adminmemde .table{
-		margin:10px;
 		width:600px;
 		clear:both;
 		text-align:center;
@@ -104,6 +104,9 @@
 			<th class="active">연락처</th><td>&nbsp;&nbsp; 010789456123</td>
 		</tr>
 		<tr>
+			<th class="active">후원금</th><td>&nbsp;&nbsp; 155555</td>
+		</tr>
+		<tr>
 			<th class="active">누적 신고 수 /블랙리스트</th><td>&nbsp;&nbsp; 15 / Y</td>
 		</tr>
 		<tr>
@@ -121,11 +124,12 @@
 	<div id="tdiv2">
 	<table class="table table-bordered" id="table2">
 		<tr><th>카테고리</th><th>제목</th><th>마감일</th><th>후원 현황</th></tr>
-		<tr><td>PROJECT</td><td><a href="">안뇽안뇽</a></td><td>2018.04.05</td><th>15%</th></tr>
+		<tr><td>PROJECT</td><td><a href="">안뇽안뇽</a></td><td>2018.04.05</td><td>15%</td></tr>
 	</table>
 	</div>
   </div>
   
 </div>
+<c:import url="../footer.jsp"></c:import>
 </body>
 </html>
