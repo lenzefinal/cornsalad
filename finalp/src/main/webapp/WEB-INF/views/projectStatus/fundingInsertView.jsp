@@ -701,8 +701,9 @@ function updateProjectFunc(){
 		url: "updateProject.do",
 		data: JSON.stringify(project),
 		type: "post",
+		async: false,
 		contentType: "application/json; charset=UTF-8",
-		success: function(result){
+		success: function(){
 			console.log("프로젝트 업데이트 성공")
 		},
 		error: function(request, status, errorData){
@@ -713,6 +714,197 @@ function updateProjectFunc(){
 	}); 
 
 }
+
+function insertProjectContentFunc(){
+	
+	var content = new Object();
+	content.project_id = $("#project-id-input").val();
+	content.video_url = $("#content-videourl-input").val();
+	content.content = tinymce.get("jieuntextarea").getContent();
+	
+	$.ajax({
+		url: "insertProjectContent.do",
+		data: JSON.stringify(content),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(){
+			console.log("프로젝트 컨텐츠 insert 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+
+}
+
+function insertProjectAccountFunc(){
+	
+	var content = new Object();
+	content.project_id = $("#project-id-input").val();
+	content.bank_id = $("#project-bank option:selected").val();
+	content.account_name = $("#accountName-input").val();
+	content.account_number = $("#accountNumber-input").val();
+	
+	$.ajax({
+		url: "insertProjectAccount.do",
+		data: JSON.stringify(content),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(){
+			console.log("프로젝트 계좌 insert 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+
+}
+
+function insertGiftFunc(){
+	
+	var idesArr = [];
+	var giftEles = document.getElementsByClassName("gift-body-div");
+	for(var i=0; i<giftEles.length; ++i){
+		idesArr[i] = giftEles[i].getAttribute("id");
+	}
+	
+	var giftesArr = [];
+	for(var i=0; i<giftEles.length; ++i){
+		var idSeletor = "#"+idesArr[i];
+		var gift = new Object();
+		
+		gift.gift_id = idesArr[i];
+		gift.support_price = $(idSeletor + " .gift-supportPrice-input").val(); //후원금액
+		
+		var capacityValue = "0";
+		if($(idSeletor + " .capacity-flag").is(":checked")){
+			capacityValue = $(idSeletor + " .gift-capacity-input").val();
+		}
+		gift.capacity = capacityValue;
+		
+		gift.project_id = $("#project-id-input").val();
+		
+		//배열에 넣기
+		giftesArr[i] = gift;
+	}
+	
+	$.ajax({
+		url: "insertGift.do",
+		data: JSON.stringify(giftesArr),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			console.log("선물 insert 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+	
+}
+
+function insertItemFunc(){
+	
+	var idesArr = [];
+	var itemEles = document.getElementsByClassName("modal-item-list-basic");
+	for(var i=0; i<itemEles.length; ++i){
+		idesArr[i] = itemEles[i].getAttribute("id");
+	}
+	
+	var itemesArr = [];
+	for(var i=0; i<itemEles.length; ++i){
+		var idSeletor = "#"+idesArr[i];
+		var item = new Object();
+		
+		item.item_id = idesArr[i];
+		item.item_name = $(idSeletor + " .modal-item-list-name").attr("value");
+		
+		item.project_id = $("#project-id-input").val();
+		
+		//배열에 넣기
+		itemesArr[i] = item;
+	}
+
+	
+	$.ajax({
+		url: "insertItem.do",
+		data: JSON.stringify(itemesArr),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			console.log("아이템 insert 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+	
+}
+
+function insertGiftInItemFunc(){
+	
+	var index = 0;
+	var setArr = [];
+	
+	var giftEles = document.getElementsByClassName("gift-body-div");
+	
+	console.log("giftEles]"+giftEles.length);
+	
+	for(var i=0; i<giftEles.length; ++i){
+		var giftId = giftEles[i].getAttribute("id");
+		var giftIdSeletor = "#" + giftId;
+		var thisGift = document.getElementById(giftId);
+		
+		var itemEles = thisGift.getElementsByClassName("gift-in-item-list");
+		
+		console.log("itemEles]"+itemEles.length);
+		
+		for(var j=0; j<itemEles.length; ++j){
+			var itemId = itemEles[j].getAttribute("value");
+			
+			if($(giftIdSeletor + " ."+itemId + " .gift-chk-btn").hasClass("gift-chk-btn-active")){
+				
+				var giftinitem = new Object();
+				giftinitem.gift_id = giftId;
+				giftinitem.item_id = itemId;
+				giftinitem.count = $(giftIdSeletor + " ."+itemId + " .gift-in-item-count").attr("value");
+				
+				setArr[index] = giftinitem;
+				index++;
+			}
+		}
+	}
+	
+	$.ajax({
+		url: "insertGitfInItem.do",
+		data: JSON.stringify(setArr),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			console.log("선물 속 아이템 insert 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+	
+}
+
 
 </script>
 
@@ -847,7 +1039,7 @@ function updateProjectFunc(){
 								'배송이 필요한 선물의 경우, 배송비 포함된 금액으로 작성해주세요.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="text" class="gift-supportPrice" name="gift_price" style="width:200px;" placeholder="0원부터 시작합니다." value="0"> 원 이상 후원하시는 분께 드리는 선물입니다.' +
+								'<input type="text" class="gift-supportPrice-input" style="width:200px;" placeholder="0원부터 시작합니다." value="1000"> 원 이상 후원하시는 분께 드리는 선물입니다.' +
 							'</div>' +
 						'</div>' +
 						'<div class="project-element-div project-bgcol-white">' +
@@ -882,8 +1074,8 @@ function updateProjectFunc(){
 								'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="checkbox" id="cap-chk" name="capacity-flag" />' +
-								'<label for="cap-chk"><span></span>선물의 최대 수량은 <input type="text" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
+								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" />' +
+								'<label for="cap-chk'+giftId+'"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
@@ -922,6 +1114,8 @@ function updateProjectFunc(){
 	    	//설명 버튼 이벤트 연결
 	    	descriptionBtnFunc();
 	    	
+	    	settingItemListChk_Count_btn();
+	    	
 	    });
 		
 		//아이템 추가 버튼
@@ -957,27 +1151,25 @@ function updateProjectFunc(){
 		
 		
 		//페이지 나갈 때 실행되는 함수 ============================================================================
-		/* $(window).on("beforeunload", function (){
-			
-			//PROJECT 
-			insertProjectFunc();
-			
-			//PROJECT_CONTENT
-			
-			//PROJECT_ACCOUNT
-			
-			//ITEM
-			
-			//GIFT
-			
-			//GIFT_IN_ITEM
-			
-			return "레알 나감????????????";
-		}); */
-		
-		window.onbeforeunload = function(){
+		$(window).on("beforeunload", function (){
 			updateProjectFunc();
-		};
+			insertProjectContentFunc();
+			insertProjectAccountFunc();
+			
+			insertGiftFunc();
+			insertItemFunc();
+			insertGiftInItemFunc();
+			//return "레알 나감????????????";
+		});
+		
+		/* window.onbeforeunload = function(){
+			updateProjectFunc();
+			insertProjectContentFunc();
+			insertProjectAccountFunc();
+			
+			insertGiftFunc();
+			insertItemFunc();
+		}; */
 		 
 	});//ready end
 	
@@ -1023,6 +1215,7 @@ function updateProjectFunc(){
 		//선물 체크 버튼 
 	    $(".gift-chk-btn").on("click", function(){
 	    	
+	    	console.log("선물체크버튼 클릭");
 	    	var countSelector = $(this).attr("value")+" .gift-in-item-count";
 	    	
 	    	if($(this).hasClass("gift-chk-btn-active")){//선택 해제
@@ -1031,9 +1224,17 @@ function updateProjectFunc(){
 	    		$(countSelector).text(0);
 	    	} 
 	    	else{
-	   
-	    		$(countSelector).attr("value", 1);
-	    		$(countSelector).text(1);
+	    		var count = 0;
+	    		
+	   			if($(countSelector).attr("value") == 0){
+	   				count = 1;
+	   			} 
+	   			else{
+	   				count = $(countSelector).attr("value");
+	   			}
+	   			
+	    		$(countSelector).attr("value", count);
+	    		$(countSelector).text(count);
 	    	}
 	    	
 	    	$(this).toggleClass("gift-chk-btn-active");
@@ -1059,7 +1260,7 @@ function updateProjectFunc(){
 		        	$(itemcountTagId).text(totalCount);
 	        	}
 	        	
-	        }, 300);
+	        }, 100);
 	       
 	        $(this).addClass("itemcount-minus_plus-mousedown");
 	        
@@ -1078,14 +1279,10 @@ function updateProjectFunc(){
 	            var itemcountTagId = thisValue + " .gift-in-item-count";
 	        	var totalCount = Number($(itemcountTagId).attr("value")) + 1;
 	        	
-	        	/* console.log("id:"+itemcountTagId);
-	        	console.log("value:"+$(itemcountTagId).attr("value"));
-	        	console.log("totalCount:"+totalCount); */
-	        	
 	        	$(itemcountTagId).attr("value", totalCount);
 	        	$(itemcountTagId).text(totalCount);
 	        	
-	        }, 300);
+	        }, 100);
 	       
 	        $(this).addClass("itemcount-minus_plus-mousedown");
 	        
@@ -1219,9 +1416,11 @@ function updateProjectFunc(){
 		//내용을 선물 헤드에 저장
 		
 		//후원 금액
-		var priceValue = $(giftId_id+" .gift-supportPrice").val();	
+		var priceValue = $(giftId_id+" .gift-supportPrice-input").val();
 		$(giftId_class+" .gift-price").attr("value", priceValue);
 		$(giftId_class+" .gift-price").text(priceValue);
+		
+		$(giftId_id+" .gift-supportPrice-input").attr("value", priceValue);
 		
     	//선물 헤드에 체크한 아이템 추가
     	var giftInItemChkBtnList = $(giftId_id+" .gift-chk-btn-active");//document.getElementsByClassName("gift-chk-btn");
@@ -1247,7 +1446,9 @@ function updateProjectFunc(){
     	
     	$(giftId_class+" ol").html(giftHeadItemValue);
     	
-								
+    	
+    	var capacityValue = $(giftId_id+" .gift-capacity-input").val();
+    	$(giftId_id+" .gift-capacity-input").attr("value", capacityValue);
 								
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
@@ -1263,6 +1464,9 @@ function updateProjectFunc(){
 		
 		//선물 추가 버튼 박스는 안보이게
     	$(".gift-add-btn-box").hide();
+		
+    	var priceValue = $("."+giftId+" .gift-supportPrice-input-div").attr("value");
+    	$("."+giftId+" .gift-supportPrice-input").val(priceValue);
 		
 	}
 	
@@ -1312,7 +1516,6 @@ function updateProjectFunc(){
 		$(".modal-item-add-div").slideToggle(toggleSpeed);
 		
 		//빈 리스트에 아이템을 추가하는 경우
-		console.log("지우는걸까");
 		var giftBodyDiv = document.getElementsByClassName("gift-body-div");
 		for(var i=0; i<giftBodyDiv.length; ++i){
 			seleteEmptyItemFunc(giftBodyDiv[i].id);
@@ -1320,7 +1523,6 @@ function updateProjectFunc(){
 			//각 선물에 아이템 추가
 			addGiftInItemFunc(giftBodyDiv[i].id, itemId);
 		}
-		
 		
 		settingItemListChk_Count_btn();
 		
@@ -1435,9 +1637,36 @@ function updateProjectFunc(){
 		}
 	}
 	
+	
+	
+	//동영상 미리보기
+	function saveVideoUrl(){
+		var urlTag = $("#content-video-url").val();
+		$("#content-videourl-input").val(urlTag);
+	}
+		
+	function preShowVideo(){
+		
+		$(".video-preshow-div iframe").remove();
+		
+		var urlTag = $("#content-videourl-input").val();
+		
+		console.log(urlTag);
+		
+		if(urlTag != ''){
+			var value = $(".video-preshow-div").html();
+			value += urlTag;
+					 
+			$(".video-preshow-div").html(value);
+		}	
+	}
+	
+	
+	
 	//임시
 	function testtinymce(){
 		console.log(tinymce.get("jieuntextarea").getContent());
+		insertGiftInItemFunc();
 	}
 		
 </script>
@@ -1746,10 +1975,13 @@ function updateProjectFunc(){
 				<p>프로젝트를 소개하는 영상을 만들면 내용을 더 효과적으로 알릴 수 있습니다. 2~3분 이내의 짧은 영상이 가장 반응이 좋답니다. 배경음악을 쓰신다면 저작권 문제에 유념해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<div class="filebox"> 
-					<input class="upload-name" value="파일선택" type="hidden" disabled> 
-					<label for="ex_filename">동영상 업로드</label> 
-					<input type="file" id="ex_filename" class="upload-hidden"> 
+				<div class="filebox video-preshow-div"> 
+					<!-- <input class="upload-name" value="파일선택" type="hidden" disabled>  -->
+					<textarea name="text" id="content-video-url" maxlength="400" style="height:70px;" class="reward-input" placeholder="유투브의 퍼가기 버튼에서 생성된 테그를 입력하세요. " title="embed video" onchange="saveVideoUrl()"></textarea>
+					<!-- <input type="text" id="content-video-url" placeholder="영상의 url을 입력하세요." width="80%"> -->
+					<div><label onclick="preShowVideo()">동영상 미리보기</label></div>
+					<input type="hidden" id="content-videourl-input"/>
+					<!-- <input type="file" id="ex_filename" class="upload-hidden">  -->
 				</div>
 			</div>
 		</div>
@@ -1813,13 +2045,13 @@ function updateProjectFunc(){
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">예금주 명</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="BANK_NAME" style="width:300px;" placeholder="계좌에 등록된 예금주명과 일치해야 합니다.">
+				<input type="text" id="accountName-input" name="accountName" style="width:300px;" placeholder="계좌에 등록된 예금주명과 일치해야 합니다.">
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">계좌 번호</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="BANK_NAME" style="width:300px;" placeholder="후원금을 받을 계좌 번호를 입력하세요.">
+				<input type="text" id="accountNumber-input" name="accountNumber" style="width:300px;" placeholder="후원금을 받을 계좌 번호를 입력하세요.">
 			</div>
 		</div>
 	</div>

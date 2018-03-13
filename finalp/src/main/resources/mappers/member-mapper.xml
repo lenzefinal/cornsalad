@@ -16,9 +16,15 @@
 	</delete>
 	<update id="modifyMember" parameterType="Member">
 		<![CDATA[
-			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email} where member_id=#{member_id}
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address=#{address}, profile_img_oriname=#{profile_img_oriname},
+			profile_img_rename=#{profile_img_rename} where member_id=#{member_id}
 		]]>	
 	</update>
-
+	
+	<select id="memberInfo" resultType="Member" parameterType="Member">
+		<![CDATA[
+			SELECT * FROM MEMBER WHERE member_id=#{member_id}
+		]]>
+	</select>
 
 </mapper>

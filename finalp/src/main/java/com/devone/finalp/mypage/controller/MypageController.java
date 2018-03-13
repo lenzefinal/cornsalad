@@ -1,13 +1,21 @@
 package com.devone.finalp.mypage.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.memberaccount.model.vo.MemberAccount;
 import com.devone.finalp.mypage.service.MypageService;
 
 @Controller
@@ -18,7 +26,8 @@ public class MypageController {
 
 	// 마이페이지 메인
 	@RequestMapping("mypageIndex.do")
-	public String mypageIndex() {
+	public String mypageIndex(Model model, Member member) {
+	
 		System.out.println("마이페이지 인덱스");
 
 		return "mypage/mypageIndex";
@@ -26,9 +35,13 @@ public class MypageController {
 
 	// 마이페이지 회원 정보 수정 폼
 	@RequestMapping("mypageModify.do")
-	public String mypageModify() {
-		System.out.println("정보 수정 폼");
-
+	public String mypageModify(Member member, Model model, MemberAccount account) {
+		System.out.println("정보수정폼 멤버: " + member);
+		System.out.println("정보수정폼 계좌: " + account);
+		model.addAttribute("member", mypageService.selectMember(member));
+		model.addAttribute("bank", mypageService.bankList());
+		model.addAttribute("account", mypageService.selectAccount(account));
+		System.out.println("정보수정폼 계좌: " + account);
 		return "mypage/mypageModify";
 	}
 
@@ -103,28 +116,50 @@ public class MypageController {
 
 		return "mypage/productLikes";
 	}
-	
-	//회원 정보 수정 기능
+
+	// 회원 정보 수정 기능
 	@RequestMapping("mModify.do")
-	public String memberModify(Member member) {
-		System.out.println(member);
-		mypageService.memberModify(member);
+	public String memberModify(Model model, Member member, MemberAccount account, HttpServletRequest request)
+			throws IOException {
 		
-		return "mypage/mypageModify";
+	
+		// 파일 업로드 처리
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		MultipartFile uploadFile = multipartRequest.getFile("memberProfile");
+
+		// 웹서버 컨테이너 경로 추출함
+		String root = request.getSession().getServletContext().getRealPath("/");
+		// 파일 저장 경로 정함
+		String savePath = root + "mypageProfiles/";
+		// 스프링에서는 프로젝트\target\m2e-wtp\web-resources\ 아래에 폴더를 만들어야 함
+		if (!uploadFile.isEmpty()) {
+			String ofileName = uploadFile.getOriginalFilename();
+
+			long currentTime = System.currentTimeMillis();
+			SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String rfileName = simDf.format(new Date(currentTime)) + "."
+					+ ofileName.substring(ofileName.lastIndexOf(".") + 1);
+			;
+			uploadFile.transferTo(new File(savePath + rfileName));
+
+			member.setProfile_img_oriname(ofileName);
+			member.setProfile_img_rename(rfileName);
+		}
+		mypageService.memberModify(member);
+		mypageService.accountModify(account);
+		System.out.println("수정: " + member);
+		System.out.println("account:" + account);
+
+		return "redirect:mypageIndex.do";
 	}
 
 	// 회원 탈퇴 기능
 	@RequestMapping("mDelete.do")
-	public String memberDelete(Member member, HttpSession session, HttpServletRequest request) {
-		System.out.println(member);
-		mypageService.memberDelete(member);
-		session = request.getSession(false);
-
-		if (session != null) {
-			session.invalidate();
-		}
+	public String memberDelete(Member member, Model model) {
+		System.out.println("탈퇴: " + member);
+		model.addAttribute("member", mypageService.memberDelete(member));
 
 		System.out.println("회원 탈퇴 완료");
-		return "home";
+		return "redirect:logout.do";
 	}
 }
