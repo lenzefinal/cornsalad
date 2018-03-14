@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>fundingInsertView.jsp</title>
+<title>fundingUpdateView.jsp</title>
 </head>
 <body>
+<div id="project-top" style="disply:none;"></div>
 <c:import url="/WEB-INF/views/header.jsp"/>
 
 
@@ -22,7 +23,7 @@
 		background-color: rgba(253,255,232,0.5);
 	} */
 	body{
-		background: #f6f5f5;
+		background: rgba(220,220,220,0.2);
 	}
 	.project-bgcol-white{
 		background-color: white;
@@ -190,7 +191,7 @@
 	.project-description-button {
 		border: 1px solid rgba(0,0,0,0.1);
 		/* background-color: rgba(215,255,73,0.2); */
-		background-color: rgba(0,0,0,0.4);
+		background-color: #3b4c53;
 		color: white;
 		font-weight: bold;
 	    border-radius: .25rem;
@@ -200,7 +201,7 @@
 	.project-description-button:hover,
 	.project-description-button-active {
 		/* background-color: rgba(215,255,73,0.5); */
-		background-color: rgba(0,0,0,0.6);
+		background-color: #1ea18e;
 	}
 	.project-description-button-panel{
 		padding: 0 18px;
@@ -244,8 +245,13 @@
 	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
-		border: 1px solid rgba(0,0,0,0.1);
-		background-color: #FFFBC5;/* rgba(215,255,73,0.2); */
+		opacity: 0.7;
+		border: 3px solid #f9bf30;
+		background-color: #f9bf30;
+		/* border: 3px solid #FFC72B;
+		background-color: white; */
+		/* border: 1px solid rgba(0,0,0,0.1);
+		background-color: #FFFBC5; *//* rgba(215,255,73,0.2); */
 		/* background-color: rgba(0,0,0,0.4); */
 	    border-radius: .25rem;
 	}
@@ -315,14 +321,14 @@
 	.filebox label { 
 		display: inline-block; 
 		padding: .5em .75em; 
-		color: #999; 
+		color: white; 
 		font-size: inherit; 
 		line-height: normal; 
 		vertical-align: middle; 
-		background-color: #fdfdfd; 
+		background-color: #27a399; 
 		cursor: pointer; 
-		border: 1px solid #ebebeb; 
-		border-bottom-color: #e2e2e2; 
+		border: 1px solid #27a399; 
+		border-bottom-color: #27a399; 
 		border-radius: .25em; 
 		margin-top: 8px;
 	} 
@@ -399,7 +405,7 @@
 	}
 	
 	.project-gift-in-item-table .project-gift-in-item-check{
-		background-color: rgba(232,74,74,0.4);
+		background-color: #28a49a;
 		transition: 0.4s;
 	}
 	
@@ -487,6 +493,28 @@
 		padding-bottom: 10px;
 	}
 	
+	.btn-primary{
+		border: 1px solid #3e4b53;
+		background-color: white;
+		color: #3e4b53;
+	}
+	.btn-primary:hover{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
+	
+	.btn-danger{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
+	.btn-danger:hover{
+		border: 1px solid black;
+		background-color: black;
+		color: white;
+	}
+	
 </style>
 
 
@@ -517,6 +545,18 @@ function getCategoryListFunc(){
 			}
 			
 			$("#project-category").html(values);
+			
+			//중카테고리 선택
+			var cateId = $("#receive-categoryid").attr("value");
+			$("#project-category").val(cateId).prop("selected", true);
+			
+			console.log("val]"+$("#project-category").val());
+			console.log("val]"+$("#project-category").val());
+			
+			//소카테고리 가져오기
+			getSubCategoryListFunc(cateId);
+			$("#project-sub-category").val($("#receive-categorysubid").attr("value")).prop("selected", true);
+			//========================================================================================================
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -524,6 +564,9 @@ function getCategoryListFunc(){
 					+ "error : " + errorData);
 		}
 	});
+
+	
+	
 }
 
 //카테고리 아이디에 따라 서브 카테고리 리스트 가져오기
@@ -589,6 +632,7 @@ function getBankList(){
 
 
 //insert ========================================================================
+
 function insertProjectFunc(){
 	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
 	//서버 쪽 컨트롤러로 전송하기 
@@ -641,10 +685,10 @@ function updateProjectFunc(){
 	project.project_id = $("#project-id-input").val();
 	project.category_sub_id = $("#project-sub-category").val();
 	project.project_name = $("#project-title-input").val();
-	project.rep_content = $("#repcontent-textarea").val();
+	project.rep_content = $("#repcontent-textarea").text();
 	project.target_amount = $("#goalprice-input").val();
 	project.end_date = $("#fundingDatepicker").val();
-	project.refund_role = $("#refundrole-textarea").val();
+	project.refund_role = $("#refundrole-textarea").text();
 	project.certif_flag = $("#certifflag_input").val();
 	
 	if(project.target_amount == "undefined"){
@@ -865,11 +909,77 @@ function insertGiftInItemFunc(){
 </script>
 
 <script>
+//에디터 ----------------------------------------------------------
+tinymce.init({
+	  selector: '#jieuntextarea',
+	  init_instance_callback : function(editor) {
+		    editor.setContent($("#receive-content").attr("value"));
+		  },
+	 
+	  plugins: [
+	        "advlist autolink lists link image charmap print preview anchor",
+	        "insertdatetime media table contextmenu paste imagetools wordcount"
+	    ],
+	    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	    // imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+	    content_css: [
+	      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+	      '//www.tinymce.com/css/codepen.min.css'
+	    ],
+	    
+	 // without images_upload_url set, Upload tab won't show up
+	    images_upload_url: 'postAcceptor.php',
+	    images_upload_handler: function (blobInfo, success, failure) {
+	       /*  setTimeout(function() {
+	          // no matter what you upload, we will turn it into TinyMCE logo :)
+	          success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
+	        }, 2000); */
+	        
+	        var form = new FormData();
+	        form.append('file', blobInfo.blob());
+	        
+	        jQuery.ajax({
+	        	url: "contentImgUpload.do",
+	        	data: form,
+	        	dataType: 'text',
+	        	processData: false,
+	        	contentType: false,
+	        	type: 'POST',
+	        	success: function(response){
+	        		console.log("success result:"+response);
+	        		success(response);//이미지 주소여야 함
+	        	},
+	        	error: function(request, status, errorData){
+					//error 500 : 서버 관련
+					//error 400 : 요청 관련
+					//200번은 성공
+					//http error code 참고할 것
+					alert("error code: " + request.status + "\n"
+							+ "message : " + request.responseText + "\n"
+							+ "error : " + errorData);
+				}
+	        });
+	        
+	    	 //console.log(blobInfo.blob());
+		     //console.log(blobInfo.filename());
+		     
+		    $("#jieuntextarea img").attr("width", 200);
+	   },
+	     
+       /*기본 이미지 설정 가능 */
+	   image_list: [
+	     {title: 'My image 1', value: 'https://www.tinymce.com/my1.gif'},
+	     {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'}
+	   ]
+		
+});
+
 	$(function(){
 		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
 		getCategoryListFunc();
+		
 		
 		//은행 리스트
 		getBankList();
@@ -959,11 +1069,6 @@ function insertGiftInItemFunc(){
 			clearTimeout($(".itemcount-minus").downTimer);
 			$(".itemcount-minus").removeClass("itemcount-minus_plus-mousedown");
 		});
-		/* $(window).mouseup(function(){
-			
-		}); */
-	    //itemcount-minus_plus-mousedown
-	    
 	    
 	    
 	    
@@ -1081,8 +1186,8 @@ function insertGiftInItemFunc(){
 								'<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>' +
 								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요."/></div>' +
 								'<div align="right">' +
-									'<button class="btn btn-default project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
-									'<button class="btn btn-primary project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
+									'<button class="btn btn-default btn-greentea project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
+									'<button class="btn btn-primary btn-greentea project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
 								'</div>' +
 							'</div>' +
 						'</div>';
@@ -1096,36 +1201,36 @@ function insertGiftInItemFunc(){
 			
 		});
 		
-		//아이템 리스트는 처음에 보여서는 안 됨(처음은 아이템 리스트가 없기 때문)
-		$("#modal-item-list-box").hide();
+		//아이템 리스트는 없을 경우 안보이도록
+		if($(".modal-item-list-basic").length == 0){
+			$("#modal-item-list-box").hide();
+		}
+		else{
+			$(".modal-item-notin-div").hide();
+		}
+		
+		//아이템 관리에서 아이템 수정 div 안보이도록
+		$(".modal-item-list-update").hide();
+		
+		
 		
 		//설명 버튼 이벤트 연결
 		descriptionBtnFunc();
 		
-		//처음에 페이지 들어올 때 프로젝트 정보 조회해서 뿌려주기 -----------------------------------------------------
+		//처음에 페이지 들어올 때 프로젝트 정보 가져오기	-------------------update-------------------------------------
+		//선물 창 hide
+    	console.log("선물 갯수:"+$(".gift-body-div").length);
+    	$(".gift-body-div").hide();
+    		
 		
-		
-		
+    	
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
-			updateProjectFunc();
-			insertProjectContentFunc();
-			insertProjectAccountFunc();
 			
-			insertGiftFunc();
-			insertItemFunc();
-			insertGiftInItemFunc();
 			//return "레알 나감????????????";
 		});
 		
-		/* window.onbeforeunload = function(){
-			updateProjectFunc();
-			insertProjectContentFunc();
-			insertProjectAccountFunc();
-			
-			insertGiftFunc();
-			insertItemFunc();
-		}; */
+		
 		 
 	});//ready end
 	
@@ -1259,65 +1364,7 @@ function insertGiftInItemFunc(){
 		$(sessionTapId + " em").addClass("project-tap-em-active");
 	}
 	
-	//에디터 ----------------------------------------------------------
-	tinymce.init({
-		  selector: '#jieuntextarea',
-		 
-		  plugins: [
-		        "advlist autolink lists link image charmap print preview anchor",
-		        "insertdatetime media table contextmenu paste imagetools wordcount"
-		    ],
-		    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-		    // imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
-		    content_css: [
-		      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-		      '//www.tinymce.com/css/codepen.min.css'
-		    ],
-		    
-		 // without images_upload_url set, Upload tab won't show up
-		    images_upload_url: 'postAcceptor.php',
-		    images_upload_handler: function (blobInfo, success, failure) {
-		       /*  setTimeout(function() {
-		          // no matter what you upload, we will turn it into TinyMCE logo :)
-		          success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
-		        }, 2000); */
-		        
-		        var form = new FormData();
-		        form.append('file', blobInfo.blob());
-		        
-		        jQuery.ajax({
-		        	url: "contentImgUpload.do",
-		        	data: form,
-		        	dataType: 'text',
-		        	processData: false,
-		        	contentType: false,
-		        	type: 'POST',
-		        	success: function(response){
-		        		console.log("success result:"+response);
-		        		success(response);//이미지 주소여야 함
-		        	},
-		        	error: function(request, status, errorData){
-						//error 500 : 서버 관련
-						//error 400 : 요청 관련
-						//200번은 성공
-						//http error code 참고할 것
-						alert("error code: " + request.status + "\n"
-								+ "message : " + request.responseText + "\n"
-								+ "error : " + errorData);
-					}
-		        });
-		        
-		    	 //console.log(blobInfo.blob());
-			     //console.log(blobInfo.filename());
-		   },
-		     
-	       /*기본 이미지 설정 가능 */
-		   image_list: [
-		     {title: 'My image 1', value: 'https://www.tinymce.com/my1.gif'},
-		     {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'}
-		   ]
-			
-	});
+	
 	
 	//선물 ------------------------------------------------------------------
 	//선물 index
@@ -1627,6 +1674,13 @@ function insertGiftInItemFunc(){
 		
 </script>
 
+<!-- 처음에 받아온 값들을 저장하는 부분 -->
+<input type="hidden" id="receive-categoryid" value="${ project.category_id }">
+<input type="hidden" id="receive-categorysubid" value="${ project.category_sub_id }">
+<input type="hidden" id="receive-bank" value="${ projectAcc.bank_id }">
+<input type="hidden" id="receive-content" value='${ projectCon.content }'>
+
+
 <div id="session-0" class="project-bgcol-white session-tap">
 	<h2 class="project-header-title"> 프로젝트 등록 </h2>
 	<div class="project-tap project-outter-div-margin">
@@ -1677,7 +1731,12 @@ function insertGiftInItemFunc(){
 				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요.">
+				<c:if test="${ !empty project.project_name }">
+					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요." value="${ project.project_name }">
+				</c:if>
+				<c:if test="${ empty project.project_name }">
+					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요.">
+				</c:if>
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1707,11 +1766,22 @@ function insertGiftInItemFunc(){
 			<form id="projectRepImageUploadForm" action="projectRepImageUpload.do" method="post" enctype="multipart/form-data">
 				<div class="project-element-content-div project-element-in-div">
 					<div class="filebox preview-image"> 
+					<c:if test="${ project.image_rename != null }">
+						<div class="upload-display"><div class="upload-thumb-wrap">
+							<img src="/finalp/resources/uploadProPreImages/${ project.image_rename }" class="upload-thumb"></div></div>
+						<div>
+							<input class="upload-name" value="${ project.image_oriname }" disabled> 
+							<label for="ex_filename">업로드</label> 
+							<input type="file" id="ex_filename" name="file" class="upload-hidden"> 
+						</div>
+					</c:if>
+					<c:if test="${ project.image_rename == null }">
 						<div>
 							<input class="upload-name" value="파일선택" disabled> 
 							<label for="ex_filename">업로드</label> 
 							<input type="file" id="ex_filename" name="file" class="upload-hidden"> 
 						</div>
+					</c:if>
 					</div>
 				</div>
 				<input type="hidden" id="project-id-input" name="project_id"/>
@@ -1724,10 +1794,19 @@ function insertGiftInItemFunc(){
 				<p>후원자 분들에게 본 프로젝트를 간략하게 소개해 봅시다.</p>
 			</div>
 			<div class="project-element-content-div project-element-in-div">
+			<c:if test="${ project.rep_content != null }">
+				<textarea id="repcontent-textarea" name="text" maxlength="400" class="reward-input" placeholder="대표 문구 및 요약" title="상세설명">${ project.rep_content }</textarea>
+			</c:if>
+			<c:if test="${ project.rep_content == null }">
 				<textarea id="repcontent-textarea" name="text" maxlength="400" class="reward-input" placeholder="대표 문구 및 요약" title="상세설명"></textarea>
+			</c:if>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="btnsgroup" align="center">
+	<button class="btn btn-primary btn-greentea">임시 저장</button>
+	<button class="btn btn-primary btn-greentea">다음 단계로</button>
 </div>
 </div>
 
@@ -1746,7 +1825,7 @@ function insertGiftInItemFunc(){
 				</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input id="goalprice-input" type="text" name="goalPrice" style="width:200px;" placeholder="최소 1000원 이상"> 원
+				<input id="goalprice-input" type="text" name="goalPrice" style="width:200px;" placeholder="최소 1000원 이상" value="${ project.target_amount }"> 원
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1766,23 +1845,20 @@ function insertGiftInItemFunc(){
 </div>
 <div id="gift-totalbox-div" class="project-div project-outter-div-margin">
 	<div class="project-title project-title-first">선물 구성</div>
-	<%-- <div class="project-box gift0">
+<c:forEach var="gift" items="${ giftList }">
+	<div class="project-box gift-head-div ${ gift.gift_id }">
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div">
 				<div align="right">
-					<button class="btn btn-danger project-custom-btn" onclick="deleteGift(0)">삭제하기</button>
-					<button class="btn btn-primary project-custom-btn" onclick="updateGift(0)">수정하기</button>
+					<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ gift.gift_id },1)">삭제하기</button>
+					<button class="btn btn-primary project-custom-btn" onclick="updateGift(${ gift.gift_id })">수정하기</button>
 				</div>
-				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">5000</span>원 이상 후원하시는 분께 드리는 선물</div>
-				<ol>
-					<li class="itemId"><span class="gift-item-name">선물 이름</span> (X <span class="gift-item-count">1</span>)</li>
-					<li class="itemId"><span class="gift-item-name">선물 이름</span> (X <span class="gift-item-count">2</span>)</li>
-				</ol>
-				<div>선물의 최대 수량은 <span class="gift-count">10</span>개 입니다.</div>
+				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">${ gift.support_price }</span>원 이상 후원하시는 분께 드리는 선물</div>
+				<ol></ol>
 			</div>
 		</div>
 	</div>
-	<div id="gift0" class="project-box">
+	<div id="${ gift.gift_id }" class="project-box gift-body-div">
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">최소 후원 금액</div>
 			<div class="project-element-in-div project-description-button">설명</div>
@@ -1791,7 +1867,7 @@ function insertGiftInItemFunc(){
 				배송이 필요한 선물의 경우, 배송비 포함된 금액으로 작성해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="gift_price" style="width:200px;" placeholder="최소 1000원 이상"> 원 이상 후원하시는 분께 드리는 선물입니다.
+				<input type="text" class="gift-supportPrice-input" style="width:200px;" placeholder="0원부터 시작합니다." value="${ gift.support_price }"> 원 이상 후원하시는 분께 드리는 선물입니다.
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -1813,64 +1889,58 @@ function insertGiftInItemFunc(){
 					<tr>
 						<th>선택</th><th style="text-align:left;">아이템 이름</th><th colspan="3">수량</th>
 					</tr>
-					<tr class="gift-in-item0" value="itemId">
-						<td><!-- 아이디 앞에 gift가 붙어있으면 update 아니면  insert -->
-							<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="gift-chk-btn" value="#gift0 .gift-in-item0">
-							  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
-							  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-						<td style="text-align:left;"><div class="gift-in-item-name" value="아이템이름이름">아이템이름이름</div></td>
-						<td>
-							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="itemcount-minus" value="#gift0 .gift-in-item0">
-							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-						<td><div class="gift-in-item-count" value="10" >10</div></td>
-						<td>
-							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="itemcount-plus" value="#gift0 .gift-in-item0">
-							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-					</tr>
-					<tr id="gift-in-item1">
-						<td>
-							<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="gift-chk-btn" value="#gift0 .gift-in-item1">
-							  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
-							  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-						<td style="text-align:left;">아이템이름이름</td>
-						<td>
-							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="itemcount-minus" value="#gift0 .gift-in-item1">
-							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-						<td><div class="gift-in-item-count" value="1">1</div></td>
-						<td>
-							<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							 <g class="itemcount-plus" value="#gift0 .gift-in-item1">
-							  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-							  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-							 </g>
-							</svg>
-						</td>
-					</tr>
+					<c:forEach var="item" items="${ itemList }">
+						
+						<c:set var="itemFlag" value="false"/>
+						<c:set var="itemCount" value="0" />
+						<c:forEach var="giftInItem" items="${ giftinitemList }">
+							<c:if test="${ giftInItem.gift_id == gift.gift_id && giftInItem.item_id == item.item_id }">
+								<c:set var="itemFlag" value="true"/>
+								<c:set var="itemCount" value="${ giftInItem.count }" />
+							</c:if>
+						</c:forEach>
+						
+					<c:if test="${ itemFlag == true }">	
+						<tr class="gift-in-item-list ${ item.item_id } project-gift-in-item-check" value="${ item.item_id }">
+					</c:if>
+					<c:if test="${ itemFlag == false }">
+						<tr class="gift-in-item-list ${ item.item_id }" value="${ item.item_id }">	
+					</c:if>
+							<td>
+								<input type="hidden" class="gift-in-item-hidden-itemId" value="${ item.item_id }">
+								<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+							<c:if test="${ itemFlag == true }">	 
+								 <g class="gift-chk-btn gift-chk-btn-active" value="#${ gift.gift_id } .${ item.item_id }">
+							</c:if>
+							<c:if test="${ itemFlag == false }">	
+								 <g class="gift-chk-btn" value="#${ gift.gift_id } .${ item.item_id }"> 
+							</c:if>
+								  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
+								  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
+								 </g>
+								</svg>
+							</td>
+							<td style="text-align:left;"><div class="gift_in_item_name" value="${ item.item_name }">${ item.item_name }</div></td>
+							<td>
+								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+								 <g class="itemcount-minus" value="#${ gift.gift_id } .${ item.item_id }">
+								  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
+								  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
+								 </g>
+								</svg>
+							</td>
+							<td><div class="gift-in-item-count" value="${ itemCount }" >${ itemCount }</div></td>
+							<td>
+								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+								 <g class="itemcount-plus" value="#${ gift.gift_id } .${ item.item_id }">
+								  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
+								  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
+								  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
+								 </g>
+								</svg>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 				</div>
 				<br>
@@ -1881,19 +1951,25 @@ function insertGiftInItemFunc(){
 			<div class="project-element-in-div project-element-title-div project-element-in-title">한정판 설정</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>
+				'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="checkbox" id="cap-chk" name="capacity-flag" />
-				<label for="cap-chk"><span></span>선물의 최대 수량은 <input type="text" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>
+			<c:if test="${ gift.capacity > 0 }">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" checked />
+			</c:if>
+			<c:if test="${ gift.capacity == 0 }">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" />
+			</c:if>
+				<label for="cap-chk${ gift.gift_id }"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="${ gift.capacity }"> 개 입니다.</label>
 			</div>
 		</div>
 		<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">
-			<button class="btn btn-primary project-custom-btn" onclick="cancleGift(0)"><b>x</b> 취소하기</button>
-			<button class="btn btn-danger project-custom-btn" onclick="deleteGift(0)">삭제하기</button>
-			<button class="btn btn-primary project-custom-btn" onclick="saveGift(0)">저장하기</button>
+			<button class="btn btn-primary project-custom-btn" onclick="cancleGift(${ gift.gift_id })"><b>x</b> 취소하기</button>
+			<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ gift.gift_id },0)">삭제하기</button>
+			<button class="btn btn-primary project-custom-btn" onclick="saveGift(${ gift.gift_id })">저장하기</button>
 		</div>
-	</div> --%>
+	</div>	
+</c:forEach>
 </div>
 <div class="project-div project-outter-div-margin gift-add-btn-box">
 <div class="project-box">
@@ -1914,7 +1990,12 @@ function insertGiftInItemFunc(){
 				<p>마감일 다음날 결제가 일괄 진행되며 결제된 금액은 자동으로 진행자에게 전달되므로, 그 후의 환불 및 교환 요청은 전적으로 진행자가 약속하는 정책을 따릅니다. 이 프로젝트에 꼭 맞는 환불 및 교환 정책을 신중하게 작성해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
+			<c:if test="${ project.refund_role != null }">
+				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명">${ project.refund_role }</textarea>
+			</c:if>
+			<c:if test="${ project.refund_role == null }">
 				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
+			</c:if>
 			</div>
 		</div>
 	</div>
@@ -1932,12 +2013,12 @@ function insertGiftInItemFunc(){
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<div class="filebox video-preshow-div"> 
-					<!-- <input class="upload-name" value="파일선택" type="hidden" disabled>  -->
 					<textarea name="text" id="content-video-url" maxlength="400" style="height:70px;" class="reward-input" placeholder="유투브의 퍼가기 버튼에서 생성된 테그를 입력하세요. " title="embed video" onchange="saveVideoUrl()"></textarea>
-					<!-- <input type="text" id="content-video-url" placeholder="영상의 url을 입력하세요." width="80%"> -->
 					<div><label onclick="preShowVideo()">동영상 미리보기</label></div>
 					<input type="hidden" id="content-videourl-input"/>
-					<!-- <input type="file" id="ex_filename" class="upload-hidden">  -->
+				<c:if test="${ projectCon.video_url != null }">
+					${ projectCon.video_url }
+				</c:if>
 				</div>
 			</div>
 		</div>
@@ -1954,12 +2035,10 @@ function insertGiftInItemFunc(){
 			<div class="project-element-in-div project-element-content-div">
 				<div id="jieun-textarea-div">
 					<form method="post">
-						<textarea id="jieuntextarea"  style="height:500px;"></textarea>
+						<textarea id="jieuntextarea" style="height:500px;"></textarea>
 					</form>
 				</div>
 			</div>
-			<!-- 임시 -->
-			<button onclick="testtinymce()">테스트</button>
 		</div>
 	</div>
 </div>
@@ -2001,13 +2080,23 @@ function insertGiftInItemFunc(){
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">예금주 명</div>
 			<div class="project-element-in-div project-element-content-div">
+			<c:if test="${ projectAcc.account_name != null }">
+				<input type="text" id="accountName-input" name="accountName" style="width:300px;" placeholder="계좌에 등록된 예금주명과 일치해야 합니다." value="${ projectAcc.account_name }">
+			</c:if>
+			<c:if test="${ projectAcc.account_name == null }">
 				<input type="text" id="accountName-input" name="accountName" style="width:300px;" placeholder="계좌에 등록된 예금주명과 일치해야 합니다.">
+			</c:if>
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">계좌 번호</div>
 			<div class="project-element-in-div project-element-content-div">
+			<c:if test="${ projectAcc.account_number != null }">
+				<input type="text" id="accountNumber-input" name="accountNumber" style="width:300px;" placeholder="후원금을 받을 계좌 번호를 입력하세요." value="${ projectAcc.account_number }">
+			</c:if>
+			<c:if test="${ projectAcc.account_number == null }">
 				<input type="text" id="accountNumber-input" name="accountNumber" style="width:300px;" placeholder="후원금을 받을 계좌 번호를 입력하세요.">
+			</c:if>
 			</div>
 		</div>
 	</div>
@@ -2065,7 +2154,7 @@ function insertGiftInItemFunc(){
 		border-radius: 5px;
 	}
 	.modal-item-table .modal-item-list-update{
-		background-color:#FFFBC5;
+		background-color:#f9bf30;
 	}
 	
 	.modal-item-add-div{
@@ -2100,6 +2189,28 @@ function insertGiftInItemFunc(){
 	.btn{
 		width: 100px;
 	}
+	
+	.btn-greentea{
+		border:1px solid #26a499;
+		background-color: white;
+		color: #26a499;
+	}
+	.btn-greentea:hover{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	
+	.btn-greenteareverse{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	.btn-greenteareverse{
+		border:1px solid #167b72;
+		background-color: #167b72;
+		color: white;
+	}
 
 </style>
 
@@ -2115,7 +2226,7 @@ function insertGiftInItemFunc(){
 			<div class="modal-item-add-div">
 				<div align="center" style="padding: 10px 10px 0px 10px;"><b>아이템 추가하기</b></div>
 				<div align="center" style="padding: 0px 10px 10px 10px;">선물 구성에 추가할 아이템을 만듭니다</div>
-				<div align="center"><button class="btn btn-primary item-add-btn"><b>+</b> 추가하기</button></div>
+				<div align="center"><button class="btn btn-primary btn-greentea item-add-btn"><b>+</b> 추가하기</button></div>
 			</div>
 			<div class="modal-item-adddetail-location">
 				<!-- <div class="modal-item-adddetail-div">
@@ -2139,23 +2250,25 @@ function insertGiftInItemFunc(){
 							<col>
 						</colgroup>
 						<tbody>
-						<!-- <tr id="itemid">
-							<td id="itemId" style="text-align:left; padding-left:20px;">아이템 이름</td>
-							<td style="padding-right:20px;"><button class="btn btn-default"><b>수정하기</b></button></td>
-							<td style="padding-right:20px;"><button class="btn btn-default"><b>삭제하기</b></button></td>
-						</tr>
-						<tr class="modal-item-list-update itemid">
-							<td colspan="3">
-								<div style="padding:1em;">
-									<div style="color:rgba(0,0,0,0.6);" align="left"><b>아이템 이름</b></div>
-									<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="수정할 아이템의 이름을 입력하세요."/></div>
-									<div align="right">
-										<button class="btn btn-default project-custom-btn" onclick="cancleListItem(itemid)"><b>x&nbsp;취소하기</b></button>
-										<button class="btn btn-primary project-custom-btn" onclick="updateItem(itemid)"><b>수정하기</b></button>
+						<c:forEach var="item" items="${ itemList }">
+							<tr id="${ item.item_id }" class="modal-item-list-basic">
+								<td style="text-align:left; padding-left:20px;" class="modal-item-list-name" value="${ item.item_name }">${ item.item_name }</td>
+								<td style="padding-right:20px;"><button class="btn btn-default" onclick="showUpdateItem(${ item.item_id })"><b>수정하기</b></button></td>
+								<td style="padding-right:20px;"><button class="btn btn-default" onclick="deleteListItem(${ item.item_id })"><b>삭제하기</b></button></td>
+							</tr>
+							<tr class="modal-item-list-update ${ item.item_id }">
+								<td colspan="3">
+									<div style="padding:1em;">
+										<div style="color:rgba(0,0,0,0.6);" align="left"><b>아이템 이름</b></div>
+										<div style="padding: 10px 0px 10px 0px;"><input type="text" class="modal-item-list-updatename" placeholder="수정할 아이템의 이름을 입력하세요."/></div>
+										<div align="right">
+											<button class="btn btn-default project-custom-btn" onclick="cancleListItem(${ item.item_id })"><b>x&nbsp;취소하기</b></button>
+											<button class="btn btn-primary project-custom-btn" onclick="updateItemName(${ item.item_id })"><b>수정하기</b></button>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>  -->
+								</td>
+							</tr>
+						</c:forEach>
 						</tbody>
 				    </table>
 			    </div>

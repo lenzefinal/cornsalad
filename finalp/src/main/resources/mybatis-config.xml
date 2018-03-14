@@ -32,6 +32,9 @@
 		<typeAlias type="com.devone.finalp.admin.model.vo.AReport" alias="AReport" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AQuestion" alias="AQuestion" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AProject" alias="AProject" />
+	
+		<typeAlias alias="ProjectStatusUpdate" type="com.devone.finalp.project_status.model.vo.ProjectStatusUpdate"/>
+		<typeAlias alias="GiftInItemsUpdate" type="com.devone.finalp.project_status.model.vo.GiftInItemsUpdate"/>
 	</typeAliases>
 	
 	<!-- mapper 등록 -->

@@ -15,6 +15,8 @@ import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.project_status.model.dao.ProjectStatusDao;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 @Service("projectStatusService")
 public class ProjectStatusServiceImpl implements ProjectStatusService {
@@ -115,6 +117,16 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 	@Override
 	public List<GiftInItems> selectListGiftInItems(String projectId) {
 		return projectStatusDao.selectListGiftInItems(projectId);
+	}
+
+	@Override
+	public ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId) {
+		return projectStatusDao.selectOneProjectStatusUpdateByProId(projectId);
+	}
+
+	@Override
+	public List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId) {
+		return projectStatusDao.selectListGiftInItemsUpdate(projectId);
 	}
 
 }

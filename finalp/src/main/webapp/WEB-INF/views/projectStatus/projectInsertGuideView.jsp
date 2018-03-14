@@ -48,7 +48,7 @@
 	}
 	
 	function goParView(){
-		
+		location.href="fundingUpdateView.do?projectId=152104495033964";
 	}
 	
 </script>
