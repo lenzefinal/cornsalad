@@ -447,17 +447,3 @@ td, th {
     overflow: hidden;
     margin: 32px 0 0;
 }
-.btn_more {
-    font-weight: 600;
-    line-height: 14px;
-    display: block;
-    overflow: hidden;
-    width: 45px;
-    height: 12px;
-    margin: 0 auto;
-    vertical-align: top;
-    text-decoration: underline;
-    letter-spacing: -1px;
-    color: #666;
-   	font-size:14px;
-}

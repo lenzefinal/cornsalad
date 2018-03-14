@@ -25,7 +25,7 @@
 	}
 </style>
 </head>
- <body class="skin_main">
+ <body class="skin_main" style="height:724px;">
 <c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>

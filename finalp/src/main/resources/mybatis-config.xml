@@ -40,5 +40,6 @@
 		<mapper resource="mappers/account-mapper.xml"/>
 		<mapper resource="mappers/projectdetail-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
+		<mapper resource="mappers/myStatus-mapper.xml"/>
 	</mappers>
 </configuration>
