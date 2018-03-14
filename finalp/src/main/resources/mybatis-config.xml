@@ -30,6 +30,8 @@
 		<typeAlias type="com.devone.finalp.admin.model.vo.AAlarm" alias="Aalarm" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Taboo" alias="Taboo" /> 
 		<typeAlias type="com.devone.finalp.admin.model.vo.AReport" alias="AReport" />
+		<typeAlias type="com.devone.finalp.admin.model.vo.AQuestion" alias="AQuestion" />
+		<typeAlias type="com.devone.finalp.admin.model.vo.AProject" alias="AProject" />
 	</typeAliases>
 	
 	<!-- mapper 등록 -->

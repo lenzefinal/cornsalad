@@ -16,7 +16,7 @@
 	
 	<select id="adminalarm" resultMap="Aalarmmap">
 		<![CDATA[
-			SELECT * FROM V_ALARM 
+			SELECT * FROM A_ALARM 
 		]]>
 	</select>
 	
@@ -56,14 +56,38 @@
 	
 	<select id="reportlist" resultMap="AReportmap">
 		<![CDATA[
-			SELECT * FROM V_REPORT 
+			SELECT * FROM A_REPORT 
 		]]>
 	</select>
 	
 	<select id="reportdetail" resultType="AReport" parameterType="int">
 		<![CDATA[
-			SELECT * FROM V_REPORT WHERE REPORT_ID = #{ report_id }
+			SELECT * FROM A_REPORT WHERE REPORT_ID = #{ report_id }
 		]]>
 	</select>
-
+	
+	<resultMap id="AQuestionmap" type="AQuestion">
+		<result property="question_id" column="question_id" />
+		<result property="question_category_name" column="question_category_name" />
+		<result property="receive_member_id" column="receive_member_id" />
+		<result property="send_member_id" column="send_member_id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="re_content" column="re_content" />
+		<result property="send_creation_date" column="send_creation_date" />
+		<result property="receive_creation_date" column="receive_creation_date" />
+	</resultMap>
+	
+	<select id="questionlist" resultMap="AQuestionmap">
+		<![CDATA[
+			SELECT * FROM A_QUESTION WHERE RECEIVE_MEMBER_ID = 'admin' OR SEND_MEMBER_ID = 'admin'
+		]]>
+	</select>
+	
+	<select id="questiondetail" resultType="AQuestion" parameterType="int">
+		<![CDATA[
+			SELECT * FROM A_QUESTION WHERE QUESTION_ID = #{ question_id }
+		]]>
+	</select>
+	
 </mapper>
