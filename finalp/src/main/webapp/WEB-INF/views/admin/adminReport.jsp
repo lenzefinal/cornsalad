@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,12 +8,14 @@
 <meta charset=UTF-8>
 <title>금지어 / 신고</title>
   <link href="/finalp/resources/css/adminPage.css" rel="stylesheet">
+  
   <style>
  div#report{
 		font-family:"맑은 고딕";
 		margin-top:2%;
 		margin-left:25%;
 		margin-right:10%;
+		margin-bottom: 20%;
 		display:inline-block;
 		width: 60%;
 		float:center;
@@ -40,7 +43,7 @@
 		background-color: #D5D5D5;
 	}
 	#report input.fo{
-		width: 230px;
+		width: 210px;
 		background-color: #A6A6A6;
 	}
 	#report button.bu{
@@ -76,7 +79,86 @@
 	#report span.btnspan{
 		float:right;
   	}
+  	#report span.colorspan{
+  		color:#F15F5F;
+  		float:right;
+  	}
   </style>
+  <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		//금지어 리스트 MODAL
+  		$('#taboobtn').on("click",function(){
+  			$.ajax({
+  	  			url:"adminTaboo.do",
+  	  			type: "post",
+  	  			dataType: "json",
+  	  			success:function(data){
+  	  				console.log(data);
+  	  				var jsonStr = JSON.stringify(data);
+					//변환된 문자열을 json 객체로 바꿈
+					var json = JSON.parse(jsonStr);
+					
+					$("#tamodal").empty();
+					var values = $("#tamodal").html();
+					values +="<ul class='list-group ull'>";
+					for(var i in json.tlist){
+						values +=" <li class='list-group-item'> "+ 
+						decodeURIComponent(json.tlist[i].content) +
+						"</li>";
+					}
+					values+="</ul>";
+					$("#tamodal").html(values);
+  	  			},
+  	  			error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  	  		});
+  		});
+  		
+  		//상세보기 MODAL
+  		$('#reportbt').on("click",function(){
+  			var reportid=document.getElementById("reportid").value;
+  			console.log(reportid);
+  			$.ajax({
+  	  			url:"adminReportDetail.do?reportid="+reportid ,
+  	  			/* data: { reportid : reportid }, */
+  	  			type: "post",
+  	  			dataType: "json",
+  	  			success:function(data){
+  	  				
+  	  				console.log("data"+data);
+					
+					$("#redemo").empty();
+					$("#redemo").html(
+					
+					"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
+					"<input type='text' class='form-control' id='rmember' value='"+ data.black_id +"' readonly >&nbsp;" +
+					"</div> <br><br><br> <div class='form-group'> <label for='rwriter'>신고 작성자 : &nbsp;</label>" +
+					"<input type='text' class='form-control' id='writer' value='"+ data.member_id +"' readonly> </div> <div class='form-group'>"+
+					"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' value='"+
+					data.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
+					" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+					decodeURIComponent(data.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
+					" <div class='form-group'> <label for='rcategory'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
+					decodeURIComponent(data.report_category_name) + "' readonly > </div> <div class='form-group'> <label for='racontent'>신고 댓글  </label>"+
+					"<span class='colorspan'>해당 댓글 신고 횟수 : "+ data.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
+					decodeURIComponent(data.reply_content.replace(/\+/g," ")) + "</textarea> <br> <span class='btnspan'> "+
+					"<button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span> <br> </div> ");
+					
+					
+  	  			},
+  	  			error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  	  		});
+  		});
+  	});
+  </script>
  </head>
   <body class="skin_main">
  <c:import url="adminMenu.jsp"/>
@@ -94,16 +176,17 @@
  <h3>금지어 / 신고 </h3>
  <hr class="hrst">
  <br>
- <button type="button" class="btn taboobt" data-toggle="modal" data-target="#myModal">금지어 추가</button>
+ <button type="button" class="btn taboobt" id="taboobtn" data-toggle="modal" data-target="#taboomodal">금지어</button>
  <br>
 <div class="searchdiv">
   <form action="#">
     <div class="input-group">
       <select class="form-control">
-		<option>카테고리</option>
-		<option>ca2</option>
-		<option>ca3</option>
-		<option>ca4</option>
+		<option>전체</option>
+		<option>프로젝트</option>
+		<option>프로젝트 댓글</option>
+		<option>게시글</option>
+		<option>게시글 댓글</option>
 	  </select>
     </div>
   </form>
@@ -114,40 +197,50 @@
     <thead>
       <tr class="active">
         <th>카테고리</th>
-		<th>신고 작성자</th>
-		<th>신고 회원</th>
+		<th>신고 작성 회원</th>
+		<th>신고 당한 회원</th>
+		<th>신고날짜</th>
+		<th>신고 회수</th>
 		<th>상세보기</th>
-		<th>상태</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Anna</td>
-		<td>Anna</td>
-		<td>dddddd</td>
-		<td><button class="btn btn-primary" data-toggle="modal" data-target="#redetail1">상세보기</button></td>
-		<td>삭제완료</td>
-      </tr>
-      <tr>
-        <td>Debbie</td>
-		<td>Anna</td>
-		<td>blind</td>
-		<td><button class="btn btn-primary" data-toggle="modal" data-target="#redetail2">상세보기</button></td>
-		<td>blind</td>
-      </tr>
-      <tr>
-        <td>John</td>
-		<td>John</td>
-		<td>Anna</td>
-		<td>Anna</td>
-		<td>삭제완료</td>
-      </tr>
+    <c:choose>
+    	<c:when test="${ fn:length(rlist) > 0}">
+    		<c:forEach items="${ rlist }" var="rrow">
+    		<input type="hidden" id="reportid" value="${ rrow.report_id }" >
+      			<tr>
+        			<td>${ rrow.report_category_name }</td>
+					<td>${ rrow.member_id }</td>
+					<td>${ rrow.black_id }</td>
+					<td>${ rrow.report_date }</td>
+					<td>${ rrow.report_count }</td>
+					<td>
+					<c:choose>
+						<c:when test="${ rrow.report_category_name eq '프로젝트 신고' }">
+					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal"  data-target="#redetail2">상세보기</button>
+      					</c:when>
+      					<c:when test="${ rrow.report_category_name eq '게시글 신고' }">
+					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail2">상세보기</button>
+      					</c:when>
+      					<c:when test="${ rrow.report_category_name eq '프로젝트 댓글 신고' }">
+      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      					</c:when>
+      					<c:when test="${ rrow.report_category_name eq '게시글 댓글 신고' }">
+      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      					</c:when>
+      				</c:choose>
+      				</td>
+      			</tr>
+     	 	</c:forEach>
+      	</c:when>
+      </c:choose>
     </tbody>
   </table>
   </div>
 
  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="taboomodal" role="dialog">
     <div class="modal-dialog modal-sm">
     
       <!-- Modal content-->
@@ -157,23 +250,18 @@
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
         <div class="modal-body">
+        <form action="adminTabooIn.do" method="post">
 			<div class="form-inline">
 			<div class="form-group">
-				<input type="text" class="form-control fo" id="tabooin" placeholder="금지어 입력">
+				<input type="text" class="form-control fo" name="content" id="tabooin" >&nbsp;&nbsp;
 			</div>
 				<button type="submit" class="btn bu">추가</button>
 			</div>
-			<br><br>
-			<form>
-				<ul class="list-group ull">
-					<li class="list-group-item">First item</li>
-					<li class="list-group-item">Second item</li>
-					<li class="list-group-item">Third item</li>
-					<li class="list-group-item">Third item</li>
-					<li class="list-group-item">Third item</li>
-					<li class="list-group-item">Third item</li>
-				</ul>
 			</form>
+			<br>
+			<div id="tamodal">
+				<!-- 금지어리스트ajax -->
+			</div>
 			</div>
       </div>
     </div>
@@ -189,34 +277,34 @@
          <h4 class="modal-title">신고 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="redemo">
 			<div class="form-inline">
 			<div class="form-group">
-				<label for="rmember">신고회원 : &nbsp;</label>
+				<label for="member">신고회원 : &nbsp;</label>
 				<input type="text" class="form-control" id="rmember" value="id" readonly >&nbsp;
 			</div>
 			<br><br><br>
 			<div class="form-group">
-				<label for="rwriter">신고 작성자 : &nbsp;</label>
+				<label for="writer">신고 작성자 : &nbsp;</label>
 				<input type="text" class="form-control" id="rwriter" value="id" readonly>
 			</div>
 			
 			<div class="form-group">
-				<label for="rdate"> 신고 날짜 : &nbsp;</label>
+				<label for="date"> 신고 날짜 : &nbsp;</label>
 				<input type="date" class="form-control" id="rdate">
 			</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="rcontent">신고 사유  </label>
+				<label for="content">신고 사유  </label>
 				<textarea class="form-control" id="rcontent" placeholder="신고사유" cols="90" rows="10"></textarea>
 			</div>
 			<div class="form-group">
-				<label for="rcategory">카테고리 : &nbsp;</label>
+				<label for="category">카테고리 : &nbsp;</label>
 				<input type="text" class="form-control" id="rcategory" value="카테고리" readonly >
 			</div>
 			<div class="form-group">
-				<label for="racontent">신고 댓글  </label>
+				<label for="acontent">신고 댓글  </label> <span class="colorspan">해당 댓글 신고 횟수 :  </span>
 				<textarea class="form-control" id="racontent" placeholder="신고댓글내용" cols="60" rows="10"></textarea>
 				<br>
 				<span class="btnspan"><button class="btn btn-danger" data-dismiss="modal">해당 댓글 삭제</button>&nbsp;</span>
@@ -237,30 +325,30 @@
          <h4 class="modal-title">신고 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="redemo">
 			<div class="form-inline">
 			<div class="form-group">
-				<label for="rmember">신고회원 : &nbsp;</label>
-				<input type="text" class="form-control" id="rmember" value="id" readonly >&nbsp;
+				<label for="member">신고회원 : &nbsp;</label>
+				<input type="text" class="form-control" id="rmember2" value="id" readonly >&nbsp;
 			</div>
 			<br><br><br>
 			<div class="form-group">
-				<label for="rwriter">신고 작성자 : &nbsp;</label>
-				<input type="text" class="form-control" id="rwriter" value="id" readonly>
+				<label for="writer">신고 작성자 : &nbsp;</label>
+				<input type="text" class="form-control" id="rwriter2" value="id" readonly>
 			</div>
 			<div class="form-group">
-				<label for="rdate"> 신고 날짜 : &nbsp;</label>
-				<input type="date" class="form-control" id="rdate">
+				<label for="date"> 신고 날짜 : &nbsp;</label>
+				<input type="date" class="form-control" id="rdate2">
 			</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="rcontent">신고 사유  </label>
-				<textarea class="form-control" id="rcontent" placeholder="신고사유" cols="90" rows="10"></textarea>
+				<label for="content">신고 사유  </label>
+				<textarea class="form-control" id="rcontent2" placeholder="신고사유" cols="90" rows="10"></textarea>
 			</div>
 			
 			<div class="form-group">
-				<label for="ratitle">신고 당한 글 바로가기 </label>
+				<label for="atitle">신고 당한 글 바로가기  </label><span class="colorspan">해당 글 신고 횟수 :  </span>
 
 				<table class="table table-bordered">
 					<tr class="active"><th>카테고리</th><th>제목</th></tr>

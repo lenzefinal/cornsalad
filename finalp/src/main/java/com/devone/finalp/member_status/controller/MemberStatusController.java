@@ -37,4 +37,9 @@ public class MemberStatusController {
 		
 		return "home";
 	}
+	
+	@RequestMapping("/enroll.do")
+	public String enrollMethod() {
+		return "member/enrollMember";
+	}
 }

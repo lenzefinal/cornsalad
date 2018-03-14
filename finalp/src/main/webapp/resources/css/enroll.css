@@ -1,0 +1,291 @@
+* {
+		box-sizing: border-box;
+	}
+	article, blockquote, body, dd, div, dl, dt, h1, h2, h3, h4, html, li, main, ol, p, section, table, tbody, td, th, thead, tr, ul {
+		margin: 0;
+		padding: 0;
+	}
+	body, h1, h2, h3, h4, h5, h6, p, em, div {
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+	.account-regist.step-signup {
+		padding-bottom: 100px;
+		margin-top:56px;
+	}
+	.account-regist, .account-regist>div {
+		background-color: #f5f7fa;
+	}
+	.account-regist {
+		padding-top: 24px;
+		height: auto;
+	}
+	.wzui, .wzui button, .wzui input, .wzui li, .wzui ol, .wzui select, .wzui textarea, .wzui ul {
+		margin: 0;
+		border: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.wzui {
+		line-height: 1.5em;
+		letter-spacing: -.02em;
+		color: #44484b;
+		font-size: 15px;
+		font-weight: 400;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* .wzui, .wzui button, .wzui input, .wzui select, .wzui textarea {
+		font-family: Roboto,Noto Sans KR,-apple-system,Dotum,sans-serif;
+	} */
+
+	.account-regist .account-wrap {
+		padding: 24px 16px 0;
+		max-width: none;
+	}
+	.account-regist, .account-regist>div {
+		background-color: #f5f7fa;
+	}
+	.account-wrap {
+		padding: 35px 20px;
+		padding-left: max(20px, env(safe-area-inset-left));
+		padding-right: max(20px, env(safe-area-inset-right));
+	}
+	.account-regist .account-header {
+		margin-bottom: 24px;
+		border-bottom: 1px solid rgba(0,0,0,.08);
+		padding-bottom: 24px;
+	}
+	.account-regist .account-header h2.title {
+		color: rgba(0,0,0,.84);
+		font-size: 19px;
+		font-weight: 500;
+	}
+	.account-wrap h2 {
+		margin-bottom: 8px;
+		font-size: 20px;
+		color: #4a4a4a;
+		font-weight: normal;
+	}
+	.account-regist .account-header h2.title+.desc {
+		color: rgba(0,0,0,.54);
+		font-size: 15px;
+	}
+
+	.account-regist.step-signup .check-email-field .field {
+		margin: 0 0 8px;
+	}
+	.account-regist .account-wrap .field {
+		margin-right: 0;
+	}
+	.wz-field, .wzui .field {
+		position: relative;
+	}
+	.wz-field, .wz-label, .wzui .field, .wzui label {
+		display: block;
+		line-height: 24px;
+	}
+	.wz-label, .wzui label {
+		margin-right: 30px;
+		cursor: pointer;
+	}
+	.field {
+		position: relative;
+	}
+	.account-regist .account-wrap .field .inner-container {
+		display: flex;
+	}
+	.account-regist.step-signup .check-email-field .field input {
+		margin-right: 8px;
+	}
+	.account-regist .account-wrap input[type=email], .account-regist .account-wrap input[type=password], .account-regist .account-wrap input[type=tel], .account-regist .account-wrap input[type=text] {
+		margin-bottom: 8px;
+		font-size: 15px;
+	}
+	.wz-field .wzui input[type=email], .wz-field .wzui input[type=number], .wz-field .wzui input[type=search], .wz-field .wzui input[type=tel], .wz-field .wzui input[type=text], .wz-field .wzui textarea, .wz-field input.wz-input-text, .wz-field textarea.wz-textarea, .wzui .field input.wz-input-text, .wzui .field input[type=email], .wzui .field input[type=number], .wzui .field input[type=search], .wzui .field input[type=tel], .wzui .field input[type=text], .wzui .field textarea, .wzui .wz-field input[type=email], .wzui .wz-field input[type=number], .wzui .wz-field input[type=search], .wzui .wz-field input[type=tel], .wzui .wz-field input[type=text], .wzui .wz-field textarea {
+		display: block;
+		width: 100%;
+	}
+
+	.large.wz-field .wzui input[type=email], .large.wz-field .wzui input[type=number], .large.wz-field .wzui input[type=search], .large.wz-field .wzui input[type=tel], .large.wz-field .wzui input[type=text], .large.wz-field input.wz-input-text, .wzui .large.field input.wz-input-text, .wzui .large.field input[type=email], .wzui .large.field input[type=number], .wzui .large.field input[type=search], .wzui .large.field input[type=tel], .wzui .large.field input[type=text], .wzui .large.wz-field input[type=email], .wzui .large.wz-field input[type=number], .wzui .large.wz-field input[type=search], .wzui .large.wz-field input[type=tel], .wzui .large.wz-field input[type=text], .wzui form.large input.wz-input-text, .wzui form.large input[type=email], .wzui form.large input[type=number], .wzui form.large input[type=search], .wzui form.large input[type=tel], .wzui form.large input[type=text], .wzui input.large[type=email], .wzui input.large[type=number], .wzui input.large[type=search], .wzui input.large[type=tel], .wzui input.large[type=text], input.large.wz-input-text {
+		padding: 0 15px;
+		height: 48px;
+		line-height: 28px;
+		font-size: 17px;
+		font-weight: 300;
+	}
+
+	.wzui input[disabled][type=email], .wzui input[disabled][type=number], .wzui input[disabled][type=search], .wzui input[disabled][type=tel], .wzui input[disabled][type=text], .wzui input[readonly][type=email], .wzui input[readonly][type=number], .wzui input[readonly][type=search], .wzui input[readonly][type=tel], .wzui input[readonly][type=text], .wzui select[disabled], .wzui select[readonly], .wzui textarea[disabled], .wzui textarea[readonly], input[disabled].wz-input-text, input[readonly].wz-input-text, textarea[disabled].wz-textarea, textarea[readonly].wz-textarea {
+		border-color: #dadce0;
+		background-color: #f0f2f5;
+		cursor: default;
+	}
+
+	.wzui input[type=email], .wzui input[type=number], .wzui input[type=search], .wzui input[type=tel], .wzui input[type=text], input.wz-input-text {
+		height: 36px;
+		line-height: 1.2em;
+	}
+
+	.wzui input[type=email], .wzui input[type=number], .wzui input[type=search], .wzui input[type=tel], .wzui input[type=text], .wzui select, .wzui textarea, input.wz-input-text, textarea.wz-textarea {
+		transition-property: border-color,height;
+		transition-duration: .2s,0s;
+		outline: none;
+		border: 1px solid #dadce0;
+		border-radius: 0;
+		background: #fff;
+		padding: 0 10px;
+		vertical-align: middle;
+		color: #44484b;
+		font-family: Roboto,Noto Sans KR,-apple-system,Dotum,sans-serif;
+		font-size: 15px;
+		font-weight: 400;
+		box-sizing: border-box;
+		-webkit-appearance: none;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	.wzui button, .wzui input, .wzui textarea {
+		border: 0;
+		border-radius: 0;
+		background-color: transparent;
+		-webkit-appearance: none;
+	}
+
+	.wzui, .wzui button, .wzui input, .wzui li, .wzui ol, .wzui select, .wzui textarea, .wzui ul {
+		margin: 0;
+		border: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.account-regist.step-signup .check-email-field .field button {
+		min-width: 110px;
+	}
+	.primary.disabled.wz-btn, .primary.wz-btn:disabled, .wzui a.primary.btn:disabled, .wzui a.primary.disabled.btn, .wzui button.primary.disabled, .wzui button.primary:disabled, .wzui form button.disabled[type=submit], .wzui form button[type=submit]:disabled, .wzui form input.disabled[type=submit], .wzui form input[type=submit]:disabled, .wzui input.primary.disabled[type=button], .wzui input.primary.disabled[type=submit], .wzui input.primary[type=button]:disabled, .wzui input.primary[type=submit]:disabled {
+		color: hsla(0,0%,100%,.7);
+	}
+	.account-regist .account-wrap button {
+		padding: 0;
+	}
+	.primary.wz-btn, .wzui a.primary.btn, .wzui button.primary, .wzui form button[type=submit], .wzui form input[type=submit], .wzui input.primary[type=button], .wzui input.primary[type=submit] {
+		background-color: #00cca3;
+		color: #fff;
+	}
+	.large.wz-btn, .wzui a.large.btn, .wzui button.large, .wzui form.large .wz-btn, .wzui form.large a.btn, .wzui form.large button, .wzui form.large input[type=button], .wzui form.large input[type=submit], .wzui input.large[type=button], .wzui input.large[type=submit] {
+		padding: 0 24px;
+		height: 48px;
+		line-height: 48px;
+		font-size: 17px;
+	}
+	.primary-outline.wz-btn, .primary.wz-btn, .wzui a.primary-outline.btn, .wzui a.primary.btn, .wzui button.primary, .wzui button.primary-outline, .wzui form button[type=submit], .wzui form input[type=submit], .wzui input.primary-outline[type=button], .wzui input.primary-outline[type=submit], .wzui input.primary[type=button], .wzui input.primary[type=submit] {
+		border-color: #00cca3;
+	}
+	.disabled.wz-btn, .wz-btn:disabled, .wzui a.btn:disabled, .wzui a.disabled.btn, .wzui button.disabled, .wzui button:disabled, .wzui input.disabled[type=button], .wzui input.disabled[type=submit], .wzui input[type=button]:disabled, .wzui input[type=submit]:disabled {
+		opacity: .45;
+		cursor: default;
+		color: hsla(210,5%,51%,.7);
+		pointer-events: none;
+	}
+	.wz-btn, .wzui a.btn, .wzui button, .wzui input[type=button], .wzui input[type=submit] {
+		transition-property: background-color,border-color,color,opacity;
+		transition-duration: .2s;
+		border: 1px solid #dadce0;
+		border-radius: 0;
+		background: #fff;
+		cursor: pointer;
+		padding: 0 16px;
+		height: 36px;
+		vertical-align: middle;
+		line-height: 34px;
+		color: #7c8288;
+		font-size: 15px;
+		font-weight: 400;
+		box-sizing: border-box!important;
+		-webkit-appearance: none;
+	}
+	.error .wzui input[type=email], .error .wzui input[type=number], .error .wzui input[type=search], .error .wzui input[type=tel], .error .wzui input[type=text], .error .wzui select, .error .wzui textarea, .error input.wz-input-text, .error textarea.wz-textarea, .wzui .error input[type=email], .wzui .error input[type=number], .wzui .error input[type=search], .wzui .error input[type=tel], .wzui .error input[type=text], .wzui .error select, .wzui .error textarea, .wzui input.error[type=email], .wzui input.error[type=number], .wzui input.error[type=search], .wzui input.error[type=tel], .wzui input.error[type=text], .wzui select.error, .wzui textarea.error, input.error.wz-input-text, textarea.error.wz-textarea {
+		border-color: #f66;
+	}
+
+	.account-regist.step-signup .check-email-field p.notice {
+		display: block;
+		margin-bottom: 24px;
+		color: #90949c;
+		font-size: 13px;
+	}
+	.account-regist.step-signup .account-footer {
+		padding-top: 16px;
+	}
+	.block.wz-btn, .fluid.wz-btn, .wzui a.block.btn, .wzui a.fluid.btn, .wzui button.block, .wzui button.fluid, .wzui input.block[type=button], .wzui input.block[type=submit], .wzui input.fluid[type=button], .wzui input.fluid[type=submit] {
+		margin-bottom: .25em;
+		width: 100%;
+	}
+	.account-regist .account-wrap button {
+		padding: 0;
+	}
+
+	.field em.error, em.timeout{
+		color:#f66;
+		position: static!important;
+		margin-bottom: 8px;
+		   font-size: .87em;
+		font-style: normal;
+	}
+
+	.account-regist.step-signup .email-token {
+		margin-bottom: 8px;
+	}
+	.account-regist.step-signup .email-token .input-area {
+		padding-right: 8px;
+		width: 100%;
+	}
+	.input-area {
+		position: relative;
+	}
+	.account-regist.step-signup .email-token em.timeout {
+		position: absolute!important;
+		top: 12px;
+		right: 15px;
+		left: auto;
+		margin: 0;
+		width: auto;
+	}
+	.account-regist.step-signup .email-token button {
+		min-width: 110px;
+	}
+	.account-regist .account-wrap input[type=password][aria-invalid=true] {
+		border: 1px solid #f66;
+	}
+	.account-regist .account-wrap input[type=password][disabled=true], .account-regist .account-wrap input[type=password][readonly=true] {
+		background: #f0f2f5;
+		color: #60656a;
+	}
+	.account-regist .account-wrap input[type=password] {
+		border: 1px solid #dadce0;
+		background: #fff;
+		padding: 0 15px;
+		width: 100%;
+		height: 48px;
+		font-size: 15px;
+	}
+	.account-regist .account-wrap .field p.notice {
+		margin-bottom: 8px;
+		color: #90949c;
+		font-size: 13px;
+	}
+
+	@media screen and (min-width: 767px){
+		.account-regist .account-wrap {
+			margin: 0 auto;
+			width: 100%;
+			max-width: 375px;
+		}
+	}
+
+	@media screen and (min-width: 1000px){
+		.account-wrap {
+			width: 350px;
+			margin: 0 auto;
+			padding-top: 75px;
+		}
+	}

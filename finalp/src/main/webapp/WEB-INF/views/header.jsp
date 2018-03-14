@@ -569,7 +569,7 @@
 	  <div class="right-section">
 		<ul class="util-menu pc-only">
 		<c:if test="${ !empty loginUser }">
-			<li><a href="fundingInsertView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
+			<li><a href="projectInsertGuideView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
 		</c:if>
 			<li><a href="/web/fthelpCenter" target="_blank">이용가이드</a></li>
 		</ul>
@@ -577,7 +577,7 @@
 		  <ul class="util-menu">
 		  <c:if test="${ empty loginUser }">
 		  	<li class="point"><a id="loginBtn" href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
-			<li class="point"><a href="#" onclick="registerLink()">회원가입</a></li>
+			<li class="point"><a href="enroll.do">회원가입</a></li>
 		  </c:if>
 		  <c:if test="${ !empty loginUser }">
 		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>

@@ -22,10 +22,13 @@
 					<dl class="sh_lst">
 					<dt class="blind">프로필 사진</dt>
 					<dd class="pic_desc">
-						<a href="#">
-							<img style="border-radius:100%" src="resources/images/mypageProfiles/defaultProfile.jpg" width="80" height="80" alt="">
-							<span class="spimg img_frame"></span>
-						</a>
+						<c:if test="${empty loginUser.profile_img_oriname }">
+							<img src="resources/images/mypageProfiles/defaultProfile.jpg" style="width:80px; height:80px; border-radius:100%" /><br>
+						</c:if>
+						<c:if test="${not empty loginUser.profile_img_oriname }">
+							<img src="resources/images/mypageProfiles/${loginUser.profile_img_rename }" style="width:80px; height:80px; border-radius:100%"/><br>
+						</c:if>
+						<span class="spimg img_frame"></span>
 					</dd>
 					<dt class="blind">&nbsp;</dt>
 					<dd class="intro_desc">&nbsp;</dd>

@@ -28,4 +28,9 @@ public interface ProjectStatusService {
 	int insertGift(Gift gift);
 	int insertItem(Item item);
 	int insertGiftInItem(GiftInItems giftInItem);
+	ProjectContent selectOneProjectContentByProId(String projectId);
+	ProjectAccount selectOneProjectAccountByProId(String projectId);
+	List<Item> selectListItem(String projectId);
+	List<Gift> selectListGift(String projectId);
+	List<GiftInItems> selectListGiftInItems(String projectId);
 }

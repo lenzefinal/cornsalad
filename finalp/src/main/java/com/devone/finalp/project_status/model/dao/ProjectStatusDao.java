@@ -77,4 +77,24 @@ public class ProjectStatusDao {
 	public int insertGiftInItem(GiftInItems giftInItem) {
 		return mybatis.insert("projectstatusMapper.insertGiftInItem", giftInItem);
 	}
+
+	public ProjectContent selectOneProjectContentByProId(String projectId) {
+		return mybatis.selectOne("projectstatusMapper.selectOneProjectContent", projectId);
+	}
+
+	public ProjectAccount selectOneProjectAccountByProId(String projectId) {
+		return mybatis.selectOne("projectstatusMapper.selectOneProjectAccount", projectId);
+	}
+
+	public List<Item> selectListItem(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListItem", projectId);
+	}
+
+	public List<Gift> selectListGift(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListGift", projectId);
+	}
+
+	public List<GiftInItems> selectListGiftInItems(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListGiftInItems", projectId);
+	}
 }

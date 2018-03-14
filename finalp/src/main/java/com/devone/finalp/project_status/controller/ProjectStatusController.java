@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,10 +44,36 @@ public class ProjectStatusController {
 	
 	@Autowired
 	private ProjectStatusService projectStatusService;
+	
+	@RequestMapping("projectInsertGuideView.do")
+	public String projectInsertGuideMethod() {
+		return "projectStatus/projectInsertGuideView";
+	}
 
 	@RequestMapping("fundingInsertView.do")
 	public String fundingInsertViewMethod() {
 		return "projectStatus/fundingInsertView";
+	}
+	
+	@RequestMapping("fundingUpdateView.do")
+	public String fundingInsertViewMethod(@RequestParam(value="projectId") String projectId,
+			Model model) {
+		
+		Project project = projectStatusService.selectOneProjectByProId(projectId);
+		ProjectContent projectCon = projectStatusService.selectOneProjectContentByProId(projectId);
+		ProjectAccount projectAcc = projectStatusService.selectOneProjectAccountByProId(projectId);
+		List<Item> itemList = projectStatusService.selectListItem(projectId);
+		List<Gift> giftList = projectStatusService.selectListGift(projectId);
+		List<GiftInItems> giftinitemList = projectStatusService.selectListGiftInItems(projectId);
+		
+		model.addAttribute("project", project);
+		model.addAttribute("projectCon", projectCon);
+		model.addAttribute("projectAcc", projectAcc);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("giftList", giftList);
+		model.addAttribute("giftinitemList", giftinitemList);
+		
+		return "projectStatus/fundingUpdateView";
 	}
 	
 	@RequestMapping("contentImgUpload.do")
@@ -573,3 +600,7 @@ public class ProjectStatusController {
 	}
 	
 }
+
+
+
+
