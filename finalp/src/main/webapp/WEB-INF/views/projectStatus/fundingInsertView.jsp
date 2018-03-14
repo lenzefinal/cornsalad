@@ -980,7 +980,7 @@ function insertGiftInItemFunc(){
 				reader.onload = function(e){ 
 					var src = e.target.result; 
 					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
-							+ src + '" class="upload-thumb"></div></div>'); 
+							+ src + '" class="upload-thumb" style="width:600px;></div></div>'); 
 				} 
 				reader.readAsDataURL($(this)[0].files[0]); 
 			} 

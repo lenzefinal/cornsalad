@@ -167,7 +167,7 @@
 	}
 	
 	.project-title-last{
-		margin-bottom: 150px;
+		margin-bottom: 50px;
 	}
 	
 	.project-box {
@@ -515,6 +515,19 @@
 		color: white;
 	}
 	
+	.btn-greentea-invert{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+		height:50px;
+	}
+	.btn-greentea-invert:hover{
+		border:1px solid #26a499;
+		background-color: white;
+		color: #26a499;
+		height:50px;
+	}
+	
 </style>
 
 
@@ -550,12 +563,9 @@ function getCategoryListFunc(){
 			var cateId = $("#receive-categoryid").attr("value");
 			$("#project-category").val(cateId).prop("selected", true);
 			
-			console.log("val]"+$("#project-category").val());
-			console.log("val]"+$("#project-category").val());
-			
 			//소카테고리 가져오기
-			getSubCategoryListFunc(cateId);
-			$("#project-sub-category").val($("#receive-categorysubid").attr("value")).prop("selected", true);
+			getSubCategoryListFuncFirst(cateId);
+			
 			//========================================================================================================
 		},
 		error: function(request, status, errorData){
@@ -567,6 +577,40 @@ function getCategoryListFunc(){
 
 	
 	
+}
+
+//카테고리 아이디에 따라 서브 카테고리 리스트 가져오기(처음만)
+function getSubCategoryListFuncFirst(categoryId){
+	//컨트롤러로 부터 리스트를 받아서 출력 처리함
+	$.ajax({
+		url: "proStsSubcategoryListByCaId.do",
+		type: "post",
+		data: {"categoryId": categoryId},
+		dataType: "json",
+		success: function(data){
+			//리턴된 하나의 객체를 문자열로 변환
+			var jsonStr = JSON.stringify(data);
+			//변환된 문자열을 json 객체로 변환
+			var json = JSON.parse(jsonStr);
+			
+			var values = "<option>선택하세요.</option>";
+			
+			for(var i in json.list){
+				values += '<option value="'+ json.list[i].subCategoryId +'">' +
+						decodeURIComponent(json.list[i].subCategoryName) +'</option>';
+			}
+			
+			$("#project-sub-category").html(values);
+			
+			var catesubId = $("#receive-categorysubid").attr("value");
+			$("#project-sub-category").val(catesubId).prop("selected", true);
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
 }
 
 //카테고리 아이디에 따라 서브 카테고리 리스트 가져오기
@@ -621,6 +665,10 @@ function getBankList(){
 			}
 			
 			$("#project-bank").html(values);
+			
+			//은행 설정
+	    	var bankId = $("#receive-bank").attr("value");
+			$("#project-bank").val(bankId).prop("selected", true);
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -1019,7 +1067,7 @@ tinymce.init({
 				reader.onload = function(e){ 
 					var src = e.target.result; 
 					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
-							+ src + '" class="upload-thumb"></div></div>'); 
+							+ src + '" class="upload-thumb" style="width:600px;"></div></div>'); 
 				} 
 				reader.readAsDataURL($(this)[0].files[0]); 
 			} 
@@ -1222,8 +1270,17 @@ tinymce.init({
     	console.log("선물 갯수:"+$(".gift-body-div").length);
     	$(".gift-body-div").hide();
     		
-		
     	
+    	//마감일 설정
+    	var enddateStr = $("#receive-enddate").attr("value");
+    	var enddate = new Date(enddateStr);
+    
+    	$("#fundingDatepicker").datepicker({
+            dateFormat: 'mm-dd-yy'
+        }).datepicker('setDate', enddate)
+    	
+        
+		
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
 			
@@ -1665,6 +1722,33 @@ tinymce.init({
 	}
 	
 	
+	//임시 저장
+	function temporarySave(){
+		var value ="";
+		
+		$("#temporarySave-div").html(value);
+	}
+	
+	//다음 단계로 이동 버튼 
+	function nextTap(tapNum){
+		
+		console.log("nextTap");
+		
+		
+		var sessionDivId = "#session-" + tapNum;
+		var sessionTapId = "#session" + tapNum + "-tap";
+		
+		$(".session").attr("style", "display:none");
+		$(sessionDivId).attr("style", "display:block");
+		
+		$(".tap em").removeClass("project-tap-em-active")
+		$(sessionTapId + " em").addClass("project-tap-em-active");
+		
+		document.documentElement.scrollTop = 130;
+	}
+	
+
+	
 	
 	//임시
 	function testtinymce(){
@@ -1674,11 +1758,15 @@ tinymce.init({
 		
 </script>
 
+<!-- 임시 저장했을 때 저장하는 부분 -->
+<div id="temporarySave-div"></div>
+
 <!-- 처음에 받아온 값들을 저장하는 부분 -->
 <input type="hidden" id="receive-categoryid" value="${ project.category_id }">
 <input type="hidden" id="receive-categorysubid" value="${ project.category_sub_id }">
 <input type="hidden" id="receive-bank" value="${ projectAcc.bank_id }">
 <input type="hidden" id="receive-content" value='${ projectCon.content }'>
+<input type="hidden" id="receive-enddate" value="${ project.end_date }">
 
 
 <div id="session-0" class="project-bgcol-white session-tap">
@@ -1768,7 +1856,7 @@ tinymce.init({
 					<div class="filebox preview-image"> 
 					<c:if test="${ project.image_rename != null }">
 						<div class="upload-display"><div class="upload-thumb-wrap">
-							<img src="/finalp/resources/uploadProPreImages/${ project.image_rename }" class="upload-thumb"></div></div>
+							<img src="/finalp/resources/uploadProPreImages/${ project.image_rename }" class="upload-thumb" style="width:600px;"></div></div>
 						<div>
 							<input class="upload-name" value="${ project.image_oriname }" disabled> 
 							<label for="ex_filename">업로드</label> 
@@ -1804,9 +1892,9 @@ tinymce.init({
 		</div>
 	</div>
 </div>
-<div class="btnsgroup" align="center">
-	<button class="btn btn-primary btn-greentea">임시 저장</button>
-	<button class="btn btn-primary btn-greentea">다음 단계로</button>
+<div class="btnsgroup" align="center" style="margin-bottom:100px;">
+	<button class="btn btn-primary btn-greentea-invert" style="margin-right:20px;width:120px;" onclick="temporarySave()">임시 저장</button>
+	<button class="btn btn-primary btn-greentea-invert" style="width:120px;" onclick="nextTap(2)">다음 단계로</button>
 </div>
 </div>
 
@@ -1854,7 +1942,24 @@ tinymce.init({
 					<button class="btn btn-primary project-custom-btn" onclick="updateGift(${ gift.gift_id })">수정하기</button>
 				</div>
 				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">${ gift.support_price }</span>원 이상 후원하시는 분께 드리는 선물</div>
-				<ol></ol>
+				<ol>
+				<c:forEach var="item" items="${ itemList }">
+					<c:set var="itemFlag" value="false"/>
+					<c:set var="itemCount" value="1" />
+					<c:forEach var="giftInItem" items="${ giftinitemList }">
+						<c:if test="${ giftInItem.gift_id == gift.gift_id && giftInItem.item_id == item.item_id }">
+							<c:set var="itemFlag" value="true"/>
+							<c:set var="itemCount" value="${ giftInItem.count }" />
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ itemFlag == true }">
+						<li class="${ item.item_id }">
+   							<span class="gift-item-name" value="${ item.item_name }">${ item.item_name }</span> (X <span class="gift-item-count">${ itemCount }</span>)
+   						</li>
+					</c:if>	
+   				</c:forEach>
+				</ol>
 			</div>
 		</div>
 	</div>
@@ -2000,6 +2105,10 @@ tinymce.init({
 		</div>
 	</div>
 </div>
+<div class="btnsgroup" align="center" style="margin-bottom:100px;">
+	<button class="btn btn-primary btn-greentea-invert" style="margin-right:20px;width:120px;" onclick="temporarySave()">임시 저장</button>
+	<button class="btn btn-primary btn-greentea-invert" style="width:120px;" onclick="nextTap(3)">다음 단계로</button>
+</div>
 </div>
 
 <div id="session-3" class="session">
@@ -2041,6 +2150,10 @@ tinymce.init({
 			</div>
 		</div>
 	</div>
+</div>
+<div class="btnsgroup" align="center" style="margin-bottom:100px;">
+	<button class="btn btn-primary btn-greentea-invert" style="margin-right:20px;width:120px;" onclick="temporarySave()">임시 저장</button>
+	<button class="btn btn-primary btn-greentea-invert" style="width:120px;" onclick="nextTap(4)">다음 단계로</button>
 </div>
 </div>
 
@@ -2100,6 +2213,10 @@ tinymce.init({
 			</div>
 		</div>
 	</div>
+</div>
+<div class="btnsgroup" align="center" style="margin-bottom:100px;">
+	<button class="btn btn-primary btn-greentea-invert" style="margin-right:20px;width:120px;" onclick="temporarySave()">임시 저장</button>
+	<button class="btn btn-primary btn-greentea-invert" style="width:120px;" onclick="nextTap(1)">처음 단계로</button>
 </div>
 </div>
 
