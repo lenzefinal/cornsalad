@@ -14,6 +14,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
 <link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <script src="/finalp/resources/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 <style>
 	
 	
@@ -1022,7 +1023,20 @@ tinymce.init({
 		
 });
 
+
+
+
+
+//ready ==========================================================================================
 	$(function(){
+		
+		//본인인증 ---------------------------------------------------------------------------------
+		IMP.init('imp42795450');
+		
+		
+		
+		
+		
 		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
@@ -1049,7 +1063,6 @@ tinymce.init({
 			//대표이미지 서버에 등록 --------------------------------------
 			projectPreImgUploadFunc();
 		});
-		
 		
 		
 		//preview image 
@@ -1110,7 +1123,6 @@ tinymce.init({
 		
 		//영역을 벗어나고 mousedown 이벤트가 발생했을 때 계속 증감되는 버그 방지 코드
 		window.addEventListener("mouseup", function(){
-			console.log("들어옴");
 			clearTimeout($(".itemcount-plus").downTimer);
 			$(".itemcount-plus").removeClass("itemcount-minus_plus-mousedown");
 			
@@ -1200,7 +1212,7 @@ tinymce.init({
 	    	$("#"+giftId).hide();
 	    	$("#"+giftId).fadeToggle(toggleSpeed);
 	    	
-	    	console.log("개수가"+$(".modal-item-list-basic").length);
+	
 	    	//생성된 아이템이 없으면 빈 아이템을 생성
 	    	if($(".modal-item-list-basic").length == 0){
 	    		addEmptyItemFunc(giftId);
@@ -1278,6 +1290,9 @@ tinymce.init({
     	$("#fundingDatepicker").datepicker({
             dateFormat: 'mm-dd-yy'
         }).datepicker('setDate', enddate)
+        
+        
+        
     	
         
 		
@@ -1703,6 +1718,7 @@ tinymce.init({
 	function saveVideoUrl(){
 		var urlTag = $("#content-video-url").val();
 		$("#content-videourl-input").val(urlTag);
+		$("#content-video-url").attr("value", urlTag);
 	}
 		
 	function preShowVideo(){
@@ -1721,12 +1737,149 @@ tinymce.init({
 		}	
 	}
 	
+	//임시저장 플래그
+	temporaryFlag = false;
 	
 	//임시 저장
 	function temporarySave(){
+		
+		temporaryFlag = true;
+		
 		var value ="";
 		
+		//project
+		var project_id = $("#project-id-input").val();
+		var category_sub_id = $("#project-sub-category").val();
+		var project_name = $("#project-title-input").val();
+		var rep_content = $("#repcontent-textarea").text();
+		var target_amount = $("#goalprice-input").val();
+		var end_date = $("#fundingDatepicker").val();
+		var refund_role = $("#refundrole-textarea").text();
+		var certif_flag = $("#certifflag_input").val();
+		
+		value += '<input id="save-project_id" type="hidden" value="'+ project_id +'">' +
+				 '<input id="save-category_sub_id" type="hidden" value="'+ category_sub_id +'">' +
+				 '<input id="save-project_name" type="hidden" value="'+ project_name +'">' +
+				 "<input id='save-rep_content' type='hidden' value='"+ rep_content +"'>" +
+				 '<input id="save-target_amount" type="hidden" value="'+ target_amount +'">' +
+				 '<input id="save-end_date" type="hidden" value="'+ end_date +'">' +
+				 '<input id="save-refund_role" type="hidden" value="'+ refund_role +'">' +
+				 '<input id="save-certif_flag" type="hidden" value="'+ certif_flag +'">';
+		
+				 
+		//projectContent
+		var video_url = $("#content-videourl-input").val();
+		var content = tinymce.get("jieuntextarea").getContent();
+		
+		value += "<input id='save-video_url' type='hidden' value='"+ video_url +"'>" +
+		 		 "<input id='save-content' type='hidden' value='"+ content +"'>";
+		
+		 		 
+		//projectAccount
+		var bank_id = $("#project-bank option:selected").val();
+		var account_name = $("#accountName-input").val();
+		var account_number = $("#accountNumber-input").val();
+		
+		value += '<input id="save-bank_id" type="hidden" value="'+ bank_id +'">' +
+				 '<input id="save-account_name" type="hidden" value="'+ account_name +'">' +
+				 '<input id="save-account_number" type="hidden" value="'+ account_number +'">';
+		
+		//gift
+		var giftEles = document.getElementsByClassName("gift-body-div");
+		
+		var giftesArr = [];
+		for(var i=0; i<giftEles.length; ++i){
+			var gift_id = giftEles[i].getAttribute("id");
+			var idSeletor = "#" + gift_id;
+			
+			var support_price = $(idSeletor + " .gift-supportPrice-input").val(); //후원금액
+			
+			var capacity = "0";
+			if($(idSeletor + " .capacity-flag").is(":checked")){
+				capacity = $(idSeletor + " .gift-capacity-input").val();
+			}
+
+			value += '<div class="save-gift">' +
+						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
+						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
+						'<input type="hidden" class="gift-capacity="'+ capacity +'">' +
+					 '</div>';
+		}
+		
+		//item
+		var itemEles = document.getElementsByClassName("modal-item-list-basic");
+		
+		var itemesArr = [];
+		for(var i=0; i<itemEles.length; ++i){
+			var item_id = itemEles[i].getAttribute("id");
+			var idSeletor = "#" + item_id;
+			
+			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
+			
+			value += '<div class="save-item">' +
+						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
+						'<input type="hidden" class="item-item_name" value="'+ item_name +'">' +
+					 '</div>';
+		}
+		
+		//giftInItem
+		var giftEles = document.getElementsByClassName("gift-body-div");
+		
+		for(var i=0; i<giftEles.length; ++i){
+			var gift_id = giftEles[i].getAttribute("id");
+			var giftIdSeletor = "#" + gift_id;
+			var thisGift = document.getElementById(gift_id);
+			
+			var itemEles = thisGift.getElementsByClassName("gift-in-item-list");
+			
+			for(var j=0; j<itemEles.length; ++j){
+				var item_id = itemEles[j].getAttribute("value");
+				
+				if($(giftIdSeletor + " ."+item_id + " .gift-chk-btn").hasClass("gift-chk-btn-active")){
+					
+					var count = $(giftIdSeletor + " ."+ item_id + " .gift-in-item-count").attr("value");
+					
+					value += '<div class="save-giftinitem">' +
+								'<input type="hidden" class="item-gift_id" value="'+ gift_id +'">' +
+								'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
+								'<input type="hidden" class="item-count" value="'+ count +'">' +
+							 '</div>';
+				}
+			}
+		}
+		
 		$("#temporarySave-div").html(value);
+		
+		IMP.certification({
+		    merchant_uid : 'merchant_' + new Date().getTime() //본인인증과 연관된 가맹점 내부 주문번호가 있다면 넘겨주세요
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		    	 // 인증성공
+		        console.log(rsp.imp_uid);
+		        console.log(rsp.merchant_uid);
+		        
+		        $.ajax({
+						type : 'POST',
+						url : '/certifications/confirm',
+						dataType : 'json',
+						data : {
+							imp_uid : rsp.imp_uid
+						}
+				 }).done(function(rsp) {
+				 		// 이후 Business Logic 처리하시면 됩니다.
+				 });
+		        	
+		    } else {
+		    	 // 인증취소 또는 인증실패
+		        var msg = '인증에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+
+		        alert(msg);
+		    }
+		});
+		
+		//https://github.com/iamport/iamport-manual/tree/master/SMS%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D
+		//https://admin.iamport.kr/
 	}
 	
 	//다음 단계로 이동 버튼 
@@ -2122,11 +2275,16 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<div class="filebox video-preshow-div"> 
+				<c:if test="${ projectCon.video_url != null }">
+					<textarea name="text" id="content-video-url" maxlength="400" style="height:70px;" class="reward-input" placeholder="유투브의 퍼가기 버튼에서 생성된 테그를 입력하세요. " title="embed video" onchange="saveVideoUrl()">${ projectCon.video_url }</textarea>
+					<div><label onclick="preShowVideo()">동영상 미리보기</label></div>
+					<input type="hidden" id="content-videourl-input" value='${ projectCon.video_url }'/>
+					${ projectCon.video_url }
+				</c:if>
+				<c:if test="${ projectCon.video_url == null }">
 					<textarea name="text" id="content-video-url" maxlength="400" style="height:70px;" class="reward-input" placeholder="유투브의 퍼가기 버튼에서 생성된 테그를 입력하세요. " title="embed video" onchange="saveVideoUrl()"></textarea>
 					<div><label onclick="preShowVideo()">동영상 미리보기</label></div>
 					<input type="hidden" id="content-videourl-input"/>
-				<c:if test="${ projectCon.video_url != null }">
-					${ projectCon.video_url }
 				</c:if>
 				</div>
 			</div>

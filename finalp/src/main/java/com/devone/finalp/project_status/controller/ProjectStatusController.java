@@ -603,6 +603,14 @@ public class ProjectStatusController {
 		System.out.println("GiftInItem 등록 완료");
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="ceritif.do", method=RequestMethod.POST)
+	public void ceritifMethod() throws Exception{
+		
+		System.out.println("ceritif");
+		
+	}
 }
 
 
