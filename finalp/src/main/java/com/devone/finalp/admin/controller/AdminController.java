@@ -70,7 +70,7 @@ public class AdminController {
 		return "admin/adminQuestion";
 	}
 	
-	//관리자 문의글답변하기
+	//관리자 문의글답변/상세보기
 	@ResponseBody
 	@RequestMapping(value="adminQuDetail.do", method=RequestMethod.POST)
 	public String adminQuestionDetail(HttpServletResponse response,
@@ -84,9 +84,18 @@ public class AdminController {
 		job.put("send_member_id", question.getSend_member_id());
 		job.put("title", URLEncoder.encode(question.getTitle(),"utf-8"));
 		job.put("content", URLEncoder.encode(question.getContent(),"utf-8"));
-		job.put("re_content", URLEncoder.encode(question.getRe_content(),"utf-8"));
+		if(question.getRe_content() != null) {
+			job.put("re_content", URLEncoder.encode(question.getRe_content(),"utf-8"));
+		}else {
+			job.put("re_content", question.getRe_content());
+		}
 		job.put("send_creation_date", question.getSend_creation_date().toString().trim());
-		job.put("receive_creation_date", question.getReceive_creation_date().toString().trim());
+		if(question.getReceive_creation_date() != null) {
+			job.put("receive_creation_date", question.getReceive_creation_date().toString().trim());
+		}else {
+			job.put("receive_creation_date", question.getReceive_creation_date());
+		}
+		
 
 		return job.toJSONString();
 	}
