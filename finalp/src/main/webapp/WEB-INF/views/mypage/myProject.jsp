@@ -40,12 +40,6 @@
 	   	font-size:14px;
 	   	cursor:pointer;
 	}
-	.list:nth-child(n+3){
-		display:none;
-	}
-	.list.visible{
-		display:table-row;
-	}
 </style>
 
 </head>
@@ -54,47 +48,77 @@
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
-
-	$(window).scroll(function() {
-		 if($(window).scrollTop()+$(window).height() >= $(document).height()) {
-			 ${num}
-			/*  var con = document.getElementsByName('tt');
-			 if(con[${num}].style.display = "none"){
-				 con[${num}].style.display = "table-row"
-			 } */
-		    $('.list:nth-child('+num+'+3)').addClass('visible');
-			 num ++; 
-			 
-		}
+	$(window).ready(function(){
+		var tag="";
+			tag+='<c:forEach var="project" items="${project }" end="2">'
+				+'<tr class="list " name="tt">'
+				+'<td class="limg">'
+				+'<c:if test="${empty project.image_rename }">'
+				+'<img name="img_rename" src="resources/images/logo.png"/>'
+				+'</c:if>'
+				+'<c:if test="${not empty project.image_rename }">'
+				+'<img name="img_rename" src="resources/uploadProPreImages/${project.image_rename }"/>'
+				+'</c:if>'
+				+'</td>'
+				+'<td><b><a href="#" style="color:black;">${project.project_name }</b></a></td>'
+				+'<td><b>${project.creation_date }</b></td>'
+				+'</tr>'
+				+'</c:forEach>';
+		$('.tbl_type').html(tag);
 	});
-</script>
+	 $(window).scroll(function() {
+		 if( $(document).height() == ($(window).scrollTop() + $(window).height())) {
+			 $.ajax({
+				url:"myProject.do",
+				dataType:"json",
+				type:"get",
+				data:{size:3},
+				success:function(){
+					var json=
+				},
+				error:
+					alert();
+			 });
+			 
+			 
+			 
+			 var tag="";
+				/* tag+='<c:forEach var="project" items="${project }" end="${end+3}">'
+					+'<tr class="list " name="tt">'
+					+'<td class="limg">'
+					+'<c:if test="${empty project.image_rename }">'
+					+'<img name="img_rename" src="resources/images/logo.png"/>'
+					+'</c:if>'
+					+'<c:if test="${not empty project.image_rename }">'
+					+'<img name="img_rename" src="resources/uploadProPreImages/${project.image_rename }"/>'
+					+'</c:if>'
+					+'</td>'
+					+'<td><b><a href="#" style="color:black;">${project.project_name }</b></td>'
+					+'<td><b>${project.creation_date }</b></td>'
+					+'</tr>'
+					+'</c:forEach>';
+			$('.tbl_type').html(tag);
+ */			
+			
+		}
+		 
+	}); 
 
+	
+</script>
+	
 	<div id="container">
 		<div id="content" class="section_home" >
 			<div class="c_header">
-				<h2>제목은 추후에 수정하기(내가 등록한 프로젝트)</h2>
+				<h2>내가 등록한 프로젝트</h2>
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>
 			</div>
 		</div>
 		<div id="list">
+		<input type="hidden" value="5" id="bb" name="bb">
+		<input type="hidden" value="50" id="aa">
 			<table class="tbl_type" cellspacing="0" border="1">
-			<c:set var="num" value="0"/>
-			<c:forEach var="project" items="${project }">
-			<tr class="list " name="tt">
-				<td class="limg">
-				<c:if test="${empty project.image_rename }">
-					<img name="img_rename" src="resources/images/logo.png"/>
-				</c:if>
-				<c:if test="${not empty project.image_rename }">
-					<img name="img_rename" src="resources/uploadProPreImages/${project.image_rename }"/>
-				</c:if>
-				</td>
-				<td><b><a href="#" style="color:black;">${project.project_name }</b></td>
-				<td><b>${project.creation_date }</b></td>	
-			</tr>
-			<c:set var="num" value="${num+1 }"/>
-			</c:forEach>
-		</table>
+			</table>
 		</div>
 	</div>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -54,13 +55,12 @@ public class MypageController {
 
 		return "mypage/mypageWithdrawal";
 	}
+
 	// 등록한 프로젝트 리스트 출력 폼
 	@RequestMapping("myProject.do")
 	public String myProject(Model model, Project project) {
 		System.out.println("등록 프로젝트");
-		
 		model.addAttribute("project", mypageService.selectMyProject(project));
-		System.out.println("내 project: "+project+" model: "+model);
 		return "mypage/myProject";
 	}
 
@@ -107,8 +107,8 @@ public class MypageController {
 	// 회원 정보 수정 기능
 	@RequestMapping("mModify.do")
 	public String memberModify(Model model, Member member, MemberAccount account,
-			@RequestParam(value = "orifile") String orifile,
-			@RequestParam(value = "refile") String refile, HttpServletRequest request) throws IOException {
+			@RequestParam(value = "orifile") String orifile, @RequestParam(value = "refile") String refile,
+			HttpServletRequest request) throws IOException {
 
 		// 파일 업로드 처리
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -132,7 +132,7 @@ public class MypageController {
 			member.setProfile_img_oriname(ofileName);
 			member.setProfile_img_rename(rfileName);
 		} else {
-			if(orifile!=null&&refile!=null) {
+			if (orifile != null && refile != null) {
 				member.setProfile_img_oriname(orifile);
 				member.setProfile_img_rename(refile);
 			} else {
