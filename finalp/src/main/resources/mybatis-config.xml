@@ -21,6 +21,7 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Likes" alias="Likes" />
 		<typeAlias type="com.devone.finalp.board.model.vo.Board_Reply" alias="Board_Reply" />
 		<typeAlias type="com.devone.finalp.memberaccount.model.vo.MemberAccount" alias="MemberAccount"/>
+		<typeAlias type="com.devone.finalp.common.model.vo.Payment" alias="Payment" />
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.MemberView" alias="MemberView"/>
@@ -36,6 +37,7 @@
 	
 		<typeAlias alias="ProjectStatusUpdate" type="com.devone.finalp.project_status.model.vo.ProjectStatusUpdate"/>
 		<typeAlias alias="GiftInItemsUpdate" type="com.devone.finalp.project_status.model.vo.GiftInItemsUpdate"/>
+		
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
@@ -47,5 +49,6 @@
 		<mapper resource="mappers/projectdetail-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/myStatus-mapper.xml"/>
+		<mapper resource="mappers/payment-mapper.xml"/>
 	</mappers>
 </configuration>

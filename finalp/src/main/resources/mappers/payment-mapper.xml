@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="paymentMapper">
+	<resultMap type="payInfoMap" id="PayInfo">
+		<result property="project_name" column="project_name" />
+		<result property="projecter_name" column="member_name" />
+	</resultMap>
+	
+	<resultMap type="giftMap" id="gift">
+		<result property="gift_id" column="gift_id" />
+		<result property="support_price" column="support_price" />
+		<result property="remain" column="remain" />
+	</resultMap>
+	
+	<resultMap type="itemMap" id="item">
+		<result property="gift_id" column="gift_id" />
+		<result property="item_name" column="item_name" />
+		<result property="count" column="count" />
+	</resultMap>
+	
+	
+	<insert id="insertPayment" parameterType="Payment">
+		<![CDATA[
+			insert into payment values(payment_id, member_id, project_id, gift_id, null, total_amount , total_count,sysdate, null, 'N')
+		]]>
+	</insert>
+	
+	<insert id="updatePayment" parameterType="String">
+		<![CDATA[
+			update payment set refund_date = sysdate, refund_flag = 'Y' where payment_id = #{payment_id}
+		]]>
+	</insert>
+	
+	<select id="selctProjectInfo" resultMap="payInfoMap">
+		<![CDATA[
+			select project_name, member_name
+			from project p
+			join member m on (p.member_id = m.member_id)
+			where project_id = #{project_id}
+		]]>
+	</select>
+	
+	<select id="selectAllGift" resultMap="giftMap" parameterType="string" resultType="list">
+		<![CDATA[
+			select g.gift_id, support_price,(select (g.capacity-sum(total_count))  from payment
+                                where project_id = ${p_id} and gift_id = g.gift_id) remain
+			from gift g
+			join gift_in_items gi on (g.gift_id = gi.gift_id)
+			where g.project_id = ${p_id}
+		]]>
+	</select>
+	
+	<select id="selectItems" resultMap="itemMap" parameterType="string" resultType="list">
+		<![CDATA[
+			select gi.gift_id, item_name, count
+			from gift_in_items gi
+			join item i on (gi.item_id = i.item_id)
+			where gift_id = ${g_id};
+		]]>
+	</select>
+
+
+</mapper>
