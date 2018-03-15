@@ -26,5 +26,12 @@
 			SELECT * FROM MEMBER WHERE member_id=#{member_id}
 		]]>
 	</select>
+	
+	<select id="joinedEmailFind" resultType="Member" parameterType="String">
+		<![CDATA[
+			SELECT * FROM MEMBER WHERE email = #{email}
+		]]>
+		
+	</select>
 
 </mapper>
