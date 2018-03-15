@@ -38,19 +38,24 @@ public class AdminController {
 		model.addAttribute("aalarm",adminService.adminalarm());
 		return "admin/adminIndex";
 	}
+
 	//관리자 회원리스트
 	@RequestMapping("adminMember.do")
 	public String adminMember() {
 		return "admin/adminMember";
 	}
+	
 	//관리자 회원 상세보기
 	@RequestMapping("adminMemberDetail.do")
 	public String adminMemberDetail() {
 		return "admin/adminMemberDetail";
 	}
+
 	//관리자 프로젝트리스트
 	@RequestMapping("adminProject.do")
-	public String adminProject() {
+	public String adminProject(Model model) {
+		model.addAttribute("oplist",adminService.selectOffProject());
+		model.addAttribute("aplist",adminService.selectProjectList());
 		return "admin/adminProject";
 	}
 
@@ -77,8 +82,8 @@ public class AdminController {
 		JSONObject job=new JSONObject();
 		job.put("question_id", question.getQuestion_id());
 		job.put("question_category_name", URLEncoder.encode(question.getQuestion_category_name(),"utf-8"));
-		job.put("receive_member_id", question.getReceive_member_id());
-		job.put("send_member_id", question.getSend_member_id());
+		job.put("receive_member_name", URLEncoder.encode(question.getReceive_member_name(),"utf-8"));
+		job.put("send_member_name", URLEncoder.encode(question.getSend_member_name(),"utf-8"));
 		job.put("title", URLEncoder.encode(question.getTitle(),"utf-8"));
 		job.put("content", URLEncoder.encode(question.getContent(),"utf-8"));
 		if(question.getRe_content() != null) {
@@ -96,6 +101,27 @@ public class AdminController {
 
 		return job.toJSONString();
 	}
+	
+	//관리자 문의글 답변보내기(문의함 수정)
+	@RequestMapping(value="adminQuUpdate.do", method=RequestMethod.POST)
+	public String adminQuUpdate(@RequestParam(value = "questionid") int question_id,
+			@RequestParam(value = "recontent") String re_content) throws IOException{
+		AQuestion question=new AQuestion();
+		question.setQuestion_id(question_id);
+		question.setRe_content(re_content);
+		int result=adminService.updateQuestion(question);
+		
+		if(result>0) {
+			System.out.println("수정 오께이");
+		}else {
+			System.out.println("수정 실패");
+		}
+		
+		return "redirect:adminQuestion.do";
+		
+	}
+	
+	
 	
 	//관리자 금지어리스트
 	@RequestMapping(value="adminTaboo.do",method=RequestMethod.POST)
@@ -124,7 +150,7 @@ public class AdminController {
 	}
 	
 	//관리자 금지어 추가
-	@RequestMapping("/adminTabooIn.do")
+	@RequestMapping("adminTabooIn.do")
 	public String insertTaboo(Taboo taboo) {
 		adminService.insertTaboo(taboo);
 		return "redirect:adminReport.do";
@@ -153,12 +179,16 @@ public class AdminController {
 		job.put("project_reply_id", report.getProject_reply_id() );
 		job.put("board_id", report.getBoard_id() );
 		job.put("board_reply_id", report.getBoard_reply_id() );
-		job.put("black_id", report.getBlack_id() );
+		job.put("black_name", URLEncoder.encode(report.getBlack_name(),"utf-8") );
 		job.put("report_reason", URLEncoder.encode(report.getReport_reason(),"utf-8") );
-		job.put("member_id", report.getMember_id() );
+		job.put("member_name", URLEncoder.encode(report.getMember_name(),"utf-8") );
 		job.put("report_date", report.getReport_date().toString().trim() );
 		job.put("report_project_name", URLEncoder.encode(report.getReport_project_name(),"utf-8"));
-		job.put("reply_content", URLEncoder.encode(report.getReply_content(),"utf-8") );
+		if(report.getReply_content() != null) {
+			job.put("reply_content", URLEncoder.encode(report.getReply_content(),"utf-8") );
+		}else {
+			job.put("reply_content",report.getReply_content());
+		}
 		job.put("report_count", report.getReport_count() );
 		job.put("report_read_flag", report.getReport_read_flag() );
 		
@@ -171,10 +201,5 @@ public class AdminController {
 		return "admin/adminStat";
 	}
 	
-	//관리자 결제 취소
-	@RequestMapping("adminRefund.do")
-	public String adminRefund() {
-		return "admin/adminRefund";
-	}
 
 }

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -87,24 +88,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>aaa</td>
-        <td>Anna</td>
-		<td>Anna</td>
-		<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
-      </tr>
-      <tr>
-        <td>aaaa</td>
-        <td>Debbie</td>
-		<td>Debbie</td>
-		<td>완료</td>
-      </tr>
-      <tr>
-        <td>a3aa</td>
-        <td>John</td>
-		<td>John</td>
-		<td>완료</td>
-      </tr>
+    	<c:choose>
+    		<c:when test="${ fn:length(oplist) > 0 }">
+    			<c:forEach items="${ oplist }" var="oprow">
+    				<tr>
+       					<td>${ oprow.project_category_name }</td>
+        				<td>${ oprow.project_name }</td>
+						<td>${ oprow.member_name }</td>
+						<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
+      				</tr>
+      			</c:forEach>
+      		</c:when>
+      	</c:choose>
     </tbody>
   </table>
   </div>
@@ -147,27 +142,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>aaa</td>
-        <td>Anna</td>
-		<td>Anna</td>
-		<td>200%</td>
-		<td>진행</td>
-      </tr>
-      <tr>
-        <td>aaaa</td>
-        <td>Debbie</td>
-		<td>Debbie</td>
-		<td>15%</td>
-		<td>종료</td>
-      </tr>
-      <tr>
-        <td>a3aa</td>
-        <td>John</td>
-		<td>John</td>
-		<td>10%</td>
-		<td>진행</td>
-      </tr>
+      <c:choose>
+    		<c:when test="${ fn:length(aplist) > 0 }">
+    			<c:forEach items="${ aplist }" var="aprow">
+    				<tr>
+       					<td>${ aprow.project_category_name }</td>
+        				<td>${ aprow.project_name }</td>
+						<td>${ aprow.member_name }</td>
+						<td>${ aprow.spon } % </td>
+						<td>
+							<c:if test="${ aprow.ing_flag eq 'Y' }">
+								진행중
+							</c:if>
+							<c:if test="${ aprow.ing_flag eq 'N' }">
+								종료
+							</c:if>
+						</td>
+      				</tr>
+      			</c:forEach>
+      		</c:when>
+      	</c:choose>
     </tbody>
   </table>
   

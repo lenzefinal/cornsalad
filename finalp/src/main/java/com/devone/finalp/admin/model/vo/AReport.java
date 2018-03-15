@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AReport implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -327143832287029245L;
 
 	private int rnum;
@@ -19,9 +16,9 @@ public class AReport implements java.io.Serializable {
 	private int project_reply_id;
 	private int board_id;
 	private int board_reply_id;
-	private String black_id;
+	private String black_name;
 	private String report_reason;
-	private String member_id;
+	private String member_name;
 	private Date report_date;
 	private String report_project_name;
 	private String reply_content;
@@ -31,7 +28,7 @@ public class AReport implements java.io.Serializable {
 	public AReport() {}
 
 	public AReport(int rnum, int report_id, String report_category_name, String project_id, int project_reply_id,
-			int board_id, int board_reply_id, String black_id, String report_reason, String member_id, Date report_date,
+			int board_id, int board_reply_id, String black_name, String report_reason, String member_name, Date report_date,
 			String report_project_name, String reply_content, int report_count, String report_read_flag) {
 		super();
 		this.rnum = rnum;
@@ -41,9 +38,9 @@ public class AReport implements java.io.Serializable {
 		this.project_reply_id = project_reply_id;
 		this.board_id = board_id;
 		this.board_reply_id = board_reply_id;
-		this.black_id = black_id;
+		this.black_name = black_name;
 		this.report_reason = report_reason;
-		this.member_id = member_id;
+		this.member_name = member_name;
 		this.report_date = report_date;
 		this.report_project_name = report_project_name;
 		this.reply_content = reply_content;
@@ -107,12 +104,12 @@ public class AReport implements java.io.Serializable {
 		this.board_reply_id = board_reply_id;
 	}
 
-	public String getBlack_id() {
-		return black_id;
+	public String getBlack_name() {
+		return black_name;
 	}
 
-	public void setBlack_id(String black_id) {
-		this.black_id = black_id;
+	public void setBlack_name(String black_name) {
+		this.black_name = black_name;
 	}
 
 	public String getReport_reason() {
@@ -123,12 +120,12 @@ public class AReport implements java.io.Serializable {
 		this.report_reason = report_reason;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMember_name() {
+		return member_name;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 	public Date getReport_date() {
@@ -175,8 +172,8 @@ public class AReport implements java.io.Serializable {
 	public String toString() {
 		return "AReport [rnum=" + rnum + ", report_id=" + report_id + ", report_category_name=" + report_category_name
 				+ ", project_id=" + project_id + ", project_reply_id=" + project_reply_id + ", board_id=" + board_id
-				+ ", board_reply_id=" + board_reply_id + ", black_id=" + black_id + ", report_reason=" + report_reason
-				+ ", member_id=" + member_id + ", report_date=" + report_date + ", report_project_name="
+				+ ", board_reply_id=" + board_reply_id + ", black_name=" + black_name + ", report_reason=" + report_reason
+				+ ", member_name=" + member_name + ", report_date=" + report_date + ", report_project_name="
 				+ report_project_name + ", reply_content=" + reply_content + ", report_count=" + report_count
 				+ ", report_read_flag=" + report_read_flag + "]";
 	};

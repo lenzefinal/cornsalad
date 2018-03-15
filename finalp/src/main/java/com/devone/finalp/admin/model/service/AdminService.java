@@ -3,6 +3,7 @@ package com.devone.finalp.admin.model.service;
 import java.util.List;
 
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Taboo;
@@ -16,4 +17,7 @@ public interface AdminService {
 	AReport reportDetail(int report_id);
 	List<AQuestion> selectQuestionList();
 	AQuestion aquestionDetail(int question_id);
+	int updateQuestion(AQuestion question);
+	List<AProject> selectProjectList();
+	List<AProject> selectOffProject();
 }

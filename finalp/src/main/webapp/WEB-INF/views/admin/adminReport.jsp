@@ -133,11 +133,12 @@
 				}
   	  		});
   		});
+  	});
   		
   		//상세보기 댓글 MODAL
-  		$('#reportbt2').on("click",function(){
-  			var reportid=document.getElementById("reportid").value;
-  			console.log(reportid);
+  		function rebtn2(reportid){
+  			/* var reportid=document.getElementById("reportid").value;*/
+  			console.log(reportid); 
   			$.ajax({
   	  			url:"adminReportDetail.do" ,
   	  			data: { reportid : reportid },
@@ -151,9 +152,10 @@
 					$('#redemo').empty();
 						$('#redemo').html(
 							"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
-							"<input type='text' class='form-control' id='rmember' value='"+ json.black_id +"' readonly >&nbsp;" +
+							"<input type='text' class='form-control' id='rmember' value='"+ decodeURIComponent(json.black_name.replace(/\+/g," ")) +"' readonly >&nbsp;" +
 							"</div> <br><br><br> <div class='form-group'> <label for='writer'>신고 작성자 : &nbsp;</label>" +
-							"<input type='text' class='form-control' id='rwriter' value='"+ json.member_id +"' readonly> </div> <div class='form-group'>"+
+							"<input type='text' class='form-control' id='rwriter' value='"+ decodeURIComponent(json.member_name.replace(/\+/g," ")) +
+							"' readonly> </div> <div class='form-group'>"+
 							"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
 							json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
 							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
@@ -171,12 +173,12 @@
 						+ "error : " + errorData );	
 				}
   	  		});
-  		});
+  		}
   		
   		//상세보기 글 MODAL
-  		$('#reportbt1').on("click",function(){
-  			var reportid=document.getElementById("reportid").value;
-  			console.log(reportid);
+  		function rebtn1(reportid){
+  			/* var reportid=document.getElementById("reportid").value;*/
+  			console.log(reportid); 
   			$.ajax({
   	  			url:"adminReportDetail.do" ,
   	  			data: { reportid : reportid },
@@ -190,9 +192,9 @@
 					$('#bodemo').empty();
 					$('#bodemo').html(
 							"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
-							"<input type='text' class='form-control' id='rmember' value='"+ json.black_id +"' readonly >&nbsp;" +
+							"<input type='text' class='form-control' id='rmember' value='"+ decodeURIComponent(json.black_name.replace(/\+/g," ")) +"' readonly >&nbsp;" +
 							"</div> <br><br><br> <div class='form-group'> <label for='writer'>신고 작성자 : &nbsp;</label>" +
-							"<input type='text' class='form-control' id='rwriter' value='"+ json.member_id +"' readonly> </div> <div class='form-group'>"+
+							"<input type='text' class='form-control' id='rwriter' value='"+ decodeURIComponent(json.member_name.replace(/\+/g," ")) +"' readonly> </div> <div class='form-group'>"+
 							"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
 							json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
 							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
@@ -210,10 +212,8 @@
 						+ "error : " + errorData );	
 				}
   	  		});
-  		});
-  		
-  		
-  	});
+  		}
+
   </script>
  </head>
   <body class="skin_main">
@@ -264,26 +264,25 @@
     <c:choose>
     	<c:when test="${ fn:length(rlist) > 0}">
     		<c:forEach items="${ rlist }" var="rrow">
-    		<input type="hidden" id="reportid" value="${ rrow.report_id }" >
       			<tr>
         			<td>${ rrow.report_category_name }</td>
-					<td>${ rrow.member_id }</td>
-					<td>${ rrow.black_id }</td>
+					<td>${ rrow.member_name }</td>
+					<td>${ rrow.black_name }</td>
 					<td>${ rrow.report_date }</td>
 					<td>${ rrow.report_count }</td>
 					<td>
 					<c:choose>
 						<c:when test="${ rrow.report_category_name eq '프로젝트 신고' }">
-					 		<button class="btn btn-primary" id="reportbt1" data-toggle="modal"  data-target="#redetail1">상세보기</button>
+					 		<button class="btn btn-primary" data-toggle="modal"  data-target="#redetail1" onclick="rebtn1(${ rrow.report_id })">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 신고' }">
-					 		<button class="btn btn-primary" id="reportbt1" data-toggle="modal" data-target="#redetail1">상세보기</button>
+					 		<button class="btn btn-primary" data-toggle="modal" data-target="#redetail1" onclick="rebtn1(${ rrow.report_id })">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '프로젝트 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbt2" data-toggle="modal" data-target="#redetail2">상세보기</button>
+      				 		<button class="btn btn-primary" data-toggle="modal" data-target="#redetail2" onclick="rebtn2(${ rrow.report_id })">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbt2" data-toggle="modal" data-target="#redetail2">상세보기</button>
+      				 		<button class="btn btn-primary" data-toggle="modal" data-target="#redetail2" onclick="rebtn2(${ rrow.report_id })">상세보기</button>
       					</c:when>
       				</c:choose>
       				</td>
