@@ -23,6 +23,7 @@ public class Project implements java.io.Serializable{
 	private String project_onoff_flag;
 	private int report_count;
 	private String certif_flag;
+	private int size;
 	
 	public Project() {}
 
@@ -50,6 +51,8 @@ public class Project implements java.io.Serializable{
 		this.report_count = report_count;
 		this.certif_flag = certif_flag;
 	}
+
+	
 
 	public String getProject_id() {
 		return project_id;
@@ -195,6 +198,14 @@ public class Project implements java.io.Serializable{
 		this.certif_flag = certif_flag;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -207,7 +218,7 @@ public class Project implements java.io.Serializable{
 				+ ", target_amount=" + target_amount + ", creation_date=" + creation_date + ", start_date=" + start_date
 				+ ", end_date=" + end_date + ", payment_date=" + payment_date + ", refund_role=" + refund_role
 				+ ", project_request_flag=" + project_request_flag + ", project_onoff_flag=" + project_onoff_flag
-				+ ", report_count=" + report_count + ", certif_flag=" + certif_flag + "]";
+				+ ", report_count=" + report_count + ", certif_flag=" + certif_flag + " "+size+"]";
 	}
 	
 }

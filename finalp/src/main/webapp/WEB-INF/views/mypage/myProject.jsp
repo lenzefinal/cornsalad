@@ -49,57 +49,92 @@
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
 	$(window).ready(function(){
-		var tag="";
-			tag+='<c:forEach var="project" items="${project }" end="2">'
-				+'<tr class="list " name="tt">'
-				+'<td class="limg">'
-				+'<c:if test="${empty project.image_rename }">'
-				+'<img name="img_rename" src="resources/images/logo.png"/>'
-				+'</c:if>'
-				+'<c:if test="${not empty project.image_rename }">'
-				+'<img name="img_rename" src="resources/uploadProPreImages/${project.image_rename }"/>'
-				+'</c:if>'
-				+'</td>'
-				+'<td><b><a href="#" style="color:black;">${project.project_name }</b></a></td>'
-				+'<td><b>${project.creation_date }</b></td>'
-				+'</tr>'
-				+'</c:forEach>';
-		$('.tbl_type').html(tag);
+		/* var member_id=${loginUser.member_id}; */
+		$.ajax({
+			url:"myProject1.do",
+			data:{size:3, member_id:'jieun'},
+			dataType:"json",
+			type:"get",
+			success:function(e){
+				var jsonStr=JSON.stringify(e);
+				var json=JSON.parse(jsonStr); 
+				var tag="";
+				for(var i=0;i<json.project.length;i++){
+					if(json.project[i].image_rename==null){
+					tag+="<input type='hidden' id='checksize' value='"+json.project.length+"'/>"
+						+'<tr class="list " name="tt">'
+						+'<td class="limg">'
+						+'<img name="img_rename" src="resources/images/logo.png"/>'
+						+'</td>'
+						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+					/* 	+'<td><b>${project.creation_date }</b></td>' */
+						+'</tr>';
+					} else{
+						tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
+							+'<tr class="list " name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'/>'
+							+'</td>'
+							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+						/* 	+'<td><b>${project.creation_date }</b></td>' */
+							+'</tr>';
+					}
+				}
+				$('.tbl_type').html(tag);
+			},
+			error: function(request, status, errorData) {
+				alert("에러코드: " + request.status + "\n" + "메세지: "
+						+ request.responseText + "\n" + "에러: "
+						+ errorData);
+			}
+		 });
 	});
 	 $(window).scroll(function() {
 		 if( $(document).height() == ($(window).scrollTop() + $(window).height())) {
-			 $.ajax({
-				url:"myProject.do",
+			 var checksize=$('#checksize').val();
+			 alert(checksize);
+			 checksize=Number(checksize)+3;
+			 alert("+"+checksize);
+		 $.ajax({
+				url:"myProject1.do",
+				data:{size:checksize, member_id:'jieun'},
 				dataType:"json",
 				type:"get",
-				data:{size:3},
-				success:function(){
-					var json=
+				success:function(e){
+					
+					var jsonStr=JSON.stringify(e);
+					var json=JSON.parse(jsonStr); 
+					var tag="";
+					for(var i=0;i<json.project.length;i++){
+						if(json.project[i].image_rename==null){
+						tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
+						+	'<tr class="list " name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+						/* 	+'<td><b>${project.creation_date }</b></td>' */
+							+'</tr>';
+						} else{
+							tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
+								+'<tr class="list " name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'/>'
+								+'</td>'
+								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+							/* 	+'<td><b>${project.creation_date }</b></td>' */
+								+'</tr>';
+						}
+					}
+					$('.tbl_type').html(tag);
+					$('#checksize').val(Number(checksize));
 				},
-				error:
-					alert();
+				error: function(request, status, errorData) {
+					alert("에러코드: " + request.status + "\n" + "메세지: "
+							+ request.responseText + "\n" + "에러: "
+							+ errorData);
+				}
 			 });
-			 
-			 
-			 
-			 var tag="";
-				/* tag+='<c:forEach var="project" items="${project }" end="${end+3}">'
-					+'<tr class="list " name="tt">'
-					+'<td class="limg">'
-					+'<c:if test="${empty project.image_rename }">'
-					+'<img name="img_rename" src="resources/images/logo.png"/>'
-					+'</c:if>'
-					+'<c:if test="${not empty project.image_rename }">'
-					+'<img name="img_rename" src="resources/uploadProPreImages/${project.image_rename }"/>'
-					+'</c:if>'
-					+'</td>'
-					+'<td><b><a href="#" style="color:black;">${project.project_name }</b></td>'
-					+'<td><b>${project.creation_date }</b></td>'
-					+'</tr>'
-					+'</c:forEach>';
-			$('.tbl_type').html(tag);
- */			
-			
 		}
 		 
 	}); 
@@ -115,8 +150,6 @@
 			</div>
 		</div>
 		<div id="list">
-		<input type="hidden" value="5" id="bb" name="bb">
-		<input type="hidden" value="50" id="aa">
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>
