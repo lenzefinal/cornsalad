@@ -38,7 +38,7 @@
 		<typeAlias alias="ProjectStatusUpdate" type="com.devone.finalp.project_status.model.vo.ProjectStatusUpdate"/>
 		<typeAlias alias="GiftInItemsUpdate" type="com.devone.finalp.project_status.model.vo.GiftInItemsUpdate"/>
 		
-		<typeAlias type="com.devone.finalp.payment.model.vo.PayGiftView" alias="payGiftView" />
+		<typeAlias type="com.devone.finalp.payment.model.vo.PayGiftView" alias="PayGiftView" />
 		<typeAlias type="com.devone.finalp.payment.model.vo.GiftItem" alias="GiftItem" />
 		<typeAlias type="com.devone.finalp.payment.model.vo.SellerInfo" alias="SellerInfo" />
 		

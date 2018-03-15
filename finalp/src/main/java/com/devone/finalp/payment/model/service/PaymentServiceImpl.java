@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devone.finalp.common.model.vo.Gift;
-import com.devone.finalp.common.model.vo.Item;
-import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.payment.model.dao.PaymentDao;
+import com.devone.finalp.payment.model.vo.GiftItem;
+import com.devone.finalp.payment.model.vo.PayGiftView;
+import com.devone.finalp.payment.model.vo.SellerInfo;
 
 @Service("payService")
 public class PaymentServiceImpl implements PaymentService {
@@ -17,18 +17,18 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentDao payDao;
 
 	@Override
-	public Project selectProject(String project_id) {
+	public SellerInfo selectProject(String project_id) {
 		return payDao.selectProject(project_id);
 	}
 
 	@Override
-	public List<Gift> selectAllGift(String project_id) {
+	public List<PayGiftView> selectAllGift(String project_id) {
 		return payDao.selectAllGift(project_id);
 	}
 
 	@Override
-	public List<Item> selectItem(String g_id) {
-		return payDao.selectItems(g_id);
+	public List<GiftItem> selectItem() {
+		return payDao.selectItems();
 	}
 
 }

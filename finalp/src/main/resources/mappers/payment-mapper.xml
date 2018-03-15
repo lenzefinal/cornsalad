@@ -3,13 +3,15 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="paymentMapper">
-	<resultMap id="payInfoMap" type="sellerInfo">
+
+	<resultMap id="payInfoMap" type="SellerInfo">
 		<result property="project_id" column="project_id" />
 		<result property="project_name" column="project_name" />
 		<result property="memer_name" column="member_name" />
+		<result property="end_date" column="end_date" />
 	</resultMap>
 	
-	<resultMap id="giftMap" type="payGiftView">
+	<resultMap id="giftMap" type="PayGiftView">
 		<result property="project_id" column="project_id" />
 		<result property="gift_id" column="gift_id" />
 		<result property="support_price" column="support_price" />
@@ -35,31 +37,21 @@
 		]]>
 	</insert>
 	
-	<select id="selctProjectInfo" resultMap="payInfoMap">
+	<select id="selctProjectInfo" parameterType="string" resultType="SellerInfo">
 		<![CDATA[
-			select project_name, member_name
-			from project p
-			join member m on (p.member_id = m.member_id)
-			where project_id = #{project_id}
+			SELECT * FROM P_SELLERINFO WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</select>
 	
 	<select id="selectAllGift" resultMap="giftMap" parameterType="string" resultType="list">
 		<![CDATA[
-			select g.gift_id, support_price,(select (g.capacity-sum(total_count))  from payment
-                                where project_id = ${p_id} and gift_id = g.gift_id) remain
-			from gift g
-			join gift_in_items gi on (g.gift_id = gi.gift_id)
-			where g.project_id = ${p_id}
+			SELECT * FROM P_GIFT WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</select>
 	
 	<select id="selectItems" resultMap="itemMap" parameterType="string" resultType="list">
 		<![CDATA[
-			select gi.gift_id, item_name, count
-			from gift_in_items gi
-			join item i on (gi.item_id = i.item_id)
-			where gift_id = ${g_id};
+			SELECT * FROM P_ITEMS
 		]]>
 	</select>
 
