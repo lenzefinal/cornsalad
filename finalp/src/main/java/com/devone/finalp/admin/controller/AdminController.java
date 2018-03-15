@@ -37,19 +37,16 @@ public class AdminController {
 		model.addAttribute("aalarm",adminService.adminalarm());
 		return "admin/adminIndex";
 	}
-
 	//관리자 회원리스트
 	@RequestMapping("adminMember.do")
 	public String adminMember() {
 		return "admin/adminMember";
 	}
-	
 	//관리자 회원 상세보기
 	@RequestMapping("adminMemberDetail.do")
 	public String adminMemberDetail() {
 		return "admin/adminMemberDetail";
 	}
-
 	//관리자 프로젝트리스트
 	@RequestMapping("adminProject.do")
 	public String adminProject() {
