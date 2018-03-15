@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -23,30 +25,26 @@
 		$("#flip").click(function() {
 			$("#panel").slideToggle("slow");
 		});
-		
-		
-		$(".a1").click(function(){
+
+		$(".a1").click(function() {
 			$(".project-store").show();
 			$(".supporter-tab").hide();
 			$(".comment-tab").hide();
 		});
-		
-		$(".a2").click(function(){
+
+		$(".a2").click(function() {
 			$(".project-store").hide();
 			$(".supporter-tab").hide();
 			$(".comment-tab").show();
 		});
-		
-		$(".a4").click(function(){
+
+		$(".a4").click(function() {
 			$(".project-store").hide();
 			$(".supporter-tab").show();
 			$(".comment-tab").hide();
 		});
-		
+
 	});
-	
-	
-	
 </script>
 <style>
 body, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td,
@@ -1072,7 +1070,6 @@ li {
 	cursor: default;
 }
 
-
 @media screen and (min-width: 767px) {
 	.reward-not-story .reward-header, .reward .reward-header {
 		display: block;
@@ -1188,7 +1185,7 @@ li {
 </style>
 </head>
 <body>
-	<%-- <c:import url="../header.jsp"></c:import> --%>
+	
 
 	<div id="container" class="wd-layout-sub-content reward actionbar-hide">
 		<!-- S : 캠페인 액션바 -->
@@ -1211,14 +1208,14 @@ li {
 		<div class="reward-nav">
 			<ul class="tab-list">
 				<li class="active"><a class="tab-link a1">스토리</a></li>
-				<li><a class="tab-link a2" >댓글
-						<span class="count-total comment-total">142</span>
+				<li><a class="tab-link a2">댓글 <span
+						class="count-total comment-total">142</span>
 				</a></li>
-				<li><a class="tab-link a3">환불및
-						교환 <span class="count-total">2<i class="icon-new"></i></span>
+				<li><a class="tab-link a3">환불및 교환 <span class="count-total">2<i
+							class="icon-new"></i></span>
 				</a></li>
-				<li><a class="tab-link a4" >서포터 <span
-						class="count-total">463<i class="icon-new"></i></span></a></li>
+				<li><a class="tab-link a4">서포터 <span class="count-total">463<i
+							class="icon-new"></i></span></a></li>
 			</ul>
 		</div>
 		<!-- E : 리워드 네비게이션 -->
@@ -1449,12 +1446,8 @@ li {
 													<p class="reward-soldcount">
 														총 <strong>0</strong>개 펀딩완료
 													</p>
-
 												</div>
-
 												<p class="hover-text">이 리워드 펀딩하기</p>
-
-
 											</button>
 
 											<button class="rightinfo-reward-list ing"
@@ -1579,88 +1572,20 @@ li {
 
 										<div class="recommend-box">
 											<h3 class="title">인기 프로젝트</h3>
-
-											<div class="item">
-												<div class="number">1</div>
-												<div class="text">
-													<a href="/web/campaign/detail/17231">라라스윗 : 한 통 다 먹어도
-														240kcal! 건강한 아이스크림 [앵콜]</a>
+											<c:forEach var="hot" items="${hotlist}">
+											
+												<div class="item">
+													<div class="number">1</div>
+													<div class="text">
+														<a>${hot.project_name }</a>
+													</div>
 												</div>
-											</div>
+											</c:forEach> 
 
-											<div class="item">
-												<div class="number">2</div>
-												<div class="text">
-													<a href="/web/campaign/detail/12356">옷정리를 1초만에 [허들
-														바지걸이]</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">3</div>
-												<div class="text">
-													<a href="/web/campaign/detail/15404">평범했던 내 의자엔 '바른자세
-														무중력 방석'</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">4</div>
-												<div class="text">
-													<a href="/web/campaign/detail/14869">하이브리드 스마트 워치
-														'ZeTime 지타임'</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">5</div>
-												<div class="text">
-													<a href="/web/campaign/detail/17155">[최종 앵콜] 누런이 탈출
-														프로젝트! 스위스 천연미백 칫솔!</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">6</div>
-												<div class="text">
-													<a href="/web/campaign/detail/16828">[앵콜] 하나로 다 된다.
-														모노폴드 맥가이버 백팩</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">7</div>
-												<div class="text">
-													<a href="/web/campaign/detail/15765">난 달라, 요요없이 복부지방을
-														뺀다! #풋사과야 너를 믿어~</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">8</div>
-												<div class="text">
-													<a href="/web/campaign/detail/16299">치약혁명! 하우투메이크 고체치약</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">9</div>
-												<div class="text">
-													<a href="/web/campaign/detail/17035">사랑하는 반려동물의 건강, 집에서
-														터치 한 번으로 확인하세요!</a>
-												</div>
-											</div>
-
-											<div class="item">
-												<div class="number">10</div>
-												<div class="text">
-													<a href="/web/campaign/detail/14048">우리 아이를 혼자 두지 마세요.
-														반려동물용 인공지능로봇 [고미볼]</a>
-												</div>
-											</div>
 
 										</div>
-									</div> <!-- E : 인기 프로젝트 리스트 --> <!-- S : 프로젝트 신고 팝업 --> <!-- S : 리턴 폼 -->
+									</div>
+									<!-- E : 인기 프로젝트 리스트 --> <!-- S : 프로젝트 신고 팝업 --> <!-- S : 리턴 폼 -->
 									<form action="/web/waccount/wAccountLogin" id="returnForm"
 										method="get" novalidate="novalidate">
 										<input type="hidden" id="returnURL" name="returnURL">
@@ -1700,13 +1625,13 @@ li {
 
 
 								<!--스토리  -->
-								<div class="project-store" style="display:block">
+								<div class="project-store" style="display: block">
 									<h3 class="text-hidden">프로젝트 스토리</h3>
 									이미지가 아닌 동영상 URL이 넘어오는 경우 iframe에 동영상을 보여줘야 함
 								</div>
 
-								<!-- 서포터 --> 
-								<div class="supporter-tab" style="display:none">
+								<!-- 서포터 -->
+								<div class="supporter-tab" style="display: none">
 
 									<strong class="achieve-text"> 현재 이 프로젝트에<br> <span>689명</span>의
 										참여가 이루어졌습니다.
@@ -1719,17 +1644,43 @@ li {
 														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
 												</a>
 												<figcaption class="info">
-													<strong class="title"> 사용자 <span>김혜림</span>님이
-														펀딩내용 <span> 펀딩</span>으로 참여 하셨습니다.
-													</strong><br> <abbr id="where-1">2017-08-08 </abbr>
+													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
+														<span> 펀딩</span>으로 참여 하셨습니다.
+													</strong><br> <abbr>2017-08-08 </abbr>
+												</figcaption>
+											</figure>
+										</li>
+										<li class="support-item showblock_1" id="0">
+											<figure>
+												<a href="#" onclick="goUserProfile(708130818);">
+													<div class="profile"
+														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
+												</a>
+												<figcaption class="info">
+													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
+														<span> 펀딩</span>으로 참여 하셨습니다.
+													</strong><br> <abbr>2017-08-08 </abbr>
+												</figcaption>
+											</figure>
+										</li>
+										<li class="support-item showblock_1" id="0">
+											<figure>
+												<a href="#" onclick="goUserProfile(708130818);">
+													<div class="profile"
+														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
+												</a>
+												<figcaption class="info">
+													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
+														<span> 펀딩</span>으로 참여 하셨습니다.
+													</strong><br> <abbr>2017-08-08 </abbr>
 												</figcaption>
 											</figure>
 										</li>
 									</ul>
-								</div> 
+								</div>
 								<!--서포터////////////////  -->
 								<!-- 댓글 시작  -->
-								<div class="comment-tab" style="display:none">
+								<div class="comment-tab" style="display: none">
 									<textarea
 										style="overflow-y: hidden; resize: none; height: 100px"
 										placeholder="후원자만 글을 쓸 수 있어요"></textarea>
@@ -1762,11 +1713,11 @@ li {
 										<div class="comment-input-button">
 											<button type="button" disabled="disabled"
 												class="wz-btn dense gray">답글 등록</button>
-											
+
 										</div>
 									</div>
 									<!---->
-									
+
 									<div class="comment-reply">
 										<div class="comment-item reply">
 											<div class="comment-wrap">
@@ -1849,7 +1800,7 @@ li {
 									<textarea name="content" placeholder="문의 내용"></textarea>
 
 									<input type="submit" class="blacklist blacklist-submit"
-										value="신고하기">
+										value="문의하기">
 								</form>
 							</div>
 						</div>

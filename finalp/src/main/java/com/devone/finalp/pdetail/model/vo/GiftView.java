@@ -2,8 +2,12 @@ package com.devone.finalp.pdetail.model.vo;
 
 import java.sql.Date;
 
-public class GiftView {
+public class GiftView implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
 	private String project_id;
 	private Date payment_date;
 	private String gift_id;

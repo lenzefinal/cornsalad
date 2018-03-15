@@ -2,8 +2,12 @@ package com.devone.finalp.pdetail.model.vo;
 
 import java.sql.Date;
 
-public class SuppoterView {
+public class SuppoterView implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3669081414541318188L;
 	private String project_id;
 	private String member_id;
 	private String member_name;

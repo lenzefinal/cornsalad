@@ -1,8 +1,12 @@
 package com.devone.finalp.pdetail.model.vo;
 
-public class MemberView {
+public class MemberView implements java.io.Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2034663182939303506L;
 	private String project_id;
 	private String member_id;
 	private String image_rename;

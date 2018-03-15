@@ -2,7 +2,11 @@ package com.devone.finalp.pdetail.model.vo;
 
 import java.sql.Date;
 
-public class ReplyView {
+public class ReplyView implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 724851946186970597L;
 	private String project_id;
 	private int project_reply_id;
 	private String member_id;

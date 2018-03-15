@@ -2,8 +2,12 @@ package com.devone.finalp.pdetail.model.vo;
 
 import java.sql.Date;
 
-public class ProjectView {
+public class ProjectView implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 689511374207088365L;
 	private String project_id;
 	private String project_name;
 	private String rep_content;
