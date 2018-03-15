@@ -71,6 +71,28 @@ function openPay(){
 	
 }
 
+function refund(){
+	var imp_id="4112304821735697";
+	var imp_secret="Pa6KLq7gwfsSiXGw6pVG3Ttg42u7U3jKdpuZPBfmRIf9FWGMlCtpwWFAYaITd1Drr7qhIGEAoTJ4PqRa";
+	var imp_uid = "imp_377854094073";
+	
+	$.ajax({
+		url:"refund.do",
+		type:"post",
+		data:{ imp_id : imp_id, imp_secret : imp_secret, imp_uid : imp_uid },
+		success: function(data){			
+				alert(data.message);
+
+		} ,
+		error: function(request, status, errorData){
+			alert("error code : " + request.status + "/n"
+					+"message : "+ request.responseText + "/n"
+					+"errorData : "+ errorData);
+		}
+	});
+}
+
+
 $(function(){
 	buttonEvent1();
 });

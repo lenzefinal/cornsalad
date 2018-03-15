@@ -42,11 +42,11 @@ em{
 		line-height: 32px; 
 		padding-left: 22px; 
 		padding-right:10px;
-		background: url('/finalp/resources/images/accountimages/check.png') left/22px no-repeat; 
+		background: url('/finalp/resources/images/paymentimages/check.png') left/22px no-repeat; 
 
 }
 #reward-notice-form input[type=checkbox]:checked + label {							
-		background-image: url('/finalp/resources/images/accountimages/check_on.png'); 
+		background-image: url('/finalp/resources/images/paymentimages/check_on.png'); 
 }
 
 #reward-notice-form dt{
@@ -110,10 +110,10 @@ span.mid{
 			width:25px;
 			height:25px;
 			line-height: 32px; 
-			background: url('/finalp/resources/images/accountimages/empty-checkbox.png') left/22px no-repeat; 
+			background: url('/finalp/resources/images/paymentimages/empty-checkbox.png') left/22px no-repeat; 
 }
 #reward-list input[type=checkbox]:checked + label {							
-			background-image: url('/finalp/resources/images/accountimages/check-mark.png');
+			background-image: url('/finalp/resources/images/paymentimages/check-mark.png');
 }
 
 .reward-box dt{
@@ -140,7 +140,7 @@ span.mid{
 			height:25px;
 			line-height: 32px; 
 			padding-left:30px;
-			background: url('/finalp/resources/images/accountimages/attention.png') left/22px no-repeat; 
+			background: url('/finalp/resources/images/paymentimages/attention.png') left/22px no-repeat; 
 }
 .wpurchase-wrap h3 em{
 			display: inline-block; 
@@ -283,7 +283,7 @@ ol, ul {
     width: 250px;
     margin: 20px auto;
     padding:0;
-    background: url('/finalp/resources/images/accountimages/dotted-line.png') repeat-x 0 center;
+    background: url('/finalp/resources/images/paymentimages/dotted-line.png') repeat-x 0 center;
 }
 
 .wpurchase-step ol li:nth-child(2) {
@@ -390,11 +390,11 @@ ol, ul {
 		line-height: 20px; 
 		padding-left: 22px; 
 		padding-right:10px;
-		background: url('/finalp/resources/images/accountimages/radio-off.png') left/20px no-repeat; 
+		background: url('/finalp/resources/images/paymentimages/radio-off.png') left/20px no-repeat; 
 
 }
 #wpurchaseType input[type=radio]:checked + label {							
-		background-image: url('/finalp/resources/images/accountimages/radio-on.png'); 
+		background-image: url('/finalp/resources/images/paymentimages/radio-on.png'); 
 }
 
 #wpurchaseType>ul>li {
@@ -551,12 +551,12 @@ p.sum{
 		height:15px; 
 		padding-right:10px;
 		padding-top:10px;
-		background: url('/finalp/resources/images/accountimages/empty-checkbox.png') left/12px no-repeat; 
+		background: url('/finalp/resources/images/paymentimages/empty-checkbox.png') left/12px no-repeat; 
 }
 
 
 .wpurchase-terms input[type=checkbox]:checked + label>span{							
-		background-image: url('/finalp/resources/images/accountimages/check-mark.png'); 
+		background-image: url('/finalp/resources/images/paymentimages/check-mark.png'); 
 }
 
 .reward-background .reward-box.active {

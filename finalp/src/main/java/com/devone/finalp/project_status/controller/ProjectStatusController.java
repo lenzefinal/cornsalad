@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,16 +38,46 @@ import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.project_status.model.service.ProjectStatusService;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 @Controller
 public class ProjectStatusController {
 	
 	@Autowired
 	private ProjectStatusService projectStatusService;
+	
+	@RequestMapping("projectInsertGuideView.do")
+	public String projectInsertGuideMethod() {
+		return "projectStatus/projectInsertGuideView";
+	}
 
 	@RequestMapping("fundingInsertView.do")
 	public String fundingInsertViewMethod() {
 		return "projectStatus/fundingInsertView";
+	}
+	
+	@RequestMapping("fundingUpdateView.do")
+	public String fundingUpdateViewMethod(@RequestParam(value="projectId") String projectId,
+			Model model) {
+		
+		ProjectStatusUpdate project = projectStatusService.selectOneProjectStatusUpdateByProId(projectId);
+		ProjectContent projectCon = projectStatusService.selectOneProjectContentByProId(projectId);
+		ProjectAccount projectAcc = projectStatusService.selectOneProjectAccountByProId(projectId);
+		List<Item> itemList = projectStatusService.selectListItem(projectId);
+		List<Gift> giftList = projectStatusService.selectListGift(projectId);
+		List<GiftInItemsUpdate> giftinitemList = projectStatusService.selectListGiftInItemsUpdate(projectId);
+		
+		System.out.println(project.getProject_name());
+		
+		model.addAttribute("project", project);
+		model.addAttribute("projectCon", projectCon);
+		model.addAttribute("projectAcc", projectAcc);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("giftList", giftList);
+		model.addAttribute("giftinitemList", giftinitemList);
+		
+		return "projectStatus/fundingUpdateView";
 	}
 	
 	@RequestMapping("contentImgUpload.do")
@@ -572,4 +603,16 @@ public class ProjectStatusController {
 		System.out.println("GiftInItem 등록 완료");
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="ceritif.do", method=RequestMethod.POST)
+	public void ceritifMethod() throws Exception{
+		
+		System.out.println("ceritif");
+		
+	}
 }
+
+
+
+

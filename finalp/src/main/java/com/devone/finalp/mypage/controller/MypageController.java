@@ -2,8 +2,8 @@ package com.devone.finalp.mypage.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.memberaccount.model.vo.MemberAccount;
 import com.devone.finalp.mypage.service.MypageService;
 
@@ -27,7 +29,7 @@ public class MypageController {
 	// 마이페이지 메인
 	@RequestMapping("mypageIndex.do")
 	public String mypageIndex(Model model, Member member) {
-	
+
 		System.out.println("마이페이지 인덱스");
 
 		return "mypage/mypageIndex";
@@ -52,28 +54,13 @@ public class MypageController {
 
 		return "mypage/mypageWithdrawal";
 	}
-
-	// 마이페이지 찜 리스트(default:찜한 프로젝트 리스트 출력)
-	@RequestMapping("mypageLikes.do")
-	public String mypageLikes() {
-		System.out.println("찜한 거 보기");
-
-		return "mypage/mypageLikes";
-	}
-
-	// 마이페이지 현황보기(default:등록한 프로젝트 리스트 출력)
-	@RequestMapping("mypageStatus.do")
-	public String mypageStatus() {
-		System.out.println("현황 보기");
-
-		return "mypage/mypageStatus";
-	}
-
 	// 등록한 프로젝트 리스트 출력 폼
 	@RequestMapping("myProject.do")
-	public String myProject() {
+	public String myProject(Model model, Project project) {
 		System.out.println("등록 프로젝트");
-
+		
+		model.addAttribute("project", mypageService.selectMyProject(project));
+		System.out.println("내 project: "+project+" model: "+model);
 		return "mypage/myProject";
 	}
 
@@ -119,18 +106,18 @@ public class MypageController {
 
 	// 회원 정보 수정 기능
 	@RequestMapping("mModify.do")
-	public String memberModify(Model model, Member member, MemberAccount account, HttpServletRequest request)
-			throws IOException {
-		
-	
+	public String memberModify(Model model, Member member, MemberAccount account,
+			@RequestParam(value = "orifile") String orifile,
+			@RequestParam(value = "refile") String refile, HttpServletRequest request) throws IOException {
+
 		// 파일 업로드 처리
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		MultipartFile uploadFile = multipartRequest.getFile("memberProfile");
 
 		// 웹서버 컨테이너 경로 추출함
-		String root = request.getSession().getServletContext().getRealPath("/");
+		String root = request.getSession().getServletContext().getRealPath("resources/");
 		// 파일 저장 경로 정함
-		String savePath = root + "mypageProfiles/";
+		String savePath = root + "images/mypageProfiles/";
 		// 스프링에서는 프로젝트\target\m2e-wtp\web-resources\ 아래에 폴더를 만들어야 함
 		if (!uploadFile.isEmpty()) {
 			String ofileName = uploadFile.getOriginalFilename();
@@ -144,6 +131,14 @@ public class MypageController {
 
 			member.setProfile_img_oriname(ofileName);
 			member.setProfile_img_rename(rfileName);
+		} else {
+			if(orifile!=null&&refile!=null) {
+				member.setProfile_img_oriname(orifile);
+				member.setProfile_img_rename(refile);
+			} else {
+				member.setProfile_img_oriname(null);
+				member.setProfile_img_rename(null);
+			}
 		}
 		mypageService.memberModify(member);
 		mypageService.accountModify(account);

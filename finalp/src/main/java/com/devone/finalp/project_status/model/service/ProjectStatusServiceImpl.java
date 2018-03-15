@@ -15,6 +15,8 @@ import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.project_status.model.dao.ProjectStatusDao;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 @Service("projectStatusService")
 public class ProjectStatusServiceImpl implements ProjectStatusService {
@@ -90,6 +92,41 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 	@Override
 	public int insertGiftInItem(GiftInItems giftInItem) {
 		return projectStatusDao.insertGiftInItem(giftInItem);
+	}
+
+	@Override
+	public ProjectContent selectOneProjectContentByProId(String projectId) {
+		return projectStatusDao.selectOneProjectContentByProId(projectId);
+	}
+
+	@Override
+	public ProjectAccount selectOneProjectAccountByProId(String projectId) {
+		return projectStatusDao.selectOneProjectAccountByProId(projectId);
+	}
+
+	@Override
+	public List<Item> selectListItem(String projectId) {
+		return projectStatusDao.selectListItem(projectId);
+	}
+
+	@Override
+	public List<Gift> selectListGift(String projectId) {
+		return projectStatusDao.selectListGift(projectId);
+	}
+
+	@Override
+	public List<GiftInItems> selectListGiftInItems(String projectId) {
+		return projectStatusDao.selectListGiftInItems(projectId);
+	}
+
+	@Override
+	public ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId) {
+		return projectStatusDao.selectOneProjectStatusUpdateByProId(projectId);
+	}
+
+	@Override
+	public List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId) {
+		return projectStatusDao.selectListGiftInItemsUpdate(projectId);
 	}
 
 }

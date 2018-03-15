@@ -11,6 +11,8 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 public interface ProjectStatusService {
 
@@ -28,4 +30,11 @@ public interface ProjectStatusService {
 	int insertGift(Gift gift);
 	int insertItem(Item item);
 	int insertGiftInItem(GiftInItems giftInItem);
+	ProjectContent selectOneProjectContentByProId(String projectId);
+	ProjectAccount selectOneProjectAccountByProId(String projectId);
+	List<Item> selectListItem(String projectId);
+	List<Gift> selectListGift(String projectId);
+	List<GiftInItems> selectListGiftInItems(String projectId);
+	ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId);
+	List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId);
 }

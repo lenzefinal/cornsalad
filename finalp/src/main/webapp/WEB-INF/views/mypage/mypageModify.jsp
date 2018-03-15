@@ -10,58 +10,7 @@
 <body class="skin_main">
 <c:import url="../header.jsp"/>
 <c:import url="mypageIndexHeader.jsp"/>
-<script>
-$(function(){
-	var fileTarget = $('.filebox .upload-hidden'); 
-    
-    fileTarget.on('change', function(){ // 값이 변경되면 
-       if(window.FileReader){ // modern browser 
-          var filename = $(this)[0].files[0].name; 
-       } 
-       else { // old IE 
-          var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-       } 
-    
-       // 추출한 파일명 삽입 
-       $(this).siblings('.upload-name').val(filename); 
-    });
-    
-    
-    
-    //preview image 
-    var imgTarget = $('.preview-image .upload-hidden'); 
-    
-    imgTarget.on('change', function(){ 
-       var parent = $(this).parent(); 
-       parent.children('.upload-display').remove(); 
-       
-       if(window.FileReader){ 
-          //image 파일만 
-          /* if (!$(this)[0].files[0].type.match(/image\//)) return;  */
-          
-          var reader = new FileReader(); 
-          reader.onload = function(e){ 
-             var src = e.target.result; 
-             parent.prepend('<div class="upload-display"><img src="'
-                   + src + '" class="upload-thumb"></div>'); 
-          } 
-          reader.readAsDataURL($(this)[0].files[0]); 
-       } 
-       else { 
-          $(this)[0].select(); 
-          $(this)[0].blur(); 
-          
-          var imgSrc = document.selection.createRange().text; 
-          parent.prepend('<div class="upload-display"><img class="upload-thumb"></div>'); 
-          
-          var img = $(this).siblings('.upload-display').find('img'); 
-          img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""
-                + imgSrc + "\")"; 
-       } 
-    });
-});
 
-</script>
 <style type="text/css">
 	.modify{
 		margin-left:6%;
@@ -93,7 +42,6 @@ $(function(){
 		'Apple SD GothicNeo', Sans-serif;
    		line-hieght:10px;
     }
-   
     .cancel:hover {
     	color:white;
     	background-color:red;	
@@ -114,6 +62,7 @@ $(function(){
     	border-radius:100%; 
     	width:255px;
     	height:255px;
+    	margin-bottom:5%;
     }    
     
 	/* 업로드 버튼 ------------------------------------------------------------*/
@@ -130,20 +79,50 @@ $(function(){
       clip:rect(0,0,0,0); 
       border: 0; 
    } 
-   .filebox label { 
+   .filebox label.upImg { 
       display: inline-block; 
       padding: .5em .75em; 
       color: #999; 
       font-size: inherit; 
       line-height: normal; 
       vertical-align: middle; 
-      background-color: #fdfdfd; 
+      background-color: #f5f6f8; 
       cursor: pointer; 
-      border: 1px solid #ebebeb; 
-      border-bottom-color: #e2e2e2; 
       border-radius: .25em; 
       margin-top: 8px;
+      border:2px solid #F7D358; 
+      width:70px;
+      height:14px;
+      text-align:center;
+      -webkit-transition-duration: 0.4s;
+   	  transition-duration: 0.4s;
    } 
+   .filebox label.upImg:hover { 
+	      background-color:#F7D358;
+	      color:white;
+   }
+   label.basicImg{
+	   display: inline-block; 
+      padding: .5em .75em; 
+      color: #999; 
+      font-size: inherit; 
+      line-height: normal; 
+      vertical-align: middle; 
+      background-color: #f5f6f8; 
+      cursor: pointer; 
+      border-radius: .25em; 
+      margin-top: 8px;
+      border:2px solid red; 
+      width:70px;
+      height:14px;
+      text-align:center;
+      -webkit-transition-duration: 0.4s;
+   	  transition-duration: 0.4s;
+   }
+   label.basicImg:hover{
+   	   background-color:red;
+   	   color:white;
+   }
    /* named upload */ 
    .filebox .upload-name { 
       display: inline-block; 
@@ -265,52 +244,38 @@ $(function(){
 	     var pw = document.getElementById("member_pwd").value;
 	     var pwck = document.getElementById("pwd_check").value;
 	 
-	        if (pw != pwck) {
-	            $('#same').html("비밀번호가 일치하지 않습니다!");
-	            $('#same').css('color', 'red');
-	            $('#modify').attr('disabled', true);
-	            $('#modify').css('color', 'gray');
-	        	$('#modify').css('background-color', '#f5f6f8');
-	        	$('#modify').css('cursor', 'default');
-	        } else {
-	        	$('#same').html("비밀번호가 잘 맞네요!")
-	        	$('#same').css('color', 'blue');
-	        	$('#modify').attr('disabled', false);
-	        	$('#modify').css('color', 'white');
-	        	$('#modify').css('background-color', '#F7D358');
-	        	$('#modify').css('cursor', 'pointer');
-	        }
+	     if (pw != pwck) {
+	    	 $('#same').html("비밀번호가 일치하지 않습니다!");
+	         $('#same').css('color', 'red');
+	         $('#modify').attr('disabled', true);
+	         $('#modify').css('color', 'gray');
+	         $('#modify').css('background-color', '#f5f6f8');
+	         $('#modify').css('cursor', 'default');
+	     } else {
+        	 $('#same').html("비밀번호가 잘 맞네요!")
+        	 $('#same').css('color', 'blue');
+        	 $('#modify').attr('disabled', false);
+        	 $('#modify').css('color', 'white');
+        	 $('#modify').css('background-color', '#F7D358');
+        	 $('#modify').css('cursor', 'pointer');
+	     }
 	}
-	$(function(){          
-		$('#btn-upload').click(function(e){
-			e.preventDefault();             
-			$("input:file").click();               
-			var ext = $("input:file").val().split(".").pop().toLowerCase();
-			$("input:file").val().toLowerCase();
-		});                         
-	});      
-
-    function readURL(input) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-                $('#profileimg').attr('src', e.target.result);
-            }
-
-          reader.readAsDataURL(input.files[0]);
-        }
-    
-	$(function() {
-	    $("#file").on('change', function(){
-	        readURL(this);
-	    });
-	});
-	
-	$(function(){
-		$('#basicimg').click(function(){
+	function imgModify(img){
+		if(img.files && img.files[0]){
+			var reader=new FileReader();
+			reader.onload=function(e){
+				$('#profileimg').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(img.files[0]);
+		}
+	}
+	function basicImg(){
+		$('.basicImg').click(function(){
 			$('#profileimg').attr('src', 'resources/images/mypageProfiles/defaultProfile.jpg');
+			$('#orifile').attr('value', '');
+			$('#refile').attr('value', '');
 		});
-	});
+	}
 </script>
 
 	 <div id="container" style="height:724px;">
@@ -320,19 +285,25 @@ $(function(){
 				<p class="contxt">회원님의 정보를 확인하고 변경할 수 있습니다.</p>
 			</div>
 		<form action="mModify.do" method="post" enctype="multipart/form-data">
+			<input id="orifile" type="hidden" name="orifile" value="${member.profile_img_oriname }"/>
+			<input id="refile" type="hidden" name="refile" value="${member.profile_img_rename }"/>
 			<div class="column">
-			<c:if test="${empty member.profile_img_rename }">
-				<img src="resources/images/mypageProfiles/defaultProfile.jpg" class="profile" id="profileimg" /><br>
+			<c:if test="${empty member.profile_img_oriname }">
+				<img src="resources/images/mypageProfiles/defaultProfile.jpg" name="memberProfile" class="profile" id="profileimg" /><br>
 			</c:if>
-			<c:if test="${not empty member.profile_img_rename }">
-				<img src="${member.profile_img_rename }" class="profile" id="profileimg" /><br>
+			<c:if test="${not empty member.profile_img_oriname }">
+				<img src="resources/images/mypageProfiles/${member.profile_img_rename }" name="memberProfile" class="profile" id="profileimg" /><br>
+			
 			</c:if>
-					<div class="filebox preview-image" > 
-						<input type='file' id='file' name="memberProfile" accept="image/*"/>
-						<button id='btn-upload' class="modify"><b>업로드</b></button>
-						<button id="basicimg" class="cancel" style="margin-bottom:5%"><b>이미지 삭제</b></button>
+				<div class="filebox preview-image" > 
+					<div style="margin-left:3%;">
+						<input class="upload-name" value="파일선택" disabled type="hidden"> <br>
+						<label class="upImg" for="ex_filename"><b>업로드</b></label> 
+						<input type="file" id="ex_filename" name="memberProfile" accept="image/*" class="upload-hidden" onchange="imgModify(this)"> 
+						<label for="basicImg" onclick="basicImg()" class="basicImg"><b>기본 이미지</b></label>
 					</div>
-			</div>
+				</div>
+			</div>	
 			<div class="column">
 				<dl class="myinfo">
 					<dt><b>ID</b></dt>

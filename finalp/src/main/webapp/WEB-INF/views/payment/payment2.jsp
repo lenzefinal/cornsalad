@@ -10,8 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="/finalp/resources/css/aStyle.css" />
-<script type="text/javascript" src="/finalp/resources/js/aScript.js"></script>
 
 <script>
 
@@ -21,15 +19,15 @@
 <body>
 <c:import url="../header.jsp"></c:import>
 
-<link rel="stylesheet" href="/finalp/resources/css/aStyle.css" />
-<script type="text/javascript" src="/finalp/resources/js/aScript.js"></script>
+<link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
+<script type="text/javascript" src="/finalp/resources/js/paymentScript.js"></script>
 
 <div class="reward-body">
 
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/accountimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]</td>
 				<td id="seller"><h4>(주) 고미랩스</h4></td>
 				</tr>
@@ -203,6 +201,7 @@
     				<p class="confirm">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
     				<button class="btn-rd-violet" onclick="openPay()">다음 단계로 &gt;</button>
     			</div>
+    			<button onclick="refund()">test RESTAPI</button>
 
 </div>
 </div>

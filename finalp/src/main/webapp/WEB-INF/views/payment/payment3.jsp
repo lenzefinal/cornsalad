@@ -20,8 +20,8 @@
 <body>
 <c:import url="../header.jsp"></c:import>
 
-<link rel="stylesheet" href="/finalp/resources/css/aStyle.css" />
-<script type="text/javascript" src="/finalp/resources/js/aScript.js"></script>
+<link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
+<script type="text/javascript" src="/finalp/resources/js/paymentScript.js"></script>
 
 <div class="reward-body">
 

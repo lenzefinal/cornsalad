@@ -23,8 +23,8 @@
 
 <c:import url="../header.jsp"></c:import>
 
-<link rel="stylesheet" href="/finalp/resources/css/aStyle.css" />
-<script type="text/javascript" src="/finalp/resources/js/aScript.js"></script>
+<link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
+<script type="text/javascript" src="/finalp/resources/js/paymentScript.js"></script>
 
 <div class="container">
 
@@ -39,7 +39,7 @@
           <!-- <!-- <h4 class="modal-title">Modal Header</h4> --> 
         <!-- </div> -->
         <div class="modal-body">
-          <a href="javascript:history.back();" class="btn less back"><img src="/finalp/resources/images/accountimages/left arrow.png" height="20" width="20"> &nbsp; <span class="mid">스토리로 돌아가기</span></a>
+          <a href="javascript:history.back();" class="btn less back"><img src="/finalp/resources/images/paymentimages/left arrow.png" height="20" width="20"> &nbsp; <span class="mid">스토리로 돌아가기</span></a>
 		  <p class="title"><strong>잠깐!</strong> 펀딩과 쇼핑이 어떻게 다른지 확인 후 펀딩을 진행하세요</p>
 		
 		<div class="wz-form large" id="reward-notice-form">
@@ -78,7 +78,7 @@
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/accountimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]</td>
 				<td id="seller"><h4>(주) 고미랩스</h4></td>
 				</tr>
@@ -142,9 +142,9 @@
 	    										<div class="amount">
 	    											<p class="title">수량</p>
 	    											<p class="input-area">
-	    												<button type="button" onclick="changeQty('minus', 33830)" class="icon-remove-box-o"><img src="/finalp/resources/images/accountimages/minus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('minus', 33830)" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
 	    												<input type="text" id="qty33830" class="reward-qty" value="0" />
-	    												<button type="button" onclick="changeQty('plus', 33830)" class="icon-add-box-o"><img src="/finalp/resources/images/accountimages/plus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('plus', 33830)" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
 	    											</p>
 	    										</div>
 	    										 
@@ -192,9 +192,9 @@
 	    										<div class="amount">
 	    											<p class="title">수량</p>
 	    											<p class="input-area">
-	    												<button type="button" onclick="changeQty('minus', 33831)" class="icon-remove-box-o"><img src="/finalp/resources/images/accountimages/minus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('minus', 33831)" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
 	    												<input type="text" id="qty33831" class="reward-qty" value="0" />
-	    												<button type="button" onclick="changeQty('plus', 33831)" class="icon-add-box-o"><img src="/finalp/resources/images/accountimages/plus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('plus', 33831)" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
 	    											</p>
 	    										</div>
 	    										 
@@ -210,7 +210,7 @@
 
 				<div class="btn-wrap">
     				<p class="confirm">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
-    				<button class="btn-rd-violet" onclick="location.href='account2.do'">다음 단계로 &gt;</button>
+    				<button class="btn-rd-violet" onclick="location.href='payment2.do'">다음 단계로 &gt;</button>
     			</div>
 
 </div>

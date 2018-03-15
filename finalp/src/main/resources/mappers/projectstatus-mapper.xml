@@ -44,7 +44,7 @@
 			INSERT INTO PROJECT VALUES( #{ project_id }, #{ project_category_id }, NULL,
 							NULL, #{ member_id }, NULL, NULL, 
 							NULL, DEFAULT, SYSDATE, NULL, NULL, 
-							NULL, NULL, 'N', DEFAULT, 'N'
+							NULL, NULL, 'N', 'N', DEFAULT, 'N'
 			)
 		]]>
 	</select>
@@ -73,6 +73,94 @@
 			
 		]]>
 	</select>
+	
+	<select id="selectOneProjectContent" parameterType="string"
+		resultType="ProjectContent">
+		<![CDATA[
+				SELECT * 
+				FROM PROJECT_CONTENT
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</select>
+	
+	<select id="selectOneProjectAccount" parameterType="string"
+		resultType="ProjectAccount">
+		<![CDATA[
+				SELECT * 
+				FROM PROJECT_ACCOUNT
+				WHERE PROJECT_ID = #{ project_id }
+			
+		]]>
+	</select>
+	
+	<select id="selectOneProjectStatusUpdate" parameterType="string"
+		resultType="ProjectStatusUpdate">
+		<![CDATA[
+				SELECT * 
+				FROM V_PROJECTSTATUSUPDATE
+				WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<resultMap id="ItemResultMap" type="Item">
+		<result column="item_id" property="item_id"/>
+		<result column="item_name" property="item_name"/>
+		<result column="project_id" property="project_id"/>
+	</resultMap>
+	<select id="selectListItem" resultMap="ItemResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM ITEM
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<resultMap id="GiftResultMap" type="Gift">
+		<result column="gift_id" property="gift_id"/>
+		<result column="support_price" property="support_price"/>
+		<result column="capacity" property="capacity"/>
+		<result column="project_id" property="project_id"/>
+	</resultMap>
+	<select id="selectListGift" resultMap="GiftResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM GIFT
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<resultMap id="GiftInItemsResultMap" type="GiftInItems">
+		<result column="gift_id" property="gift_id"/>
+		<result column="item_id" property="item_id"/>
+		<result column="count" property="count"/>
+	</resultMap>
+	<select id="selectListGiftInItems" resultMap="GiftInItemsResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM GIFT_IN_ITEMS
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<resultMap id="GiftInItemsUpdateResultMap" type="GiftInItemsUpdate">
+		<result column="gift_id" property="gift_id"/>
+		<result column="item_id" property="item_id"/>
+		<result column="count" property="count"/>
+		<result column="project_id" property="project_id"/>
+	</resultMap>
+	<select id="selectListGiftInItemsUpdate" resultMap="GiftInItemsUpdateResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM V_GIFTINITEMSUPDATE
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
 	
 	<update id="updateProjectToUploadImg" parameterType="Project">
 		<![CDATA[

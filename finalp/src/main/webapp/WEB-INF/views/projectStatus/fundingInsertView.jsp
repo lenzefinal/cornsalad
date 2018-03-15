@@ -13,6 +13,8 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
 <link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <script src="/finalp/resources/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
+
 <style>
 	
 	
@@ -22,7 +24,7 @@
 		background-color: rgba(253,255,232,0.5);
 	} */
 	body{
-		background: #f6f5f5;
+		background: rgba(220,220,220,0.2);
 	}
 	.project-bgcol-white{
 		background-color: white;
@@ -190,7 +192,7 @@
 	.project-description-button {
 		border: 1px solid rgba(0,0,0,0.1);
 		/* background-color: rgba(215,255,73,0.2); */
-		background-color: rgba(0,0,0,0.4);
+		background-color: #3b4c53;
 		color: white;
 		font-weight: bold;
 	    border-radius: .25rem;
@@ -200,7 +202,7 @@
 	.project-description-button:hover,
 	.project-description-button-active {
 		/* background-color: rgba(215,255,73,0.5); */
-		background-color: rgba(0,0,0,0.6);
+		background-color: #1ea18e;
 	}
 	.project-description-button-panel{
 		padding: 0 18px;
@@ -244,8 +246,13 @@
 	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
-		border: 1px solid rgba(0,0,0,0.1);
-		background-color: #FFFBC5;/* rgba(215,255,73,0.2); */
+		opacity: 0.7;
+		border: 3px solid #f9bf30;
+		background-color: #f9bf30;
+		/* border: 3px solid #FFC72B;
+		background-color: white; */
+		/* border: 1px solid rgba(0,0,0,0.1);
+		background-color: #FFFBC5; *//* rgba(215,255,73,0.2); */
 		/* background-color: rgba(0,0,0,0.4); */
 	    border-radius: .25rem;
 	}
@@ -315,14 +322,14 @@
 	.filebox label { 
 		display: inline-block; 
 		padding: .5em .75em; 
-		color: #999; 
+		color: white; 
 		font-size: inherit; 
 		line-height: normal; 
 		vertical-align: middle; 
-		background-color: #fdfdfd; 
+		background-color: #27a399; 
 		cursor: pointer; 
-		border: 1px solid #ebebeb; 
-		border-bottom-color: #e2e2e2; 
+		border: 1px solid #27a399; 
+		border-bottom-color: #27a399; 
 		border-radius: .25em; 
 		margin-top: 8px;
 	} 
@@ -399,7 +406,7 @@
 	}
 	
 	.project-gift-in-item-table .project-gift-in-item-check{
-		background-color: rgba(232,74,74,0.4);
+		background-color: #28a49a;
 		transition: 0.4s;
 	}
 	
@@ -485,6 +492,28 @@
 		font-weight: bold;
 		font-size: 14pt;
 		padding-bottom: 10px;
+	}
+	
+	.btn-primary{
+		border: 1px solid #3e4b53;
+		background-color: white;
+		color: #3e4b53;
+	}
+	.btn-primary:hover{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
+	
+	.btn-danger{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
+	.btn-danger:hover{
+		border: 1px solid black;
+		background-color: black;
+		color: white;
 	}
 	
 </style>
@@ -911,6 +940,9 @@ function insertGiftInItemFunc(){
 <script>
 	$(function(){
 		
+		IMP.init('CORNSALAD');
+		
+		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
 		getCategoryListFunc();
@@ -953,7 +985,7 @@ function insertGiftInItemFunc(){
 				reader.onload = function(e){ 
 					var src = e.target.result; 
 					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
-							+ src + '" class="upload-thumb"></div></div>'); 
+							+ src + '" class="upload-thumb" style="width:600px;></div></div>'); 
 				} 
 				reader.readAsDataURL($(this)[0].files[0]); 
 			} 
@@ -1125,8 +1157,8 @@ function insertGiftInItemFunc(){
 								'<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>' +
 								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요."/></div>' +
 								'<div align="right">' +
-									'<button class="btn btn-default project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
-									'<button class="btn btn-primary project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
+									'<button class="btn btn-default btn-greentea project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
+									'<button class="btn btn-primary btn-greentea project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
 								'</div>' +
 							'</div>' +
 						'</div>';
@@ -1643,6 +1675,7 @@ function insertGiftInItemFunc(){
 	function saveVideoUrl(){
 		var urlTag = $("#content-video-url").val();
 		$("#content-videourl-input").val(urlTag);
+		$("#content-video-url").attr("value", urlTag);
 	}
 		
 	function preShowVideo(){
@@ -2109,7 +2142,7 @@ function insertGiftInItemFunc(){
 		border-radius: 5px;
 	}
 	.modal-item-table .modal-item-list-update{
-		background-color:#FFFBC5;
+		background-color:#f9bf30;
 	}
 	
 	.modal-item-add-div{
@@ -2144,6 +2177,28 @@ function insertGiftInItemFunc(){
 	.btn{
 		width: 100px;
 	}
+	
+	.btn-greentea{
+		border:1px solid #26a499;
+		background-color: white;
+		color: #26a499;
+	}
+	.btn-greentea:hover{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	
+	.btn-greenteareverse{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	.btn-greenteareverse{
+		border:1px solid #167b72;
+		background-color: #167b72;
+		color: white;
+	}
 
 </style>
 
@@ -2159,7 +2214,7 @@ function insertGiftInItemFunc(){
 			<div class="modal-item-add-div">
 				<div align="center" style="padding: 10px 10px 0px 10px;"><b>아이템 추가하기</b></div>
 				<div align="center" style="padding: 0px 10px 10px 10px;">선물 구성에 추가할 아이템을 만듭니다</div>
-				<div align="center"><button class="btn btn-primary item-add-btn"><b>+</b> 추가하기</button></div>
+				<div align="center"><button class="btn btn-primary btn-greentea item-add-btn"><b>+</b> 추가하기</button></div>
 			</div>
 			<div class="modal-item-adddetail-location">
 				<!-- <div class="modal-item-adddetail-div">

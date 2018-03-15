@@ -21,8 +21,15 @@
 			<name>ORACLE JDBC Repository</name>
 			<url>https://maven.atlassian.com/3rdparty/</url>
 		</repository>
+		
+		<!-- iamport add -->
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+		
 	</repositories>
-	
+
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -150,6 +157,22 @@
 			<version>1.4</version>
 		</dependency>
 		
+		<!-- iamport add -->
+		
+		<dependency>
+		    <groupId>com.github.iamport</groupId>
+		    <artifactId>iamport-rest-client-java</artifactId>
+		    <version>0.1.10</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>3.8.1</version>
+		</dependency>
+		
+
 		<!-- FileUpload -->
 	    <dependency>
 			<groupId>commons-io</groupId>

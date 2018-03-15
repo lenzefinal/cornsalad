@@ -43,6 +43,11 @@
    		line-hieght:10px;
    		font-weight:bold;
 	}
+	#mdelete{
+		background-color:gray;
+		    -webkit-transition-duration: 0.4s;
+   	  transition-duration: 0.4s;
+	}
 </style>
 <script type="text/javascript">
 	function agreeCheck(chk){
@@ -55,6 +60,22 @@
 	    	$('.btn0').css("background-color","#f5f6f8");
 	    	$('.btn0').css("color", "gray");
 		}
+	}
+	function checkpwd(){
+	     var pw = document.getElementById("member_pwd").value;
+	     var pwck = document.getElementById("memberpwd").value;
+	 
+	     if (pw != pwck) {
+	    	 $('#checkpwd').html("비밀번호가 일치하지 않습니다. 확인 후 다시 시도해주세요.");
+	         $('#checkpwd').css('color', 'red');
+	         $('#mdelete').attr('disabled', true);
+	         $('#mdelete').css('background-color', 'gray');
+	     } else {
+	       	 $('#checkpwd').html("")
+	       	 $('#mdelete').attr('disabled', false);
+	         $('#mdelete').css('background-color', 'red');
+	         $('#mdelete').css('cursor','pointer')
+		 }
 	}
 </script>
 </head>
@@ -94,15 +115,17 @@
   <div class="modal fade" id="deleteMember-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" style="display: none; z-index:9999;">
 	 	<div class="modal-dialog">
 			<div class="loginmodal-container">
-				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x" onclick="location.href='/doubleb/index.jsp'"></i></a>
+				<a data-dismiss="modal" style="margin-left:90%;"><i class="xi-close-thin xi-2x" onclick="mdelete.do"></i></a>
 				<h1>정말 탈퇴하시나요?</h1><br>
 			 	<form action="mDelete.do" method="post" id="deleteMember">
 			 		<input type="hidden" name="member_id" value='${loginUser.member_id }'/>
-					<input type="password" name="member_pwd" placeholder="비밀번호를 입력해주세요.">
-					<input type="submit" name="login" class="login loginmodal-submit" value="탈퇴">
+			 		<input type="hidden" id="memberpwd" value="${loginUser.member_pwd }">
+					<input type="password" id="member_pwd" name="member_pwd" placeholder="비밀번호를 입력해주세요." onchange="checkpwd()">
+					<input type="submit" name="mdelete" id="mdelete" class="login loginmodal-submit" value="탈퇴" disabled>
 			  	</form>
 			  	<p>'탈퇴' 버튼을 누르면 되돌릴 수 없습니다.<br>
 					신중히 생각 후 결정하세요!</p>
+				<p id="checkpwd"></p>
 			</div>
 		</div>
 	</div>

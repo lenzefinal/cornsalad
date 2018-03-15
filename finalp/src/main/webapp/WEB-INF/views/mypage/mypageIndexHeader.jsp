@@ -16,10 +16,10 @@
 				<a href="mypageIndex.do" style="color:black;">나의 정보<em style="color:black"></em></a>
 			</li>
 			<li id="myStatus" class="on">
-				<a href="mypageStatus.do" style="color:black;">현황 보기</a>
+				<a href="myProject.do" style="color:black;">현황 보기</a>
 			</li>
 			<li id="Likes" class="on">
-				<a href="mypageLikes.do" style="color:black;">찜한 상품</a>
+				<a href="projectLikes.do" style="color:black;">찜한 상품</a>
 			</li>
 		</ul>
 	</div>
