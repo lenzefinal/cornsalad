@@ -3,18 +3,20 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="paymentMapper">
-	<resultMap type="payInfoMap" id="PayInfo">
+	<resultMap id="payInfoMap" type="sellerInfo">
+		<result property="project_id" column="project_id" />
 		<result property="project_name" column="project_name" />
-		<result property="projecter_name" column="member_name" />
+		<result property="memer_name" column="member_name" />
 	</resultMap>
 	
-	<resultMap type="giftMap" id="gift">
+	<resultMap id="giftMap" type="payGiftView">
+		<result property="project_id" column="project_id" />
 		<result property="gift_id" column="gift_id" />
 		<result property="support_price" column="support_price" />
 		<result property="remain" column="remain" />
 	</resultMap>
 	
-	<resultMap type="itemMap" id="item">
+	<resultMap id="itemMap" type="GiftItem">
 		<result property="gift_id" column="gift_id" />
 		<result property="item_name" column="item_name" />
 		<result property="count" column="count" />
