@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.admin.model.dao.AdminDao;
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -44,6 +45,18 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public AReport reportDetail(int report_id) {
 		return adminDao.reportDetail(report_id);
+	}
+
+	//관리자 문의글 리스트
+	@Override
+	public List<AQuestion> selectQuestionList() {
+		return adminDao.selectQuestionList();
+	}
+
+	//관리자 문의글 답변
+	@Override
+	public AQuestion aquestionDetail(int question_id) {
+		return adminDao.aquestionDetail(question_id);
 	}
 	
 	

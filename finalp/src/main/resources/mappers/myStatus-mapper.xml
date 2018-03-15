@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mystatusmapper">
+	<resultMap id="projectList" type="Project">
+		<result property="project_id" column="project_id" />
+		<result property="projcet_category_id" column="projcet_category_id" />
+		<result property="category_sub_id" column="category_sub_id" />
+		<result property="project_name" column="project_name" />
+		<result property="member_id" column="member_id" />
+		<result property="image_oriname" column="image_oriname" />
+		<result property="image_rename" column="image_rename" />
+		<result property="rep_content" column="rep_content" />
+		<result property="target_amount" column="target_amount" />
+		<result property="creation_date" column="creation_date" />
+		<result property="start_date" column="start_date" />
+		<result property="end_date" column="end_date" />
+		<result property="payment_date" column="payment_date" />
+		<result property="refund_role" column="refund_role" />
+		<result property="project_request_flag" column="project_request_flag" />
+		<result property="project_onoff_flag" column="project_onoff_flag" />
+		<result property="report_count" column="report_count" />
+		<result property="certif_flag" column="certif_flag" />
+	</resultMap>
+
+	<select id="myProject" resultMap="projectList">
+		<![CDATA[
+			select * from project where member_id=#{member_id}
+		]]>
+	</select>
+
+</mapper>

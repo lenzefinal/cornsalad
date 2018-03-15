@@ -94,6 +94,15 @@
 		]]>
 	</select>
 	
+	<select id="selectOneProjectStatusUpdate" parameterType="string"
+		resultType="ProjectStatusUpdate">
+		<![CDATA[
+				SELECT * 
+				FROM V_PROJECTSTATUSUPDATE
+				WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
 	<resultMap id="ItemResultMap" type="Item">
 		<result column="item_id" property="item_id"/>
 		<result column="item_name" property="item_name"/>
@@ -133,6 +142,21 @@
 		<![CDATA[
 			SELECT * 
 			FROM GIFT_IN_ITEMS
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<resultMap id="GiftInItemsUpdateResultMap" type="GiftInItemsUpdate">
+		<result column="gift_id" property="gift_id"/>
+		<result column="item_id" property="item_id"/>
+		<result column="count" property="count"/>
+		<result column="project_id" property="project_id"/>
+	</resultMap>
+	<select id="selectListGiftInItemsUpdate" resultMap="GiftInItemsUpdateResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM V_GIFTINITEMSUPDATE
 			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</select>

@@ -11,7 +11,7 @@
 	div#menunav{
 		display:none;
 		float:left;
-		margin-left: 13%;
+		margin-left: 8%;
 		margin-top: 7%;
 		position:absolute;
 	}
@@ -57,7 +57,7 @@
 	div#menunav{
 		display:inline-block;
 		float:left;
-		margin-left: 13%;
+		margin-left: 8%;
 		margin-top: 7%;
 	}
 	#menunav ul.menunav{

@@ -41,10 +41,12 @@
 				</c:url>
 			<p class="btn_area_btm"><a href="${modify }" class="btn_model"><b class="btn2">수정</b></a></p>
 			</div>
+			
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>찜</h2>
-					<a href="mypageLikes.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
+					
+					<a href="projectLikes.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">
@@ -61,7 +63,10 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>현황</h2>
-					<a href="mypageStatus.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
+					<c:url var="myStatus" value="myProject.do">
+						<c:param name="member_id" value="${loginUser.member_id }"/>
+					</c:url>
+					<a href="${myStatus }" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">

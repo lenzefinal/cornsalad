@@ -15,6 +15,8 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 @Repository("projectStatusDao")
 public class ProjectStatusDao {
@@ -96,5 +98,13 @@ public class ProjectStatusDao {
 
 	public List<GiftInItems> selectListGiftInItems(String projectId) {
 		return mybatis.selectList("projectstatusMapper.selectListGiftInItems", projectId);
+	}
+
+	public ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId) {
+		return mybatis.selectOne("projectstatusMapper.selectOneProjectStatusUpdate", projectId);
+	}
+
+	public List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListGiftInItemsUpdate", projectId);
 	}
 }

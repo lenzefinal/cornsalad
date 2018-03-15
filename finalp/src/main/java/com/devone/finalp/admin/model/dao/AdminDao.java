@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -35,6 +36,14 @@ public class AdminDao {
 
 	public AReport reportDetail(int report_id) {
 		return mybatis.selectOne("adminmapper.reportdetail", report_id);
+	}
+
+	public List<AQuestion> selectQuestionList() {
+		return mybatis.selectList("adminmapper.questionlist");
+	}
+
+	public AQuestion aquestionDetail(int question_id) {
+		return mybatis.selectOne("adminmapper.questiondetail", question_id);
 	}
 
 }

@@ -38,6 +38,8 @@ import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.project_status.model.service.ProjectStatusService;
+import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
+import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
 
 @Controller
 public class ProjectStatusController {
@@ -56,15 +58,17 @@ public class ProjectStatusController {
 	}
 	
 	@RequestMapping("fundingUpdateView.do")
-	public String fundingInsertViewMethod(@RequestParam(value="projectId") String projectId,
+	public String fundingUpdateViewMethod(@RequestParam(value="projectId") String projectId,
 			Model model) {
 		
-		Project project = projectStatusService.selectOneProjectByProId(projectId);
+		ProjectStatusUpdate project = projectStatusService.selectOneProjectStatusUpdateByProId(projectId);
 		ProjectContent projectCon = projectStatusService.selectOneProjectContentByProId(projectId);
 		ProjectAccount projectAcc = projectStatusService.selectOneProjectAccountByProId(projectId);
 		List<Item> itemList = projectStatusService.selectListItem(projectId);
 		List<Gift> giftList = projectStatusService.selectListGift(projectId);
-		List<GiftInItems> giftinitemList = projectStatusService.selectListGiftInItems(projectId);
+		List<GiftInItemsUpdate> giftinitemList = projectStatusService.selectListGiftInItemsUpdate(projectId);
+		
+		System.out.println(project.getProject_name());
 		
 		model.addAttribute("project", project);
 		model.addAttribute("projectCon", projectCon);
@@ -599,6 +603,14 @@ public class ProjectStatusController {
 		System.out.println("GiftInItem 등록 완료");
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="ceritif.do", method=RequestMethod.POST)
+	public void ceritifMethod() throws Exception{
+		
+		System.out.println("ceritif");
+		
+	}
 }
 
 

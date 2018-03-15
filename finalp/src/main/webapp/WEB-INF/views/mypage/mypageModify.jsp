@@ -42,20 +42,6 @@
 		'Apple SD GothicNeo', Sans-serif;
    		line-hieght:10px;
     }
-   .basicimg{		
-		width:95px;
-		height:40px;
-		text-align:center;
-	    background-color: #f5f6f8;
-	    color: gray;
-	    border: 2px solid red; 
-	    -webkit-transition-duration: 0.4s;
-   		transition-duration: 0.4s;
-   		font-size:14px;
-   		font-family: NanumGothic, 'Malgun Gothic', Dotum, Helvetica,
-		'Apple SD GothicNeo', Sans-serif;
-   		line-hieght:10px;
-    }
     .cancel:hover {
     	color:white;
     	background-color:red;	
@@ -93,7 +79,7 @@
       clip:rect(0,0,0,0); 
       border: 0; 
    } 
-   .filebox label { 
+   .filebox label.upImg { 
       display: inline-block; 
       padding: .5em .75em; 
       color: #999; 
@@ -102,12 +88,41 @@
       vertical-align: middle; 
       background-color: #f5f6f8; 
       cursor: pointer; 
-      border: 1px solid #ebebeb; 
-      border-bottom-color: #e2e2e2; 
       border-radius: .25em; 
       margin-top: 8px;
       border:2px solid #F7D358; 
+      width:70px;
+      height:14px;
+      text-align:center;
+      -webkit-transition-duration: 0.4s;
+   	  transition-duration: 0.4s;
    } 
+   .filebox label.upImg:hover { 
+	      background-color:#F7D358;
+	      color:white;
+   }
+   label.basicImg{
+	   display: inline-block; 
+      padding: .5em .75em; 
+      color: #999; 
+      font-size: inherit; 
+      line-height: normal; 
+      vertical-align: middle; 
+      background-color: #f5f6f8; 
+      cursor: pointer; 
+      border-radius: .25em; 
+      margin-top: 8px;
+      border:2px solid red; 
+      width:70px;
+      height:14px;
+      text-align:center;
+      -webkit-transition-duration: 0.4s;
+   	  transition-duration: 0.4s;
+   }
+   label.basicImg:hover{
+   	   background-color:red;
+   	   color:white;
+   }
    /* named upload */ 
    .filebox .upload-name { 
       display: inline-block; 
@@ -280,10 +295,10 @@
 				<img src="resources/images/mypageProfiles/${member.profile_img_rename }" name="memberProfile" class="profile" id="profileimg" /><br>
 			
 			</c:if>
-				<div class="filebox preview-image"> 
-					<div>
+				<div class="filebox preview-image" > 
+					<div style="margin-left:3%;">
 						<input class="upload-name" value="파일선택" disabled type="hidden"> <br>
-						<label for="ex_filename"><b>업로드</b></label> 
+						<label class="upImg" for="ex_filename"><b>업로드</b></label> 
 						<input type="file" id="ex_filename" name="memberProfile" accept="image/*" class="upload-hidden" onchange="imgModify(this)"> 
 						<label for="basicImg" onclick="basicImg()" class="basicImg"><b>기본 이미지</b></label>
 					</div>

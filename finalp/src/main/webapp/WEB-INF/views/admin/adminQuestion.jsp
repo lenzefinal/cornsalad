@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,6 +23,9 @@
 		background-color:#F7D358;
 		border:1.5px solid #F7D358; 
 	}
+	#question button{
+		font-size: 13px;
+	}
 	#question div.searchdiv{
 		width: 15%;
 		float:right;
@@ -40,19 +44,24 @@
 		height: auto;
 	}
 	#question div.modal-body #qtitle{
+		font-size: 14px;
 		width: 720px;
 	}
 	#question div.modal-body #qwriter{
+		font-size: 14px;
 		width:300px;
 	}
 	#question div.modal-body #qdate{
+		font-size: 14px;
 		width:330px;
 	}
 	#question div.modal-body #qacontent{
+		font-size: 14px;
 		width: 80%;
 		background-color: #FAECC5;
 	}
 	#question div.modal-body #qancontent{
+		font-size: 14px;
 		background-color: #FAECC5;
 	}
 	#question div.modal-body button.subt{
@@ -61,6 +70,50 @@
 
 	}
   </style>
+  <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		//문의글 답변MODAL
+  		$('#qubtn').on("click",function(){
+  			var questionid=document.getElementById("questionid").value;
+  			console.log(questionid);
+  			$.ajax({
+  	  			url:"adminQuDetail.do",
+  	  			type: "post",
+  	  			data: { questionid : questionid } ,
+  	  			dataType: "json",
+  	  			success:function(data){
+  	  				console.log(data);
+  	  				
+  	  				var jsonStr = JSON.stringify(data);
+					//변환된 문자열을 json 객체로 바꿈
+					var json = JSON.parse(jsonStr);
+					
+					$("#qudemo").empty();
+					
+					var values = $("#qudemo").html();
+					
+					values += "<div class='form-inline'> <div class='form-group'> <label for='qtitle'> 제목 : &nbsp;</label>"+
+							"<input type='text' class='form-control' id='qtitle' value='"+ decodeURIComponent(json.title.replace(/\+/g," ")) +"' readonly> </div> <br><br><br>"+
+							"<div class='form-group'> <label for='qwriter'>작성자 : &nbsp;</label> <input type='text' class='form-control' id='qwriter' value='"+
+							json.send_member_id + "' readonly >&nbsp; </div><div class='form-group'><label for='qdate'>작성날짜 : &nbsp;</label>"+
+							"<input type='date' class='form-control' id='qdate' value='"+ json.send_creation_date + "'> </div></div><br>"+
+							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='10'>"+
+							decodeURIComponent(json.content.replace(/\+/g," ")) + "</textarea></div><div class='form-group'><label for='qacontent'>답변내용  </label><div class='form-inline'>"+
+							"<textarea class='form-control' id='qacontent' placeholder='답변내용' cols='90' rows='10'></textarea>"+
+							"&nbsp;<button type='submit' class='btn subt' data-dismiss='modal'>보내기</button> </div> </div>" ;
+					
+					$("#qudemo").html(values);
+  	  			},
+  	  			error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  	  		});
+  		});
+  	});
+  </script>
  </head>
  <body class="skin_main">
  <c:import url="adminMenu.jsp"/>
@@ -102,27 +155,27 @@
 		<th>답변</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>aaa</td>
-        <td>Anna</td>
-		<td>2016.02.02</td>
-		<td><button class="btn anbt" data-toggle="modal" data-target="#quModal">답변</button></td>
-      </tr>
-      <tr>
-        <td>aaaa</td>
-        <td><a href="" data-toggle="modal" data-target="#quModal2">Debbie</a></td>
-		<td>2016.02.02</td>
-		<td>완료</td>
-      </tr>
-      <tr>
-        <td>a3aa</td>
-        <td><a href="" data-toggle="modal" data-target="#quModal2">John</a></td>
-		<td>2016.02.02</td>
-		<td>완료</td>
-      </tr>
-    </tbody>
-  </table>
+		<tbody>
+			<c:choose>
+				<c:when test="${ fn:length(qlist) > 0}">
+					<c:forEach items="${ qlist }" var="qrow">
+					<input type="hidden" id="questionid" value="${ qrow.question_id }">
+						<tr>
+							<td>${ qrow.send_member_id }</td>
+							<td>${ qrow.title }</td>
+							<td>${ qrow.send_creation_date }</td>
+							<td><c:choose>
+							<c:when test="${ re_content eq null }">
+								<button class="btn anbt" id="qubtn" data-toggle="modal"data-target="#quModal">답변</button>
+							</c:when>
+								<c:when test="${ re_content ne null }"> 완료 </c:when>
+							</c:choose></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</tbody>
+	</table>
   </div>
 
 
@@ -136,7 +189,7 @@
          <h4 class="modal-title">문의글 답변하기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="qudemo">
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="qtitle"> 제목 : &nbsp;</label>
@@ -165,7 +218,7 @@
 				&nbsp;<button type="submit" class="btn subt" data-dismiss="modal">보내기</button>
 			</div>
 			</div>
-			</div>
+		</div>
       </div>
     </div>
   </div>
@@ -180,7 +233,7 @@
          <h4 class="modal-title">문의글 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="qudemo">
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="qtitle"> 제목 : &nbsp;</label>

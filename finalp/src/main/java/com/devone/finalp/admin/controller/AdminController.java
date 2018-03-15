@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.admin.model.service.AdminService;
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -61,8 +62,39 @@ public class AdminController {
 
 	//관리자 문의글리스트
 	@RequestMapping("adminQuestion.do")
-	public String adminQuestion() {
+	public String adminQuestion(Model model) {
+		model.addAttribute("qlist",adminService.selectQuestionList());
 		return "admin/adminQuestion";
+	}
+	
+	//관리자 문의글답변/상세보기
+	@ResponseBody
+	@RequestMapping(value="adminQuDetail.do", method=RequestMethod.POST)
+	public String adminQuestionDetail(HttpServletResponse response,
+			@RequestParam(value = "questionid") int question_id) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		AQuestion question=adminService.aquestionDetail(question_id);
+		JSONObject job=new JSONObject();
+		job.put("question_id", question.getQuestion_id());
+		job.put("question_category_name", URLEncoder.encode(question.getQuestion_category_name(),"utf-8"));
+		job.put("receive_member_id", question.getReceive_member_id());
+		job.put("send_member_id", question.getSend_member_id());
+		job.put("title", URLEncoder.encode(question.getTitle(),"utf-8"));
+		job.put("content", URLEncoder.encode(question.getContent(),"utf-8"));
+		if(question.getRe_content() != null) {
+			job.put("re_content", URLEncoder.encode(question.getRe_content(),"utf-8"));
+		}else {
+			job.put("re_content", question.getRe_content());
+		}
+		job.put("send_creation_date", question.getSend_creation_date().toString().trim());
+		if(question.getReceive_creation_date() != null) {
+			job.put("receive_creation_date", question.getReceive_creation_date().toString().trim());
+		}else {
+			job.put("receive_creation_date", question.getReceive_creation_date());
+		}
+		
+
+		return job.toJSONString();
 	}
 	
 	//관리자 금지어리스트
@@ -124,10 +156,10 @@ public class AdminController {
 		job.put("black_id", report.getBlack_id() );
 		job.put("report_reason", URLEncoder.encode(report.getReport_reason(),"utf-8") );
 		job.put("member_id", report.getMember_id() );
-		job.put("report_date", report.getReport_date() );
+		job.put("report_date", report.getReport_date().toString().trim() );
 		job.put("report_project_name", URLEncoder.encode(report.getReport_project_name(),"utf-8"));
 		job.put("reply_content", URLEncoder.encode(report.getReply_content(),"utf-8") );
-		job.put("report_count", report.getReport_date() );
+		job.put("report_count", report.getReport_count() );
 		job.put("report_read_flag", report.getReport_read_flag() );
 		
 		return job.toJSONString();

@@ -25,12 +25,16 @@
 		background-color:#F7D358;
 		border:1.5px solid #F7D358; 
 	}
+	#report button{
+		font-size: 13px;
+	}
 	#report div.repotable{
 		margin-top: 5%;
 		text-align:center;
 	}
 	#report div.searchdiv{
 		float:right;
+		font-size:14pt;
 	}
 	#report #myModal.modal-body{
 		height: auto;
@@ -60,21 +64,29 @@
 		height: auto;
 	}
 	#report div.modal-body #rdate{
-		width: 300px;
+		font-size: 14px;
+		width: 290px;
 	}
-	#report div.modal-body #rmember{
+	#report div.modal-body #rmember,#rmember2{
+		font-size: 14px;
 		width:690px;
 		background-color:#CE3636;
 	}
-	#report div.modal-body #rwriter{
+	#report div.modal-body #rwriter,#rwriter2{
+		font-size: 14px;
 		width:300px;
 	}
 	#report div.modal-body  #ratitle{
+		font-size: 14px;
 		width:680px;
 	}
 	#report div.modal-body  #rcategory{
+		font-size: 14px;
 		width:680px;
 		display:inline-block;
+	}
+	#report div.modal-body textarea{
+		font-size: 14px;
 	}
 	#report span.btnspan{
 		float:right;
@@ -82,6 +94,10 @@
   	#report span.colorspan{
   		color:#F15F5F;
   		float:right;
+  	}
+  	#report div.modal-body table.atable{
+  		margin-top:20px;
+  		width: 750px;
   	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
@@ -118,36 +134,35 @@
   	  		});
   		});
   		
-  		//상세보기 MODAL
-  		$('#reportbt').on("click",function(){
+  		//상세보기 댓글 MODAL
+  		$('#reportbt2').on("click",function(){
   			var reportid=document.getElementById("reportid").value;
   			console.log(reportid);
   			$.ajax({
-  	  			url:"adminReportDetail.do?reportid="+reportid ,
-  	  			/* data: { reportid : reportid }, */
+  	  			url:"adminReportDetail.do" ,
+  	  			data: { reportid : reportid },
   	  			type: "post",
-  	  			dataType: "json",
+  	  			dataType:"json",
   	  			success:function(data){
   	  				
-  	  				console.log("data"+data);
+  	  				var jsonStr = JSON.stringify(data);
+  	  				var json = JSON.parse(jsonStr);
 					
-					$("#redemo").empty();
-					$("#redemo").html(
-					
-					"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
-					"<input type='text' class='form-control' id='rmember' value='"+ data.black_id +"' readonly >&nbsp;" +
-					"</div> <br><br><br> <div class='form-group'> <label for='rwriter'>신고 작성자 : &nbsp;</label>" +
-					"<input type='text' class='form-control' id='writer' value='"+ data.member_id +"' readonly> </div> <div class='form-group'>"+
-					"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' value='"+
-					data.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
-					" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
-					decodeURIComponent(data.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
-					" <div class='form-group'> <label for='rcategory'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
-					decodeURIComponent(data.report_category_name) + "' readonly > </div> <div class='form-group'> <label for='racontent'>신고 댓글  </label>"+
-					"<span class='colorspan'>해당 댓글 신고 횟수 : "+ data.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
-					decodeURIComponent(data.reply_content.replace(/\+/g," ")) + "</textarea> <br> <span class='btnspan'> "+
-					"<button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span> <br> </div> ");
-					
+					$('#redemo').empty();
+						$('#redemo').html(
+							"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
+							"<input type='text' class='form-control' id='rmember' value='"+ json.black_id +"' readonly >&nbsp;" +
+							"</div> <br><br><br> <div class='form-group'> <label for='writer'>신고 작성자 : &nbsp;</label>" +
+							"<input type='text' class='form-control' id='rwriter' value='"+ json.member_id +"' readonly> </div> <div class='form-group'>"+
+							"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
+							json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
+							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+							decodeURIComponent(json.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
+							" <div class='form-group'> <label for='category'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
+							decodeURIComponent(json.report_category_name.replace(/\+/g," ")) + "' > </div> <div class='form-group'> <label for='acontent'>신고 댓글  </label>"+
+							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
+							decodeURIComponent(json.reply_content.replace(/\+/g," ")) + "</textarea> <br> <span class='btnspan'> "+
+							"<button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span> <br> </div> ");
 					
   	  			},
   	  			error: function(request, status, errorData){
@@ -157,6 +172,47 @@
 				}
   	  		});
   		});
+  		
+  		//상세보기 글 MODAL
+  		$('#reportbt1').on("click",function(){
+  			var reportid=document.getElementById("reportid").value;
+  			console.log(reportid);
+  			$.ajax({
+  	  			url:"adminReportDetail.do" ,
+  	  			data: { reportid : reportid },
+  	  			type: "post",
+  	  			dataType:"json",
+  	  			success:function(data){
+  	  				
+  	  				var jsonStr = JSON.stringify(data);
+  	  				var json = JSON.parse(jsonStr);
+					
+					$('#bodemo').empty();
+					$('#bodemo').html(
+							"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
+							"<input type='text' class='form-control' id='rmember' value='"+ json.black_id +"' readonly >&nbsp;" +
+							"</div> <br><br><br> <div class='form-group'> <label for='writer'>신고 작성자 : &nbsp;</label>" +
+							"<input type='text' class='form-control' id='rwriter' value='"+ json.member_id +"' readonly> </div> <div class='form-group'>"+
+							"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
+							json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
+							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+							decodeURIComponent(json.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
+							" <div class='form-group'> <label for='atitle'>신고 당한 글 바로가기 "+
+							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span><br><table class='table table-bordered atable'> <tr class='active'><th>카테고리</th><th>제목</th></tr>"+
+							"<tr><td>"+decodeURIComponent(json.report_category_name.replace(/\+/g," "))+"</td><td><a href='#'>"+ decodeURIComponent(json.report_project_name.replace(/\+/g," ")) +
+							"</a></td></tr> </table> <br><span class='btnspan'>"+
+							"<button class='btn' data-dismiss='modal'>닫기</button>&nbsp;</span> <br> </div> ");
+					
+  	  			},
+  	  			error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  	  		});
+  		});
+  		
+  		
   	});
   </script>
  </head>
@@ -218,16 +274,16 @@
 					<td>
 					<c:choose>
 						<c:when test="${ rrow.report_category_name eq '프로젝트 신고' }">
-					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal"  data-target="#redetail2">상세보기</button>
+					 		<button class="btn btn-primary" id="reportbt1" data-toggle="modal"  data-target="#redetail1">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 신고' }">
-					 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail2">상세보기</button>
+					 		<button class="btn btn-primary" id="reportbt1" data-toggle="modal" data-target="#redetail1">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '프로젝트 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      				 		<button class="btn btn-primary" id="reportbt2" data-toggle="modal" data-target="#redetail2">상세보기</button>
       					</c:when>
       					<c:when test="${ rrow.report_category_name eq '게시글 댓글 신고' }">
-      				 		<button class="btn btn-primary" id="reportbt" data-toggle="modal" data-target="#redetail1">상세보기</button>
+      				 		<button class="btn btn-primary" id="reportbt2" data-toggle="modal" data-target="#redetail2">상세보기</button>
       					</c:when>
       				</c:choose>
       				</td>
@@ -268,7 +324,7 @@
   </div>
   
   <!-- 댓글 신고 Modal -->
-  <div class="modal fade" id="redetail1" role="dialog">
+  <div class="modal fade" id="redetail2" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
@@ -305,7 +361,7 @@
 			</div>
 			<div class="form-group">
 				<label for="acontent">신고 댓글  </label> <span class="colorspan">해당 댓글 신고 횟수 :  </span>
-				<textarea class="form-control" id="racontent" placeholder="신고댓글내용" cols="60" rows="10"></textarea>
+				<textarea class="form-control" id="racontent" placeholder="신고댓글내용" cols="60" rows="10">아이고</textarea>
 				<br>
 				<span class="btnspan"><button class="btn btn-danger" data-dismiss="modal">해당 댓글 삭제</button>&nbsp;</span>
 				<br>
@@ -316,7 +372,7 @@
   </div>
   
   <!-- 글 신고 Modal -->
-  <div class="modal fade" id="redetail2" role="dialog">
+  <div class="modal fade" id="redetail1" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
@@ -325,7 +381,7 @@
          <h4 class="modal-title">신고 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body" id="redemo">
+        <div class="modal-body" id="bodemo">
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="member">신고회원 : &nbsp;</label>
@@ -338,7 +394,7 @@
 			</div>
 			<div class="form-group">
 				<label for="date"> 신고 날짜 : &nbsp;</label>
-				<input type="date" class="form-control" id="rdate2">
+				<input type="date" class="form-control" id="rdate">
 			</div>
 			</div>
 			<br>

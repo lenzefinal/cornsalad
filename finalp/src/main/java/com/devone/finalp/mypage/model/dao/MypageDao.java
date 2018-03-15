@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.memberaccount.model.vo.MemberAccount;
 
 @Repository("mypageDao")
@@ -43,5 +44,10 @@ public class MypageDao {
 	public int accountModify(MemberAccount account) {
 		// TODO Auto-generated method stub
 		return mybatis.update("accountMapper.modifyAccount", account);
+	}
+
+	public List selectMyProject(Project project) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.myProject", project);
 	}
 }

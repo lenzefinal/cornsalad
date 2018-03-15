@@ -13,6 +13,8 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
 <link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <script src="/finalp/resources/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
+
 <style>
 	
 	
@@ -938,6 +940,9 @@ function insertGiftInItemFunc(){
 <script>
 	$(function(){
 		
+		IMP.init('CORNSALAD');
+		
+		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
 		getCategoryListFunc();
@@ -980,7 +985,7 @@ function insertGiftInItemFunc(){
 				reader.onload = function(e){ 
 					var src = e.target.result; 
 					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
-							+ src + '" class="upload-thumb"></div></div>'); 
+							+ src + '" class="upload-thumb" style="width:600px;></div></div>'); 
 				} 
 				reader.readAsDataURL($(this)[0].files[0]); 
 			} 
@@ -1670,6 +1675,7 @@ function insertGiftInItemFunc(){
 	function saveVideoUrl(){
 		var urlTag = $("#content-video-url").val();
 		$("#content-videourl-input").val(urlTag);
+		$("#content-video-url").attr("value", urlTag);
 	}
 		
 	function preShowVideo(){
