@@ -3,8 +3,10 @@ package com.devone.finalp.admin.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.admin.model.service.AdminService;
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Taboo;
@@ -33,22 +36,101 @@ public class AdminController {
 	//관리자 controller
 	//관리자 인덱스
 	@RequestMapping("adminMain.do")
-	public String adminMain(Model model) {
-		AAlarm aalarm=new AAlarm();		
+	public String adminMain(Model model) {	
 		model.addAttribute("aalarm",adminService.adminalarm());
 		return "admin/adminIndex";
 	}
 
 	//관리자 회원리스트
 	@RequestMapping("adminMember.do")
-	public String adminMember() {
+	public String adminMember(Model model,HttpServletRequest request) {
+		int currentPage=1;
+		if(request.getParameter("currentPage")!=null) {
+			currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int limit = 10; //한 페이지에 출력할 목록 갯수
+		int listCount = adminService.memListCount();
+		int maxPage = (int)((double)listCount / limit + 0.9);
+		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
+		int endPage = startPage + limit - 1;
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		
+		List<AMember> list=adminService.selectMemberList(map);
+		
+		if(maxPage < endPage)
+			endPage = maxPage;
+		
+		model.addAttribute("mlist",list);
+		model.addAttribute("limit", limit);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
 		return "admin/adminMember";
 	}
 	
 	//관리자 회원 상세보기
 	@RequestMapping("adminMemberDetail.do")
-	public String adminMemberDetail() {
+	public String adminMemberDetail(@RequestParam(value = "member_name") String member_name,Model model) {
+		model.addAttribute("mdetail",adminService.memberDetail(member_name));
+		model.addAttribute("mplist",adminService.memberProject(member_name));
 		return "admin/adminMemberDetail";
+	}
+	
+	//관리자 회원 이미지 삭제
+	@RequestMapping("adminImgDelete.do")
+	public void memImgDelete(@RequestParam(value="member_name") String member_name,
+			HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		int result=adminService.memImgDelete(member_name);
+		if(result > 0) {
+			out.append("ok");
+			out.flush();
+		}else {
+			out.append("fail");
+			out.flush();
+		}
+		out.close();
+	}
+	
+	//관리자 회원 정지(블랙리스트)
+	@RequestMapping("adminMemberBlack.do")
+	public String memberBlack(@RequestParam(value="member_name") String member_name, @RequestParam(value="num") int num) {
+		
+		int result=adminService.memberBlack(member_name);;
+		String viewname=null;
+		if(num==0 && result > 0){
+			System.out.println("리스트에서 회원블랙 오께이");
+			viewname="redirect:adminMember.do";
+		}else if(num==1 && result > 0) {
+			System.out.println("상세보기에서 회원블랙 오께이");
+			viewname="redirect:adminMemberDetail.do?member_name="+member_name;
+		}else {
+			System.out.println("회원블랙 실패");
+			viewname="redirect:adminMember.do";
+		}
+		
+		return viewname;
+	}
+	
+	//관리자 회원 탈퇴(삭제)
+	@RequestMapping("adminMemberDelete.do")
+	public String memberDelete(@RequestParam(value="member_name") String member_name) {
+		int result=adminService.memberDelete(member_name);
+		if(result>0) {
+			System.out.println("회원블랙 오께이");
+		}else {
+			System.out.println("회원블랙 실패");
+		}
+		return "redirect:adminMember.do";
 	}
 
 	//관리자 프로젝트리스트

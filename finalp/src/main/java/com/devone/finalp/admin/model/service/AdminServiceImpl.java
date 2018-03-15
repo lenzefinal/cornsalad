@@ -1,5 +1,6 @@
 package com.devone.finalp.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.admin.model.dao.AdminDao;
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
@@ -78,6 +80,47 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectOffProject();
 	}
 	
+	//관리자 회원 수(페이징 처리용)
+	@Override
+	public int memListCount() {
+		return adminDao.memListCount();
+	}
+
+	//관리자 회원리스트 조회
+	@Override
+	public List<AMember> selectMemberList(HashMap<String, Object> map) {
+		return adminDao.selectMemberList(map);
+	}
+
+	//관리자 회원 상세보기
+	@Override
+	public AMember memberDetail(String member_name) {
+		return adminDao.memberDetail(member_name);
+	}
+
+	//관리자 회원이 올린 프로젝트 조회
+	@Override
+	public List<AProject> memberProject(String member_name) {
+		return adminDao.memberProject(member_name);
+	}
+
+	//관리자 회원 이미지 삭제
+	@Override
+	public int memImgDelete(String member_name) {
+		return adminDao.memImgDelete(member_name);
+	}
+
+	//관리자 회원 블랙리스트 처리
+	@Override
+	public int memberBlack(String member_name) {
+		return adminDao.memberBlack(member_name);
+	}
+
+	//관리자 회원 탈퇴처리(삭제)
+	@Override
+	public int memberDelete(String member_name) {
+		return adminDao.memberDelete(member_name);
+	}
 	
 	
 }

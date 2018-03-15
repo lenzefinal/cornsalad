@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset=UTF-8>
-<title>관리자테스트</title>
+<title>회원관리</title>
 <link href="/finalp/resources/css/adminPage.css" rel="stylesheet">
 <style>
 	#adminMain img.iconi{
@@ -35,6 +35,9 @@
 		float:right;
 		margin-bottom: 5%;
 	}
+	#adminMain a.btna{
+		text-decoration:none;
+	}
 
 @media screen and (min-width: 960px){ 
 	div#adminMain{
@@ -53,6 +56,9 @@
 	hr.hrst{
 		background-color:#F7D358;
 		border:1.5px solid #F7D358; 
+	}
+	#adminMain a.btna{
+		text-decoration:none;
 	}
 	
  } 
@@ -93,32 +99,62 @@
   <table class="table table-bordered table-hover" >
     <thead>
       <tr class="active">
-        <th>아이디</th>
-        <th>진행중인 프로젝트</th>
-		<th>후원 현황</th>
+        <th>이름</th>
+        <th>프로젝트 수</th>
+		<th>총 후원금</th>
 		<th>누적 신고 수</th>
+		<th>BLACKLIST</th>
 		<th>정지 / 탈퇴</th>
       </tr>
     </thead>
     <tbody>
+    <c:forEach items="${ mlist }" var="mrow">
       <tr>
-        <td><a href="adminMemberDetail.do">user11</a></td>
-        <td>안녕안녕</td>
-		<td>20000</td>
-		<td>3</td>
-		<td><button class="btn btn-primary">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
+        <td><a href="adminMemberDetail.do?member_name=${ mrow.member_name }">${ mrow.member_name }</a></td>
+        <td>${ mrow.project_count }</td>
+		<td>${ mrow.spon_money }</td>
+		<td>${ mrow.total_report_count }</td>
+		<td>${ mrow.blacklist_flag }</td>
+		<td>
+		<a class="btna" href="adminMemberBlack.do?member_name=${ mrow.member_name }&num=0"><button class="btn btn-defult">정지</button></a>&nbsp;
+		<a class="btna" href="adminMemberDelete.do?member_name=${ mrow.member_name }"><button class="btn btn-danger">탈퇴</button></span></a>
+		</td>
       </tr>
-      <tr>
-        <td><a href="adminMemberDetail.do">user22</a></td>
-        <td>--</td>
-		<td>--</td>
-		<td>5</td>
-		<td><button class="btn btn-primary">정지</button>&nbsp;<button class="btn btn-danger">탈퇴</button></td>
-      </tr>
+    </c:forEach>
     </tbody>
   </table>
   </div>
-
+  
+  <!-- 페이지 번호 처리 -->
+	<div style="text-align:center;">
+	<c:url var="first" value="adminMember.do">
+		<c:param name="currentPage" value="1" />
+	</c:url>
+	<a href="${first }">[맨처음]</a>
+	<c:url var="prev" value="adminMember.do">
+		<c:param name="currentPage" value="${startPage - limit }" />
+	</c:url>
+	<a href="${prev }">	[prev]</a>
+	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
+	<c:url var="page" value="adminMember.do">
+		<c:param name="currentPage" value="${p }" />
+	</c:url>
+	<c:if test="${p ne currentPage }">
+		<a href="${page }">	| ${p } |&nbsp; </a> 
+	</c:if>
+	<c:if test="${p eq currentPage }">	
+	<a href="${page }">	| <b>${p }</b> |&nbsp; </a>
+	</c:if>
+	</c:forEach>
+	<c:url var="next" value="adminMember.do">
+		<c:param name="currentPage" value="${endPage + limit }" />
+	</c:url>
+	<a href="${next }">	[next]</a>
+	<c:url var="last" value="adminMember.do">
+		<c:param name="currentPage" value="${maxPage }" />
+	</c:url>
+	<a href="${last }">[맨끝]</a>
+	</div>
 
 </div>
 

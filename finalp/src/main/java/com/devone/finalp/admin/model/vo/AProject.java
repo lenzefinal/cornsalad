@@ -9,6 +9,7 @@ public class AProject implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5124165766534205419L;
 
+	private int rnum;
 	private String project_category_name;
 	private String category_sub_name;
 	private String project_id;
@@ -26,10 +27,11 @@ public class AProject implements java.io.Serializable {
 	
 	public AProject() {}
 
-	public AProject(String project_category_name, String category_sub_name, String project_id, String project_name,
+	public AProject(int rnum,String project_category_name, String category_sub_name, String project_id, String project_name,
 			String member_name, Date creation_date,String project_request_flag, String project_onoff_flag, int target_amount, int report_count,
 			Date start_date, Date end_date, int spon,String ing_flag) {
 		super();
+		this.rnum=rnum;
 		this.project_category_name = project_category_name;
 		this.category_sub_name = category_sub_name;
 		this.project_id = project_id;
@@ -44,6 +46,14 @@ public class AProject implements java.io.Serializable {
 		this.end_date = end_date;
 		this.spon = spon;
 		this.ing_flag=ing_flag;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getProject_category_name() {
@@ -160,11 +170,12 @@ public class AProject implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "AProject [project_category_name=" + project_category_name + ", category_sub_name=" + category_sub_name
-				+ ", project_id=" + project_id + ", project_name=" + project_name + ", member_name=" + member_name
-				+ ", creation_date=" + creation_date +", project_request_flag"+ project_request_flag+ ", project_onoff_flag=" + 
-				project_onoff_flag + ", target_amount="+ target_amount + ", report_count=" + report_count + ", start_date=" + 
-				start_date + ", end_date="+ end_date + ", spon=" + spon +", ing_flag="+ ing_flag + "]";
+		return "AProject [rnum=" + rnum + ", project_category_name=" + project_category_name + ", category_sub_name="
+				+ category_sub_name + ", project_id=" + project_id + ", project_name=" + project_name + ", member_name="
+				+ member_name + ", creation_date=" + creation_date + ", project_request_flag=" + project_request_flag
+				+ ", project_onoff_flag=" + project_onoff_flag + ", target_amount=" + target_amount + ", report_count="
+				+ report_count + ", start_date=" + start_date + ", end_date=" + end_date + ", spon=" + spon
+				+ ", ing_flag=" + ing_flag + "]";
 	}
-	
+
 }

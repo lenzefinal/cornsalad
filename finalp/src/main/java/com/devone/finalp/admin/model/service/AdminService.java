@@ -1,8 +1,10 @@
 package com.devone.finalp.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.devone.finalp.admin.model.vo.AAlarm;
+import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
@@ -20,4 +22,12 @@ public interface AdminService {
 	int updateQuestion(AQuestion question);
 	List<AProject> selectProjectList();
 	List<AProject> selectOffProject();
+	int memListCount();
+	List<AMember> selectMemberList(HashMap<String,Object> map);
+	AMember memberDetail(String member_name);
+	List<AProject> memberProject(String member_name);
+	int memImgDelete(String member_name);
+	int memberBlack(String member_name);
+	int memberDelete(String member_name);
+	
 }

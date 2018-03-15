@@ -97,6 +97,7 @@
 	</update>
 	
 	<resultMap id="AProjectmap" type="AProject">
+		<result property="rnum" column="rnum" />
 		<result property="project_category_name" column="project_category_name" />
 		<result property="category_sub_name" column="category_sub_name" />
 		<result property="project_id" column="project_id" />
@@ -131,7 +132,14 @@
 		]]>
 	</update>
 	
+	<select id="memberProject" parameterType="String" resultMap="AProjectmap">
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE MEMBER_NAME= #{ member_name }
+		]]>
+	</select>
+	
 	<resultMap id="AMembermap" type="AMember">
+		<result property="rnum" column="rnum" />
 		<result property="member_id" column="member_id" />
 		<result property="member_name" column="member_name" />
 		<result property="age" column="age" />
@@ -143,5 +151,43 @@
 		<result property="project_count" column="project_count" />
 		<result property="spon_money" column="spon_money" />
 	</resultMap>
+	
+	<select id="memlistCount" resultType="int" >
+		<![CDATA[
+			SELECT COUNT(*) FROM A_MEMBER 
+		]]>	
+	</select>
+	
+	<select id="selectmemberlist" resultMap="AMembermap" resultType="list" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT * FROM A_MEMBER WHERE RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
+		]]>
+	</select>
+	
+	<select id="memberDetail" parameterType="String" resultType="AMember">
+		<![CDATA[
+			SELECT * FROM A_MEMBER WHERE MEMBER_NAME = #{ member_name }
+		]]>	
+	</select>
+	
+	<update id="memImgDelete" parameterType="String">
+		<![CDATA[
+			UPDATE MEMBER SET PROFILE_IMG_ORINAME = NULL , PROFILE_IMG_RENAME = NULL 
+			WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
+	
+	<update id="memberBlack" parameterType="String">
+		<![CDATA[
+			UPDATE MEMBER SET BLACKLIST_FLAG = 'Y'
+			WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
+	
+	<update id="memberDelete" parameterType="String">
+		<![CDATA[
+			DELETE FROM MEMBER WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
 	
 </mapper>
