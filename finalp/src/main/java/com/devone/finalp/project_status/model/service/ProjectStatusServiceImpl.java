@@ -129,4 +129,19 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 		return projectStatusDao.selectListGiftInItemsUpdate(projectId);
 	}
 
+	@Override
+	public int updateProjectAccount(ProjectAccount projectAcc) {
+		return projectStatusDao.updateProjectAccount(projectAcc);
+	}
+
+	@Override
+	public int deleteGift(String projectId) {
+		return projectStatusDao.deleteGift(projectId);
+	}
+
+	@Override
+	public int deleteItem(String projectId) {
+		return projectStatusDao.deleteItem(projectId);
+	}
+
 }

@@ -37,4 +37,7 @@ public interface ProjectStatusService {
 	List<GiftInItems> selectListGiftInItems(String projectId);
 	ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId);
 	List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId);
+	int updateProjectAccount(ProjectAccount projectAcc);
+	int deleteGift(String projectId);
+	int deleteItem(String projectId);
 }

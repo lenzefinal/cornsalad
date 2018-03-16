@@ -194,6 +194,17 @@
 		]]>
 	</select>
 	
+	<select id="updateProjectAccount" parameterType="ProjectAccount">
+		<![CDATA[
+			UPDATE PROJECT_ACCOUNT SET
+			BANK_ID = #{ bank_id },
+			ACCOUNT_NAME = #{ account_name },
+			ACCOUNT_NUMBER = #{ account_number }
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+
+	
 	<select id="insertProjectAccount" parameterType="ProjectAccount">
 		<![CDATA[
 			INSERT INTO PROJECT_ACCOUNT VALUES( #{ project_id }, #{ bank_id }, #{ account_name }, #{ account_number } )
@@ -218,5 +229,19 @@
 		]]>
 	</select>
 	
+	<update id="deleteGift" parameterType="string">
+		<![CDATA[
+			DELETE FROM GIFT 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
 	
+	<update id="deleteItem" parameterType="string">
+		<![CDATA[
+			DELETE FROM ITEM 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+
+
 </mapper>

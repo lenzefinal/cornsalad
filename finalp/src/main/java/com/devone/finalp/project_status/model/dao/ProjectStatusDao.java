@@ -107,4 +107,16 @@ public class ProjectStatusDao {
 	public List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId) {
 		return mybatis.selectList("projectstatusMapper.selectListGiftInItemsUpdate", projectId);
 	}
+
+	public int updateProjectAccount(ProjectAccount projectAcc) {
+		return mybatis.update("projectstatusMapper.updateProjectAccount", projectAcc);
+	}
+
+	public int deleteGift(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteGift", projectId);
+	}
+
+	public int deleteItem(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteItem", projectId);
+	}
 }

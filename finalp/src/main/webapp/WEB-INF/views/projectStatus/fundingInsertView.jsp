@@ -720,11 +720,12 @@ function updateProjectFunc(){
 	project.refund_role = $("#refundrole-textarea").val();
 	project.certif_flag = $("#certifflag_input").val();
 	
+	console.log("project.target_amount]"+project.target_amount);
+	
 	if(project.target_amount == "undefined"){
+		console.log("안돼");
 		project.target_amount = 0;
 	}
-	
-	console.log("project:" + project);
 	
 	$.ajax({
 		url: "updateProject.do",
@@ -985,7 +986,7 @@ function insertGiftInItemFunc(){
 				reader.onload = function(e){ 
 					var src = e.target.result; 
 					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'
-							+ src + '" class="upload-thumb" style="width:600px;></div></div>'); 
+							+ src + '" class="upload-thumb" style="width:600px;"></div></div>'); 
 				} 
 				reader.readAsDataURL($(this)[0].files[0]); 
 			} 
@@ -1106,8 +1107,9 @@ function insertGiftInItemFunc(){
 								'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" />' +
+								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" onchange="changeGiftCapacityChk('+ giftId +')" value="'+ giftId +'"/>' +
 								'<label for="cap-chk'+giftId+'"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
+								'<input type="hidden" class="capacity-flag-save-input" value="0">' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
@@ -1147,6 +1149,9 @@ function insertGiftInItemFunc(){
 	    	descriptionBtnFunc();
 	    	
 	    	settingItemListChk_Count_btn();
+	    	
+	    	//선물 한정 수량 버튼 계속 초기화 되는거 막는 코드
+	    	setTotalGiftCapacityChk();
 	    	
 	    });
 		
@@ -1333,6 +1338,10 @@ function insertGiftInItemFunc(){
 		
 		$(".tap em").removeClass("project-tap-em-active")
 		$(sessionTapId + " em").addClass("project-tap-em-active");
+		
+		//선물 수정 영역 안보이게
+		$(".gift-body-div").hide();
+		$(".gift-head-div").show();
 	}
 	
 	//에디터 ----------------------------------------------------------
@@ -1696,13 +1705,59 @@ function insertGiftInItemFunc(){
 	
 	
 	
+	function changeGiftCapacityChk(giftId){
+	      console.log("giftId]"+giftId);
+	      
+	      if($("#"+giftId+" .capacity-flag").attr("checked") == true){
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "0");
+	         
+	         console.log("체크해제");
+	      } 
+	      else{
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "1");
+	         console.log("체크");
+	      }
+	   }
+	
+	function setTotalGiftCapacityChk(){
+		
+		var capacityFlagEles = document.getElementsByClassName("capacity-flag");
+		
+		for(var i=0; i<capacityFlagEles.length; ++i){
+			
+			var giftId = capacityFlagEles[i].getAttribute("value");
+			var giftIdSel = "#" + giftId;
+			
+			console.log(giftIdSel + " .capacity-flag-save-input");
+			console.log($(giftIdSel + " .capacity-flag-save-input").attr("value"));
+			if($(giftIdSel + " .capacity-flag-save-input").attr("value") == "1"){
+				$(giftIdSel + " .capacity-flag").attr("checked", true);
+				
+				console.log("true~");
+			}
+			else{
+				$(giftIdSel + " .capacity-flag").attr("checked", false);
+				console.log("false~");
+			}
+		}
+	}
+	
+	
+	
 	//임시
 	function testtinymce(){
-		console.log(tinymce.get("jieuntextarea").getContent());
+		updateProjectFunc();
+		insertProjectContentFunc();
+		insertProjectAccountFunc();
+		
+		insertGiftFunc();
+		insertItemFunc();
 		insertGiftInItemFunc();
 	}
 		
 </script>
+
+<input type="hidden" value=true>
 
 <div id="session-0" class="project-bgcol-white session-tap">
 	<h2 class="project-header-title"> 프로젝트 등록 </h2>

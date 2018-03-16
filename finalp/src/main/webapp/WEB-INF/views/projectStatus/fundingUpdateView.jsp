@@ -12,9 +12,9 @@
 
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
-<link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <script src="/finalp/resources/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
+<link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
+<!-- <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script> -->
 <style>
 	
 	
@@ -680,29 +680,7 @@ function getBankList(){
 }
 
 
-//insert ========================================================================
-
-function insertProjectFunc(){
-	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
-	//서버 쪽 컨트롤러로 전송하기 
-	
-	$.ajax({
-		url: "insertProject.do",
-		data: {"projectCategoryId" : "PC-FUND"},
-		type: "post",
-		success: function(result){
-			console.log("ajax로 받은아이디]"+result);
-			$("#project-id-input").val(result);
-		},
-		error: function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
-					+ "message : " + request.responseText + "\n"
-					+ "error : " + errorData);
-		}
-	}); 
-
-}
-
+//insert, update ========================================================================
 function projectPreImgUploadFunc(){
 	
 	console.log("대표이미지 ajax로 등록");
@@ -728,23 +706,18 @@ function projectPreImgUploadFunc(){
 	});
 }
 
+
 function updateProjectFunc(){
 	
 	var project = new Object();
-	project.project_id = $("#project-id-input").val();
-	project.category_sub_id = $("#project-sub-category").val();
-	project.project_name = $("#project-title-input").val();
-	project.rep_content = $("#repcontent-textarea").text();
-	project.target_amount = $("#goalprice-input").val();
-	project.end_date = $("#fundingDatepicker").val();
-	project.refund_role = $("#refundrole-textarea").text();
-	project.certif_flag = $("#certifflag_input").val();
-	
-	if(project.target_amount == "undefined"){
-		project.target_amount = 0;
-	}
-	
-	console.log("project:" + project);
+	project.project_id = 		$("#save-project_id").val();
+	project.category_sub_id = 	$("#save-category_sub_id").val();
+	project.project_name = 		$("#save-project_name").val();
+	project.rep_content = 		$("#save-rep_content").val();
+	project.target_amount = 	$("#save-target_amount").val();
+	project.end_date = 			$("#save-end_date").val();
+	project.refund_role = 		$("#save-refund_role").val();
+	project.certif_flag = 		$("#save-certif_flag").val();
 	
 	$.ajax({
 		url: "updateProject.do",
@@ -764,21 +737,21 @@ function updateProjectFunc(){
 
 }
 
-function insertProjectContentFunc(){
+function updateProjectContentFunc(){
 	
 	var content = new Object();
-	content.project_id = $("#project-id-input").val();
-	content.video_url = $("#content-videourl-input").val();
-	content.content = tinymce.get("jieuntextarea").getContent();
+	content.project_id = 	$("#save-project_id").val();
+	content.video_url = 	$("#save-video_url").val();
+	content.content = 		$("#save-content").val();
 	
 	$.ajax({
-		url: "insertProjectContent.do",
+		url: "updateProjectContent.do",
 		data: JSON.stringify(content),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
 		success: function(){
-			console.log("프로젝트 컨텐츠 insert 성공")
+			console.log("프로젝트 컨텐츠 update 성공")
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -789,16 +762,16 @@ function insertProjectContentFunc(){
 
 }
 
-function insertProjectAccountFunc(){
-	
+function updateProjectAccountFunc(){
+
 	var content = new Object();
-	content.project_id = $("#project-id-input").val();
-	content.bank_id = $("#project-bank option:selected").val();
-	content.account_name = $("#accountName-input").val();
-	content.account_number = $("#accountNumber-input").val();
+	content.project_id = 		$("#save-project_id").val();
+	content.bank_id = 			$("#save-bank_id").val();
+	content.account_name = 		$("#save-account_name").val();
+	content.account_number = 	$("#save-account_number").val();
 	
 	$.ajax({
-		url: "insertProjectAccount.do",
+		url: "updateProjectAccount.do",
 		data: JSON.stringify(content),
 		type: "post",
 		async: false,
@@ -815,37 +788,53 @@ function insertProjectAccountFunc(){
 
 }
 
+function removeGiftItemFunc(){
+	
+	var projectId = $("#save-project_id").val();
+	
+	$.ajax({
+		url: "deleteGiftItem.do",
+		data: { "projectId": projectId },
+		type: "post",
+		async: false,
+		success: function(){
+			console.log("해당 프로젝트 선물아이템 삭제 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
+
+
 function insertGiftFunc(){
 	
-	var idesArr = [];
-	var giftEles = document.getElementsByClassName("gift-body-div");
-	for(var i=0; i<giftEles.length; ++i){
-		idesArr[i] = giftEles[i].getAttribute("id");
-	}
-	
-	var giftesArr = [];
-	for(var i=0; i<giftEles.length; ++i){
-		var idSeletor = "#"+idesArr[i];
-		var gift = new Object();
-		
-		gift.gift_id = idesArr[i];
-		gift.support_price = $(idSeletor + " .gift-supportPrice-input").val(); //후원금액
-		
-		var capacityValue = "0";
-		if($(idSeletor + " .capacity-flag").is(":checked")){
-			capacityValue = $(idSeletor + " .gift-capacity-input").val();
-		}
-		gift.capacity = capacityValue;
-		
-		gift.project_id = $("#project-id-input").val();
-		
-		//배열에 넣기
-		giftesArr[i] = gift;
-	}
+ 	var projectId = $("#save-project_id").val();
+ 	var giftEles = document.getElementsByClassName("save-gift");
+ 	var giftArr = [];
+ 	
+ 	for(var i=0; i<giftEles.length; ++i){
+ 		
+ 		var giftSaveIds = giftEles[i].getAttribute("id");
+ 		var giftIdSel = "#" + giftSaveIds;
+ 		var gift = new Object();
+ 		
+ 		gift.gift_id = 			$(giftIdSel + " .gift-gift_id").attr("value");
+ 		gift.support_price = 	$(giftIdSel + " .gift-support_price").attr("value");
+ 		gift.capacity = 		$(giftIdSel + " .gift-capacity").attr("value");
+ 		gift.project_id = 		projectId;
+ 		
+ 		console.log("capacity]"+gift.capacity);
+ 		
+ 		giftArr[i] = gift;
+ 	}
 	
 	$.ajax({
 		url: "insertGift.do",
-		data: JSON.stringify(giftesArr),
+		data: JSON.stringify(giftArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -861,32 +850,29 @@ function insertGiftFunc(){
 	
 }
 
-function insertItemFunc(){
-	
-	var idesArr = [];
-	var itemEles = document.getElementsByClassName("modal-item-list-basic");
-	for(var i=0; i<itemEles.length; ++i){
-		idesArr[i] = itemEles[i].getAttribute("id");
-	}
-	
-	var itemesArr = [];
-	for(var i=0; i<itemEles.length; ++i){
-		var idSeletor = "#"+idesArr[i];
-		var item = new Object();
-		
-		item.item_id = idesArr[i];
-		item.item_name = $(idSeletor + " .modal-item-list-name").attr("value");
-		
-		item.project_id = $("#project-id-input").val();
-		
-		//배열에 넣기
-		itemesArr[i] = item;
-	}
 
-	
+function insertItemFunc(){
+
+	var projectId = $("#save-project_id").val();
+	var itemEles = document.getElementsByClassName("save-item");
+ 	var itemArr = [];
+ 	
+ 	for(var i=0; i<itemEles.length; ++i){
+ 		
+ 		var itemSaveIds = itemEles[i].getAttribute("id");
+ 		var itemIdSel = "#" + itemSaveIds;
+ 		var item = new Object();
+ 		
+ 		item.item_id = 		$(itemIdSel + " .item-item_id").attr("value");
+ 		item.item_name = 	$(itemIdSel + " .item-item_name").attr("value");
+ 		item.project_id = 	projectId;
+ 		
+ 		itemArr[i] = item;
+ 	}
+
 	$.ajax({
 		url: "insertItem.do",
-		data: JSON.stringify(itemesArr),
+		data: JSON.stringify(itemArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -902,43 +888,29 @@ function insertItemFunc(){
 	
 }
 
+
 function insertGiftInItemFunc(){
 	
-	var index = 0;
-	var setArr = [];
-	
-	var giftEles = document.getElementsByClassName("gift-body-div");
-	
-	console.log("giftEles]"+giftEles.length);
-	
-	for(var i=0; i<giftEles.length; ++i){
-		var giftId = giftEles[i].getAttribute("id");
-		var giftIdSeletor = "#" + giftId;
-		var thisGift = document.getElementById(giftId);
-		
-		var itemEles = thisGift.getElementsByClassName("gift-in-item-list");
-		
-		console.log("itemEles]"+itemEles.length);
-		
-		for(var j=0; j<itemEles.length; ++j){
-			var itemId = itemEles[j].getAttribute("value");
-			
-			if($(giftIdSeletor + " ."+itemId + " .gift-chk-btn").hasClass("gift-chk-btn-active")){
-				
-				var giftinitem = new Object();
-				giftinitem.gift_id = giftId;
-				giftinitem.item_id = itemId;
-				giftinitem.count = $(giftIdSeletor + " ."+itemId + " .gift-in-item-count").attr("value");
-				
-				setArr[index] = giftinitem;
-				index++;
-			}
-		}
-	}
+ 	var giftInItemEles = document.getElementsByClassName("save-giftinitem");
+ 	var giftInItemArr = [];
+ 	
+ 	for(var i=0; i<giftInItemEles.length; ++i){
+ 		
+ 		var giftInItemSaveIds = giftInItemEles[i].getAttribute("id");
+ 		var giftInItemIdSel = "#" + giftInItemSaveIds;
+ 		var giftInItem = new Object();
+ 		
+ 		giftInItem.gift_id = 	$(giftInItemIdSel + " .item-gift_id").attr("value");
+ 		giftInItem.item_id = 	$(giftInItemIdSel + " .item-item_id").attr("value");
+ 		giftInItem.count = 		$(giftInItemIdSel + " .item-count").attr("value");
+ 		
+ 		giftInItemArr[i] = giftInItem;
+ 	}
+
 	
 	$.ajax({
 		url: "insertGitfInItem.do",
-		data: JSON.stringify(setArr),
+		data: JSON.stringify(giftInItemArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -1030,8 +1002,8 @@ tinymce.init({
 //ready ==========================================================================================
 	$(function(){
 		
-		//본인인증 ---------------------------------------------------------------------------------
-		IMP.init('imp42795450');
+		/* //본인인증 ---------------------------------------------------------------------------------
+		IMP.init('imp42795450'); */
 		
 		
 		
@@ -1195,8 +1167,9 @@ tinymce.init({
 								'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" />' +
+								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" onchange="changeGiftCapacityChk('+ giftId +')" value="'+ giftId +'"/>' +
 								'<label for="cap-chk'+giftId+'"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
+								'<input type="hidden" class="capacity-flag-save-input" value="0">' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
@@ -1299,7 +1272,16 @@ tinymce.init({
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
 			
-			//return "레알 나감????????????";
+			//임시 저장한 이력이 있으면
+			if(temporaryFlag){
+				updateProjectFunc();
+				updateProjectContentFunc();
+				updateProjectAccountFunc();
+				removeGiftItemFunc();
+				insertGiftFunc();
+				insertItemFunc();
+				insertGiftInItemFunc();
+			}
 		});
 		
 		
@@ -1434,6 +1416,10 @@ tinymce.init({
 		
 		$(".tap em").removeClass("project-tap-em-active")
 		$(sessionTapId + " em").addClass("project-tap-em-active");
+		
+		//선물 수정 영역 안보이게
+		$(".gift-body-div").hide();
+		$(".gift-head-div").show();
 	}
 	
 	
@@ -1751,10 +1737,10 @@ tinymce.init({
 		var project_id = $("#project-id-input").val();
 		var category_sub_id = $("#project-sub-category").val();
 		var project_name = $("#project-title-input").val();
-		var rep_content = $("#repcontent-textarea").text();
+		var rep_content = $("#repcontent-textarea").val();
 		var target_amount = $("#goalprice-input").val();
 		var end_date = $("#fundingDatepicker").val();
-		var refund_role = $("#refundrole-textarea").text();
+		var refund_role = $("#refundrole-textarea").val();
 		var certif_flag = $("#certifflag_input").val();
 		
 		value += '<input id="save-project_id" type="hidden" value="'+ project_id +'">' +
@@ -1799,10 +1785,10 @@ tinymce.init({
 				capacity = $(idSeletor + " .gift-capacity-input").val();
 			}
 
-			value += '<div class="save-gift">' +
+			value += '<div id="'+ gift_id +'" class="save-gift">' +
 						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
 						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
-						'<input type="hidden" class="gift-capacity="'+ capacity +'">' +
+						'<input type="hidden" class="gift-capacity=" value="'+ capacity +'">' +
 					 '</div>';
 		}
 		
@@ -1816,7 +1802,7 @@ tinymce.init({
 			
 			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
 			
-			value += '<div class="save-item">' +
+			value += '<div id="'+ item_id +'" class="save-item">' +
 						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
 						'<input type="hidden" class="item-item_name" value="'+ item_name +'">' +
 					 '</div>';
@@ -1839,7 +1825,7 @@ tinymce.init({
 					
 					var count = $(giftIdSeletor + " ."+ item_id + " .gift-in-item-count").attr("value");
 					
-					value += '<div class="save-giftinitem">' +
+					value += '<div id="'+ gift_id + item_id +'" class="save-giftinitem">' +
 								'<input type="hidden" class="item-gift_id" value="'+ gift_id +'">' +
 								'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
 								'<input type="hidden" class="item-count" value="'+ count +'">' +
@@ -1850,34 +1836,11 @@ tinymce.init({
 		
 		$("#temporarySave-div").html(value);
 		
-		IMP.certification({
-		    merchant_uid : 'merchant_' + new Date().getTime() //본인인증과 연관된 가맹점 내부 주문번호가 있다면 넘겨주세요
-		}, function(rsp) {
-		    if ( rsp.success ) {
-		    	 // 인증성공
-		        console.log(rsp.imp_uid);
-		        console.log(rsp.merchant_uid);
-		        
-		        $.ajax({
-						type : 'POST',
-						url : '/certifications/confirm',
-						dataType : 'json',
-						data : {
-							imp_uid : rsp.imp_uid
-						}
-				 }).done(function(rsp) {
-				 		// 이후 Business Logic 처리하시면 됩니다.
-				 });
-		        	
-		    } else {
-		    	 // 인증취소 또는 인증실패
-		        var msg = '인증에 실패하였습니다.';
-		        msg += '에러내용 : ' + rsp.error_msg;
-
-		        alert(msg);
-		    }
-		});
 		
+		/* //인증 창 열기
+		window.open("certifPage.do",  
+				"certifPagePopup", "status=no,toolbar=no,scrollbars=no,location=noS,width=700, height=500, left=300, top=200");
+		 */
 		//https://github.com/iamport/iamport-manual/tree/master/SMS%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D
 		//https://admin.iamport.kr/
 	}
@@ -1898,6 +1861,60 @@ tinymce.init({
 		$(sessionTapId + " em").addClass("project-tap-em-active");
 		
 		document.documentElement.scrollTop = 130;
+		
+		//선물 수정 영역 안보이게
+		$(".gift-body-div").hide();
+		$(".gift-head-div").show();
+		
+		/* //임시 저장한 이력이 있으면
+		if(temporaryFlag){
+			updateProjectFunc();
+			updateProjectContentFunc();
+			updateProjectAccountFunc();
+			removeGiftItemFunc();
+			insertGiftFunc();
+			insertItemFunc();
+			insertGiftInItemFunc();
+		} */
+	}
+	
+	
+	
+	function changeGiftCapacityChk(giftId){
+	      console.log("giftId]"+giftId);
+	      
+	      if($("#"+giftId+" .capacity-flag").attr("checked") == true){
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "0");
+	         
+	         console.log("체크해제");
+	      } 
+	      else{
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "1");
+	         console.log("체크");
+	      }
+	   }
+	
+	function setTotalGiftCapacityChk(){
+		
+		var capacityFlagEles = document.getElementsByClassName("capacity-flag");
+		
+		for(var i=0; i<capacityFlagEles.length; ++i){
+			
+			var giftId = capacityFlagEles[i].getAttribute("value");
+			var giftIdSel = "#" + giftId;
+			
+			console.log(giftIdSel + " .capacity-flag-save-input");
+			console.log($(giftIdSel + " .capacity-flag-save-input").attr("value"));
+			if($(giftIdSel + " .capacity-flag-save-input").attr("value") == "1"){
+				$(giftIdSel + " .capacity-flag").attr("checked", true);
+				
+				console.log("true~");
+			}
+			else{
+				$(giftIdSel + " .capacity-flag").attr("checked", false);
+				console.log("false~");
+			}
+		}
 	}
 	
 
@@ -2025,7 +2042,7 @@ tinymce.init({
 					</c:if>
 					</div>
 				</div>
-				<input type="hidden" id="project-id-input" name="project_id"/>
+				<input type="hidden" id="project-id-input" name="project_id" value="${ project.project_id }"/>
 			</form>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -2213,10 +2230,14 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 			<c:if test="${ gift.capacity > 0 }">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" checked />
+				<input type="hidden" class="capacity-flag-save-input" value="1">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
+				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }" checked />
 			</c:if>
 			<c:if test="${ gift.capacity == 0 }">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" />
+				<input type="hidden" class="capacity-flag-save-input" value="0">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
+				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }"/>
 			</c:if>
 				<label for="cap-chk${ gift.gift_id }"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="${ gift.capacity }"> 개 입니다.</label>
 			</div>
@@ -2583,6 +2604,7 @@ tinymce.init({
 
 
 </script>
+
 
 <c:import url="/WEB-INF/views/footer.jsp"/>
 </body>
