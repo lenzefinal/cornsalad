@@ -48,21 +48,24 @@
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
+var size=4;
 	$(window).ready(function(){
+		
 		/* var member_id=${loginUser.member_id}; */
 		$.ajax({
+			
 			url:"myProject1.do",
-			data:{size:3, member_id:'jieun'},
+			data:{size:size, member_id:'jieun'},
 			dataType:"json",
-			type:"get",
+			type:"post",
 			success:function(e){
 				var jsonStr=JSON.stringify(e);
 				var json=JSON.parse(jsonStr); 
 				var tag="";
 				for(var i=0;i<json.project.length;i++){
 					if(json.project[i].image_rename==null){
-					tag+="<input type='hidden' id='checksize' value='"+json.project.length+"'/>"
-						+'<tr class="list " name="tt">'
+					tag+="<input type='hidden' id='size' value='"+json.project.length+"'/>"
+						+'<tr class="list" name="tt">'
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
@@ -71,9 +74,9 @@
 						+'</tr>';
 					} else{
 						tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
-							+'<tr class="list " name="tt">'
+							+'<tr class="list" name="tt">'
 							+'<td class="limg">'
-							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'/>'
+							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 							+'</td>'
 							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 						/* 	+'<td><b>${project.creation_date }</b></td>' */
@@ -90,16 +93,20 @@
 		 });
 	});
 	 $(window).scroll(function() {
-		 if( $(document).height() == ($(window).scrollTop() + $(window).height())) {
-			 var checksize=$('#checksize').val();
-			 alert(checksize);
-			 checksize=Number(checksize)+3;
-			 alert("+"+checksize);
+		 console.log("구분자");
+		 console.log($(window).scrollTop());
+		 console.log($(document).height()-$(window).height());
+		 if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
+			more(size);
+			size++;
+		}	 
+	}); 
+	function more(size){
 		 $.ajax({
 				url:"myProject1.do",
-				data:{size:checksize, member_id:'jieun'},
+				data:{size:Number(size), member_id:'jieun'},
 				dataType:"json",
-				type:"get",
+				type:"post",
 				success:function(e){
 					
 					var jsonStr=JSON.stringify(e);
@@ -107,8 +114,7 @@
 					var tag="";
 					for(var i=0;i<json.project.length;i++){
 						if(json.project[i].image_rename==null){
-						tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
-						+	'<tr class="list " name="tt">'
+						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
@@ -116,10 +122,9 @@
 						/* 	+'<td><b>${project.creation_date }</b></td>' */
 							+'</tr>';
 						} else{
-							tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
-								+'<tr class="list " name="tt">'
+							tag+='<tr class="list" name="tt">'
 								+'<td class="limg">'
-								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'/>'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 								+'</td>'
 								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 							/* 	+'<td><b>${project.creation_date }</b></td>' */
@@ -127,7 +132,8 @@
 						}
 					}
 					$('.tbl_type').html(tag);
-					$('#checksize').val(Number(checksize));
+					$('#checksize').val(Number(size));
+					
 				},
 				error: function(request, status, errorData) {
 					alert("에러코드: " + request.status + "\n" + "메세지: "
@@ -135,13 +141,10 @@
 							+ errorData);
 				}
 			 });
-		}
-		 
-	}); 
-
+	 }
 	
 </script>
-	
+
 	<div id="container">
 		<div id="content" class="section_home" >
 			<div class="c_header">

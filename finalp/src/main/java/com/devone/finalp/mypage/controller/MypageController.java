@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +70,7 @@ public class MypageController {
 	}
 
 	// 등록한 프로젝트 리스트 출력
-	@RequestMapping(value = "myProject1.do")
+	@RequestMapping(value = "myProject1.do", method=RequestMethod.POST)
 	public void myProject1(Model model, Project project, HttpServletResponse response,
 			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
 			throws IOException {
