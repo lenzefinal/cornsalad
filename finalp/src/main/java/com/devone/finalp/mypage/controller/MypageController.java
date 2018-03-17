@@ -44,12 +44,10 @@ public class MypageController {
 	// 마이페이지 회원 정보 수정 폼
 	@RequestMapping("mypageModify.do")
 	public String mypageModify(Member member, Model model, MemberAccount account) {
-		System.out.println("정보수정폼 멤버: " + member);
-		System.out.println("정보수정폼 계좌: " + account);
+		System.out.println("정보 수정 폼");
 		model.addAttribute("member", mypageService.selectMember(member));
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
-		System.out.println("정보수정폼 계좌: " + account);
 		return "mypage/mypageModify";
 	}
 
@@ -65,24 +63,19 @@ public class MypageController {
 	@RequestMapping("myProject.do")
 	public String myProject(Model model, Project project) {
 		System.out.println("등록 프로젝트");
+		System.out.println(model);
 
 		return "mypage/myProject";
 	}
 
 	// 등록한 프로젝트 리스트 출력
-	@RequestMapping(value = "myProject1.do", method=RequestMethod.POST)
+	@RequestMapping(value = "myProjectList.do", method=RequestMethod.POST)
 	public void myProject1(Model model, Project project, HttpServletResponse response,
 			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
 			throws IOException {
 		System.out.println("등록 프로젝트1");
-		project.setMember_id(member_id);
-		project.setSize(size);
-
 		List<Project> list = mypageService.selectMyProject(project);
 
-		System.out.println(project);
-		System.out.println(size);
-		System.out.println(member_id);
 		response.setContentType("application/json; charset=utf-8");
 
 		JSONObject json = new JSONObject();
@@ -104,7 +97,7 @@ public class MypageController {
 		out.println(json.toJSONString());
 		out.flush();
 		out.close();
-
+		System.out.println(size);
 	}
 
 	// 등록한 공동구매 상품 리스트 출력 폼
