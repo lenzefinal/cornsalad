@@ -59,7 +59,8 @@
 			END_DATE = #{ end_date, jdbcType=DATE },
 			PAYMENT_DATE = #{ payment_date, jdbcType=DATE },
 			REFUND_ROLE = #{ refund_role },
-			CERTIF_FLAG = #{ certif_flag }
+			CERTIF_FLAG = #{ certif_flag },
+			PROJECT_REQUEST_FLAG = #{ project_request_flag }
 			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</select>

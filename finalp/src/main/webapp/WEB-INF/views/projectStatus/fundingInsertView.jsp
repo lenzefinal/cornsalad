@@ -40,9 +40,6 @@
 		margin-bottom: 0px;
 		text-align: center;
 		text-weight: bold;
-		border: 1px solid rgba(0,0,0,0.1);
-		border-left: none;
-		border-right: none;
 	}
 	
 	/* 충돌 테스트 */
@@ -106,6 +103,12 @@
 	.project-tap-table{
 		margin: auto;
 		cellspacing: 0;
+	}
+	.project-taptable{
+		border: 1px solid rgba(0,0,0,0.1);
+		border-left: none;
+		border-right: none;
+		border-top: none;
 	}
 	.project-tap-table .tap {
 		padding: .92857143em 1.42857143em;
@@ -257,6 +260,8 @@
 	    border-radius: .25rem;
 	}
 	.project-element-content-div input[type=text],
+	.project-element-content-div input[type=email],
+	.project-element-content-div input[type=tel],
 	.project-element-content-div input[type=number]{
 	  height: 40px;
 	  font-size: 0.9rem;
@@ -516,6 +521,51 @@
 		color: white;
 	}
 	
+	.btn-greentea-invert{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+		height:50px;
+		font-weight: bold;
+	}
+	.btn-greentea-invert:hover{
+		border:1px solid #26a499;
+		background-color: white;
+		color: #26a499;
+		height:50px;
+	}
+	.btn-greentea:hover path{
+		fill: white;
+	}
+	
+	
+	/* 인증 관련 */
+	.field em.error,
+	em.timeout {
+		color: #f66;
+	}
+	
+	input.error[type=text],
+	input.error[type=email]{
+		border-color: #f66;
+	}
+	
+	/* 탭 위에 */
+	.project-notice{
+		border: 1px solid #f9bf30;
+    	border-radius: .25rem;
+    	font-weight: bold;
+    	color: rgba(0,0,0,0.3);
+    	text-align: center;
+    	padding: 15px 0px 0px 15px;
+	}
+	
+	.btn-greenteareverse-submit{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	
 </style>
 
 
@@ -719,6 +769,7 @@ function updateProjectFunc(){
 	project.end_date = $("#fundingDatepicker").val();
 	project.refund_role = $("#refundrole-textarea").val();
 	project.certif_flag = $("#certifflag_input").val();
+	project.request_flag = $("#request_flag-input").attr("value");
 	
 	console.log("project.target_amount]"+project.target_amount);
 	
@@ -1199,14 +1250,7 @@ function insertGiftInItemFunc(){
 			//return "레알 나감????????????";
 		});
 		
-		/* window.onbeforeunload = function(){
-			updateProjectFunc();
-			insertProjectContentFunc();
-			insertProjectAccountFunc();
-			
-			insertGiftFunc();
-			insertItemFunc();
-		}; */
+		
 		 
 	});//ready end
 	
@@ -1742,6 +1786,20 @@ function insertGiftInItemFunc(){
 		}
 	}
 	
+	//제목 바뀌면 위에 타이블도 바뀌도록
+	function changeTitle(){
+		$(".project-header-title").text($("#project-title-input").val());
+	}
+	
+
+	//검토 요청하기 버튼
+	function sendRequest(){
+		//요청 값을 y로 설정
+		$("#request_flag-input").attr("value", "Y");
+		
+		location.href="projectSendRequestView.do?projectName=" + 
+				$("#project-title-input").val();
+	}
 	
 	
 	//임시
@@ -1758,9 +1816,26 @@ function insertGiftInItemFunc(){
 </script>
 
 <input type="hidden" value=true>
+<!-- 검토 요청 플래그 -->
+<input type="hidden" id="request_flag-input" value="N">
 
 <div id="session-0" class="project-bgcol-white session-tap">
-	<h2 class="project-header-title"> 프로젝트 등록 </h2>
+	<h2 class="project-header-title">프로젝트 등록 </h2>
+	<div class="project-notice project-outter-div-margin">
+		<p>이 페이지에는 저장 버튼이 따로 존재하지 않습니다.<br>
+			하지만 걱정마세요!<br>
+			페이지를 벗어나는 동시에 입력하신 정보를 자동으로 저장합니다.</p>
+	</div>
+	<div class="project-outter-div-margin" align="center"  style="margin-top:20px;margin-bottom:20px;">
+		<button class="btn btn-primary" onclick=""><b>미리 보기</b></button>
+		<button class="btn btn-greentea" style="width:150px;" onclick="sendRequest()">
+			<svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ 			 <path fill="#26a499" id="svg_1444" d="m9.21033,6.39269a0.25125,0.25125 0 0 0 -0.36042,-0.34655l-4.50518,3.83286l-2.37908,-0.92009a0.57874,0.57874 0 0 1 -0.06758,-1.05005l9.87673,-5.5327a0.48691,0.48691 0 0 1 0.71563,0.47478l-0.86638,9.03114a0.5978,0.5978 0 0 1 -0.81786,0.49904l-2.89544,-1.1211l-1.81766,1.7033a0.46958,0.46958 0 0 1 -0.79014,-0.34655l0,-1.33769l3.90737,-4.88639l-0.00001,0l0.00001,0.00001z"/>
+			</svg>
+			<b>검토 요청하기</b>
+		</button>
+	</div>
+	<div class="project-taptable"></div>
 	<div class="project-tap project-outter-div-margin">
 		<table class="project-tap-table">
 			<tr>
@@ -1796,6 +1871,7 @@ function insertGiftInItemFunc(){
 	</div>
 </div>
 
+
 <div id="session-1" class="session">
 <div id="project-intro" class="project-div project-outter-div-margin project-first project-title-last">
 	<div class="project-title project-title-first">펀딩 개요</div>
@@ -1809,7 +1885,7 @@ function insertGiftInItemFunc(){
 				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요.">
+				<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요." onchange="changeTitle()">
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -2091,28 +2167,52 @@ function insertGiftInItemFunc(){
 				</div>
 			</div>
 			<!-- 임시 -->
-			<button onclick="testtinymce()">테스트</button>
+			<!-- <button onclick="testtinymce()">테스트</button> -->
 		</div>
 	</div>
 </div>
 </div>
+
 
 <div id="session-4" class="session">
 <div id="" class="project-div project-outter-div-margin project-title-last">
 	<div class="project-title project-title-first">본인 인증</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">휴대폰</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">이메일</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>진행자님이 연락 받으실 수 있는 휴대폰 연락처를 입력해 주세요. 프로젝트 진행과 관련된 긴급한 사항 전달에만 사용됩니다.</p>
+				<p>진행자님이 실제 사용하고 계시는 이메일을 입력해주세요. 본인 인증에만 사용됩니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				휴대폰 인증
-				<input type="hidden" id="certifflag_input" value="N"/>
+				<form name="form-project" id="form-project" method="post" novalidate="novalidate">
+					<input type="hidden" name="secureStateBagKey" value="" />
+					<input type="hidden" id="certifflag_input" value="N"/>
+					<div class="check-email-field">
+						<label class="field">
+						  <div class="inner-container">
+							<input id="Email" name="Email" type="email" style="width:300px;" placeholder="이메일 계정" required aria-required="true">
+							<button id="btnCheckEmail" class="btn btn-greentea-invert" type="button" style="height:45px;">인증하기</button>
+						  </div>
+						</label>
+						<p class="notice">해당 이메일로 본인 인증 번호가 발송됩니다.<br>사용하는 이메일이 아닌 경우, 변경해주시길 바랍니다.</p>
+					</div>
+					<div id="emailToken" class="email-token" style="display: none;">
+						<label class="field">
+						  <div class="inner-container">
+							<div class="input-area">
+							  <input type="tel" style="width:300px;" id="" name="tokenValue" maxlength="6" placeholder="이메일 인증번호 입력" required aria-required="true">
+							  <em id="emailTimeOut" class="timeout">03:00</em>
+							  <button id="checkToken" type="button" class="btn btn-greentea-invert" style="margin-left:30px; height:45px;">인증확인</button>
+							</div>
+						  </div>
+						</label>
+					</div>
+				</form>
 			</div>
-		</div>
+		</div>	
 	</div>
+
 	<div class="project-title project-title-first">후원금 입금 계좌</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
@@ -2145,6 +2245,231 @@ function insertGiftInItemFunc(){
 	</div>
 </div>
 </div>
+
+
+
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/additional-methods.min.js" type="text/javascript"></script>
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/localization/messages_ko.min.js" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+<script src="https://www.wadiz.kr/resources/static/js/countdown.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function($){
+	$(function(){
+		
+		var $form       = $('#form-project');                  
+		  
+		var $btnCheckEmail        = $('#btnCheckEmail', $form);
+		var $btnChangeEmailModal  = $('#btnChangeEmailModal', $form);
+		var $Email             = $('#Email', $form);                
+	
+		function initPage() {
+		
+		  // 유효성 검사
+		  $form.validate({
+		    rules: {
+		      tokenValue: { required: true, maxlength: 6 },
+		      Email:   { required: true, email: true}
+		    },
+		    messages: {
+		      tokenValue: { required: '이메일 인증번호를 입력해주세요.', maxlength: '인증번호 6자리를 확인해주세요.' },
+		      Email:   { required: '인증번호를 보낼 이메일을 입력해주세요.', email: '이메일을 정확히 입력해주세요.'}
+		    },
+		    errorElement: 'em',
+		    errorPlacement: function(error, element) {
+		        $parent = $(element).parent();
+		        if (!$parent.hasClass('field')) {
+		          $parent = $parent.parent();
+		          console.log("필드없다");
+		        }
+		        if ($(element).prop('name') === 'tokenValue') {
+		          $parent = $('#emailToken .field', $form);
+		          console.log("인증볺");
+		        }
+		        error.appendTo($parent);
+		
+		        console.log("들어오네");
+		      }
+		  });	  
+		
+		  // 에러처리 jQuery Validate.
+		  function checkField(element, evt) {
+		    $(element).valid();
+		    var isInvalid = ($form.valid()) ? false : true;
+		  
+		  };
+		
+		  // 커스텀 rules  
+		  $.validator.addMethod("pwcheck", function(value, element) {
+		    return /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=-])(?=.*[0-9]).{8,16}$/.test(value);
+		  });
+		}
+		
+		
+		//Email 값 작성 후 유효성에 따른 버튼 활성화 처리 및 가입된 이메일 여부 확인
+		$Email.on('keyup blur', function(){
+		     var $this = $(this);
+		     var isInvalid = !$this.hasClass('valid');
+		     $btnCheckEmail.prop('disabled', isInvalid);
+		});
+   
+     
+        //이메일 계정 인증하기 시 타이머, 인증번호 입력창.show()
+        // 인증메일 발송
+     	function sendEmail() {
+     	  var Email = $Email.val();
+  
+     	  // 인증코드 이메일 발송 요청
+     	  var param = {"Email": Email}
+     	  
+     		$.ajax({
+	            type: 'POST',
+	            url: 'projectAjaxSendEmailAuthCode.do',
+	            dataType:"json",
+	            data: {Email: Email},
+	            success: function(data) {
+	          	  	var jsonStr = JSON.stringify(data);
+					var json = JSON.parse(jsonStr);
+						
+		          	if (json.code != "SUSS000") {
+		  	      	  	alertify.alert(json.message);
+		  	            $Email.val('').focus();
+		  	       	}
+		            else {
+		  	       	  	console.log(json.code+" 인증메일 발송");
+		  	       	  	alertify.alert('인증메일이 발송되었습니다. <br/>메일 안에 있는 인증번호를 확인해주세요.');
+		  	       	  	$Email.addClass('disable');
+			    	    $("#emailToken").show();
+			    	    enableTokenInput(true);
+			    	    setTimer();
+		  	       	  	
+		  	       	  	$("input[name='secureStateBagKey']").val(json.message);
+		  	       	  	console.log(json.message);
+		  	       	}  
+		        }, 
+	            fail: function(xhr) {
+	      		    alertify.alert("오류가 발생했습니다. 관리자에 문의해주세요. 오류코드 : " + xhr.status);
+	            },
+	            beforeSend: function () {
+	                var width = 0;
+	                var height = 0;
+	                var left = 0;
+	                var top = 0;
+
+	                width = 50;
+	                height = 50;
+
+	                top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+	                left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+	                if($("#div_ajax_load_image").length != 0) {
+	                       $("#div_ajax_load_image").css({
+	                              "top": top+"px",
+	                              "left": left+"px"
+	                       });
+	                       $("#div_ajax_load_image").show();
+	                }
+	                else {
+	                       $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + 
+	                       			top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 
+	                       			'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; ">' + 
+	                       			'<img src="/finalp/resources/images/ajax_loader4.gif" style="width:50px; height:50px;"></div>');
+	                }
+		         },
+		         complete: function () {
+			            $("#div_ajax_load_image").hide();
+			     }
+          });
+     	}
+        
+        $btnCheckEmail.on('click', sendEmail);
+
+        //3분 타이머 시작
+    	function setTimer() {
+	    	  var tokenExpirationTime = 180;
+	    	  
+	    	  $("#btnCheckEmail").text("재전송").prop('disabled', false);
+	    	  
+	    	  $('#emailTimeOut').countdown({
+	    	    date: (new Date()).getTime() + (tokenExpirationTime * 1000),
+	    	  	end: function() {
+		    	   	enableTokenInput(false);
+		            $('#emailTimeOut').text("입력 시간 초과").before().addClass('error');
+	    	    }
+	        });
+    	}
+
+        //인증코드 검증
+     	function checkToken() {
+	        var Email = $Email.val();
+	     	var tokenValue = $("input[name='tokenValue']").val();
+	     	var secureStateBagKey = $("input[name='secureStateBagKey']").val();
+	     	 
+	     	if ($("input[name='tokenValue']").prop("disabled")) {
+	     	 	return;
+	     	}
+
+		    // 유효성체크 요청
+			$.ajax({
+	            url: 'projectAjaxIsValidToken.do',
+	            data: {"token": tokenValue, "secureStateBagKey": secureStateBagKey},
+	            success: function(data) {
+						
+					  if (data != "SUSS000") {
+			              alertify.alert("인증번호가 틀렸습니다.");
+			       	  }
+					  else {
+			       	  	  $Email.prop('readonly', true);
+			              $btnCheckEmail.text("인증완료").addClass('gray disabled').prop('disabled', true);
+			              
+			              enableTokenInput(false);
+			              
+			              $('#emailToken').hide();
+			       	  	  $("input[name='tokenValue']").prop("disabled", true);
+			       	  	  
+			       	  	  $("#certifflag_input").attr("value","Y");
+			       	  }
+	  	       	  	  
+	            }, 
+	            fail: function(xhr) {
+	      		    alertify.alert("오류가 발생했습니다. 관리자에 문의해주세요. 오류코드 : " + xhr.status);
+	            }
+	        });
+      }
+      
+      $('#checkToken').on('click', checkToken);
+
+     
+
+      // 인증번호 입력창 활성화/비활성화
+      function enableTokenInput(isShow) {
+	        var $inputTokenValue = $("input[name='tokenValue']");
+	        var $emailTimeOut = $("#emailTimeOut");
+		    	
+	        if (isShow) {
+		        $inputTokenValue.prop("disabled", false).val("").focus();
+		        $emailTimeOut.show();
+		    } 
+	        else {
+		        $inputTokenValue.prop("disabled", true);
+		        $emailTimeOut.countdown("destroy");
+		        $Email.focus();
+	    	}
+	    	
+	        $("[id^=errMsg]").hide();
+      }
+
+      // 초기화 실행
+      initPage();
+    });
+    
+  }(window.jQuery));
+  
+</script>
+
+
+
+
 
 
 <!-- 아이템 관리 modal -------------------------------------------------------------- -->
