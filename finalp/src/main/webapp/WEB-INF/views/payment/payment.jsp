@@ -79,8 +79,8 @@
 				<table id="reward-title">
 				<tr>
 				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
-				<td id="reward-name">우리 아이를 혼자 두지 마세요. 반려동물용 인공지능로봇 [고미볼]</td>
-				<td id="seller"><h4>(주) 고미랩스</h4></td>
+				<td id="reward-name">${ p.project_name }</td>
+				<td id="seller"><h4>${ p.member_name }</h4></td>
 				</tr>
 				</table>
 </div>
@@ -103,29 +103,37 @@
 				<form name="purchaseForm" id="purchaseForm" method="post">
 					<div id="reward-list">
 	    					<ul>
+	    					
+	    					
+	    					<c:forEach items="${ glist }" var="glist" varStatus="gstatus">
 	    						
 	    						<li>
 									<div class="reward-background">
 	    							<dl class="reward-box">
-	    								<dt><input type="checkbox" id="ckrw33830" class="reward-check" name="rewardId" value="33830" onclick="checkboxEvent1(this.value)" i-data="0"/><label for="ckrw33830"> </label></dt>
+	    								<dt><input type="checkbox" id="ckrw${ glist.gift_id }" class="reward-check" name="rewardId" value="${ glist.gift_id }" onclick="checkboxEvent1(this.value)" i-data="${ gstatus.index }"/><label for="ckrw${ glist.gift_id }"> </label></dt>
 	    								<dd>
-	    									<input type="hidden" id="amountRw33830" value="37000" />
-	    									<input type="hidden" id="remainCnt33830" class="remain-cnt" value="110" />
-	    									<input type="hidden" id="limitCnt33830" class="limit-cnt" value="200" />
-	    									<label for="ckrw33830">
-	    									<p class="sum">99,000원 펀딩합니다.</p>
-	    									<p class="number"> 일반버드 (고미볼 1세트)
+	    									
+	    									<label for="ckrw${ glist.gift_id }">
+	    									<p class="sum">${ glist.support_price }원 펀딩합니다.</p>
+	    									<p class="number">
+	    									
+		    									<c:forEach items="${ ilist }" var="ilist">
+		    										<c:if test="${ glist.gift_id == ilist.gift_id }">
+		    										 	${ ilist.item_name } (${ ilist.count } EA)
+		    										</c:if>   
+		    									</c:forEach>
+	    									
 		    									
 		    										
 		    										
-		    										<span class="remains">(249개 남음)</span>
+		    										<span class="remains">(${ glist.remain }개 남음)</span>
 		    									
 		    								</p>
-	    									<p class="text">정상가 159,000원 (할인율 38%)<br>고미볼(흰색) 1set</p>
+	    									
 	    									<p class="date"> 
 	    										
-	    										배송비 3,000원
-	    										 | 리워드 제공 예상일 : 
+	    										
+	    										리워드 제공 예상일 : 
 	    										 
 	    										 	
 	    												
@@ -138,13 +146,13 @@
 	    										 
 											</p>
 	    									</label>
-	    									<div class="checked-area hidden 0">
+	    									<div class="checked-area hidden ${ gstatus.index }">
 	    										<div class="amount">
 	    											<p class="title">수량</p>
 	    											<p class="input-area">
-	    												<button type="button" onclick="changeQty('minus', 33830)" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
-	    												<input type="text" id="qty33830" class="reward-qty" value="0" />
-	    												<button type="button" onclick="changeQty('plus', 33830)" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('minus', ${ glist.gift_id })" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
+	    												<input type="text" id="qty${ glist.gift_id }" class="reward-qty" value="0" />
+	    												<button type="button" onclick="changeQty('plus', ${ glist.gift_id })" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
 	    											</p>
 	    										</div>
 	    										 
@@ -153,57 +161,8 @@
 	    							</dl>
 									</div>
 	    						</li>
-
-<li>
-									<div class="reward-background">
-	    							<dl class="reward-box soldout">
-	    								<dt><input type="checkbox" id="ckrw33829" class="reward-check" name="rewardId" value="33829" onclick="checkboxEvent1(this.value)" i-data="1" /><label for="ckrw33829"> </label></dt>
-	    								<dd>
-	    									<input type="hidden" id="amountRw33829" value="18500" />
-	    									<input type="hidden" id="remainCnt33829" class="remain-cnt" value="0" />
-	    									<input type="hidden" id="limitCnt33829" class="limit-cnt" value="20" />
-	    									<label for="ckrw33829">
-	    									<p class="sum">89,000원 펀딩합니다.</p>
-	    									<p class="number">얼리버드 (고미볼 1세트)
-		    									
-		    										
-		    										<span class="soldout">(마감)</span>
-		    										
-		    								</p>
-	    									<p class="text">정상가 159,000원 (할인율 44%)<br>고미볼(흰색) 1set</p>
-	    									<p class="date"> 
-	    										
-	    										배송비 3,000원
-	    										 | 리워드 제공 예상일 : 
-	    										 
-	    										 	
-	    												
-	    										 		
-													    
-														<span>2018년 06월</span>
-														<span>말 (21~말일) 예정</span>
-	    										 	
-	    										 	
-	    										 
-											</p>
-	    									</label>
-	    								
-	    									<div class="checked-area hidden 1">
-	    										<div class="amount">
-	    											<p class="title">수량</p>
-	    											<p class="input-area">
-	    												<button type="button" onclick="changeQty('minus', 33831)" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
-	    												<input type="text" id="qty33831" class="reward-qty" value="0" />
-	    												<button type="button" onclick="changeQty('plus', 33831)" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
-	    											</p>
-	    										</div>
-	    										 
-	    									</div>
-	    								</dd>
-	    							</dl>
-									</div>
-	    						</li>
-	    							
+	    					</c:forEach>
+	    					
 	    					</ul>
 	    				</div>
 	    			</form>

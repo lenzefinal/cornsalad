@@ -19,6 +19,7 @@ public class ProjectStatusUpdate implements java.io.Serializable {
 	private Date end_date;
 	private Date payment_date;
 	private String refund_role;
+	private String project_request_flag;
 	private String project_onoff_flag;
 	private int report_count;
 	private String certif_flag;
@@ -29,7 +30,8 @@ public class ProjectStatusUpdate implements java.io.Serializable {
 	public ProjectStatusUpdate(String project_id, String project_category_id, String category_sub_id,
 			String project_name, String member_id, String image_oriname, String image_rename, String rep_content,
 			int target_amount, Date creation_date, Date start_date, Date end_date, Date payment_date,
-			String refund_role, String project_onoff_flag, int report_count, String certif_flag, String category_id) {
+			String refund_role, String project_request_flag, String project_onoff_flag, int report_count,
+			String certif_flag, String category_id) {
 		super();
 		this.project_id = project_id;
 		this.project_category_id = project_category_id;
@@ -45,6 +47,7 @@ public class ProjectStatusUpdate implements java.io.Serializable {
 		this.end_date = end_date;
 		this.payment_date = payment_date;
 		this.refund_role = refund_role;
+		this.project_request_flag = project_request_flag;
 		this.project_onoff_flag = project_onoff_flag;
 		this.report_count = report_count;
 		this.certif_flag = certif_flag;
@@ -163,6 +166,14 @@ public class ProjectStatusUpdate implements java.io.Serializable {
 		this.refund_role = refund_role;
 	}
 
+	public String getProject_request_flag() {
+		return project_request_flag;
+	}
+
+	public void setProject_request_flag(String project_request_flag) {
+		this.project_request_flag = project_request_flag;
+	}
+
 	public String getProject_onoff_flag() {
 		return project_onoff_flag;
 	}
@@ -206,8 +217,9 @@ public class ProjectStatusUpdate implements java.io.Serializable {
 				+ ", image_oriname=" + image_oriname + ", image_rename=" + image_rename + ", rep_content=" + rep_content
 				+ ", target_amount=" + target_amount + ", creation_date=" + creation_date + ", start_date=" + start_date
 				+ ", end_date=" + end_date + ", payment_date=" + payment_date + ", refund_role=" + refund_role
-				+ ", project_onoff_flag=" + project_onoff_flag + ", report_count=" + report_count + ", certif_flag="
-				+ certif_flag + ", category_id=" + category_id + "]";
+				+ ", project_request_flag=" + project_request_flag + ", project_onoff_flag=" + project_onoff_flag
+				+ ", report_count=" + report_count + ", certif_flag=" + certif_flag + ", category_id=" + category_id
+				+ "]";
 	}
 
 }

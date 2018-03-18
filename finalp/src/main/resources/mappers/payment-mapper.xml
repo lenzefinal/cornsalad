@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="paymentMapper">
+
+	<resultMap id="payInfoMap" type="SellerInfo">
+		<result property="project_id" column="project_id" />
+		<result property="project_name" column="project_name" />
+		<result property="memer_name" column="member_name" />
+		<result property="end_date" column="end_date" />
+	</resultMap>
+	
+	<resultMap id="giftMap" type="PayGiftView">
+		<result property="project_id" column="project_id" />
+		<result property="gift_id" column="gift_id" />
+		<result property="support_price" column="support_price" />
+		<result property="remain" column="remain" />
+	</resultMap>
+	
+	<resultMap id="itemMap" type="GiftItem">
+		<result property="gift_id" column="gift_id" />
+		<result property="item_name" column="item_name" />
+		<result property="count" column="count" />
+	</resultMap>
+	
+	
+	<insert id="insertPayment" parameterType="Payment">
+		<![CDATA[
+			insert into payment values(payment_id, member_id, project_id, gift_id, null, total_amount , total_count,sysdate, null, 'N')
+		]]>
+	</insert>
+	
+	<insert id="updatePayment" parameterType="String">
+		<![CDATA[
+			update payment set refund_date = sysdate, refund_flag = 'Y' where payment_id = #{payment_id}
+		]]>
+	</insert>
+	
+	<select id="selctProjectInfo" parameterType="string" resultType="SellerInfo">
+		<![CDATA[
+			SELECT * FROM P_SELLERINFO WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="selectAllGift" resultMap="giftMap" parameterType="string" resultType="list">
+		<![CDATA[
+			SELECT * FROM P_GIFT WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="selectItems" resultMap="itemMap" parameterType="string" resultType="list">
+		<![CDATA[
+			SELECT * FROM P_ITEMS
+		]]>
+	</select>
+
+
+</mapper>

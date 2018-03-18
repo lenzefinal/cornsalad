@@ -515,7 +515,6 @@
 	  var $window = $(window);
 	  var $html = $(document.documentElement);
 	  var $body;
-	  console.log($html);
 	  // dom ready
 	  $(document).ready(function(){
 	    $body = $(document.body);

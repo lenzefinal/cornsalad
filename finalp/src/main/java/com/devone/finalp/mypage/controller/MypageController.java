@@ -2,15 +2,21 @@ package com.devone.finalp.mypage.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,12 +44,10 @@ public class MypageController {
 	// 마이페이지 회원 정보 수정 폼
 	@RequestMapping("mypageModify.do")
 	public String mypageModify(Member member, Model model, MemberAccount account) {
-		System.out.println("정보수정폼 멤버: " + member);
-		System.out.println("정보수정폼 계좌: " + account);
+		System.out.println("정보 수정 폼");
 		model.addAttribute("member", mypageService.selectMember(member));
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
-		System.out.println("정보수정폼 계좌: " + account);
 		return "mypage/mypageModify";
 	}
 
@@ -54,14 +58,46 @@ public class MypageController {
 
 		return "mypage/mypageWithdrawal";
 	}
+
 	// 등록한 프로젝트 리스트 출력 폼
 	@RequestMapping("myProject.do")
 	public String myProject(Model model, Project project) {
 		System.out.println("등록 프로젝트");
-		
-		model.addAttribute("project", mypageService.selectMyProject(project));
-		System.out.println("내 project: "+project+" model: "+model);
+		System.out.println(model);
+
 		return "mypage/myProject";
+	}
+
+	// 등록한 프로젝트 리스트 출력
+	@RequestMapping(value = "myProjectList.do", method=RequestMethod.POST)
+	public void myProject1(Model model, Project project, HttpServletResponse response,
+			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
+			throws IOException {
+		System.out.println("등록 프로젝트1");
+		List<Project> list = mypageService.selectMyProject(project);
+
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			// j.put("creation_date", p.getCreation_date());
+			jarr.add(j);
+
+		}
+		json.put("project", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+		System.out.println(size);
 	}
 
 	// 등록한 공동구매 상품 리스트 출력 폼
@@ -107,8 +143,8 @@ public class MypageController {
 	// 회원 정보 수정 기능
 	@RequestMapping("mModify.do")
 	public String memberModify(Model model, Member member, MemberAccount account,
-			@RequestParam(value = "orifile") String orifile,
-			@RequestParam(value = "refile") String refile, HttpServletRequest request) throws IOException {
+			@RequestParam(value = "orifile") String orifile, @RequestParam(value = "refile") String refile,
+			HttpServletRequest request) throws IOException {
 
 		// 파일 업로드 처리
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -132,7 +168,7 @@ public class MypageController {
 			member.setProfile_img_oriname(ofileName);
 			member.setProfile_img_rename(rfileName);
 		} else {
-			if(orifile!=null&&refile!=null) {
+			if (orifile != null && refile != null) {
 				member.setProfile_img_oriname(orifile);
 				member.setProfile_img_rename(refile);
 			} else {

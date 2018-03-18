@@ -44,9 +44,9 @@
 		<result property="project_reply_id" column="project_reply_id" />
 		<result property="board_id" column="board_id" />
 		<result property="board_reply_id" column="board_reply_id" />
-		<result property="black_id" column="black_id" />
+		<result property="black_name" column="black_name" />
 		<result property="report_reason" column="report_reason" />
-		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
 		<result property="report_date" column="report_date" />
 		<result property="report_project_name" column="report_project_name" />
 		<result property="reply_content" column="reply_content" />
@@ -69,8 +69,8 @@
 	<resultMap id="AQuestionmap" type="AQuestion">
 		<result property="question_id" column="question_id" />
 		<result property="question_category_name" column="question_category_name" />
-		<result property="receive_member_id" column="receive_member_id" />
-		<result property="send_member_id" column="send_member_id" />
+		<result property="receive_member_name" column="receive_member_name" />
+		<result property="send_member_name" column="send_member_name" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="re_content" column="re_content" />
@@ -80,7 +80,7 @@
 	
 	<select id="questionlist" resultMap="AQuestionmap">
 		<![CDATA[
-			SELECT * FROM A_QUESTION WHERE RECEIVE_MEMBER_ID = 'admin' OR SEND_MEMBER_ID = 'admin'
+			SELECT * FROM A_QUESTION WHERE RECEIVE_MEMBER_NAME = '관리자' OR SEND_MEMBER_NAME = '관리자'
 		]]>
 	</select>
 	
@@ -89,5 +89,105 @@
 			SELECT * FROM A_QUESTION WHERE QUESTION_ID = #{ question_id }
 		]]>
 	</select>
+	
+	<update id="updatequestion" parameterType="AQuestion">
+		<![CDATA[
+			UPDATE QUESTION SET RE_CONTENT= #{ re_content } , RECEIVE_CREATION_DATE = SYSDATE WHERE QUESTION_ID = #{ question_id }
+		]]>
+	</update>
+	
+	<resultMap id="AProjectmap" type="AProject">
+		<result property="rnum" column="rnum" />
+		<result property="project_category_name" column="project_category_name" />
+		<result property="category_sub_name" column="category_sub_name" />
+		<result property="project_id" column="project_id" />
+		<result property="project_name" column="project_name" />
+		<result property="member_name" column="member_name" />
+		<result property="creation_date" column="creation_date" />
+		<result property="project_request_flag" column="project_request_flag" />
+		<result property="project_onoff_flag" column="project_onoff_flag" />
+		<result property="target_amount" column="target_amount" />
+		<result property="report_count" column="report_count" />
+		<result property="start_date" column="start_date" />
+		<result property="end_date" column="end_date" />
+		<result property="spon" column="spon" />
+		<result property="ing_flag" column="ing_flag" />
+	</resultMap>
+	
+	<select id="selectprojectlist" resultMap="AProjectmap" >
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE PROJECT_ONOFF_FLAG='Y'
+		]]>
+	</select>
+	
+	<select id="selectoffproject" resultMap="AProjectmap" >
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
+		]]>
+	</select>
+	
+	<update id="ponupdate" parameterType="String">
+		<![CDATA[
+			UPDATE PROJECT SET PROJECT_ONOFF_FLAG= 'Y' WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
+	<select id="memberProject" parameterType="String" resultMap="AProjectmap">
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE MEMBER_NAME= #{ member_name }
+		]]>
+	</select>
+	
+	<resultMap id="AMembermap" type="AMember">
+		<result property="rnum" column="rnum" />
+		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
+		<result property="age" column="age" />
+		<result property="gender" column="gender" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="total_report_count" column="total_report_count" />
+		<result property="black_flag" column="black_flag" />
+		<result property="project_count" column="project_count" />
+		<result property="spon_money" column="spon_money" />
+	</resultMap>
+	
+	<select id="memlistCount" resultType="int" >
+		<![CDATA[
+			SELECT COUNT(*) FROM A_MEMBER 
+		]]>	
+	</select>
+	
+	<select id="selectmemberlist" resultMap="AMembermap" resultType="list" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT * FROM A_MEMBER WHERE RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
+		]]>
+	</select>
+	
+	<select id="memberDetail" parameterType="String" resultType="AMember">
+		<![CDATA[
+			SELECT * FROM A_MEMBER WHERE MEMBER_NAME = #{ member_name }
+		]]>	
+	</select>
+	
+	<update id="memImgDelete" parameterType="String">
+		<![CDATA[
+			UPDATE MEMBER SET PROFILE_IMG_ORINAME = NULL , PROFILE_IMG_RENAME = NULL 
+			WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
+	
+	<update id="memberBlack" parameterType="String">
+		<![CDATA[
+			UPDATE MEMBER SET BLACKLIST_FLAG = 'Y'
+			WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
+	
+	<update id="memberDelete" parameterType="String">
+		<![CDATA[
+			DELETE FROM MEMBER WHERE MEMBER_NAME = #{ member_name }
+		]]>
+	</update>
 	
 </mapper>

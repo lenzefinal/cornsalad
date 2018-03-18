@@ -17,13 +17,13 @@
 	<update id="modifyMember" parameterType="Member">
 		<if test="profile_img_oriname!=null">
 		<![CDATA[
-			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address=#{address}, profile_img_oriname=#{profile_img_oriname},
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email},  address_num=#{address_num}, address=#{address}, profile_img_oriname=#{profile_img_oriname},
 			profile_img_rename=#{profile_img_rename} where member_id=#{member_id}
 		]]>	
 		</if>
 		<if test="profile_img_oriname==null">
 		<![CDATA[
-			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address=#{address}, profile_img_oriname=null,
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address_num=#{address_num}, address=#{address}, profile_img_oriname=null,
 			profile_img_rename=null where member_id=#{member_id}
 		]]>	
 		</if>

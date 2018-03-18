@@ -81,15 +81,26 @@ function refund(){
 		type:"post",
 		data:{ imp_id : imp_id, imp_secret : imp_secret, imp_uid : imp_uid },
 		success: function(data){			
-				alert(data.message);
+				
 
-		} ,
+		},
 		error: function(request, status, errorData){
 			alert("error code : " + request.status + "/n"
 					+"message : "+ request.responseText + "/n"
 					+"errorData : "+ errorData);
 		}
 	});
+}
+
+//선물 아이디로 그 선물 아이디 체크박스 체크
+function check_gift(g_id){
+	
+}
+
+//결제 창 열리는 함수
+function open_pay(){
+	
+	
 }
 
 

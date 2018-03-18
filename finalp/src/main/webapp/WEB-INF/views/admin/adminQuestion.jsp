@@ -43,15 +43,15 @@
 	#question div.modal-body{
 		height: auto;
 	}
-	#question div.modal-body #qtitle{
+	#question div.modal-body #qtitle,#qtitle2{
 		font-size: 14px;
 		width: 720px;
 	}
-	#question div.modal-body #qwriter{
+	#question div.modal-body #qwriter,#qwriter2{
 		font-size: 14px;
 		width:300px;
 	}
-	#question div.modal-body #qdate{
+	#question div.modal-body #qdate,#qdate2{
 		font-size: 14px;
 		width:330px;
 	}
@@ -59,6 +59,9 @@
 		font-size: 14px;
 		width: 80%;
 		background-color: #FAECC5;
+	}
+	#question div.modal-body #qcontent,#qcontent2{
+		font-size: 14px;
 	}
 	#question div.modal-body #qancontent{
 		font-size: 14px;
@@ -72,18 +75,17 @@
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
-  	$(function(){
-  		//문의글 답변MODAL
-  		$('#qubtn').on("click",function(){
-  			var questionid=document.getElementById("questionid").value;
-  			console.log(questionid);
-  			$.ajax({
-  	  			url:"adminQuDetail.do",
-  	  			type: "post",
-  	  			data: { questionid : questionid } ,
-  	  			dataType: "json",
-  	  			success:function(data){
-  	  				console.log(data);
+  	//문의글 답변MODAL
+  	function qubtn(questionid){
+  		/* var questionid=document.getElementById("questionid").value; */
+  		console.log(questionid);
+  		$.ajax({
+  	  		url:"adminQuDetail.do",
+  	  		type: "post",
+  	  		data: { questionid : questionid } ,
+  	  		dataType: "json",
+  	  		success:function(data){ 
+  	  			console.log(data);
   	  				
   	  				var jsonStr = JSON.stringify(data);
 					//변환된 문자열을 json 객체로 바꿈
@@ -93,15 +95,17 @@
 					
 					var values = $("#qudemo").html();
 					
-					values += "<div class='form-inline'> <div class='form-group'> <label for='qtitle'> 제목 : &nbsp;</label>"+
+					values += "<div class='form-inline'> <div class='form-group'><label for='qtitle'>제목 : &nbsp; </label>"+
 							"<input type='text' class='form-control' id='qtitle' value='"+ decodeURIComponent(json.title.replace(/\+/g," ")) +"' readonly> </div> <br><br><br>"+
 							"<div class='form-group'> <label for='qwriter'>작성자 : &nbsp;</label> <input type='text' class='form-control' id='qwriter' value='"+
-							json.send_member_id + "' readonly >&nbsp; </div><div class='form-group'><label for='qdate'>작성날짜 : &nbsp;</label>"+
-							"<input type='date' class='form-control' id='qdate' value='"+ json.send_creation_date + "'> </div></div><br>"+
-							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='10'>"+
-							decodeURIComponent(json.content.replace(/\+/g," ")) + "</textarea></div><div class='form-group'><label for='qacontent'>답변내용  </label><div class='form-inline'>"+
-							"<textarea class='form-control' id='qacontent' placeholder='답변내용' cols='90' rows='10'></textarea>"+
-							"&nbsp;<button type='submit' class='btn subt' data-dismiss='modal'>보내기</button> </div> </div>" ;
+							decodeURIComponent(json.send_member_name.replace(/\+/g," ")) + "' readonly >&nbsp; </div><div class='form-group'><label for='qdate'>작성날짜 : &nbsp;</label>"+
+							"<input type='date' class='form-control' id='qdate' value='"+ json.send_creation_date + "' readonly> </div></div><br>"+
+							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='10' readonly>"+
+							decodeURIComponent(json.content.replace(/\+/g," ")) + "</textarea></div><div class='form-group'><label for='qacontent'>답변내용  </label>"+
+							"<form id='upqform' action='adminQuUpdate.do' method='post' ><div class='form-inline'> "+
+							"<textarea class='form-control' id='qacontent' placeholder='답변을 써주세요' name='re_content' cols='90' rows='10'></textarea>"+
+							"<input type='hidden' name='question_id' value='"+json.question_id+"'>"+
+							"&nbsp;<button onclick='updatebtn()' class='btn subt' data-dismiss='modal'>보내기</button></form> </div> </div>" ;
 					
 					$("#qudemo").html(values);
   	  			},
@@ -110,9 +114,12 @@
 						+ "message : " + request.responseText + "\n"
 						+ "error : " + errorData );	
 				}
-  	  		});
-  		});
-  	});
+  	  	});
+  	}
+  	
+  	function updatebtn(""){
+  		
+  	} 
   </script>
  </head>
  <body class="skin_main">
@@ -146,7 +153,7 @@
 <br>
 
   <div class="qutable">
-  <table class="table table-bordered table-hover" >
+  <table class="table table-bordered table-hover" id="qtable" >
     <thead>
       <tr class="active">
         <th>작성자</th>
@@ -158,22 +165,21 @@
 		<tbody>
 			<c:choose>
 				<c:when test="${ fn:length(qlist) > 0}">
-					<c:forEach items="${ qlist }" var="qrow">
-					<input type="hidden" id="questionid" value="${ qrow.question_id }">
+					<c:forEach items="${ qlist }" var="qrow" >
 						<tr>
-							<td>${ qrow.send_member_id }</td>
+							<td>${ qrow.send_member_name }</td>
 							<td>${ qrow.title }</td>
 							<td>${ qrow.send_creation_date }</td>
 							<td><c:choose>
-							<c:when test="${ re_content eq null }">
-								<button class="btn anbt" id="qubtn" data-toggle="modal"data-target="#quModal">답변</button>
+							<c:when test="${ qrow.re_content eq null }">
+								<button class="btn anbt" data-toggle="modal"data-target="#quModal" onclick="qubtn(${ qrow.question_id })">답변</button>
 							</c:when>
-								<c:when test="${ re_content ne null }"> 완료 </c:when>
+								<c:when test="${ qrow.re_content ne null }"> 완료 </c:when>
 							</c:choose></td>
 						</tr>
 					</c:forEach>
 				</c:when>
-			</c:choose>
+			</c:choose> 
 		</tbody>
 	</table>
   </div>
@@ -214,8 +220,11 @@
 			<div class="form-group">
 				<label for="qacontent">답변내용  </label>
 			<div class="form-inline">
-				<textarea class="form-control" id="qacontent" placeholder="답변내용" cols="90" rows="10"></textarea>
+			<form action="adminQuUpdate.do" method="post">
+				<textarea class="form-control" id="qacontent" placeholder='답변을 써주세요' name='re_content' cols="90" rows="10"></textarea>
+				
 				&nbsp;<button type="submit" class="btn subt" data-dismiss="modal">보내기</button>
+			</form>
 			</div>
 			</div>
 		</div>
@@ -236,27 +245,27 @@
         <div class="modal-body" id="qudemo">
 			<div class="form-inline">
 			<div class="form-group">
-				<label for="qtitle"> 제목 : &nbsp;</label>
-				<input type="text" class="form-control" id="qtitle" placeholder="제목 입력">
+				<label for="qtitle2"> 제목 : &nbsp;</label>
+				<input type="text" class="form-control" id="qtitle2" placeholder="제목 입력">
 			</div>
 			<br><br><br>
 			<div class="form-group">
-				<label for="qwriter">작성자 : &nbsp;</label>
-				<input type="text" class="form-control" id="qwriter" value="id" readonly >&nbsp;
+				<label for="qwriter2">작성자 : &nbsp;</label>
+				<input type="text" class="form-control" id="qwriter2" value="id" readonly >&nbsp;
 			</div>
 			<div class="form-group">
-				<label for="qdate">작성날짜 : &nbsp;</label>
-				<input type="date" class="form-control" id="qdate">
+				<label for="qdate2">작성날짜 : &nbsp;</label>
+				<input type="date" class="form-control" id="qdate2">
 			</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<label for="qcontent">문의내용  </label>
-				<textarea class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10"></textarea>
+				<label for="qcontent2">문의내용  </label>
+				<textarea class="form-control" id="qcontent2" placeholder="문의내용" cols="90" rows="10"></textarea>
 			</div>
 			
 			<div class="form-group">
-				<label for="qcontent">답변내용  </label>
+				<label for="qcontent2">답변내용  </label>
 				<textarea class="form-control" id="qancontent" placeholder="답변내용" cols="90" rows="10"></textarea>
 			</div>
 			</div>

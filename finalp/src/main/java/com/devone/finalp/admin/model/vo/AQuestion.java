@@ -11,8 +11,8 @@ public class AQuestion implements java.io.Serializable {
 	
 	private int question_id;
 	private String question_category_name;
-	private String receive_member_id;
-	private String send_member_id;
+	private String receive_member_name;
+	private String send_member_name;
 	private String title;
 	private String content;
 	private String re_content;
@@ -21,13 +21,13 @@ public class AQuestion implements java.io.Serializable {
 	
 	public AQuestion() {}
 
-	public AQuestion(int rnum,int question_id, String question_category_name, String receive_member_id, String send_member_id,
+	public AQuestion(int rnum,int question_id, String question_category_name, String receive_member_name, String send_member_name,
 			String title, String content, String re_content, Date send_creation_date, Date receive_creation_date) {
 		super();
 		this.question_id = question_id;
 		this.question_category_name = question_category_name;
-		this.receive_member_id = receive_member_id;
-		this.send_member_id = send_member_id;
+		this.receive_member_name = receive_member_name;
+		this.send_member_name = send_member_name;
 		this.title = title;
 		this.content = content;
 		this.re_content = re_content;
@@ -51,20 +51,20 @@ public class AQuestion implements java.io.Serializable {
 		this.question_category_name = question_category_name;
 	}
 
-	public String getReceive_member_id() {
-		return receive_member_id;
+	public String getReceive_member_name() {
+		return receive_member_name;
 	}
 
-	public void setReceive_member_id(String receive_member_id) {
-		this.receive_member_id = receive_member_id;
+	public void setReceive_member_name(String receive_member_name) {
+		this.receive_member_name = receive_member_name;
 	}
 
-	public String getSend_member_id() {
-		return send_member_id;
+	public String getSend_member_name() {
+		return send_member_name;
 	}
 
-	public void setSend_member_id(String send_member_id) {
-		this.send_member_id = send_member_id;
+	public void setSend_member_name(String send_member_name) {
+		this.send_member_name = send_member_name;
 	}
 
 	public String getTitle() {
@@ -110,7 +110,7 @@ public class AQuestion implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "AQuestion [question_id=" + question_id + ", question_category_name=" + question_category_name
-				+ ", receive_member_id=" + receive_member_id + ", send_member_id=" + send_member_id + ", title=" + title
+				+ ", receive_member_name=" + receive_member_name + ", send_member_name=" + receive_member_name + ", title=" + title
 				+ ", content=" + content + ", re_content=" + re_content + ", send_creation_date=" + send_creation_date
 				+ ", receive_creation_date=" + receive_creation_date + "]";
 	}

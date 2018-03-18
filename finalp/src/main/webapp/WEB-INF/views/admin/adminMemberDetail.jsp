@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,6 +40,7 @@
 	#adminmemde img{
 		float:left;
 		width:200px;
+		height: 230px;
 		margin:10px;
 	}
 	#adminmemde .table{
@@ -46,6 +48,9 @@
 		clear:both;
 		text-align:center;
 		float:right;
+	}
+	#adminmemde a.btna{
+		text-decoration:none;
 	}
 	#adminmemde #btn1{
 		margin-left:80px;
@@ -65,6 +70,30 @@
 		float:right;
   	}
 </style>
+<script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+ <script type="text/javascript">
+ 
+ function imgdefun(member_name){
+	 $.ajax({
+		 url:"adminImgDelete.do",
+		 data: { member_name : member_name } ,
+		 type: "post",
+	  	 success:function(result){ 
+	  		if(result == "ok"){
+	  			$('#profileimg').attr('src', 'resources/images/mypageProfiles/defaultProfile.jpg');
+	  		}else {
+	  			alert("삭제 실패!");
+	  		}
+	  	 },
+	  	error: function(request, status, errorData){
+			alert("error code : " + request.status + "\n" 
+				+ "message : " + request.responseText + "\n"
+				+ "error : " + errorData );	
+		}
+	 });
+ }
+	
+</script>
 </head>
 <body class="skin_main">
   <c:import url="adminMenu.jsp"/>
@@ -83,35 +112,42 @@
 <hr class="hrst">
   <div id="dtop">
 	<div id="idiv">
-	<img src="https://www.artistudy.com/files/attach/images/4672/776/005/13d6061ae653f3bfbc557879b8734dd0.jpg"/>
-	<button class="btn btn-danger" id="btn1">이미지 삭제</button>
+	<c:if test="${ empty mdetail.profile_img_oriname }">
+		<img src="resources/images/mypageProfiles/defaultProfile.jpg" name="memberProfile" class="profile" id="profileimg" /><br>
+	</c:if>
+	<c:if test="${ !empty mdetail.profile_img_oriname }">
+		<img src="resources/images/mypageProfiles/${mdetail.profile_img_rename }" name="memberProfile" class="profile" id="profileimg" /><br>
+		<button class="btn btn-danger" id="btn1" onclick="imgdefun('${ mdetail.member_name }')">이미지 삭제</button>
+	</c:if>
+	
 	</div>
 	<div id="tdiv">
 	<table class="table table-bordered">
 		<tr>
-			<th class="active">아이디</th><td>&nbsp;&nbsp;aaa</td>
+			<th class="active">아이디</th><td>&nbsp;&nbsp;${ mdetail.member_id }</td>
 		</tr>
 		<tr>
-			<th class="active">이름</th><td>&nbsp;&nbsp;이땡땡</td>
+			<th class="active">이름</th><td>&nbsp;&nbsp;${ mdetail.member_name }</td>
 		</tr>
 		<tr>
-			<th class="active">성별 / 나이</th><td>&nbsp;&nbsp;남 / 99</td>
+			<th class="active">성별 / 나이</th><td>&nbsp;&nbsp;${ mdetail.gender } / ${ mdetail.age }</td>
 		</tr>
 		<tr>
-			<th class="active">이메일</th><td>&nbsp;&nbsp;aaa@naver.com</td>
+			<th class="active">이메일</th><td>&nbsp;&nbsp;${ mdetail.email }</td>
 		</tr>
 		<tr>
-			<th class="active">연락처</th><td>&nbsp;&nbsp; 010789456123</td>
+			<th class="active">연락처</th><td>&nbsp;&nbsp; ${ mdetail.phone }</td>
 		</tr>
 		<tr>
-			<th class="active">후원금</th><td>&nbsp;&nbsp; 155555</td>
+			<th class="active">총 후원금</th><td>&nbsp;&nbsp; ${ mdetail.spon_money }</td>
 		</tr>
 		<tr>
-			<th class="active">누적 신고 수 /블랙리스트</th><td>&nbsp;&nbsp; 15 / Y</td>
+			<th class="active">누적 신고 수 /블랙리스트</th><td>&nbsp;&nbsp; ${ mdetail.total_report_count } / ${ mdetail.blacklist_flag }</td>
 		</tr>
 		<tr>
-			<th class="active" colspan="2"><span class="btnspan"><button class="btn btn-defult">정지</button>&nbsp;
-	<button class="btn btn-danger">탈퇴</button></span></th>
+			<th class="active" colspan="2"><span class="btnspan">
+			<a class="btna" href="adminMemberBlack.do?member_name=${ mdetail.member_name }&num=1"><button class="btn btn-defult">정지</button></a>&nbsp;
+			<a class="btna" href="adminMemberDelete.do?member_name=${ mdetail.member_name }"><button class="btn btn-danger">탈퇴</button></a></span></th>
 		</tr>
 	</table>
 	
@@ -119,12 +155,37 @@
   </div>
   <br><br>
   <div id="dbot">
-	<h3>이떙땡 님의 PROJECT or PRODUCT</h3>
+	<h3>${ mdetail.member_name } 님의 PROJECT or PRODUCT</h3>
 	<hr class="hrst">
 	<div id="tdiv2">
 	<table class="table table-bordered" id="table2">
-		<tr><th>카테고리</th><th>제목</th><th>마감일</th><th>후원 현황</th></tr>
-		<tr><td>PROJECT</td><td><a href="">안뇽안뇽</a></td><td>2018.04.05</td><td>15%</td></tr>
+		<tr><th>카테고리</th><th>세부카테고리</th><th>제목</th><th>진행 / 종료</th><th>후원 현황</th><th>누적 신고 수</th></tr>
+		<c:choose>
+			<c:when test="${ fn:length(mplist) > 0 }">
+			<c:forEach items="${ mplist }" var="mprow">
+				<tr>
+					<td>${ mprow.project_category_name }</td>
+					<td>${ mprow.category_sub_name }</td>
+					<td><a href="">${ mprow.project_name }</a></td>
+					<td>
+						<c:if test="${ mprow.ing_flag eq 'Y' }">
+							진행중
+						</c:if>
+						<c:if test="${ mprow.ing_flag eq 'N' }">
+							종료
+						</c:if>
+					</td>
+					<td>${ mprow.spon } %</td>
+					<td>${ mprow.report_count }</td>
+				</tr>
+			</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="6">${ mdetail.member_name }님이 등록하신 PROJECT가 없습니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 	</table>
 	</div>
   </div>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.memberaccount.model.vo.MemberAccount;
@@ -34,7 +35,7 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectAccount(account);
 	}
 	@Override
-	public List bankList() {
+	public List<Bank> bankList() {
 		return mypageDao.bankList();
 	}
 	@Override
@@ -42,7 +43,7 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.accountModify(account);
 	}
 	@Override
-	public List selectMyProject(Project project) {
+	public List<Project> selectMyProject(Project project) {
 		return mypageDao.selectMyProject(project);
 	}
 }

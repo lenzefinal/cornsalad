@@ -64,15 +64,17 @@ img{
 		<div>
 			<div class="col-lg-2"></div>
 			<div class="col-lg-10">
-				<h2>게시판 상세보기</h2>
+				<h2>게시판 수정하기</h2>
 			</div>
 			<div class="col-lg-10">
-				<form action="binsert.do" method="post"
+				<form action="bupdate.do" method="post"
 					enctype="multipart/form-data">
+					<input type='hidden' name="board_id" value="${board.board_id }">
+		
 					<table id="dt_basic" class="table table-bordered ">
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="title"></td>
+							<td><input type="text" name="title" value="${board.title}"></td>
 						</tr>
 						<tr>
 							<th>작성자</th>
@@ -81,20 +83,34 @@ img{
 						</tr>
 						<tr>
 							<th>종 류</th>
+							<c:if test="${board.board_category_id == 'BCA-STU' }">
+							<td><input type="radio" name="board_category_id"
+								value="BCA-STU" checked>지식 나눔
+							<input type="radio" name="board_category_id"
+								value="BCA-PRO">물품 나눔</td>
+							</c:if>
+							<c:if test="${board.board_category_id == 'BCA-PRO' }">
 							<td><input type="radio" name="board_category_id"
 								value="BCA-STU">지식 나눔
 							<input type="radio" name="board_category_id"
-								value="BCA-PRO">물품 나눔</td>
+								value="BCA-PRO" checked>물품 나눔</td>
+							</c:if>
 						</tr>
 						<tr>
 							<th>첨부 파일</th>
-							<td><input type="file" name="uploadFile"></td>
+							<td><input type="file" name="uploadFile">
+							<c:if test="${board.ori_filename != '파일 없음' }"> 
+							원래 파일 : ${board.ori_filename}
+							<input type="hidden" name ="ori_filename" value="${board.ori_filename}">
+							<input type="hidden" name ="re_filename" value="${board.re_filename}">
+							</c:if>
+							</td>
 						</tr>
 						<tr>
 							<th>내 용</th>
 							<td>
 							<div class="myeditabletable">
-							<textarea rows="40" cols="100" name="content" id = "tarea"></textarea>
+							<textarea rows="40" cols="100" name="content" id = "tarea">${board.content}</textarea>
 							</div>
 							</td>
 						</tr>
@@ -106,7 +122,7 @@ img{
 				</form>
 				<hr />
 				<div id="buttoncontrill">
-					<a href="blist.do?page=1">[목록으로]</a>
+					<a href="#">[이전으로]</a>
 				</div>
 			</div>
 		</div>

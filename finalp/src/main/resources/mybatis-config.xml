@@ -19,7 +19,9 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectAccount" alias="ProjectAccount" />
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectContent" alias="ProjectContent" />
 		<typeAlias type="com.devone.finalp.board.model.vo.Board_Reply" alias="Board_Reply" />
+		<typeAlias type="com.devone.finalp.board.model.vo.Board_Pagectr" alias="Board_Pagectr" />
 		<typeAlias type="com.devone.finalp.memberaccount.model.vo.MemberAccount" alias="MemberAccount"/>
+		<typeAlias type="com.devone.finalp.common.model.vo.Payment" alias="Payment" />
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.MemberView" alias="MemberView"/>
@@ -33,9 +35,15 @@
 		<typeAlias type="com.devone.finalp.admin.model.vo.AReport" alias="AReport" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AQuestion" alias="AQuestion" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AProject" alias="AProject" />
+		<typeAlias type="com.devone.finalp.admin.model.vo.AMember" alias="AMember" />
 	
 		<typeAlias alias="ProjectStatusUpdate" type="com.devone.finalp.project_status.model.vo.ProjectStatusUpdate"/>
 		<typeAlias alias="GiftInItemsUpdate" type="com.devone.finalp.project_status.model.vo.GiftInItemsUpdate"/>
+		
+		<typeAlias type="com.devone.finalp.payment.model.vo.PayGiftView" alias="PayGiftView" />
+		<typeAlias type="com.devone.finalp.payment.model.vo.GiftItem" alias="GiftItem" />
+		<typeAlias type="com.devone.finalp.payment.model.vo.SellerInfo" alias="SellerInfo" />
+		
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
@@ -47,5 +55,6 @@
 		<mapper resource="mappers/projectdetail-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/myStatus-mapper.xml"/>
+		<mapper resource="mappers/payment-mapper.xml"/>
 	</mappers>
 </configuration>
