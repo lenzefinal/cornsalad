@@ -45,8 +45,10 @@
 			<div class="sh_group">
 				<div class="sh_header">
 					<h2>찜</h2>
-					
-					<a href="projectLikes.do" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
+					<c:url var="myLikes" value="projectLikes.do">
+						<c:param name="member_id" value="${loginUser.member_id }"/>
+					</c:url>
+					<a href="${myLikes }" class="all" style="color:#a3a3a3; text-decoration:underline;">전체보기</a>
 				</div>
 				<div class="sh_content">
 					<dl class="sh_lst2">

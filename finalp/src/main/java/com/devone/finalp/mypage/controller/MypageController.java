@@ -23,7 +23,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
-import com.devone.finalp.memberaccount.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyLikes;
 import com.devone.finalp.mypage.service.MypageService;
 
 @Controller
@@ -32,11 +33,12 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 
+	// 폼 출력 메소드
 	// 마이페이지 메인
 	@RequestMapping("mypageIndex.do")
 	public String mypageIndex(Model model, Member member) {
 
-		System.out.println("마이페이지 인덱스");
+		System.out.println("마이페이지 인덱스 Form");
 
 		return "mypage/mypageIndex";
 	}
@@ -44,7 +46,7 @@ public class MypageController {
 	// 마이페이지 회원 정보 수정 폼
 	@RequestMapping("mypageModify.do")
 	public String mypageModify(Member member, Model model, MemberAccount account) {
-		System.out.println("정보 수정 폼");
+		System.out.println("정보 수정 Form");
 		model.addAttribute("member", mypageService.selectMember(member));
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
@@ -54,7 +56,7 @@ public class MypageController {
 	// 마이페이지 회원 탈퇴 폼
 	@RequestMapping("mypageWithdrawal.do")
 	public String mypageWithdrawal() {
-		System.out.println("회원 탈퇴 폼");
+		System.out.println("회원 탈퇴 Form");
 
 		return "mypage/mypageWithdrawal";
 	}
@@ -62,85 +64,24 @@ public class MypageController {
 	// 등록한 프로젝트 리스트 출력 폼
 	@RequestMapping("myProject.do")
 	public String myProject(Model model, Project project) {
-		System.out.println("등록 프로젝트");
+		System.out.println("등록 프로젝트 Form");
 		System.out.println(model);
 
 		return "mypage/myProject";
 	}
 
-	// 등록한 프로젝트 리스트 출력
-	@RequestMapping(value = "myProjectList.do", method=RequestMethod.POST)
-	public void myProjectList(Model model, Project project, HttpServletResponse response,
-			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
-			throws IOException {
-		System.out.println("등록 프로젝트1");
-		List<Project> list = mypageService.selectMyProject(project);
-		response.setContentType("application/json; charset=utf-8");
-
-		JSONObject json = new JSONObject();
-		JSONArray jarr = new JSONArray();
-
-		for (Project p : list) {
-			JSONObject j = new JSONObject();
-			j.put("image_rename", p.getImage_rename());
-			j.put("project_name", p.getProject_name());
-			j.put("member_id", p.getMember_id());
-			/*j.put("creation_date", p.getCreation_date());*/
-			jarr.add(j);
-
-		}
-		json.put("project", jarr);
-		System.out.println(json.toJSONString());
-
-		PrintWriter out = response.getWriter();
-		out.println(json.toJSONString());
-		out.flush();
-		out.close();
-		System.out.println(size);
-	}
-
 	// 등록한 공동구매 상품 리스트 출력 폼
 	@RequestMapping("myProduct.do")
 	public String myProduct() {
-		System.out.println("등록 공구");
+		System.out.println("등록 공동구매 Form");
 
 		return "mypage/myProduct";
-	}
-	//등록한 공동구매 상품 리스트 출력
-	@RequestMapping(value = "myProductList.do", method=RequestMethod.POST)
-	public void myProductList(Model model, Project product, HttpServletResponse response,
-			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
-			throws IOException {
-		System.out.println("등록 공구1");
-		List<Project> list = mypageService.selectMyProduct(product);
-		response.setContentType("application/json; charset=utf-8");
-
-		JSONObject json = new JSONObject();
-		JSONArray jarr = new JSONArray();
-
-		for (Project p : list) {
-			JSONObject j = new JSONObject();
-			j.put("image_rename", p.getImage_rename());
-			j.put("project_name", p.getProject_name());
-			j.put("member_id", p.getMember_id());
-			/*j.put("creation_date", p.getCreation_date());*/
-			jarr.add(j);
-
-		}
-		json.put("product", jarr);
-		System.out.println(json.toJSONString());
-
-		PrintWriter out = response.getWriter();
-		out.println(json.toJSONString());
-		out.flush();
-		out.close();
-		System.out.println(size);
 	}
 
 	// 펀딩한 프로젝트 리스트 출력 폼
 	@RequestMapping("fundingProject.do")
 	public String fundingProject() {
-		System.out.println("펀딩 프로젝트");
+		System.out.println("펀딩 프로젝트 Form");
 
 		return "mypage/fundingProject";
 	}
@@ -148,7 +89,7 @@ public class MypageController {
 	// 구매 신청한 공동구매 리스트 출력 폼
 	@RequestMapping("purchaseProduct.do")
 	public String purchaseProduct() {
-		System.out.println("구매 공구");
+		System.out.println("구매 공동구매 Form");
 
 		return "mypage/purchaseProduct";
 	}
@@ -156,7 +97,7 @@ public class MypageController {
 	// 찜한 프로젝트 리스트 출력 폼
 	@RequestMapping("projectLikes.do")
 	public String projectLikes() {
-		System.out.println("찜 프로젝트");
+		System.out.println("찜 프로젝트 Form");
 
 		return "mypage/projectLikes";
 	}
@@ -164,9 +105,20 @@ public class MypageController {
 	// 찜한 공동구매 리스트 출력 폼
 	@RequestMapping("productLikes.do")
 	public String productLikes() {
-		System.out.println("찜 공구");
+		System.out.println("찜 공동구매 Form");
 
 		return "mypage/productLikes";
+	}
+
+	// 기능 메소드
+	// 회원 탈퇴 기능
+	@RequestMapping("mDelete.do")
+	public String memberDelete(Member member, Model model) {
+		System.out.println("탈퇴: " + member);
+		model.addAttribute("member", mypageService.memberDelete(member));
+
+		System.out.println("회원 탈퇴 완료");
+		return "redirect:logout.do";
 	}
 
 	// 회원 정보 수정 기능
@@ -213,13 +165,118 @@ public class MypageController {
 		return "redirect:mypageIndex.do";
 	}
 
-	// 회원 탈퇴 기능
-	@RequestMapping("mDelete.do")
-	public String memberDelete(Member member, Model model) {
-		System.out.println("탈퇴: " + member);
-		model.addAttribute("member", mypageService.memberDelete(member));
+	// 등록한 프로젝트 리스트 출력
+	@RequestMapping(value = "myProjectList.do", method = RequestMethod.POST)
+	public void myProjectList(Project project, HttpServletResponse response, @RequestParam(value = "size") int size,
+			@RequestParam(value = "member_id") String member_id) throws IOException {
+		System.out.println("등록 프로젝트 list");
+		List<Project> list = mypageService.selectMyProject(project);
+		response.setContentType("application/json; charset=utf-8");
 
-		System.out.println("회원 탈퇴 완료");
-		return "redirect:logout.do";
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			/* j.put("creation_date", p.getCreation_date()); */
+			jarr.add(j);
+
+		}
+		json.put("project", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+		System.out.println(size);
 	}
+
+	// 등록한 공동구매 상품 리스트 출력
+	@RequestMapping(value = "myProductList.do", method = RequestMethod.POST)
+	public void myProductList(Project product, HttpServletResponse response, @RequestParam(value = "size") int size,
+			@RequestParam(value = "member_id") String member_id) throws IOException {
+		System.out.println("등록 공동구매 list");
+		List<Project> list = mypageService.selectMyProduct(product);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			/* j.put("creation_date", p.getCreation_date()); */
+			jarr.add(j);
+
+		}
+		json.put("product", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+		System.out.println(size);
+	}
+
+	// 찜한 프로젝트 리스트 출력 메소드
+	@RequestMapping(value = "lProjectList.do", method = RequestMethod.POST)
+	public void ProjectLikes(MyLikes projectLikes, HttpServletResponse response) throws IOException {
+		System.out.println("찜한 프로젝트 list");
+		List<MyLikes> list = mypageService.selectLikesProject(projectLikes);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyLikes lpj : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", lpj.getImage_rename());
+			j.put("project_name", lpj.getProject_name());
+			j.put("member_id", lpj.getMember_id());
+			/*j.put("creation_date", lp.getCreation_date());*/
+			jarr.add(j);
+
+		}
+		json.put("lproject", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+	// 찜한 공동구매 상품 리스트 출력 메소드
+		@RequestMapping(value = "lProductList.do", method = RequestMethod.POST)
+		public void ProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
+			System.out.println("찜한 프로젝트 list");
+			List<MyLikes> list = mypageService.selectLikesProduct(productLikes);
+			response.setContentType("application/json; charset=utf-8");
+
+			JSONObject json = new JSONObject();
+			JSONArray jarr = new JSONArray();
+
+			for (MyLikes lpd : list) {
+				JSONObject j = new JSONObject();
+				j.put("image_rename", lpd.getImage_rename());
+				j.put("project_name", lpd.getProject_name());
+				j.put("member_id", lpd.getMember_id());
+				/*j.put("creation_date", lp.getCreation_date());*/
+				jarr.add(j);
+
+			}
+			json.put("lproduct", jarr);
+			System.out.println(json.toJSONString());
+
+			PrintWriter out = response.getWriter();
+			out.println(json.toJSONString());
+			out.flush();
+			out.close();
+		}
 }

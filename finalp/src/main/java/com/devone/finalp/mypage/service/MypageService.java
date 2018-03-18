@@ -5,7 +5,8 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
-import com.devone.finalp.memberaccount.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyLikes;
 
 public interface MypageService {
 	int memberModify(Member member);
@@ -16,4 +17,6 @@ public interface MypageService {
 	int accountModify(MemberAccount account);
 	List<Project> selectMyProject(Project project);
 	List<Project> selectMyProduct(Project product);
+	List<MyLikes> selectLikesProject(MyLikes projectLikes);
+	List<MyLikes> selectLikesProduct(MyLikes productLikes);
 }

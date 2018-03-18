@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>등록한 공동구매</title>
 <style>
-
-<style>
 	td{
 		font-size:13px;
 	}
