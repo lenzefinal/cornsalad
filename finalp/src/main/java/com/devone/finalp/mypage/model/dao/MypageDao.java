@@ -50,4 +50,8 @@ public class MypageDao {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.myProject", project);
 	}
+	
+	public List selectMyProduct(Project project) {
+		return mybatis.selectList("mystatusmapper.myProduct", project);
+	}
 }

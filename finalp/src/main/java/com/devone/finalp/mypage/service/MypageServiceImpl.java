@@ -46,4 +46,8 @@ public class MypageServiceImpl implements MypageService {
 	public List<Project> selectMyProject(Project project) {
 		return mypageDao.selectMyProject(project);
 	}
+	@Override
+	public List<Project> selectMyProduct(Project project) {
+		return mypageDao.selectMyProduct(project);
+	}
 }

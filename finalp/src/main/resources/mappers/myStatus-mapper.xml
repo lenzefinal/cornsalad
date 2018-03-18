@@ -26,8 +26,12 @@
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
-			select * from project where member_id=#{member_id} and rownum<#{size} 
+			select * from project where member_id=#{member_id} and rownum<#{size} and project_category_id='PC-FUND'
 		]]>
 	</select>
-
+	<select id="myProduct" resultMap="projectList">
+		<![CDATA[
+			select * from project where member_id=#{member_id} and rownum<#{size} and project_category_id='PC-PROD'
+		]]>
+	</select>
 </mapper>

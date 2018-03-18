@@ -15,4 +15,5 @@ public interface MypageService {
 	List<Bank> bankList();
 	int accountModify(MemberAccount account);
 	List<Project> selectMyProject(Project project);
+	List<Project> selectMyProduct(Project product);
 }

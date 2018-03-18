@@ -70,12 +70,11 @@ public class MypageController {
 
 	// 등록한 프로젝트 리스트 출력
 	@RequestMapping(value = "myProjectList.do", method=RequestMethod.POST)
-	public void myProject1(Model model, Project project, HttpServletResponse response,
+	public void myProjectList(Model model, Project project, HttpServletResponse response,
 			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
 			throws IOException {
 		System.out.println("등록 프로젝트1");
 		List<Project> list = mypageService.selectMyProject(project);
-
 		response.setContentType("application/json; charset=utf-8");
 
 		JSONObject json = new JSONObject();
@@ -86,7 +85,7 @@ public class MypageController {
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
-			// j.put("creation_date", p.getCreation_date());
+			/*j.put("creation_date", p.getCreation_date());*/
 			jarr.add(j);
 
 		}
@@ -106,6 +105,36 @@ public class MypageController {
 		System.out.println("등록 공구");
 
 		return "mypage/myProduct";
+	}
+	//등록한 공동구매 상품 리스트 출력
+	@RequestMapping(value = "myProductList.do", method=RequestMethod.POST)
+	public void myProductList(Model model, Project product, HttpServletResponse response,
+			@RequestParam(value = "size") int size, @RequestParam(value = "member_id") String member_id)
+			throws IOException {
+		System.out.println("등록 공구1");
+		List<Project> list = mypageService.selectMyProduct(product);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			/*j.put("creation_date", p.getCreation_date());*/
+			jarr.add(j);
+
+		}
+		json.put("product", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+		System.out.println(size);
 	}
 
 	// 펀딩한 프로젝트 리스트 출력 폼

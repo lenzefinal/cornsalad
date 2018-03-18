@@ -5,65 +5,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찜한 목록 보기</title>
+<title>등록한 공동구매</title>
 <style>
-	#side{
-		position: absolute;
-		width: 200px;
-		height: 124px;
-		left: 275px;
-		background-color: white;
-		color: black;
-		border-top:1px solid #F7D358;
-		border-bottom:1px solid #F7D358;
-	}
-	#side li {
-		text-align:left;
-		margin-top:10px;
-		margin-left:12px;
-		font-family:Roboto;
-		font-size:12px;
-		font-weight:bold;
-	}
-	#side a {
-		color:gray;
-	}
-	
-	@media( max-width:767px){
-		#side{
-			position: absolute;
-			width: 100%;
-			height: 124px;
-			left: 0;
-			background-color: white;
-			color: black;
-			border-top:1px solid #F7D358;
-			border-bottom:1px solid #F7D358;
-		}
-		#side li {
-			float:left;
-			text-align:left;
-			margin-top:8px;
-			margin-left:12px;
-			font-family:Roboto;
-			font-size:12px;
-			font-weight:bold;
-		}
+
+<style>
+	td{
+		font-size:13px;
 	}
 	td img{
-		width:100px;
+		width:200px;
+		height:200px;
 	}
 	.limg{
-		width:160px;
+		width:230px;
 	}
 	td:nth-child(3){
 		width:180px;
 		text-align:center;
 	}
-	.ltitle{
-		width:500px	;
+	
+	div#container{
+		height:900px;
 	}
-	tr:nth-child(n+4){
+	.btn_more {
+	    font-weight: 600;
+	    line-height: 14px;
+	    display: block;
+	    overflow: hidden;
+	    width: 45px;
+	    height: 15px;
+	    margin: 0 auto;
+	    vertical-align: top;
+	    text-decoration: underline;
+	    letter-spacing: -1px;
+	    color: #666;
+	   	font-size:14px;
+	   	cursor:pointer;
+	}
+	div.display-none{
 		display:none;
 	}
 </style>
@@ -72,53 +51,123 @@
 <c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
+<script type="text/javascript">
+var size=4;
+
+	$(window).ready(function(){
+		var member_id=$('#memberId').val();
+		$.ajax({
+			url:"myProductList.do",
+			data:{"size":size, "member_id": member_id},
+			dataType:"json",
+			type:"post",
+			success:function(e){
+				var jsonStr=JSON.stringify(e);
+				var json=JSON.parse(jsonStr); 
+				var tag="";
+				for(var i=0;i<json.product.length;i++){
+					if(json.product[i].image_rename==null){
+					tag+='<tr class="list" name="tt">'
+						+'<td class="limg">'
+						+'<img name="img_rename" src="resources/images/logo.png"/>'
+						+'</td>'
+						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+						/* +'<td><b>${project.creation_date }</b></td>' */
+						+'</tr>';
+					} else{
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
+							+'</td>'
+							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+							/* +'<td><b>${project.creation_date }</b></td>' */
+							+'</tr>';
+					}
+				}
+				$('.tbl_type').html(tag);
+			},
+			error: function(request, status, errorData) {
+				alert("에러코드: " + request.status + "\n" + "메세지: "
+						+ request.responseText + "\n" + "에러: "
+						+ errorData);
+			}
+		});
+	});
+	
+	 $(window).scroll(function() {
+		 var member_id=$('#memberId').val();
+		 console.log("구분자");
+		 console.log($(window).scrollTop());
+		 console.log($(document).height()-$(window).height());
+		 setTimeout(function(){
+			
+		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
+			
+			 $.ajax({
+					url:"myProductList.do",
+					data:{"size":Number(size), "member_id":member_id},
+					dataType:"json",
+					type:"post",
+					success:function(e){
+						var jsonStr=JSON.stringify(e);
+						var json=JSON.parse(jsonStr); 
+						var tag="";
+						for(var i=0;i<json.product.length;i++){
+							if(json.product[i].image_rename==null){
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'</td>'
+								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+								/* +'<td><b>${project.creation_date }</b></td>' */
+								+'</tr>';
+							} else{
+								tag+='<tr class="list" name="tt">'
+									+'<td class="limg">'
+									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
+									+'</td>'
+									+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+									/* +'<td><b>${project.creation_date }</b></td>' */
+									+'</tr>';
+							}
+						}
+						$('.tbl_type').html(tag);
+						$('#checksize').val(Number(size));
+						
+					},
+					complete:function(){
+						$('#load').addClass('display-none');
+					},
+					error: function(request, status, errorData) {
+						alert("에러코드: " + request.status + "\n" + "메세지: "
+								+ request.responseText + "\n" + "에러: "
+								+ errorData);
+					}
+				 });
+		 	}
+		 	 size=size+3;
+		 	 $('#load').removeClass('display-none');
+		 	
+		 }, 500);
+		
+	}); 
+	
+	
 </script>
-	<div id="container" >
-		<div id="content" class="section_home">
+	
+	<div id="container">
+		<div id="content" class="section_home" >
+			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
 			<div class="c_header">
-				<h2>제목은 추후에 수정하기(내가 등록한 공동구매)</h2>
+				<h2>내가 등록한 공동구매</h2>
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>
 			</div>
 		</div>
-			<div class="">
-				<table class="tbl_type" cellspacing="0" border="1">
-				<tr>
-					<td class="limg">
-						<img src="https://pbs.twimg.com/profile_images/949374088249671680/MuxDEZpD_400x400.jpg"/>
-					</td>
-					<td>이거 제목1</td>
-					<td>등록일1</td>	
-					</tr>
-				<tr><td class="limg">
-						<img src="https://pbs.twimg.com/profile_images/949374088249671680/MuxDEZpD_400x400.jpg"/>
-					</td>
-					<td>이거 제목2</td>
-					<td>등록일2</td>
-				</tr>
-				<tr><td class="limg">
-						<img src="https://pbs.twimg.com/profile_images/949374088249671680/MuxDEZpD_400x400.jpg"/>
-					</td>
-					<td>이거 제목3</td>
-					<td>등록일3</td>
-				</tr>
-				<tr><td class="limg">
-						<img src="https://pbs.twimg.com/profile_images/949374088249671680/MuxDEZpD_400x400.jpg"/>
-					</td>
-					<td>이거 제목4</td>
-					<td>등록일4</td>
-				</tr>
-				<tr><td class="limg">
-						<img src="https://pbs.twimg.com/profile_images/949374088249671680/MuxDEZpD_400x400.jpg"/>
-					</td>
-					<td>이거 제목5</td>
-					<td>등록일5</td>
-				</tr>
+		<div id="list">
+			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
-				<div class="more_wrap">
-					<a href="#" class="btn_more" style="color:#666;">more?</a> <!-- 더보기 버튼 구현 -->
-				</div>
 		</div>
+		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
 	</div>
- 	
 </body>
 </html>
