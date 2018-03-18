@@ -12,9 +12,9 @@
 	table{
 		font-size : 1.5em;
 	}
-	a:link { color: red; text-decoration: none;}
- 	a:visited { color: black; text-decoration: none;}
- 	a:hover { color: blue; text-decoration: underline;}
+	.left-side>a:link { color: red; text-decoration: none;}
+ 	.left-side>a:visited { color: black; text-decoration: none;}
+ 	.left-side>a:hover { color: blue; text-decoration: underline;}
  	.pageCenter{
  		position: relative;
  		margin: auto;
@@ -48,18 +48,18 @@
 
 	<div class="container" style="margin-top: 5%">
 		<div class="col-lg-2">
-			<div class="left-side">
-				<a href="#">
+			<div class="left-side active">
+				<a href="blist.do?page=1">
 					전체 게시판
 				</a>
 			</div>
 			<div class="left-side" style="margin: 5px 0;">
-				<a href="#">
+				<a href="blist.do?c_id=pro&page=1">
 					물품 나눔 게시판
 				</a>
 			</div>
-			<div class="left-side active">
-				<a href="#">
+			<div class="left-side">
+				<a href="blist.do?c_id=stu&page=1">
 					지식 나눔  게시판
 				</a>
 			</div>
@@ -90,8 +90,14 @@
 								<c:url var ="bdetail" value="bdetail.do">
 									<c:param name="board_id" value="${board.board_id}"/>
 								</c:url>
-								<td><a href="${bdetail}" class="pointer noticeClick">${board.title}
-								</a></td>
+								<td>
+								<c:if test="${loginUser !=null}">
+								<a href="${bdetail}" class="pointer noticeClick">${board.title}	</a>
+								</c:if>
+								<c:if test="${loginUser ==null}">
+								${board.title}
+								</c:if>
+								</td>
 								<td>${board.member_name}</td>
 								<td>${board.creation_date}</td>
 								<td>${board.readcount}</td>
@@ -114,15 +120,26 @@
 				</div>
 				<div class="pageCenter" style="clear: both;">
 					<ol class="text-center pagination" >
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">1</a></li>
+						<c:if test="${pagectr.currentpage > 1}">
+						<li><a href="blist.do?page=${pagectr.currentpage-1}&c_id=${pagectr.c_id}">[이전]</a></li>
+						</c:if>
+						<c:if test="${pagectr.currentpage <= 1}">
+						<li><a href="#" onclik="return false">[이전]</a></li>
+						</c:if>
+						<c:forEach var ="i" begin="${pagectr.startpage }" end="${pagectr.endpage}">
+						<c:if test="${pagectr.currentpage == i}">
+						<li ><a href="blist.do?page=${i}&c_id=${pagectr.c_id}" style="background : pink">${i}</a></li>
+						</c:if>
+						<c:if test="${pagectr.currentpage != i}">
+						<li><a href="blist.do?page=${i}&c_id=${pagectr.c_id}">${i}</a></li>
+						</c:if>
+						</c:forEach>
+						<c:if test="${pagectr.currentpage < pagectr.maxpage}">
+						<li><a href="blist.do?page=${pagectr.currentpage+1 }&c_id=${pagectr.c_id}">[다음]</a></li>
+						</c:if>
+						<c:if test="${pagectr.currentpage >= pagectr.maxpage}">
+						<li><a href="#" onclick="return false">[다음]</a></li>
+						</c:if>
 					</ol>
 				</div>
 			</div>
