@@ -150,4 +150,14 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 		return projectStatusDao.insertProduct(product);
 	}
 
+	@Override
+	public List<Product> selectListProduct(String projectId) {
+		return projectStatusDao.selectListProduct(projectId);
+	}
+
+	@Override
+	public int deleteProduct(String projectId) {
+		return projectStatusDao.deleteProduct(projectId);
+	}
+
 }

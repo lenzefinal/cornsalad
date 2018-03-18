@@ -423,60 +423,7 @@
 	}
 	   
 	
-	/*선물 체크 박스---------------------------------------*/
-	.gift-chk-btn{
-		cursor: pointer;
-	}
-	.gift-chk-btn circle{
-		fill: #E2E2E2;
-		transition: 0.4s;
-	}
-	.gift-chk-btn polyline {
-		stroke: #000000;
-		transition: 0.4s;
-	}
 	
-	.gift-chk-btn-active circle{
-		fill: #2CCDFF;
-		transition: 0.4s;
-	}
-	.gift-chk-btn-active polyline {
-		stroke: #FFFFFF;
-		transition: 0.4s;
-	}
-	
-	
-	/* 선물 안 아이템 수량 ----------------------------------------------*/
-	..itemcount-minus,
-	.itemcount-plus{
-		cursor: pointer;
-	}
-	.itemcount-minus circle,
-	.itemcount-plus circle {
-		fill: #E2E2E2;
-		transition: 0.4s;
-	}
-	
-	.itemcount-minus line,
-	.itemcount-plus line {
-		stroke: #000000;
-	}
-	
-	.itemcount-minus:hover circle,
-	.itemcount-plus:hover circle {
-		fill: #F7D358;
-		transition: 0.4s;
-	}
-	
-	.itemcount-minus_plus-mousedown line{
-		stroke: #FFFFFF;
-	}
-	
-	/* 취소하기 / 수정하기 / 삭제하기 버튼 */
-	.project-custom-btn{
-		display: inline-block;
-		margin-left: 10px;
-	}
 	
 	
 	.gift-pretitle-style{
@@ -895,7 +842,15 @@ function insertProductFunc(){
 		
 		
 		//펀딩 마감일 ------------------------------------------------------
-		 $( "#fundingDatepicker" ).datepicker();
+		$( "#fundingDatepicker" ).datepicker();
+		
+		$('#fundingDatepicker').on('change', function() {
+				var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+				var currentDate = new Date().getTime();
+				
+				var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+				$("#dday-input").attr("value", gap);
+		});
 		
 		
 		//처음에는 처음 탭 영역만 보이도록 -----------------------------------------
@@ -912,7 +867,7 @@ function insertProductFunc(){
 	
 	    
 	    
-	    //선물 추가 버튼
+	    //물품 추가 버튼
 	    $(".gift-add-btn").on("click", function(){
 	    	descriptionBtnFunc();
 	    	
@@ -1078,21 +1033,20 @@ function insertProductFunc(){
 			
 	});
 	
-	//선물 ------------------------------------------------------------------
-	
-	//선물 토글 스피드
+	//물품 -----------------------------------------------------------------
+	//물품 토글 스피드
 	toggleSpeed = 300;
 	
-	//선물 수정 취소
+	//물품 수정 취소
 	function cancleGift(giftIdIndex){
 		$("."+giftIdIndex).slideToggle(toggleSpeed);
 		$("#"+giftIdIndex).slideToggle(toggleSpeed);
 		
-		//선물 추가 버튼 박스 보이게
+		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 	}
 	
-	//선물 삭제
+	//물품 삭제
 	function deleteGift(giftId, flag){
 		if(flag == 0){
 			$("#gift-totalbox-div "+"#"+giftId).fadeToggle(toggleSpeed,function(){
@@ -1115,7 +1069,7 @@ function insertProductFunc(){
 		}
 	}
 	
-	//선물 저장
+	//물품 저장
 	function saveGift(giftId){
 		var giftId_class = "."+giftId;
 		var giftId_id = "#"+giftId;
@@ -1140,11 +1094,11 @@ function insertProductFunc(){
 		$(giftId_id+" .gift-mincount-input").attr("value", productMincount);
     	
    
-		//선물 추가 버튼 박스 보이게
+		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 	}
 	
-	//선물 수정
+	//물품 수정
 	function updateGift(giftId){
 		$(".gift-head-div").show();
 		$(".gift-body-div").hide();
@@ -1152,9 +1106,12 @@ function insertProductFunc(){
 		$("."+giftId).hide();
 		$("#"+giftId).fadeToggle(toggleSpeed);
 		
-		//선물 추가 버튼 박스는 안보이게
+		//물품 추가 버튼 박스는 안보이게
     	$(".gift-add-btn-box").hide();
 	}
+	
+	
+	
 	
 	
 	//카테고리 선택 이벤트
@@ -1320,10 +1277,10 @@ function insertProductFunc(){
 
 <div id="session-1" class="session">
 <div id="project-intro" class="project-div project-outter-div-margin project-first project-title-last">
-	<div class="project-title project-title-first">펀딩 개요</div>
+	<div class="project-title project-title-first">공동거래 개요</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">펀딩 제목</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">공동거래 제목</div>
 			<div class="project-element-in-div project-description-button">
 				설명
 			</div>
@@ -1353,7 +1310,7 @@ function insertProductFunc(){
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-title-div project-element-in-div project-element-in-title">펀딩 대표 이미지</div>
+			<div class="project-element-title-div project-element-in-div project-element-in-title">공동거래 대표 이미지</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
 				<p>프로젝트를 대표할 이미지입니다. 구매자들이 한 번에 무슨 프로젝트인지 알 수 있도록 물품의 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
@@ -1413,7 +1370,7 @@ function insertProductFunc(){
 			<div class="project-element-in-div project-element-content-div">
 				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도">  
 				<span style="align:right; margin-left: 2%;">
-					<input type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
+					<input id="dday-input" type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
 				</span>
 			</div>
 		</div>

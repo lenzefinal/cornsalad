@@ -668,50 +668,6 @@ function getBankList(){
 
 
 //insert ========================================================================
-/* function insertProjectFunc(){
-	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
-	//서버 쪽 컨트롤러로 전송하기 
-	
-	var project = new Object();
-	project.project_category_id = 'PC-FUND';
-	project.category_sub_id = $("#project-sub-category").val();
-	project.project_name = $("#project-title-input").val();
-	project.image_oriname = $('.upload-name').val();
-	project.rep_content = $("#repcontent-textarea").val();
-	project.target_amount = $("#goalprice-input").val();
-	project.end_date = $("#fundingDatepicker").val();
-	project.refund_role = $("#refundrole-textarea").val();
-	project.certif_flag = $("#certifflag_input").val();
-	
-	console.log("project:" + project);
-	
-	$.ajax({
-		url: "test5.do",
-		data: JSON.stringify(project),
-		type: "post",
-		contentType: "application/json; charset=UTF-8",
-		success: function(result){
-			alert("서버로 전송 성공" + result);
-		},
-		error: function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
-					+ "message : " + request.responseText + "\n"
-					+ "error : " + errorData);
-		}
-	}); 
-
-	
-	$("#submit-project_category_id").val('PC-FUND');
-	$("#submit-category_sub_id").val($("#project-sub-category").val());
-	$("#submit-project_name").val($("#project-title-input").val());
-	$("#submit-image_oriname").val($('.upload-name').val());
-	$("#submit-rep_content").val($("#repcontent-textarea").val());
-	$("#submit-target_amount").val($("#goalprice-input").val());
-	$("#submit-end_date").val($("#fundingDatepicker").val());
-	$("#submit-refund_role").val($("#refundrole-textarea").val());
-	$("#submit-certif_flag").val($("#certifflag_input").val());
-	
-} */
 function insertProjectFunc(){
 	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
 	//서버 쪽 컨트롤러로 전송하기 
@@ -991,10 +947,6 @@ function insertGiftInItemFunc(){
 
 <script>
 	$(function(){
-		
-		IMP.init('CORNSALAD');
-		
-		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
 		getCategoryListFunc();
@@ -1056,7 +1008,15 @@ function insertGiftInItemFunc(){
 		
 		
 		//펀딩 마감일 ------------------------------------------------------
-		 $( "#fundingDatepicker" ).datepicker();
+		$( "#fundingDatepicker" ).datepicker();
+		
+		$('#fundingDatepicker').on('change', function() {
+				var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+				var currentDate = new Date().getTime();
+				
+				var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+				$("#dday-input").attr("value", gap);
+		});
 		
 		
 		//처음에는 처음 탭 영역만 보이도록 -----------------------------------------
@@ -1966,7 +1926,7 @@ function insertGiftInItemFunc(){
 			<div class="project-element-in-div project-element-content-div">
 				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도">  
 				<span style="align:right; margin-left: 2%;">
-					<input type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
+					<input id="dday-input" type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
 				</span>
 			</div>
 		</div>

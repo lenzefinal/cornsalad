@@ -162,6 +162,23 @@
 		]]>
 	</select>
 	
+
+	<resultMap id="ProductResultMap" type="Product">
+		<result column="product_id" property="product_id"/>
+		<result column="project_id" property="project_id"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_price" property="product_price"/>
+		<result column="mincount" property="mincount"/>
+	</resultMap>
+	<select id="selectListProduct" resultMap="ProductResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM PRODUCT
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
 	
 	<update id="updateProjectToUploadImg" parameterType="Project">
 		<![CDATA[
@@ -246,6 +263,13 @@
 	<update id="deleteItem" parameterType="string">
 		<![CDATA[
 			DELETE FROM ITEM 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
+	<update id="deleteProduct" parameterType="string">
+		<![CDATA[
+			DELETE FROM PRODUCT 
 			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</update>

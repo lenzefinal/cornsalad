@@ -78,6 +78,7 @@ public class ProjectStatusController {
 		return "projectStatus/grouppurInsertView";
 	}
 	
+	
 	@RequestMapping("projectSendRequestView.do")
 	public String projectSendRequestViewMethod(
 			@RequestParam(value="projectName") String projectName,
@@ -109,6 +110,25 @@ public class ProjectStatusController {
 		model.addAttribute("giftinitemList", giftinitemList);
 		
 		return "projectStatus/fundingUpdateView";
+	}
+	
+	@RequestMapping("grouppurUpdateView.do")
+	public String grouppurUpdateViewMethod(@RequestParam(value="projectId") String projectId,
+			Model model) {
+		
+		ProjectStatusUpdate project = projectStatusService.selectOneProjectStatusUpdateByProId(projectId);
+		ProjectContent projectCon = projectStatusService.selectOneProjectContentByProId(projectId);
+		ProjectAccount projectAcc = projectStatusService.selectOneProjectAccountByProId(projectId);
+		List<Product> prodList = projectStatusService.selectListProduct(projectId);
+		
+		System.out.println(project.getProject_name());
+		
+		model.addAttribute("project", project);
+		model.addAttribute("projectCon", projectCon);
+		model.addAttribute("projectAcc", projectAcc);
+		model.addAttribute("prodList", prodList);
+		
+		return "projectStatus/grouppurUpdateView";
 	}
 	
 	@RequestMapping("contentImgUpload.do")
@@ -711,6 +731,20 @@ public class ProjectStatusController {
 		}
 		
 		System.out.println("Product 등록 완료");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteProduct.do", method=RequestMethod.POST)
+	public void deleteProductMethod(
+			@RequestParam(value="projectId") String projectId) throws Exception {
+		
+		System.out.println("[deleteProduct.do]");
+		System.out.println("projectId:" + projectId);
+		
+		//delete 
+		projectStatusService.deleteProduct(projectId);
+	
+		System.out.println("product 삭제 완료");
 	}
 	
 	

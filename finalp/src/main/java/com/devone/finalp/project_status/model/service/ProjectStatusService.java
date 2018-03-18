@@ -42,4 +42,6 @@ public interface ProjectStatusService {
 	int deleteGift(String projectId);
 	int deleteItem(String projectId);
 	int insertProduct(Product product);
+	List<Product> selectListProduct(String projectId);
+	int deleteProduct(String projectId);
 }
