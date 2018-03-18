@@ -3,26 +3,28 @@ package com.devone.finalp.common.model.vo;
 public class Product implements java.io.Serializable{
 
 	private static final long serialVersionUID = 4089315018930821678L;
-	private int product_id;
+	private String product_id;
 	private String project_id;
 	private String product_name;
-	private int capacity;
+	private int product_price;
+	private int mincount;
 	
 	public Product() {}
 
-	public Product(int product_id, String project_id, String product_name, int capacity) {
+	public Product(String product_id, String project_id, String product_name, int product_price, int mincount) {
 		super();
 		this.product_id = product_id;
 		this.project_id = project_id;
 		this.product_name = product_name;
-		this.capacity = capacity;
+		this.product_price = product_price;
+		this.mincount = mincount;
 	}
 
-	public int getProduct_id() {
+	public String getProduct_id() {
 		return product_id;
 	}
 
-	public void setProduct_id(int product_id) {
+	public void setProduct_id(String product_id) {
 		this.product_id = product_id;
 	}
 
@@ -42,12 +44,20 @@ public class Product implements java.io.Serializable{
 		this.product_name = product_name;
 	}
 
-	public int getCapacity() {
-		return capacity;
+	public int getProduct_price() {
+		return product_price;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
+	}
+
+	public int getMincount() {
+		return mincount;
+	}
+
+	public void setMincount(int mincount) {
+		this.mincount = mincount;
 	}
 
 	public static long getSerialversionuid() {
@@ -57,8 +67,7 @@ public class Product implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Product [product_id=" + product_id + ", project_id=" + project_id + ", product_name=" + product_name
-				+ ", capacity=" + capacity + "]";
+				+ ", product_price=" + product_price + ", mincount=" + mincount + "]";
 	}
-	
-	
+
 }
