@@ -12,6 +12,7 @@ import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
 @Repository("adminDao")
@@ -40,6 +41,10 @@ public class AdminDao {
 	public AReport reportDetail(int report_id) {
 		return mybatis.selectOne("adminmapper.reportdetail", report_id);
 	}
+	
+	public int reportAUpdate(int report_id) {
+		return mybatis.update("adminmapper.reportUpdate", report_id);
+	}
 
 	public List<AQuestion> selectQuestionList() {
 		return mybatis.selectList("adminmapper.questionlist");
@@ -59,6 +64,10 @@ public class AdminDao {
 
 	public List<AProject> selectOffProject() {
 		return mybatis.selectList("adminmapper.selectoffproject");
+	}
+	
+	public int updateProjectOn(String project_id) {
+		return mybatis.update("adminmapper.ponupdate", project_id);
 	}
 
 	public int memListCount() {
@@ -86,7 +95,33 @@ public class AdminDao {
 	}
 
 	public int memberDelete(String member_name) {
-		return mybatis.update("adminmapper.memberDelete", member_name);
+		return mybatis.delete("adminmapper.memberDelete", member_name);
 	}
+
+	public int replyDelete(AReport report) {
+		return mybatis.delete("adminmapper.replyDelete", report);
+	}
+
+	public List<Notice> selectNoticeList() {
+		return mybatis.selectList("adminmapper.noticeList");
+	}
+
+	public int noticeInsert(Notice notice) {
+		return mybatis.insert("adminmapper.noticeInsert", notice);
+	}
+	
+	public Notice noticeDetail(int notice_id) {
+		return mybatis.selectOne("adminmapper.noticeDetail", notice_id);
+	}
+
+	public int noticeUpdate(Notice notice) {
+		return mybatis.update("adminmapper.noticeUpdate", notice);
+	}
+
+	public int noticeDelete(int notice_id) {
+		return mybatis.delete("adminmapper.noticeDelete",notice_id);
+	}
+
+	
 
 }

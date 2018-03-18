@@ -24,6 +24,7 @@ import com.devone.finalp.admin.model.vo.AAlarm;
 import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
 
@@ -39,6 +40,21 @@ public class AdminController {
 	public String adminMain(Model model) {	
 		model.addAttribute("aalarm",adminService.adminalarm());
 		return "admin/adminIndex";
+	}
+	
+	//관리자 알림용 ajax
+	@ResponseBody
+	@RequestMapping(value="adminAalarm.do", method=RequestMethod.POST)
+	public String adminAalarm(HttpServletResponse response) throws IOException{
+		response.setContentType("application/json; charset=utf-8");
+		
+		JSONObject job=new JSONObject();
+		AAlarm alarm=adminService.adminalarm();
+		job.put("reportcount", alarm.getReportcount());
+		job.put("projectcount", alarm.getOffprojectcount());
+		job.put("questioncount", alarm.getQuestioncount());
+		
+		return job.toJSONString();
 	}
 
 	//관리자 회원리스트
@@ -105,7 +121,7 @@ public class AdminController {
 	@RequestMapping("adminMemberBlack.do")
 	public String memberBlack(@RequestParam(value="member_name") String member_name, @RequestParam(value="num") int num) {
 		
-		int result=adminService.memberBlack(member_name);;
+		int result=adminService.memberBlack(member_name);
 		String viewname=null;
 		if(num==0 && result > 0){
 			System.out.println("리스트에서 회원블랙 오께이");
@@ -126,9 +142,9 @@ public class AdminController {
 	public String memberDelete(@RequestParam(value="member_name") String member_name) {
 		int result=adminService.memberDelete(member_name);
 		if(result>0) {
-			System.out.println("회원블랙 오께이");
+			System.out.println("회원삭제 오께이");
 		}else {
-			System.out.println("회원블랙 실패");
+			System.out.println("회원삭제 실패");
 		}
 		return "redirect:adminMember.do";
 	}
@@ -140,11 +156,65 @@ public class AdminController {
 		model.addAttribute("aplist",adminService.selectProjectList());
 		return "admin/adminProject";
 	}
+	
+	//관리자 프로젝트 승인처리
+	@RequestMapping("adminProjectUp.do")
+	public String updateProjectOn(@RequestParam(value="project_id") String project_id) {
+		int result=adminService.updateProjectOn(project_id);
+		if(result>0)
+			System.out.println("프로젝트 승인 처리 완료");
+		return "admin/adminProject";
+	}
 
 	//관리자 공지사항리스트
 	@RequestMapping("adminNotice.do")
-	public String adminNotice() {
+	public String adminNotice(Model model) {
+		model.addAttribute("anlist",adminService.selectNoticeList());
 		return "admin/adminNotice";
+	}
+	
+	//관리자 공지사항 등록
+	@RequestMapping("adminNoticeIn.do")
+	public String noticeInsert(Notice notice) {
+		int result=adminService.noticeInsert(notice);
+		if(result > 0)
+			System.out.println("등록 성공");
+		return "redirect:adminNotice.do";
+	}
+	
+	//관리자 공지사항 수정용 ajax
+	@ResponseBody
+	@RequestMapping(value="adminNoticeDet.do" , method=RequestMethod.POST)
+	public String adminNoticeDetail(HttpServletResponse response,
+			@RequestParam(value = "noticeid") int notice_id) throws IOException{
+		response.setContentType("application/json; charset=utf-8");
+		Notice notice=adminService.noticeDetail(notice_id);
+		JSONObject job=new JSONObject();
+		job.put("notice_id", notice.getNotice_id());
+		job.put("title", URLEncoder.encode(notice.gettitle(),"utf-8"));
+		job.put("creation_date", notice.getCreation_date().toString().trim());
+		job.put("content", URLEncoder.encode(notice.getContent(),"utf-8"));
+		
+		return job.toJSONString();
+	}
+	
+	
+	//관리자 공지사항 수정
+	@RequestMapping("adminNoticeUp.do")
+	public String noticeUpdate(Notice notice) {
+		int result=adminService.noticeUpdate(notice);
+		if(result > 0)
+			System.out.println("수정 성공");
+		return "redirect:adminNotice.do";
+	}
+		
+	//관리자 공지사항 삭제
+	@RequestMapping("adminNoticeDe.do")
+	public String noticeDelete(@RequestParam(value="notice_id") int notice_id ) {
+		int result=adminService.noticeDelete(notice_id);
+		if(result > 0)
+			System.out.println("삭제 성공");
+		return "redirect:adminNotice.do";
 	}
 
 	//관리자 문의글리스트
@@ -186,11 +256,7 @@ public class AdminController {
 	
 	//관리자 문의글 답변보내기(문의함 수정)
 	@RequestMapping(value="adminQuUpdate.do", method=RequestMethod.POST)
-	public String adminQuUpdate(@RequestParam(value = "questionid") int question_id,
-			@RequestParam(value = "recontent") String re_content) throws IOException{
-		AQuestion question=new AQuestion();
-		question.setQuestion_id(question_id);
-		question.setRe_content(re_content);
+	public String adminQuUpdate(AQuestion question) throws IOException{
 		int result=adminService.updateQuestion(question);
 		
 		if(result>0) {
@@ -202,8 +268,6 @@ public class AdminController {
 		return "redirect:adminQuestion.do";
 		
 	}
-	
-	
 	
 	//관리자 금지어리스트
 	@RequestMapping(value="adminTaboo.do",method=RequestMethod.POST)
@@ -235,7 +299,7 @@ public class AdminController {
 	@RequestMapping("adminTabooIn.do")
 	public String insertTaboo(Taboo taboo) {
 		adminService.insertTaboo(taboo);
-		return "redirect:adminReport.do";
+		return "redirect:adminTaboo.do";
 	}
 
 	//관리자 신고글리스트
@@ -275,6 +339,24 @@ public class AdminController {
 		job.put("report_read_flag", report.getReport_read_flag() );
 		
 		return job.toJSONString();
+	}
+	
+	//관리자 신고된 해당 댓글 삭제
+	@RequestMapping("adminReplyDelete.do")
+	public String replyDelete(@RequestParam(value="reply_id") int reply_id, 
+			@RequestParam(value="report_category_name") String report_category_name) {
+		AReport report = new AReport();
+		if(report_category_name.equals("프로젝트 댓글 신고")) {
+			report.setReport_category_name(report_category_name);
+			report.setProject_reply_id(reply_id);
+		}else {
+			report.setReport_category_name(report_category_name);
+			report.setBoard_reply_id(reply_id);
+		}
+		int result = adminService.replyDelete(report);
+		if(result > 0)
+			System.out.println("신고 댓글 삭제 성공");
+		return "redirect:adminReport.do";
 	}
 
 	//관리자 통계

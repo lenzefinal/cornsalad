@@ -150,8 +150,9 @@
   	  				var json = JSON.parse(jsonStr);
 					
 					$('#redemo').empty();
-						$('#redemo').html(
-							"<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
+					
+					var values = $('#redemo').html();
+					values += "<div class='form-inline'> <div class='form-group'> <label for='member'>신고회원 : &nbsp;</label>"+
 							"<input type='text' class='form-control' id='rmember' value='"+ decodeURIComponent(json.black_name.replace(/\+/g," ")) +"' readonly >&nbsp;" +
 							"</div> <br><br><br> <div class='form-group'> <label for='writer'>신고 작성자 : &nbsp;</label>" +
 							"<input type='text' class='form-control' id='rwriter' value='"+ decodeURIComponent(json.member_name.replace(/\+/g," ")) +
@@ -163,9 +164,19 @@
 							" <div class='form-group'> <label for='category'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
 							decodeURIComponent(json.report_category_name.replace(/\+/g," ")) + "' > </div> <div class='form-group'> <label for='acontent'>신고 댓글  </label>"+
 							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
-							decodeURIComponent(json.reply_content.replace(/\+/g," ")) + "</textarea> <br> <span class='btnspan'> "+
-							"<button class='btn btn-danger' data-dismiss='modal'>해당 댓글 삭제</button>&nbsp;</span> <br> </div> ");
+							decodeURIComponent(json.reply_content.replace(/\+/g," ")) + "</textarea> <br>";
+						
+						if(json.project_reply_id == null ){
+							values += "<span class='btnspan'> <a href='adminReplyDelete.do?reply_id="+json.board_reply_id+"&report_category_name="+
+									decodeURIComponent(json.report_category_name.replace(/\+/g," "))+"'>"+
+									"<button class='btn btn-danger'>해당 댓글 삭제</button></a>&nbsp;</span><br></div> ";
+						}else{
+							values += "<span class='btnspan'> <a href='adminReplyDelete.do?reply_id="+json.project_reply_id+"&report_category_name="+
+									decodeURIComponent(json.report_category_name.replace(/\+/g," "))+"'>"+
+									"<button class='btn btn-danger'>해당 댓글 삭제</button></a>&nbsp;</span><br></div> ";
+						}
 					
+					$("#redemo").html(values);
   	  			},
   	  			error: function(request, status, errorData){
 					alert("error code : " + request.status + "\n" 
@@ -177,7 +188,7 @@
   		
   		//상세보기 글 MODAL
   		function rebtn1(reportid){
-  			/* var reportid=document.getElementById("reportid").value;*/
+
   			console.log(reportid); 
   			$.ajax({
   	  			url:"adminReportDetail.do" ,
@@ -200,10 +211,11 @@
 							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
 							decodeURIComponent(json.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
 							" <div class='form-group'> <label for='atitle'>신고 당한 글 바로가기 "+
-							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span><br><table class='table table-bordered atable'> <tr class='active'><th>카테고리</th><th>제목</th></tr>"+
+							"<span class='colorspan'>해당 글 신고 횟수 : "+ json.report_count +"</span><br><table class='table table-bordered atable'> <tr class='active'><th>카테고리</th><th>제목</th></tr>"+
 							"<tr><td>"+decodeURIComponent(json.report_category_name.replace(/\+/g," "))+"</td><td><a href='#'>"+ decodeURIComponent(json.report_project_name.replace(/\+/g," ")) +
 							"</a></td></tr> </table> <br><span class='btnspan'>"+
-							"<button class='btn' data-dismiss='modal'>닫기</button>&nbsp;</span> <br> </div> ");
+							"<a href=''>"+
+							"<button class='btn' data-dismiss='modal'>닫기</button></a>&nbsp;</span> <br> </div> ");
 					
   	  			},
   	  			error: function(request, status, errorData){
@@ -256,7 +268,7 @@
 		<th>신고 작성 회원</th>
 		<th>신고 당한 회원</th>
 		<th>신고날짜</th>
-		<th>신고 회수</th>
+		<th>신고 횟수</th>
 		<th>상세보기</th>
       </tr>
     </thead>

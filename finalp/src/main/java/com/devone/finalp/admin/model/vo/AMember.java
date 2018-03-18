@@ -10,8 +10,6 @@ public class AMember implements java.io.Serializable {
 	private int rnum;
 	private String member_id;
 	private String member_name;
-	private int age;
-	private String gender;
 	private String email;
 	private String phone;
 	private int total_report_count;
@@ -23,15 +21,13 @@ public class AMember implements java.io.Serializable {
 	
 	public AMember() {}
 
-	public AMember(int rnum,String member_id, String member_name, int age, String gender, String email, String phone,
+	public AMember(int rnum,String member_id, String member_name, String email, String phone,
 			int total_report_count, String blacklist_flag,String profile_img_oriname,String profile_img_rename,
 			int project_count, int spon_money) {
 		super();
 		this.rnum=rnum;
 		this.member_id = member_id;
 		this.member_name = member_name;
-		this.age = age;
-		this.gender = gender;
 		this.email = email;
 		this.phone = phone;
 		this.total_report_count = total_report_count;
@@ -64,22 +60,6 @@ public class AMember implements java.io.Serializable {
 
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 	public String getEmail() {
@@ -148,8 +128,8 @@ public class AMember implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "AMember [rnum=" + rnum + ", member_id=" + member_id + ", member_name=" + member_name + ", age=" + age
-				+ ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", total_report_count="
+		return "AMember [rnum=" + rnum + ", member_id=" + member_id + ", member_name=" + member_name 
+				+ ", email=" + email + ", phone=" + phone + ", total_report_count="
 				+ total_report_count + ", blacklist_flag=" + blacklist_flag + ", profile_img_oriname="
 				+ profile_img_oriname + ", profile_img_rename=" + profile_img_rename + ", project_count="
 				+ project_count + ", spon_money=" + spon_money + "]";

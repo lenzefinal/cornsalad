@@ -66,6 +66,25 @@
 		]]>
 	</select>
 	
+	<delete id="replyDelete" parameterType="AReport">
+		<if test="report_category_name == '프로젝트 댓글 신고'">
+			<![CDATA[
+				DELETE FROM PROJECT_REPLY WHERE PROJECT_REPLY_ID = #{ project_reply_id }
+			]]>
+		</if>
+		<if test="report_category_name == '게시글 댓글 신고'">
+			<![CDATA[
+				DELETE FROM BOARD_REPLY WHERE BOARD_REPLY_ID = #{ board_reply_id }
+			]]>
+		</if>
+	</delete>
+	
+	<update id="reportAUpdate" parameterType="int">
+		<![CDATA[
+			UPDATE SET REPORT_READ_FLAG='Y' WHERE REPORT_ID=#{ report_id }
+		]]>
+	</update>
+	
 	<resultMap id="AQuestionmap" type="AQuestion">
 		<result property="question_id" column="question_id" />
 		<result property="question_category_name" column="question_category_name" />
@@ -142,8 +161,6 @@
 		<result property="rnum" column="rnum" />
 		<result property="member_id" column="member_id" />
 		<result property="member_name" column="member_name" />
-		<result property="age" column="age" />
-		<result property="gender" column="gender" />
 		<result property="email" column="email" />
 		<result property="phone" column="phone" />
 		<result property="total_report_count" column="total_report_count" />
@@ -184,10 +201,47 @@
 		]]>
 	</update>
 	
-	<update id="memberDelete" parameterType="String">
+	<delete id="memberDelete" parameterType="String">
 		<![CDATA[
 			DELETE FROM MEMBER WHERE MEMBER_NAME = #{ member_name }
 		]]>
+	</delete>
+	
+	<resultMap id="NoticeMap" type="Notice">
+		<result property="notice_id" column="notice_id" />
+		<result property="title" column="title" />
+		<result property="creation_date" column="creation_date" />
+		<result property="content" column="content" />
+	</resultMap>
+	
+	<select id="noticeList" resultMap="NoticeMap">
+		<![CDATA[
+			SELECT * FROM NOTICE ORDER BY CREATION_DATE DESC
+		]]>	
+	</select>
+	
+	<insert id="noticeInsert" parameterType="Notice">
+		<![CDATA[
+			INSERT INTO NOTICE VALUES((SELECT MAX(NOTICE_ID)+1 FROM NOTICE),#{ title }, SYSDATE , #{content} )
+		]]>	
+	</insert>
+	
+	<select id="noticeDetail" parameterType="int" resultType="Notice">
+		<![CDATA[
+			SELECT * FROM NOTICE WHERE NOTICE_ID = #{ notice_id }
+		]]>	
+	</select>
+	
+	<update id="noticeUpdate" parameterType="Notice">
+		<![CDATA[
+			UPDATE NOTICE SET TITLE = #{ title }, CONTENT = #{content} WHERE NOTICE_ID = #{ notice_id } 
+		]]>
 	</update>
+	
+	<delete id="noticeDelete" parameterType="int">
+		<![CDATA[
+			DELETE FROM NOTICE WHERE NOTICE_ID = #{ notice_id }
+		]]>
+	</delete>
 	
 </mapper>
