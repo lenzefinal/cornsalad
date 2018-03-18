@@ -10,6 +10,7 @@ import com.devone.finalp.common.model.vo.Category;
 import com.devone.finalp.common.model.vo.Gift;
 import com.devone.finalp.common.model.vo.GiftInItems;
 import com.devone.finalp.common.model.vo.Item;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
@@ -142,6 +143,11 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
 	@Override
 	public int deleteItem(String projectId) {
 		return projectStatusDao.deleteItem(projectId);
+	}
+
+	@Override
+	public int insertProduct(Product product) {
+		return projectStatusDao.insertProduct(product);
 	}
 
 }

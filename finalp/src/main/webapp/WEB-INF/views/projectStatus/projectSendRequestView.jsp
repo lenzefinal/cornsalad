@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>projectInsertGuideView.jsp</title>
+<title>projectSendRequestView.jsp</title>
 </head>
 <body>
 <c:import url="/WEB-INF/views/header.jsp"/>

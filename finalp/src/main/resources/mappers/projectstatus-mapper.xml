@@ -230,6 +230,12 @@
 		]]>
 	</select>
 	
+	<select id="insertProduct" parameterType="Product">
+		<![CDATA[
+			INSERT INTO PRODUCT VALUES( #{ product_id }, #{ project_id }, #{ product_name }, #{ product_price }, #{ mincount } )
+		]]>
+	</select>
+	
 	<update id="deleteGift" parameterType="string">
 		<![CDATA[
 			DELETE FROM GIFT 

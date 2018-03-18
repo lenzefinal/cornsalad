@@ -238,9 +238,10 @@
 	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
-		opacity: 0.7;
-		border: 3px solid #f9bf30;
-		background-color: #f9bf30;
+		/* opacity: 0.7; */
+		border: 1px solid rgba(249, 191, 48, 0.1);
+		background-color: rgba(249, 191, 48, 0.2);
+		/* background-color: #f9bf30; */
 		/* border: 3px solid #FFC72B;
 		background-color: white; */
 		/* border: 1px solid rgba(0,0,0,0.1);
@@ -2272,7 +2273,10 @@ tinymce.init({
 				</table>
 				</div>
 				<br>
-				<div align="right"><button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal">아이템 관리</button></div>
+				<div align="right">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal" 
+						style="width:120px;height:45px;">아이템 관리</button>
+				</div>
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -2752,7 +2756,7 @@ tinymce.init({
 		border-radius: 5px;
 	}
 	.modal-item-table .modal-item-list-update{
-		background-color:#FFFBC5;
+		background-color: rgba(249, 191, 48, 0.2);
 	}
 	
 	.modal-item-add-div{
@@ -2765,9 +2769,9 @@ tinymce.init({
 	.modal-item-adddetail-div{
 		padding: 1.5em;
 		margin: 0.5em;
-		border: 1px solid rgba(0,0,0,0.1);
-		border-radius: .25rem;
-		background-color:#FFFBC5;
+		border: 1px solid rgba(249, 191, 48, 0.2);
+		border-radius: .25rem; 
+		background-color: rgba(249, 191, 48, 0.2);
 	}
 	.modal-item-title{
 		padding-top: 2em;

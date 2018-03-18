@@ -42,6 +42,7 @@ import com.devone.finalp.common.model.vo.Gift;
 import com.devone.finalp.common.model.vo.GiftInItems;
 import com.devone.finalp.common.model.vo.Item;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
@@ -70,6 +71,11 @@ public class ProjectStatusController {
 	@RequestMapping("fundingInsertView.do")
 	public String fundingInsertViewMethod() {
 		return "projectStatus/fundingInsertView";
+	}
+	
+	@RequestMapping("grouppurInsertView.do")
+	public String grouppurInsertViewMethod() {
+		return "projectStatus/grouppurInsertView";
 	}
 	
 	@RequestMapping("projectSendRequestView.do")
@@ -280,9 +286,7 @@ public class ProjectStatusController {
 		//DB에 insert
 		int result = projectStatusService.insertProject(project);
 
-		
 		System.out.println("insert에서 아이디]"+proId);
-		
 		
 		//return으로 보낸 값은 response에 저장됨
 		return proId;
@@ -656,6 +660,59 @@ public class ProjectStatusController {
 		System.out.println("GiftInItem 등록 완료");
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="insertProduct.do", method=RequestMethod.POST)
+	public void insertProductMethod(@RequestBody String param) throws Exception{
+		
+		System.out.println("[insertProduct.do]");
+		System.out.println("Product:" + param);
+		
+		JSONArray jarr = (JSONArray)new JSONParser().parse(param);
+		System.out.println("insertProduct] jarr size:" + jarr.size());
+		
+		for(int i=0; i<jarr.size(); ++i) {
+			JSONObject job = (JSONObject)jarr.get(i);
+			
+			Product product = new Product();
+	
+			product.setProduct_id((String)job.get("product_id"));
+			product.setProduct_name((String)job.get("product_name"));
+			product.setProject_id((String)job.get("project_id"));
+		
+			//가격
+			int price = 0;
+			String priceStr = (String)job.get("product_price");
+			
+			try {
+				price = Integer.parseInt(priceStr);
+			} catch(NumberFormatException e) {
+				price = 0;
+			}
+		
+			product.setProduct_price(price);
+			
+
+			//최소 구매량
+			int mincount = 0;
+			String mincountStr = (String)job.get("mincount");
+			
+			try {
+				mincount = Integer.parseInt(mincountStr);
+			} catch(NumberFormatException e) {
+				mincount = 0;
+			}
+		
+			product.setMincount(mincount);
+			
+			
+			//insert
+			projectStatusService.insertProduct(product);
+			
+		}
+		
+		System.out.println("Product 등록 완료");
+	}
+	
 	
 	//-------------------------------------------------
 	//이메일 인증
@@ -746,6 +803,8 @@ public class ProjectStatusController {
 		out.flush();
 		out.close();
 	}
+	
+	
 }
 
 
