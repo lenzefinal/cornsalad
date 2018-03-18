@@ -1295,6 +1295,11 @@ tinymce.init({
             dateFormat: 'mm-dd-yy'
         }).datepicker('setDate', enddate)
         
+        var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+		var currentDate = new Date().getTime();
+		
+		var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+		$("#dday-input").attr("value", gap);
         
         
     	
