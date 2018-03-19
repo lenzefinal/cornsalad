@@ -1248,6 +1248,9 @@ tinymce.init({
 	    	
 	    	settingItemListChk_Count_btn();
 	    	
+	    	//선물 한정 수량 버튼 계속 초기화 되는거 막는 코드
+	    	setTotalGiftCapacityChk();
+	    	
 	    });
 		
 		//아이템 추가 버튼
