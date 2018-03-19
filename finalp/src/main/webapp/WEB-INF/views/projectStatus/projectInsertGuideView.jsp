@@ -48,8 +48,17 @@
 	}
 	
 	function goParView(){
+		location.href="grouppurInsertView.do";
+	}
+	
+	function funUpdate(){
 		location.href="fundingUpdateView.do?projectId=152104495033964";
 	}
+	
+	function grouUpdate(){
+		location.href="grouppurUpdateView.do?projectId=152138655640921";
+	}
+	
 	
 </script>
 
@@ -95,6 +104,8 @@
 </div>
 <div style="height:400px;">
 </div>
+<button onclick="funUpdate()">펀딩 수정 페이지</button>
+<button onclick="grouUpdate()">공동거래 수정 페이지</button>
 <c:import url="/WEB-INF/views/footer.jsp"/>
 </body>
 </html>

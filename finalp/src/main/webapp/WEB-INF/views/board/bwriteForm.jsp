@@ -12,7 +12,50 @@ th {
 	background: #999;
 	width: 20%;
 }
+img{
+	weight : 100%;
+	height : auto;
+}
 </style>
+  <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+  <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	tinymce.init({
+		  selector: 'textarea',
+	      height: 500,
+	  	  plugins: [
+	    	    "advlist autolink lists link image charmap print preview anchor",
+	        	"searchreplace visualblocks code fullscreen",
+	        	"insertdatetime media table contextmenu paste imagetools wordcount"
+	    	],
+	    	toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	  	// imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+	  	content_css: [
+		    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+	    	'//www.tinymce.com/css/codepen.min.css'
+	  	],
+	  	 // without images_upload_url set, Upload tab won't show up
+	    images_upload_url: 'postAcceptor.php',
+	    
+	    // we override default upload handler to simulate successful upload
+	    images_upload_handler: function (blobInfo, success, failure) {
+	    	var form = new FormData();
+	    	form.append('uploadFile',blobInfo.blob());
+	    	$.ajax({
+	    		url : "bimg.do",
+	    		data : form,
+	    		dataType : 'text',
+	    		type : "post",
+	    		processData: false,
+	        	contentType: false,
+	    		success : function(result){
+	    			success(result);		
+	    		}
+	    	});
+	    }
+	});
+	
+</script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp" />
@@ -49,7 +92,11 @@ th {
 						</tr>
 						<tr>
 							<th>내 용</th>
-							<td><textarea rows="5" cols="50" name="content"></textarea></td>
+							<td>
+							<div class="myeditabletable">
+							<textarea rows="40" cols="100" name="content" id = "tarea"></textarea>
+							</div>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" value="등록하기"></td>
@@ -59,7 +106,7 @@ th {
 				</form>
 				<hr />
 				<div id="buttoncontrill">
-					<a href="#">[이전으로]</a>
+					<a href="blist.do?page=1">[목록으로]</a>
 				</div>
 			</div>
 		</div>

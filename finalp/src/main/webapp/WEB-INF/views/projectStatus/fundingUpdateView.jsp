@@ -12,9 +12,9 @@
 
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap. min.css">-->
-<link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <script src="/finalp/resources/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
+<link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
+<!-- <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script> -->
 <style>
 	
 	
@@ -40,9 +40,6 @@
 		margin-bottom: 0px;
 		text-align: center;
 		text-weight: bold;
-		border: 1px solid rgba(0,0,0,0.1);
-		border-left: none;
-		border-right: none;
 	}
 	
 	/* 충돌 테스트 */
@@ -62,9 +59,6 @@
 		    margin-right: auto!important;
 		}
 		
-		html{
-			font-size: 14px;
-		}
 	}
 	@media only screen and (max-width: 1199px) and (min-width: 992px){
 		.project-outter-div-margin {
@@ -73,9 +67,6 @@
 		    margin-right: auto!important;
 		}
 		
-		html{
-			font-size: 16px;
-		}
 	}
 	@media only screen and (max-width: 991px) and (min-width: 768px){
 		.project-outter-div-margin {
@@ -84,9 +75,6 @@
 		    margin-right: auto!important;
 		}
 		
-		html{
-			font-size: 19px;
-		}
 	}
 	@media only screen and (max-width: 767px){
 		.project-outter-div-margin {
@@ -95,9 +83,7 @@
 		    margin-right: 0.8em!important;
 		}
 		
-		html{
-			font-size: 25px;
-		}
+		
 	}
 	
 	
@@ -106,6 +92,12 @@
 	.project-tap-table{
 		margin: auto;
 		cellspacing: 0;
+	}
+	.project-taptable{
+		border: 1px solid rgba(0,0,0,0.1);
+		border-left: none;
+		border-right: none;
+		border-top: none;
 	}
 	.project-tap-table .tap {
 		padding: .92857143em 1.42857143em;
@@ -246,9 +238,10 @@
 	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
-		opacity: 0.7;
-		border: 3px solid #f9bf30;
-		background-color: #f9bf30;
+		/* opacity: 0.7; */
+		border: 1px solid rgba(249, 191, 48, 0.1);
+		background-color: rgba(249, 191, 48, 0.2);
+		/* background-color: #f9bf30; */
 		/* border: 3px solid #FFC72B;
 		background-color: white; */
 		/* border: 1px solid rgba(0,0,0,0.1);
@@ -257,6 +250,8 @@
 	    border-radius: .25rem;
 	}
 	.project-element-content-div input[type=text],
+	.project-element-content-div input[type=email],
+	.project-element-content-div input[type=tel],
 	.project-element-content-div input[type=number]{
 	  height: 40px;
 	  font-size: 0.9rem;
@@ -521,6 +516,7 @@
 		background-color: #26a499;
 		color: white;
 		height:50px;
+		font-weight: bold;
 	}
 	.btn-greentea-invert:hover{
 		border:1px solid #26a499;
@@ -528,6 +524,38 @@
 		color: #26a499;
 		height:50px;
 	}
+	.btn-greentea:hover path{
+		fill: white;
+	}
+	
+	/* 인증 관련 */
+	.field em.error,
+	em.timeout {
+		color: #f66;
+	}
+	
+	input.error[type=text],
+	input.error[type=email]{
+		border-color: #f66;
+	}
+	
+	
+	/* 탭 위에 */
+	.project-notice{
+		border: 1px solid #f9bf30;
+    	border-radius: .25rem;
+    	font-weight: bold;
+    	color: rgba(0,0,0,0.3);
+    	text-align: center;
+    	padding: 15px 0px 0px 15px;
+	}
+	
+	.btn-greenteareverse-submit{
+		border:1px solid #26a499;
+		background-color: #26a499;
+		color: white;
+	}
+	
 	
 </style>
 
@@ -680,29 +708,7 @@ function getBankList(){
 }
 
 
-//insert ========================================================================
-
-function insertProjectFunc(){
-	//자바스크립트 또는 제이쿼리에서 json 객체를 만들어서
-	//서버 쪽 컨트롤러로 전송하기 
-	
-	$.ajax({
-		url: "insertProject.do",
-		data: {"projectCategoryId" : "PC-FUND"},
-		type: "post",
-		success: function(result){
-			console.log("ajax로 받은아이디]"+result);
-			$("#project-id-input").val(result);
-		},
-		error: function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
-					+ "message : " + request.responseText + "\n"
-					+ "error : " + errorData);
-		}
-	}); 
-
-}
-
+//insert, update ========================================================================
 function projectPreImgUploadFunc(){
 	
 	console.log("대표이미지 ajax로 등록");
@@ -728,23 +734,19 @@ function projectPreImgUploadFunc(){
 	});
 }
 
+
 function updateProjectFunc(){
 	
 	var project = new Object();
-	project.project_id = $("#project-id-input").val();
-	project.category_sub_id = $("#project-sub-category").val();
-	project.project_name = $("#project-title-input").val();
-	project.rep_content = $("#repcontent-textarea").text();
-	project.target_amount = $("#goalprice-input").val();
-	project.end_date = $("#fundingDatepicker").val();
-	project.refund_role = $("#refundrole-textarea").text();
-	project.certif_flag = $("#certifflag_input").val();
-	
-	if(project.target_amount == "undefined"){
-		project.target_amount = 0;
-	}
-	
-	console.log("project:" + project);
+	project.project_id = 		$("#save-project_id").val();
+	project.category_sub_id = 	$("#save-category_sub_id").val();
+	project.project_name = 		$("#save-project_name").val();
+	project.rep_content = 		$("#save-rep_content").val();
+	project.target_amount = 	$("#save-target_amount").val();
+	project.end_date = 			$("#save-end_date").val();
+	project.refund_role = 		$("#save-refund_role").val();
+	project.certif_flag = 		$("#save-certif_flag").attr("value");
+	project.request_flag = 		$("#save-requestFlag").attr("value");
 	
 	$.ajax({
 		url: "updateProject.do",
@@ -764,21 +766,21 @@ function updateProjectFunc(){
 
 }
 
-function insertProjectContentFunc(){
+function updateProjectContentFunc(){
 	
 	var content = new Object();
-	content.project_id = $("#project-id-input").val();
-	content.video_url = $("#content-videourl-input").val();
-	content.content = tinymce.get("jieuntextarea").getContent();
+	content.project_id = 	$("#save-project_id").val();
+	content.video_url = 	$("#save-video_url").val();
+	content.content = 		$("#save-content").val();
 	
 	$.ajax({
-		url: "insertProjectContent.do",
+		url: "updateProjectContent.do",
 		data: JSON.stringify(content),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
 		success: function(){
-			console.log("프로젝트 컨텐츠 insert 성공")
+			console.log("프로젝트 컨텐츠 update 성공")
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -789,16 +791,16 @@ function insertProjectContentFunc(){
 
 }
 
-function insertProjectAccountFunc(){
-	
+function updateProjectAccountFunc(){
+
 	var content = new Object();
-	content.project_id = $("#project-id-input").val();
-	content.bank_id = $("#project-bank option:selected").val();
-	content.account_name = $("#accountName-input").val();
-	content.account_number = $("#accountNumber-input").val();
+	content.project_id = 		$("#save-project_id").val();
+	content.bank_id = 			$("#save-bank_id").val();
+	content.account_name = 		$("#save-account_name").val();
+	content.account_number = 	$("#save-account_number").val();
 	
 	$.ajax({
-		url: "insertProjectAccount.do",
+		url: "updateProjectAccount.do",
 		data: JSON.stringify(content),
 		type: "post",
 		async: false,
@@ -815,37 +817,53 @@ function insertProjectAccountFunc(){
 
 }
 
+function removeGiftItemFunc(){
+	
+	var projectId = $("#save-project_id").val();
+	
+	$.ajax({
+		url: "deleteGiftItem.do",
+		data: { "projectId": projectId },
+		type: "post",
+		async: false,
+		success: function(){
+			console.log("해당 프로젝트 선물아이템 삭제 성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
+
+
 function insertGiftFunc(){
 	
-	var idesArr = [];
-	var giftEles = document.getElementsByClassName("gift-body-div");
-	for(var i=0; i<giftEles.length; ++i){
-		idesArr[i] = giftEles[i].getAttribute("id");
-	}
-	
-	var giftesArr = [];
-	for(var i=0; i<giftEles.length; ++i){
-		var idSeletor = "#"+idesArr[i];
-		var gift = new Object();
-		
-		gift.gift_id = idesArr[i];
-		gift.support_price = $(idSeletor + " .gift-supportPrice-input").val(); //후원금액
-		
-		var capacityValue = "0";
-		if($(idSeletor + " .capacity-flag").is(":checked")){
-			capacityValue = $(idSeletor + " .gift-capacity-input").val();
-		}
-		gift.capacity = capacityValue;
-		
-		gift.project_id = $("#project-id-input").val();
-		
-		//배열에 넣기
-		giftesArr[i] = gift;
-	}
+ 	var projectId = $("#save-project_id").val();
+ 	var giftEles = document.getElementsByClassName("save-gift");
+ 	var giftArr = [];
+ 	
+ 	for(var i=0; i<giftEles.length; ++i){
+ 		
+ 		var giftSaveIds = giftEles[i].getAttribute("id");
+ 		var giftIdSel = "#" + giftSaveIds;
+ 		var gift = new Object();
+ 		
+ 		gift.gift_id = 			$(giftIdSel + " .gift-gift_id").attr("value");
+ 		gift.support_price = 	$(giftIdSel + " .gift-support_price").attr("value");
+ 		gift.capacity = 		$(giftIdSel + " .gift-capacity").attr("value");
+ 		gift.project_id = 		projectId;
+ 		
+ 		console.log("capacity]"+gift.capacity);
+ 		
+ 		giftArr[i] = gift;
+ 	}
 	
 	$.ajax({
 		url: "insertGift.do",
-		data: JSON.stringify(giftesArr),
+		data: JSON.stringify(giftArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -861,32 +879,29 @@ function insertGiftFunc(){
 	
 }
 
-function insertItemFunc(){
-	
-	var idesArr = [];
-	var itemEles = document.getElementsByClassName("modal-item-list-basic");
-	for(var i=0; i<itemEles.length; ++i){
-		idesArr[i] = itemEles[i].getAttribute("id");
-	}
-	
-	var itemesArr = [];
-	for(var i=0; i<itemEles.length; ++i){
-		var idSeletor = "#"+idesArr[i];
-		var item = new Object();
-		
-		item.item_id = idesArr[i];
-		item.item_name = $(idSeletor + " .modal-item-list-name").attr("value");
-		
-		item.project_id = $("#project-id-input").val();
-		
-		//배열에 넣기
-		itemesArr[i] = item;
-	}
 
-	
+function insertItemFunc(){
+
+	var projectId = $("#save-project_id").val();
+	var itemEles = document.getElementsByClassName("save-item");
+ 	var itemArr = [];
+ 	
+ 	for(var i=0; i<itemEles.length; ++i){
+ 		
+ 		var itemSaveIds = itemEles[i].getAttribute("id");
+ 		var itemIdSel = "#" + itemSaveIds;
+ 		var item = new Object();
+ 		
+ 		item.item_id = 		$(itemIdSel + " .item-item_id").attr("value");
+ 		item.item_name = 	$(itemIdSel + " .item-item_name").attr("value");
+ 		item.project_id = 	projectId;
+ 		
+ 		itemArr[i] = item;
+ 	}
+
 	$.ajax({
 		url: "insertItem.do",
-		data: JSON.stringify(itemesArr),
+		data: JSON.stringify(itemArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -902,43 +917,29 @@ function insertItemFunc(){
 	
 }
 
+
 function insertGiftInItemFunc(){
 	
-	var index = 0;
-	var setArr = [];
-	
-	var giftEles = document.getElementsByClassName("gift-body-div");
-	
-	console.log("giftEles]"+giftEles.length);
-	
-	for(var i=0; i<giftEles.length; ++i){
-		var giftId = giftEles[i].getAttribute("id");
-		var giftIdSeletor = "#" + giftId;
-		var thisGift = document.getElementById(giftId);
-		
-		var itemEles = thisGift.getElementsByClassName("gift-in-item-list");
-		
-		console.log("itemEles]"+itemEles.length);
-		
-		for(var j=0; j<itemEles.length; ++j){
-			var itemId = itemEles[j].getAttribute("value");
-			
-			if($(giftIdSeletor + " ."+itemId + " .gift-chk-btn").hasClass("gift-chk-btn-active")){
-				
-				var giftinitem = new Object();
-				giftinitem.gift_id = giftId;
-				giftinitem.item_id = itemId;
-				giftinitem.count = $(giftIdSeletor + " ."+itemId + " .gift-in-item-count").attr("value");
-				
-				setArr[index] = giftinitem;
-				index++;
-			}
-		}
-	}
+ 	var giftInItemEles = document.getElementsByClassName("save-giftinitem");
+ 	var giftInItemArr = [];
+ 	
+ 	for(var i=0; i<giftInItemEles.length; ++i){
+ 		
+ 		var giftInItemSaveIds = giftInItemEles[i].getAttribute("id");
+ 		var giftInItemIdSel = "#" + giftInItemSaveIds;
+ 		var giftInItem = new Object();
+ 		
+ 		giftInItem.gift_id = 	$(giftInItemIdSel + " .item-gift_id").attr("value");
+ 		giftInItem.item_id = 	$(giftInItemIdSel + " .item-item_id").attr("value");
+ 		giftInItem.count = 		$(giftInItemIdSel + " .item-count").attr("value");
+ 		
+ 		giftInItemArr[i] = giftInItem;
+ 	}
+
 	
 	$.ajax({
 		url: "insertGitfInItem.do",
-		data: JSON.stringify(setArr),
+		data: JSON.stringify(giftInItemArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
@@ -1030,13 +1031,6 @@ tinymce.init({
 //ready ==========================================================================================
 	$(function(){
 		
-		//본인인증 ---------------------------------------------------------------------------------
-		IMP.init('imp42795450');
-		
-		
-		
-		
-		
 		
 		//ajax로 값 가져오기 ====================================================================================
 		//카테고리 리스트
@@ -1099,7 +1093,16 @@ tinymce.init({
 		
 		
 		//펀딩 마감일 ------------------------------------------------------
-		 $( "#fundingDatepicker" ).datepicker();
+		$("#fundingDatepicker").datepicker();
+		
+		$('#fundingDatepicker').on('change', function() {
+			var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+			var currentDate = new Date().getTime();
+			
+			var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+			$("#dday-input").attr("value", gap);
+		});
+			
 		
 		
 		//처음에는 처음 탭 영역만 보이도록 -----------------------------------------
@@ -1195,8 +1198,9 @@ tinymce.init({
 								'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" />' +
+								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" onchange="changeGiftCapacityChk('+ giftId +')" value="'+ giftId +'"/>' +
 								'<label for="cap-chk'+giftId+'"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
+								'<input type="hidden" class="capacity-flag-save-input" value="0">' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
@@ -1291,6 +1295,11 @@ tinymce.init({
             dateFormat: 'mm-dd-yy'
         }).datepicker('setDate', enddate)
         
+        var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+		var currentDate = new Date().getTime();
+		
+		var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+		$("#dday-input").attr("value", gap);
         
         
     	
@@ -1299,12 +1308,13 @@ tinymce.init({
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
 			
-			//return "레알 나감????????????";
+			lastUpdate();
 		});
 		
 		
 		 
 	});//ready end
+	
 	
 	//빈 아이템 추가 함수 ---------------------------------------------------
 	function addEmptyItemFunc(giftId){
@@ -1434,6 +1444,10 @@ tinymce.init({
 		
 		$(".tap em").removeClass("project-tap-em-active")
 		$(sessionTapId + " em").addClass("project-tap-em-active");
+		
+		//선물 수정 영역 안보이게
+		$(".gift-body-div").hide();
+		$(".gift-head-div").show();
 	}
 	
 	
@@ -1737,6 +1751,13 @@ tinymce.init({
 		}	
 	}
 	
+	
+	//제목 바뀌면 위에 타이블도 바뀌도록
+	function changeTitle(){
+		$(".project-header-title").text($("#project-title-input").val());
+	}
+	
+	
 	//임시저장 플래그
 	temporaryFlag = false;
 	
@@ -1751,11 +1772,11 @@ tinymce.init({
 		var project_id = $("#project-id-input").val();
 		var category_sub_id = $("#project-sub-category").val();
 		var project_name = $("#project-title-input").val();
-		var rep_content = $("#repcontent-textarea").text();
+		var rep_content = $("#repcontent-textarea").val();
 		var target_amount = $("#goalprice-input").val();
 		var end_date = $("#fundingDatepicker").val();
-		var refund_role = $("#refundrole-textarea").text();
-		var certif_flag = $("#certifflag_input").val();
+		var refund_role = $("#refundrole-textarea").val();
+		var certif_flag = $("#certifflag_input").attr("value");
 		
 		value += '<input id="save-project_id" type="hidden" value="'+ project_id +'">' +
 				 '<input id="save-category_sub_id" type="hidden" value="'+ category_sub_id +'">' +
@@ -1764,8 +1785,8 @@ tinymce.init({
 				 '<input id="save-target_amount" type="hidden" value="'+ target_amount +'">' +
 				 '<input id="save-end_date" type="hidden" value="'+ end_date +'">' +
 				 '<input id="save-refund_role" type="hidden" value="'+ refund_role +'">' +
+				 '<input id="save-requestFlag" type="hidden" value="N">' +
 				 '<input id="save-certif_flag" type="hidden" value="'+ certif_flag +'">';
-		
 				 
 		//projectContent
 		var video_url = $("#content-videourl-input").val();
@@ -1799,10 +1820,10 @@ tinymce.init({
 				capacity = $(idSeletor + " .gift-capacity-input").val();
 			}
 
-			value += '<div class="save-gift">' +
+			value += '<div id="'+ gift_id +'" class="save-gift">' +
 						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
 						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
-						'<input type="hidden" class="gift-capacity="'+ capacity +'">' +
+						'<input type="hidden" class="gift-capacity=" value="'+ capacity +'">' +
 					 '</div>';
 		}
 		
@@ -1816,7 +1837,7 @@ tinymce.init({
 			
 			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
 			
-			value += '<div class="save-item">' +
+			value += '<div id="'+ item_id +'" class="save-item">' +
 						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
 						'<input type="hidden" class="item-item_name" value="'+ item_name +'">' +
 					 '</div>';
@@ -1839,7 +1860,7 @@ tinymce.init({
 					
 					var count = $(giftIdSeletor + " ."+ item_id + " .gift-in-item-count").attr("value");
 					
-					value += '<div class="save-giftinitem">' +
+					value += '<div id="'+ gift_id + item_id +'" class="save-giftinitem">' +
 								'<input type="hidden" class="item-gift_id" value="'+ gift_id +'">' +
 								'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
 								'<input type="hidden" class="item-count" value="'+ count +'">' +
@@ -1850,36 +1871,7 @@ tinymce.init({
 		
 		$("#temporarySave-div").html(value);
 		
-		IMP.certification({
-		    merchant_uid : 'merchant_' + new Date().getTime() //본인인증과 연관된 가맹점 내부 주문번호가 있다면 넘겨주세요
-		}, function(rsp) {
-		    if ( rsp.success ) {
-		    	 // 인증성공
-		        console.log(rsp.imp_uid);
-		        console.log(rsp.merchant_uid);
-		        
-		        $.ajax({
-						type : 'POST',
-						url : '/certifications/confirm',
-						dataType : 'json',
-						data : {
-							imp_uid : rsp.imp_uid
-						}
-				 }).done(function(rsp) {
-				 		// 이후 Business Logic 처리하시면 됩니다.
-				 });
-		        	
-		    } else {
-		    	 // 인증취소 또는 인증실패
-		        var msg = '인증에 실패하였습니다.';
-		        msg += '에러내용 : ' + rsp.error_msg;
-
-		        alert(msg);
-		    }
-		});
-		
-		//https://github.com/iamport/iamport-manual/tree/master/SMS%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D
-		//https://admin.iamport.kr/
+		snackbarShowfunc();
 	}
 	
 	//다음 단계로 이동 버튼 
@@ -1897,7 +1889,80 @@ tinymce.init({
 		$(".tap em").removeClass("project-tap-em-active")
 		$(sessionTapId + " em").addClass("project-tap-em-active");
 		
-		document.documentElement.scrollTop = 130;
+		document.documentElement.scrollTop = 320;
+		
+		//선물 수정 영역 안보이게
+		$(".gift-body-div").hide();
+		$(".gift-head-div").show();
+	
+	}
+	
+	
+	
+	function changeGiftCapacityChk(giftId){
+	      console.log("giftId]"+giftId);
+	      
+	      if($("#"+giftId+" .capacity-flag").attr("checked") == true){
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "0");
+	         
+	         console.log("체크해제");
+	      } 
+	      else{
+	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "1");
+	         console.log("체크");
+	      }
+	   }
+	
+	function setTotalGiftCapacityChk(){
+		
+		var capacityFlagEles = document.getElementsByClassName("capacity-flag");
+		
+		for(var i=0; i<capacityFlagEles.length; ++i){
+			
+			var giftId = capacityFlagEles[i].getAttribute("value");
+			var giftIdSel = "#" + giftId;
+			
+			console.log(giftIdSel + " .capacity-flag-save-input");
+			console.log($(giftIdSel + " .capacity-flag-save-input").attr("value"));
+			if($(giftIdSel + " .capacity-flag-save-input").attr("value") == "1"){
+				$(giftIdSel + " .capacity-flag").attr("checked", true);
+				
+				console.log("true~");
+			}
+			else{
+				$(giftIdSel + " .capacity-flag").attr("checked", false);
+				console.log("false~");
+			}
+		}
+	}
+	
+	
+	//임시 저장이 됐으면 업데이트
+	function lastUpdate(){
+		//임시 저장한 이력이 있으면
+		if(temporaryFlag){
+			updateProjectFunc();
+			updateProjectContentFunc();
+			updateProjectAccountFunc();
+			removeGiftItemFunc();
+			insertGiftFunc();
+			insertItemFunc();
+			insertGiftInItemFunc();
+		}
+	}
+	
+	//검토 요청하기 버튼
+	function sendRequest(){
+		//임시 저장으로 이미 있으면 지우기
+		$("#save-requestFlag").remove();
+		
+		//요청 값을 y로 설정
+		var value = $("#temporarySave-div").html();
+		value += '<input id="save-requestFlag" type="hidden" value="Y">';
+		$("#temporarySave-div").html(value);
+		
+		location.href="projectSendRequestView.do?projectName=" + 
+				$("#project-title-input").val();
 	}
 	
 
@@ -1923,7 +1988,27 @@ tinymce.init({
 
 
 <div id="session-0" class="project-bgcol-white session-tap">
-	<h2 class="project-header-title"> 프로젝트 등록 </h2>
+<c:if test="${ project.project_name != null }">
+	<h2 class="project-header-title">${ project.project_name }</h2>
+</c:if>
+<c:if test="${ project.project_name == null }">
+	<h2 class="project-header-title">프로젝트 등록</h2>
+</c:if>
+	<div class="project-notice project-outter-div-margin">
+		<p>수정할 내용을 입력하신 후<br>
+			페이지 하단에 있는 '임시저장'버튼을 누르시면 수정된 내용이 따로 저장됩니다.<br>
+			페이지에서 벗어날 때 임시 저장한 내용이 자동으로 저장됩니다.</p>
+	</div>
+	<div class="project-outter-div-margin" align="center"  style="margin-top:20px;margin-bottom:20px;">
+		<button class="btn btn-primary" onclick=""><b>미리 보기</b></button>
+		<button class="btn btn-greentea" style="width:150px;" onclick="sendRequest()">
+			<svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ 			 <path fill="#26a499" id="svg_1444" d="m9.21033,6.39269a0.25125,0.25125 0 0 0 -0.36042,-0.34655l-4.50518,3.83286l-2.37908,-0.92009a0.57874,0.57874 0 0 1 -0.06758,-1.05005l9.87673,-5.5327a0.48691,0.48691 0 0 1 0.71563,0.47478l-0.86638,9.03114a0.5978,0.5978 0 0 1 -0.81786,0.49904l-2.89544,-1.1211l-1.81766,1.7033a0.46958,0.46958 0 0 1 -0.79014,-0.34655l0,-1.33769l3.90737,-4.88639l-0.00001,0l0.00001,0.00001z"/>
+			</svg>
+			<b>검토 요청하기</b>
+		</button>
+	</div>
+	<div class="project-taptable"></div>
 	<div class="project-tap project-outter-div-margin">
 		<table class="project-tap-table">
 			<tr>
@@ -1955,7 +2040,7 @@ tinymce.init({
 					<em style="color:black"></em>
 				</div></th>
 			</tr>
-		</table>
+		</table>	
 	</div>
 </div>
 
@@ -1973,10 +2058,12 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<c:if test="${ !empty project.project_name }">
-					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요." value="${ project.project_name }">
+					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요." 
+						value="${ project.project_name }" onchange="changeTitle()">
 				</c:if>
 				<c:if test="${ empty project.project_name }">
-					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요.">
+					<input type="text" id="project-title-input" name="title" placeholder="프로젝트 제목을 입력해주세요."
+						onchange="changeTitle()">
 				</c:if>
 			</div>
 		</div>
@@ -2025,7 +2112,7 @@ tinymce.init({
 					</c:if>
 					</div>
 				</div>
-				<input type="hidden" id="project-id-input" name="project_id"/>
+				<input type="hidden" id="project-id-input" name="project_id" value="${ project.project_id }"/>
 			</form>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -2076,9 +2163,9 @@ tinymce.init({
 				<p>펀딩이 끝나는 마감일을 정해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도">  
+				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도" >  
 				<span style="align:right; margin-left: 2%;">
-					<input type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
+					<input id="dday-input" type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
 				</span>
 			</div>
 		</div>
@@ -2202,7 +2289,10 @@ tinymce.init({
 				</table>
 				</div>
 				<br>
-				<div align="right"><button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal">아이템 관리</button></div>
+				<div align="right">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal" 
+						style="width:120px;height:45px;">아이템 관리</button>
+				</div>
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
@@ -2213,10 +2303,14 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 			<c:if test="${ gift.capacity > 0 }">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" checked />
+				<input type="hidden" class="capacity-flag-save-input" value="1">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
+				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }" checked />
 			</c:if>
 			<c:if test="${ gift.capacity == 0 }">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" />
+				<input type="hidden" class="capacity-flag-save-input" value="0">
+				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
+				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }"/>
 			</c:if>
 				<label for="cap-chk${ gift.gift_id }"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="${ gift.capacity }"> 개 입니다.</label>
 			</div>
@@ -2320,14 +2414,42 @@ tinymce.init({
 	<div class="project-title project-title-first">본인 인증</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">휴대폰</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">이메일</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>진행자님이 연락 받으실 수 있는 휴대폰 연락처를 입력해 주세요. 프로젝트 진행과 관련된 긴급한 사항 전달에만 사용됩니다.</p>
+				<p>진행자님이 실제 사용하고 계시는 이메일을 입력해주세요. 본인 인증에만 사용됩니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				휴대폰 인증
-				<input type="hidden" id="certifflag_input" value="N"/>
+			<c:if test="${ project.certif_flag == 'Y' }">
+				<b>&nbsp;&nbsp;&nbsp;&nbsp;이메일 인증 완료</b>
+				<input type="hidden" id="certifflag_input" value="Y"/>
+			</c:if>
+			<c:if test="${ project.certif_flag == 'N' }">
+				<form name="form-project" id="form-project" method="post" novalidate="novalidate">
+					<input type="hidden" name="secureStateBagKey" value="" />
+					<input type="hidden" id="certifflag_input" value="N"/>
+					<div class="check-email-field">
+						<label class="field">
+						  <div class="inner-container">
+							<input id="Email" name="Email" type="email" style="width:300px;" placeholder="이메일 계정" required aria-required="true">
+							<button id="btnCheckEmail" class="btn btn-greentea-invert" type="button" style="height:45px;">인증하기</button>
+						  </div>
+						</label>
+						<p class="notice">해당 이메일로 본인 인증 번호가 발송됩니다.<br>사용하는 이메일이 아닌 경우, 변경해주시길 바랍니다.</p>
+					</div>
+					<div id="emailToken" class="email-token" style="display: none;">
+						<label class="field">
+						  <div class="inner-container">
+							<div class="input-area">
+							  <input type="tel" style="width:300px;" id="" name="tokenValue" maxlength="6" placeholder="이메일 인증번호 입력" required aria-required="true">
+							  <em id="emailTimeOut" class="timeout">03:00</em>
+							  <button id="checkToken" type="button" class="btn btn-greentea-invert" style="margin-left:30px; height:45px;">인증확인</button>
+							</div>
+						  </div>
+						</label>
+					</div>
+				</form>
+			</c:if>
 			</div>
 		</div>
 	</div>
@@ -2377,6 +2499,227 @@ tinymce.init({
 	<button class="btn btn-primary btn-greentea-invert" style="width:120px;" onclick="nextTap(1)">처음 단계로</button>
 </div>
 </div>
+
+
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/additional-methods.min.js" type="text/javascript"></script>
+<script src="/finalp/resources/jquery-validation-1.17.0/dist/localization/messages_ko.min.js" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+<script src="https://www.wadiz.kr/resources/static/js/countdown.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function($){
+	$(function(){
+		
+		var $form       = $('#form-project');                  
+		  
+		var $btnCheckEmail        = $('#btnCheckEmail', $form);
+		var $btnChangeEmailModal  = $('#btnChangeEmailModal', $form);
+		var $Email             = $('#Email', $form);                
+	
+		function initPage() {
+		
+		  // 유효성 검사
+		  $form.validate({
+		    rules: {
+		      tokenValue: { required: true, maxlength: 6 },
+		      Email:   { required: true, email: true}
+		    },
+		    messages: {
+		      tokenValue: { required: '이메일 인증번호를 입력해주세요.', maxlength: '인증번호 6자리를 확인해주세요.' },
+		      Email:   { required: '인증번호를 보낼 이메일을 입력해주세요.', email: '이메일을 정확히 입력해주세요.'}
+		    },
+		    errorElement: 'em',
+		    errorPlacement: function(error, element) {
+		        $parent = $(element).parent();
+		        if (!$parent.hasClass('field')) {
+		          $parent = $parent.parent();
+		          console.log("필드없다");
+		        }
+		        if ($(element).prop('name') === 'tokenValue') {
+		          $parent = $('#emailToken .field', $form);
+		          console.log("인증볺");
+		        }
+		        error.appendTo($parent);
+		
+		        console.log("들어오네");
+		      }
+		  });	  
+		
+		  // 에러처리 jQuery Validate.
+		  function checkField(element, evt) {
+		    $(element).valid();
+		    var isInvalid = ($form.valid()) ? false : true;
+		  
+		  };
+		
+		  // 커스텀 rules  
+		  $.validator.addMethod("pwcheck", function(value, element) {
+		    return /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=-])(?=.*[0-9]).{8,16}$/.test(value);
+		  });
+		}
+		
+		
+		//Email 값 작성 후 유효성에 따른 버튼 활성화 처리 및 가입된 이메일 여부 확인
+		$Email.on('keyup blur', function(){
+		     var $this = $(this);
+		     var isInvalid = !$this.hasClass('valid');
+		     $btnCheckEmail.prop('disabled', isInvalid);
+		});
+   
+     
+        //이메일 계정 인증하기 시 타이머, 인증번호 입력창.show()
+        // 인증메일 발송
+     	function sendEmail() {
+     	  var Email = $Email.val();
+  
+     	  // 인증코드 이메일 발송 요청
+     	  var param = {"Email": Email}
+     	  
+     		$.ajax({
+	            type: 'POST',
+	            url: 'projectAjaxSendEmailAuthCode.do',
+	            dataType:"json",
+	            data: {Email: Email},
+	            success: function(data) {
+	          	  	var jsonStr = JSON.stringify(data);
+					var json = JSON.parse(jsonStr);
+						
+		          	if (json.code != "SUSS000") {
+		  	      	  	alertify.alert(json.message);
+		  	            $Email.val('').focus();
+		  	       	}
+		            else {
+		  	       	  	console.log(json.code+" 인증메일 발송");
+		  	       	  	alertify.alert('인증메일이 발송되었습니다. <br/>메일 안에 있는 인증번호를 확인해주세요.');
+		  	       	  	$Email.addClass('disable');
+			    	    $("#emailToken").show();
+			    	    enableTokenInput(true);
+			    	    setTimer();
+		  	       	  	
+		  	       	  	$("input[name='secureStateBagKey']").val(json.message);
+		  	       	  	console.log(json.message);
+		  	       	}  
+		        }, 
+	            fail: function(xhr) {
+	      		    alertify.alert("오류가 발생했습니다. 관리자에 문의해주세요. 오류코드 : " + xhr.status);
+	            },
+	            beforeSend: function () {
+	                var width = 0;
+	                var height = 0;
+	                var left = 0;
+	                var top = 0;
+
+	                width = 50;
+	                height = 50;
+
+	                top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+	                left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+	                if($("#div_ajax_load_image").length != 0) {
+	                       $("#div_ajax_load_image").css({
+	                              "top": top+"px",
+	                              "left": left+"px"
+	                       });
+	                       $("#div_ajax_load_image").show();
+	                }
+	                else {
+	                       $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + 
+	                       			top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 
+	                       			'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; ">' + 
+	                       			'<img src="/finalp/resources/images/ajax_loader4.gif" style="width:50px; height:50px;"></div>');
+	                }
+		         },
+		         complete: function () {
+		            $("#div_ajax_load_image").hide();
+		         }
+          });
+     	}
+        
+        $btnCheckEmail.on('click', sendEmail);
+
+        //3분 타이머 시작
+    	function setTimer() {
+	    	  var tokenExpirationTime = 180;
+	    	  
+	    	  $("#btnCheckEmail").text("재전송").prop('disabled', false);
+	    	  
+	    	  $('#emailTimeOut').countdown({
+	    	    date: (new Date()).getTime() + (tokenExpirationTime * 1000),
+	    	  	end: function() {
+		    	   	enableTokenInput(false);
+		            $('#emailTimeOut').text("입력 시간 초과").before().addClass('error');
+	    	    }
+	        });
+    	}
+
+        //인증코드 검증
+     	function checkToken() {
+	        var Email = $Email.val();
+	     	var tokenValue = $("input[name='tokenValue']").val();
+	     	var secureStateBagKey = $("input[name='secureStateBagKey']").val();
+	     	 
+	     	if ($("input[name='tokenValue']").prop("disabled")) {
+	     	 	return;
+	     	}
+
+		    // 유효성체크 요청
+			$.ajax({
+	            url: 'projectAjaxIsValidToken.do',
+	            data: {"token": tokenValue, "secureStateBagKey": secureStateBagKey},
+	            success: function(data) {
+						
+					  if (data != "SUSS000") {
+			              alertify.alert("인증번호가 틀렸습니다.");
+			       	  }
+					  else {
+			       	  	  $Email.prop('readonly', true);
+			              $btnCheckEmail.text("인증완료").addClass('gray disabled').prop('disabled', true);
+			              
+			              enableTokenInput(false);
+			              
+			              $('#emailToken').hide();
+			       	  	  $("input[name='tokenValue']").prop("disabled", true);
+			       	  	  
+			       	  	  $("#certifflag_input").attr("value","Y");
+			       	  }
+	  	       	  	  
+	            }, 
+	            fail: function(xhr) {
+	      		    alertify.alert("오류가 발생했습니다. 관리자에 문의해주세요. 오류코드 : " + xhr.status);
+	            }
+	        });
+      }
+      
+      $('#checkToken').on('click', checkToken);
+
+     
+
+      // 인증번호 입력창 활성화/비활성화
+      function enableTokenInput(isShow) {
+	        var $inputTokenValue = $("input[name='tokenValue']");
+	        var $emailTimeOut = $("#emailTimeOut");
+		    	
+	        if (isShow) {
+		        $inputTokenValue.prop("disabled", false).val("").focus();
+		        $emailTimeOut.show();
+		    } 
+	        else {
+		        $inputTokenValue.prop("disabled", true);
+		        $emailTimeOut.countdown("destroy");
+		        $Email.focus();
+	    	}
+	    	
+	        $("[id^=errMsg]").hide();
+      }
+
+      // 초기화 실행
+      initPage();
+    });
+    
+  }(window.jQuery));
+  
+</script>
+
 
 
 <!-- 아이템 관리 modal -------------------------------------------------------------- -->
@@ -2429,7 +2772,7 @@ tinymce.init({
 		border-radius: 5px;
 	}
 	.modal-item-table .modal-item-list-update{
-		background-color:#f9bf30;
+		background-color: rgba(249, 191, 48, 0.2);
 	}
 	
 	.modal-item-add-div{
@@ -2442,9 +2785,9 @@ tinymce.init({
 	.modal-item-adddetail-div{
 		padding: 1.5em;
 		margin: 0.5em;
-		border: 1px solid rgba(0,0,0,0.1);
-		border-radius: .25rem;
-		background-color:#FFFBC5;
+		border: 1px solid rgba(249, 191, 48, 0.2);
+		border-radius: .25rem; 
+		background-color: rgba(249, 191, 48, 0.2);
 	}
 	.modal-item-title{
 		padding-top: 2em;
@@ -2486,6 +2829,50 @@ tinymce.init({
 		background-color: #167b72;
 		color: white;
 	}
+	
+	/* snackbar */
+	#snackbar {
+	    visibility: hidden;
+	    min-width: 250px;
+	    margin-left: -125px;
+	    background-color: #333;
+	    color: #fff;
+	    text-align: center;
+	    border-radius: 2px;
+	    padding: 16px;
+	    position: fixed;
+	    z-index: 1;
+	    left: 50%;
+	    bottom: 30px;
+	    font-size: 17px;
+	}
+	
+	#snackbar.show {
+	    visibility: visible;
+	    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	}
+	
+	@-webkit-keyframes fadein {
+	    from {bottom: 0; opacity: 0;} 
+	    to {bottom: 30px; opacity: 1;}
+	}
+	
+	@keyframes fadein {
+	    from {bottom: 0; opacity: 0;}
+	    to {bottom: 30px; opacity: 1;}
+	}
+	
+	@-webkit-keyframes fadeout {
+	    from {bottom: 30px; opacity: 1;} 
+	    to {bottom: 0; opacity: 0;}
+	}
+	
+	@keyframes fadeout {
+	    from {bottom: 30px; opacity: 1;}
+	    to {bottom: 0; opacity: 0;}
+	}
+	
 
 </style>
 
@@ -2561,8 +2948,17 @@ tinymce.init({
 </div>
 	
 
+<div id="snackbar">현재까지 입력하신 정보가 임시 저장되었습니다.</div>
+
 
 <script>
+	//임시 저장하면 뜨는 바
+	function snackbarShowfunc() {
+	    var x = document.getElementById("snackbar")
+	    x.className = "show";
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+
 	function descriptionBtnFunc(){
 		//설명 버튼 ----------------------------------------------------
 		var acc = document.getElementsByClassName("project-description-button");
@@ -2583,6 +2979,7 @@ tinymce.init({
 
 
 </script>
+
 
 <c:import url="/WEB-INF/views/footer.jsp"/>
 </body>

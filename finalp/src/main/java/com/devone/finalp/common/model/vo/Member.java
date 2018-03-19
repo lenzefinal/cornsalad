@@ -11,28 +11,26 @@ public class Member implements java.io.Serializable {
 	private String member_id;
 	private String member_pwd;
 	private String member_name;
-	private int age;
-	private String gender;
 	private String email;
 	private String phone;
 	private String address;
+	private String address_num;
 	private Date enroll_date;
 	private String blackList_flag;
 	private String admin_flag;
 	private String profile_img_oriname;
 	private String profile_img_rename;
-	
-	public Member() {}
 
-	public Member(String member_id, String member_pwd, String member_name, int age, String gender, String email,
-			String phone, String address, Date enroll_date, String blackList_flag, String admin_flag,
+	public Member() {
+	}
+
+	public Member(String member_id, String member_pwd, String member_name, String email, String phone,
+			String address_num, String address, Date enroll_date, String blackList_flag, String admin_flag,
 			String profile_img_oriname, String profile_img_rename) {
 		super();
 		this.member_id = member_id;
 		this.member_pwd = member_pwd;
 		this.member_name = member_name;
-		this.age = age;
-		this.gender = gender;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
@@ -67,22 +65,6 @@ public class Member implements java.io.Serializable {
 		this.member_name = member_name;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -105,6 +87,14 @@ public class Member implements java.io.Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getAddress_num() {
+		return address_num;
+	}
+
+	public void setAddress_num(String address_num) {
+		this.address_num = address_num;
 	}
 
 	public Date getEnroll_date() {
@@ -154,11 +144,9 @@ public class Member implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Member [member_id=" + member_id + ", member_pwd=" + member_pwd + ", member_name=" + member_name
-				+ ", age=" + age + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", address="
-				+ address + ", enroll_date=" + enroll_date + ", blackList_flag=" + blackList_flag + ", admin_flag="
-				+ admin_flag + ", profile_img_oriname=" + profile_img_oriname + ", profile_img_rename="
-				+ profile_img_rename + "]";
+				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", address_num=" + address_num
+				+ ", enroll_date=" + enroll_date + ", blackList_flag=" + blackList_flag + ", admin_flag=" + admin_flag
+				+ ", profile_img_oriname=" + profile_img_oriname + ", profile_img_rename=" + profile_img_rename + "]";
 	}
-
 
 }

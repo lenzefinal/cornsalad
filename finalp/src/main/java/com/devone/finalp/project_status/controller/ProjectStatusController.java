@@ -2,6 +2,7 @@ package com.devone.finalp.project_status.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.ParseException;
@@ -9,7 +10,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,10 +42,12 @@ import com.devone.finalp.common.model.vo.Gift;
 import com.devone.finalp.common.model.vo.GiftInItems;
 import com.devone.finalp.common.model.vo.Item;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
 import com.devone.finalp.common.model.vo.SubCategory;
+import com.devone.finalp.member_status.controller.SMTPAuthenticator;
 import com.devone.finalp.project_status.model.service.ProjectStatusService;
 import com.devone.finalp.project_status.model.vo.GiftInItemsUpdate;
 import com.devone.finalp.project_status.model.vo.ProjectStatusUpdate;
@@ -51,10 +62,31 @@ public class ProjectStatusController {
 	public String projectInsertGuideMethod() {
 		return "projectStatus/projectInsertGuideView";
 	}
+	
+	@RequestMapping("certifPage.do")
+	public String certifPageMethod() {
+		return "projectStatus/certifPage";
+	}
 
 	@RequestMapping("fundingInsertView.do")
 	public String fundingInsertViewMethod() {
 		return "projectStatus/fundingInsertView";
+	}
+	
+	@RequestMapping("grouppurInsertView.do")
+	public String grouppurInsertViewMethod() {
+		return "projectStatus/grouppurInsertView";
+	}
+	
+	
+	@RequestMapping("projectSendRequestView.do")
+	public String projectSendRequestViewMethod(
+			@RequestParam(value="projectName") String projectName,
+			Model model) {
+		
+		model.addAttribute("projectName", projectName);
+		
+		return "projectStatus/projectSendRequestView";
 	}
 	
 	@RequestMapping("fundingUpdateView.do")
@@ -78,6 +110,25 @@ public class ProjectStatusController {
 		model.addAttribute("giftinitemList", giftinitemList);
 		
 		return "projectStatus/fundingUpdateView";
+	}
+	
+	@RequestMapping("grouppurUpdateView.do")
+	public String grouppurUpdateViewMethod(@RequestParam(value="projectId") String projectId,
+			Model model) {
+		
+		ProjectStatusUpdate project = projectStatusService.selectOneProjectStatusUpdateByProId(projectId);
+		ProjectContent projectCon = projectStatusService.selectOneProjectContentByProId(projectId);
+		ProjectAccount projectAcc = projectStatusService.selectOneProjectAccountByProId(projectId);
+		List<Product> prodList = projectStatusService.selectListProduct(projectId);
+		
+		System.out.println(project.getProject_name());
+		
+		model.addAttribute("project", project);
+		model.addAttribute("projectCon", projectCon);
+		model.addAttribute("projectAcc", projectAcc);
+		model.addAttribute("prodList", prodList);
+		
+		return "projectStatus/grouppurUpdateView";
 	}
 	
 	@RequestMapping("contentImgUpload.do")
@@ -255,9 +306,7 @@ public class ProjectStatusController {
 		//DB에 insert
 		int result = projectStatusService.insertProject(project);
 
-		
 		System.out.println("insert에서 아이디]"+proId);
-		
 		
 		//return으로 보낸 값은 response에 저장됨
 		return proId;
@@ -326,6 +375,7 @@ public class ProjectStatusController {
 			@RequestBody String param) throws Exception {
 		
 		System.out.println("[updateProject.do]");
+		System.out.println("project]"+param);
 		
 		//web.xml에서 한글 인코딩 처리가 없으면
 		//request.setCharacterEncoding("UTF-8");
@@ -334,21 +384,13 @@ public class ProjectStatusController {
 		JSONParser parser = new JSONParser();
 		JSONObject job = (JSONObject)parser.parse(param);
 		
-		/*System.out.println(job.get("project_id"));
-		System.out.println(job.get("category_sub_id"));
-		System.out.println(job.get("project_name"));
-		System.out.println(job.get("rep_content"));
-		System.out.println(job.get("target_amount"));
-		System.out.println(job.get("end_date"));
-		System.out.println(job.get("refund_role"));
-		System.out.println(job.get("certif_flag"));*/
-		
 		project.setProject_id((String)job.get("project_id"));
 		project.setCategory_sub_id((String)job.get("category_sub_id"));
 		project.setProject_name((String)job.get("project_name"));
 		project.setRep_content((String)job.get("rep_content"));
 		project.setRefund_role((String)job.get("refund_role"));
 		project.setCertif_flag((String)job.get("certif_flag"));
+		project.setProject_request_flag((String)job.get("request_flag"));
 		
 		//목표 금액
 		int targetAmount = 0;
@@ -357,6 +399,7 @@ public class ProjectStatusController {
 		try {
 			targetAmount = Integer.parseInt(targetAmountStr);
 		} catch(NumberFormatException e) {
+			System.out.println("targetAmount가 형변환안됨 :["+targetAmountStr);
 			targetAmount = 0;
 		}
 		
@@ -385,11 +428,7 @@ public class ProjectStatusController {
 			date = null;
 			paymentDate = null;
 		}
-		
-		/*System.out.println("endDateStr]"+endDateStr);
-		System.out.println("date]"+date);
-		System.out.println("paymentDate]"+paymentDate);*/
-		
+	
 		project.setEnd_date(date);
 		project.setPayment_date(paymentDate);
 	
@@ -443,11 +482,6 @@ public class ProjectStatusController {
 		JSONParser parser = new JSONParser();
 		JSONObject job = (JSONObject)parser.parse(param);
 		
-		System.out.println(job.get("project_id"));
-		System.out.println(job.get("video_url"));
-		System.out.println(job.get("content"));
-		
-		
 		projectCon.setProject_id((String)job.get("project_id"));
 		projectCon.setVideo_url((String)job.get("video_url"));
 		projectCon.setContent((String)job.get("content"));
@@ -491,6 +525,49 @@ public class ProjectStatusController {
 		
 		System.out.println("projectAccount 등록 완료");
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateProjectAccount.do", method=RequestMethod.POST)
+	public void updateProjectAccountMethod(
+			ProjectAccount projectAcc,
+			@RequestBody String param) throws Exception {
+		
+		System.out.println("[updateProjectAccount.do]");
+		System.out.println("ProjectAccount:" + param);
+		
+		//web.xml에서 한글 인코딩 처리가 없으면
+		//request.setCharacterEncoding("UTF-8");
+		
+		//전송 온 문자열을 json 객체로 변환 처리
+		JSONParser parser = new JSONParser();
+		JSONObject job = (JSONObject)parser.parse(param);
+		
+		projectAcc.setProject_id((String)job.get("project_id"));
+		projectAcc.setBank_id((String)job.get("bank_id"));
+		projectAcc.setAccount_name((String)job.get("account_name"));
+		projectAcc.setAccount_number((String)job.get("account_number"));
+		
+		
+		//DB에 update
+		projectStatusService.updateProjectAccount(projectAcc);
+		
+		System.out.println("projectContent 업데이트 완료");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteGiftItem.do", method=RequestMethod.POST)
+	public void removeGiftItemMethod(
+			@RequestParam(value="projectId") String projectId) throws Exception {
+		
+		System.out.println("[deleteGiftItem.do]");
+		System.out.println("projectId:" + projectId);
+		
+		//delete 
+		projectStatusService.deleteGift(projectId);
+		projectStatusService.deleteItem(projectId);
+		System.out.println("gift, item 삭제 완료");
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="insertGift.do", method=RequestMethod.POST)
@@ -603,14 +680,165 @@ public class ProjectStatusController {
 		System.out.println("GiftInItem 등록 완료");
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="insertProduct.do", method=RequestMethod.POST)
+	public void insertProductMethod(@RequestBody String param) throws Exception{
+		
+		System.out.println("[insertProduct.do]");
+		System.out.println("Product:" + param);
+		
+		JSONArray jarr = (JSONArray)new JSONParser().parse(param);
+		System.out.println("insertProduct] jarr size:" + jarr.size());
+		
+		for(int i=0; i<jarr.size(); ++i) {
+			JSONObject job = (JSONObject)jarr.get(i);
+			
+			Product product = new Product();
+	
+			product.setProduct_id((String)job.get("product_id"));
+			product.setProduct_name((String)job.get("product_name"));
+			product.setProject_id((String)job.get("project_id"));
+		
+			//가격
+			int price = 0;
+			String priceStr = (String)job.get("product_price");
+			
+			try {
+				price = Integer.parseInt(priceStr);
+			} catch(NumberFormatException e) {
+				price = 0;
+			}
+		
+			product.setProduct_price(price);
+			
+
+			//최소 구매량
+			int mincount = 0;
+			String mincountStr = (String)job.get("mincount");
+			
+			try {
+				mincount = Integer.parseInt(mincountStr);
+			} catch(NumberFormatException e) {
+				mincount = 0;
+			}
+		
+			product.setMincount(mincount);
+			
+			
+			//insert
+			projectStatusService.insertProduct(product);
+			
+		}
+		
+		System.out.println("Product 등록 완료");
+	}
 	
 	@ResponseBody
-	@RequestMapping(value="ceritif.do", method=RequestMethod.POST)
-	public void ceritifMethod() throws Exception{
+	@RequestMapping(value="deleteProduct.do", method=RequestMethod.POST)
+	public void deleteProductMethod(
+			@RequestParam(value="projectId") String projectId) throws Exception {
 		
-		System.out.println("ceritif");
+		System.out.println("[deleteProduct.do]");
+		System.out.println("projectId:" + projectId);
 		
+		//delete 
+		projectStatusService.deleteProduct(projectId);
+	
+		System.out.println("product 삭제 완료");
 	}
+	
+	
+	//-------------------------------------------------
+	//이메일 인증
+	//-------------------------------------------------
+	@ResponseBody
+	@RequestMapping(value="projectAjaxSendEmailAuthCode.do", method=RequestMethod.POST)
+	public String sendEmail(@RequestParam(value="Email") String email,
+						  HttpServletResponse response)  throws ServletException, IOException {
+		
+		int num = (int)(Math.random()*8999)+1001;
+		char ch = (char)((Math.random() * 26) + 65);
+		char ch2 = (char)((Math.random() * 26) + 65);
+		
+		String code=""+num+ch+ch2;
+		
+		String m_name = "Cornsalad";
+		String m_title = "Cornsalad 프로젝트 등록 이메일 인증메일 발송";
+		String m_text = "";
+		
+		m_text = "안녕하십니까. 프로젝트 등록 인증 번호 메일입니다.\n"
+				+ "저희 Cornsalad를 이용해 주시는 회원님께 감사의 말씀 드립니다.\n"
+				+ "Cornsalad는 고객 만족을 위해 최선을 다하고 있습니다.\n"
+				+ "불편사항이 있으시다면 언제든지 저희 1:1문의를 이용해 주십시오. 감사합니다.\n"
+				+ "\n"
+				+ "회원님의 메일 인증 코드는  " + code + " 입니다";
+		
+		String d_email = "cornsalad00@gmail.com";
+		
+		
+		try {
+			String mail_from = m_name + "<" + d_email + ">";
+			String mail_to = email;
+			String title = m_title;
+	
+			mail_from = new String(mail_from.getBytes("UTF-8"), "UTF-8");
+			mail_to = new String(mail_to.getBytes("UTF-8"), "UTF-8");
+			
+			Properties props = new Properties();
+			
+			props.put("mail.transport.protocol", "smtp");
+			props.put("mail.smtp.user", d_email);
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.port", "465");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.socketFactory.fallback", "false");
+			
+			Authenticator auth = new SMTPAuthenticator();
+			Session session = Session.getDefaultInstance(props, auth);
+			
+			MimeMessage msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress(d_email));
+			msg.setSubject(title, "UTF-8");
+			msg.setText(m_text);
+			msg.setHeader("Content-type", "text/html; charset=UTF-8");
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));			
+			Transport.send(msg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+		JSONObject job = new JSONObject();
+		job.put("code", "SUSS000");
+		job.put("message",code);
+		
+		return job.toJSONString();
+	}
+	
+	@RequestMapping(value="projectAjaxIsValidToken.do")
+	public void ajaxIsValidToken(@RequestParam(value="token") String token,
+								 @RequestParam(value="secureStateBagKey") String secureStateBagKey,
+								 HttpServletResponse response) throws IOException{
+		
+		
+		PrintWriter out = response.getWriter();
+		
+		if(token.equals(secureStateBagKey)) {
+			out.append("SUSS000");
+		}else {
+			out.append("");
+		}
+		
+		out.flush();
+		out.close();
+	}
+	
+	
 }
 
 

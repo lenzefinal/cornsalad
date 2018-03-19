@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.board.dao.BoardDao;
 import com.devone.finalp.board.model.vo.Board;
+import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
 
 @Service("bService")
@@ -15,8 +16,8 @@ public class BoardServiceimpl implements BoardService{
 	private BoardDao bDao;
 
 	@Override
-	public List<Board> selectbList() {
-		return bDao.selectbList();
+	public List<Board> selectbList(Board_Pagectr bp) {
+		return bDao.selectbList(bp);
 	}
 
 	@Override
@@ -42,32 +43,28 @@ public class BoardServiceimpl implements BoardService{
 
 	@Override
 	public int insertBoard_Reply(Board_Reply br) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDao.insertBoard_Reply(br);
 	}
 
 	@Override
 	public int deleteBoard(int board_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return bDao.deleteBoard(board_id);
 	}
 
 	@Override
 	public int deleteBoard_Reply(int board_reply_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDao.deleteBoard_Reply(board_reply_id);
 	}
 
 	@Override
 	public int updateBoard(Board b) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDao.updateBoard(b);
 	}
 
 	@Override
 	public int updateBoard_Reply(Board_Reply br) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDao.updateBoard_Reply(br);
 	}
 
 	@Override
@@ -80,5 +77,10 @@ public class BoardServiceimpl implements BoardService{
 	public int countbrReport(Board_Reply br) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int getlistCount(String c_id) {
+		return bDao.getlistCount(c_id);
 	}
 }

@@ -59,7 +59,8 @@
 			END_DATE = #{ end_date, jdbcType=DATE },
 			PAYMENT_DATE = #{ payment_date, jdbcType=DATE },
 			REFUND_ROLE = #{ refund_role },
-			CERTIF_FLAG = #{ certif_flag }
+			CERTIF_FLAG = #{ certif_flag },
+			PROJECT_REQUEST_FLAG = #{ project_request_flag }
 			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</select>
@@ -161,6 +162,23 @@
 		]]>
 	</select>
 	
+
+	<resultMap id="ProductResultMap" type="Product">
+		<result column="product_id" property="product_id"/>
+		<result column="project_id" property="project_id"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_price" property="product_price"/>
+		<result column="mincount" property="mincount"/>
+	</resultMap>
+	<select id="selectListProduct" resultMap="ProductResultMap"
+		parameterType="string">
+		<![CDATA[
+			SELECT * 
+			FROM PRODUCT
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
 	
 	<update id="updateProjectToUploadImg" parameterType="Project">
 		<![CDATA[
@@ -194,6 +212,17 @@
 		]]>
 	</select>
 	
+	<select id="updateProjectAccount" parameterType="ProjectAccount">
+		<![CDATA[
+			UPDATE PROJECT_ACCOUNT SET
+			BANK_ID = #{ bank_id },
+			ACCOUNT_NAME = #{ account_name },
+			ACCOUNT_NUMBER = #{ account_number }
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+
+	
 	<select id="insertProjectAccount" parameterType="ProjectAccount">
 		<![CDATA[
 			INSERT INTO PROJECT_ACCOUNT VALUES( #{ project_id }, #{ bank_id }, #{ account_name }, #{ account_number } )
@@ -218,5 +247,32 @@
 		]]>
 	</select>
 	
+	<select id="insertProduct" parameterType="Product">
+		<![CDATA[
+			INSERT INTO PRODUCT VALUES( #{ product_id }, #{ project_id }, #{ product_name }, #{ product_price }, #{ mincount } )
+		]]>
+	</select>
 	
+	<update id="deleteGift" parameterType="string">
+		<![CDATA[
+			DELETE FROM GIFT 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
+	<update id="deleteItem" parameterType="string">
+		<![CDATA[
+			DELETE FROM ITEM 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
+	<update id="deleteProduct" parameterType="string">
+		<![CDATA[
+			DELETE FROM PRODUCT 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+
+
 </mapper>

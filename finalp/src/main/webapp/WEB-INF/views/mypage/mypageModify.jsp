@@ -327,7 +327,7 @@
 					<dt><b>계좌번호</b></dt>
 					<dd><input type="text" style="height:20px;" name="account_number" value="${account.account_number }"></dd>
 					<dt><b>주소</b></dt>
-					<input type="text" id="sample3_postcode" placeholder="우편번호" class="d_form mini"> -
+					<input type="text" id="sample3_postcode" placeholder="우편번호" class="d_form mini" name="address_num" value="${member.address_num }"> -
 					<input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기" class="d_btn"><br>
 					
 					<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative;">

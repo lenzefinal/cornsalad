@@ -11,6 +11,7 @@ import com.devone.finalp.common.model.vo.Category;
 import com.devone.finalp.common.model.vo.Gift;
 import com.devone.finalp.common.model.vo.GiftInItems;
 import com.devone.finalp.common.model.vo.Item;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectAccount;
 import com.devone.finalp.common.model.vo.ProjectContent;
@@ -106,5 +107,29 @@ public class ProjectStatusDao {
 
 	public List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId) {
 		return mybatis.selectList("projectstatusMapper.selectListGiftInItemsUpdate", projectId);
+	}
+
+	public int updateProjectAccount(ProjectAccount projectAcc) {
+		return mybatis.update("projectstatusMapper.updateProjectAccount", projectAcc);
+	}
+
+	public int deleteGift(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteGift", projectId);
+	}
+
+	public int deleteItem(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteItem", projectId);
+	}
+
+	public int insertProduct(Product product) {
+		return mybatis.insert("projectstatusMapper.insertProduct", product);
+	}
+
+	public List<Product> selectListProduct(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListProduct", projectId);
+	}
+
+	public int deleteProduct(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteProduct", projectId);
 	}
 }

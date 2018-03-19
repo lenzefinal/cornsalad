@@ -20,7 +20,7 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectContent" alias="ProjectContent" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Likes" alias="Likes" />
 		<typeAlias type="com.devone.finalp.board.model.vo.Board_Reply" alias="Board_Reply" />
-		<typeAlias type="com.devone.finalp.memberaccount.model.vo.MemberAccount" alias="MemberAccount"/>
+		<typeAlias type="com.devone.finalp.board.model.vo.Board_Pagectr" alias="Board_Pagectr" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Payment" alias="Payment" />
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
@@ -31,6 +31,7 @@
 		
 		<typeAlias type="com.devone.finalp.admin.model.vo.AAlarm" alias="Aalarm" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Taboo" alias="Taboo" /> 
+		<typeAlias type="com.devone.finalp.common.model.vo.Notice" alias="Notice" /> 
 		<typeAlias type="com.devone.finalp.admin.model.vo.AReport" alias="AReport" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AQuestion" alias="AQuestion" />
 		<typeAlias type="com.devone.finalp.admin.model.vo.AProject" alias="AProject" />
@@ -42,6 +43,9 @@
 		<typeAlias type="com.devone.finalp.payment.model.vo.PayGiftView" alias="PayGiftView" />
 		<typeAlias type="com.devone.finalp.payment.model.vo.GiftItem" alias="GiftItem" />
 		<typeAlias type="com.devone.finalp.payment.model.vo.SellerInfo" alias="SellerInfo" />
+		
+		<typeAlias type="com.devone.finalp.mypage.model.vo.MemberAccount" alias="MemberAccount"/>
+		<typeAlias type="com.devone.finalp.mypage.model.vo.MyLikes" alias="MyLikes"/>
 		
 	</typeAliases>
 	
