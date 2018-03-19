@@ -172,7 +172,7 @@ public class MypageController {
 		System.out.println("등록 프로젝트 list");
 		List<Project> list = mypageService.selectMyProject(project);
 		response.setContentType("application/json; charset=utf-8");
-
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
 
@@ -181,15 +181,14 @@ public class MypageController {
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
-			/* j.put("creation_date", p.getCreation_date()); */
+			j.put("creation_date", sdf.format(p.getCreation_date()).toString());
 			jarr.add(j);
-
 		}
 		json.put("project", jarr);
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
-		out.println(json.toJSONString());
+		out.print(json.toJSONString());
 		out.flush();
 		out.close();
 		System.out.println(size);
@@ -202,16 +201,15 @@ public class MypageController {
 		System.out.println("등록 공동구매 list");
 		List<Project> list = mypageService.selectMyProduct(product);
 		response.setContentType("application/json; charset=utf-8");
-
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
-
 		for (Project p : list) {
 			JSONObject j = new JSONObject();
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
-			/* j.put("creation_date", p.getCreation_date()); */
+			j.put("creation_date", sdf.format(p.getCreation_date()).toString());
 			jarr.add(j);
 
 		}
@@ -231,7 +229,7 @@ public class MypageController {
 		System.out.println("찜한 프로젝트 list");
 		List<MyLikes> list = mypageService.selectLikesProject(projectLikes);
 		response.setContentType("application/json; charset=utf-8");
-
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
 
@@ -240,7 +238,7 @@ public class MypageController {
 			j.put("image_rename", lpj.getImage_rename());
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
-			/*j.put("creation_date", lp.getCreation_date());*/
+			j.put("creation_date", sdf.format(lpj.getCreation_date()).toString());
 			jarr.add(j);
 
 		}
@@ -252,31 +250,32 @@ public class MypageController {
 		out.flush();
 		out.close();
 	}
+
 	// 찜한 공동구매 상품 리스트 출력 메소드
-		@RequestMapping(value = "lProductList.do", method = RequestMethod.POST)
-		public void ProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
-			System.out.println("찜한 프로젝트 list");
-			List<MyLikes> list = mypageService.selectLikesProduct(productLikes);
-			response.setContentType("application/json; charset=utf-8");
+	@RequestMapping(value = "lProductList.do", method = RequestMethod.POST)
+	public void ProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
+		System.out.println("찜한 프로젝트 list");
+		List<MyLikes> list = mypageService.selectLikesProduct(productLikes);
+		response.setContentType("application/json; charset=utf-8");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-			JSONObject json = new JSONObject();
-			JSONArray jarr = new JSONArray();
+		for (MyLikes lpd : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", lpd.getImage_rename());
+			j.put("project_name", lpd.getProject_name());
+			j.put("member_id", lpd.getMember_id());
+			j.put("creation_date", sdf.format(lpd.getCreation_date()).toString());
+			jarr.add(j);
 
-			for (MyLikes lpd : list) {
-				JSONObject j = new JSONObject();
-				j.put("image_rename", lpd.getImage_rename());
-				j.put("project_name", lpd.getProject_name());
-				j.put("member_id", lpd.getMember_id());
-				/*j.put("creation_date", lp.getCreation_date());*/
-				jarr.add(j);
-
-			}
-			json.put("lproduct", jarr);
-			System.out.println(json.toJSONString());
-
-			PrintWriter out = response.getWriter();
-			out.println(json.toJSONString());
-			out.flush();
-			out.close();
 		}
+		json.put("lproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
 }
