@@ -262,6 +262,10 @@
 	#globalNav .menu-list ul.end {
 		border-bottom: none;
 	}
+	#headerBar img#bimg{
+		width: 5px;
+		height: 5px;
+	}
 	
 	#globalNavWrap{position:fixed;top:-100%;top:-100vh;left:0;width:100%;height:100%;height:100vh;background:#fff;overflow-y:auto;-webkit-transition-property:all;transition-property:all;-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-delay:0s;transition-delay:0s;transition-timing-function:ease-out;/*z-index:1000*/;-webkit-overflow-scrolling:touch}
 	#globalNav{padding: 64px 24px;padding-left:max(24px, calc(env(safe-area-inset-left) + 8px));padding-right:max(24px, calc(env(safe-area-inset-right) + 8px))}
@@ -489,6 +493,44 @@
 			height: auto;
 			padding-top: 56px;
 		}
+		
+		/* 관리자 알림 스타일 */
+		#headerBar img#bimg{
+			width: 20px;
+			height: 20px;
+		}
+		#headerBar div#alarmbox{
+			width:350px;
+			height: 153px;
+			border:1px solid #BDBDBD;
+			border-radius:3px;
+			background-color: white;
+			margin-left: 60px;
+			box-shadow: 1px 1px #212121;
+		}
+		#headerBar ul#alarmul{
+			color: black;
+		}
+		#headerBar div#alarmbox li#lidd{
+			width: 350px;
+			height: 50px;
+			font-family:"맑은 고딕";
+			border-radius:3px;
+			border-bottom:1px solid #BDBDBD;
+			font-size: 15px;
+		}
+		#headerBar div#alarmbox a.alarmlia{
+			display:table-cell;
+			display: block;
+			floar:left;
+			width: 350px;
+			line-height: 50px;
+			color: black;
+		}
+		#headerBar div#alarmbox a.alarmlia:hover{
+			background-color: #D5D5D5;
+		}
+		
 	}/* end @media screen and (min-width: 960px)*/
 
 	article, blockquote, body, dd, div, dl, dt, h1, h2, h3, h4, html, li, main, ol, p, section, table, tbody, td, th, thead, tr, ul {
@@ -503,6 +545,49 @@
  <!--  <script type="text/javascript" src="/finalp/resources/js/vendor.js"></script> -->
  	<!-- <script type="text/javascript" src="https://cdn.wadiz.kr/resources/assets/base.js?991cc506282739c2e8f8"></script> -->
   <!-- <script type="text/javascript" src="/finalp/resources/js/wMotion.js"></script> -->
+  
+   <!-- 관리자 알림 스크립트 -->
+  <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+	$(function(){
+		$("#alarmbox").hide();
+		var flag="true";
+		$("#bimg").click(function(){
+			if(flag == "true"){
+				$("#bimg").attr('src','/finalp/resources/images/adminimage/bell.png');
+					$.ajax({
+						url:"adminAalarm.do",
+						type: "post",
+						dataType: "json",
+						success:function(data){
+							console.log("data : "+ data);
+							$("#alarmbox").empty();
+							$("#alarmbox").html(
+								"<ul id='alarmul'><a class='alarmlia' href='adminReport.do'><li id='lidd'>"+
+								 "신고회원이 "+ data.reportcount +"명 있습니다.</li></a>"+
+								  "<a class='alarmlia' href='adminProject.do'><li id='lidd'>프로젝트 승인 신청이"+
+								  data.projectcount + "건 있습니다.</li></a><a class='alarmlia' href='adminQuestion.do'><li id='lidd'>"+
+								  "답변하지 않은 문의글이"+ data.questioncount+"개있습니다.</li></a></ul>"
+							);
+							
+							$("#alarmbox").show();
+							flag="false";
+						},
+						error: function(request, status, errorData){
+							alert("error code : " + request.status + "\n" 
+									+ "message : " + request.responseText + "\n"
+									+ "error : " + errorData );	
+						}
+					});
+		} else if(flag=="false") {
+				$("#bimg").attr('src','/finalp/resources/images/adminimage/bell1.png');
+				$("#alarmbox").hide();
+				flag="true";
+		}
+		});
+	});
+	
+ </script>
   
  </head>
 <body>
@@ -581,9 +666,25 @@
 		  <c:if test="${ !empty loginUser }">
 		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>
 		  	<li class="point"><a id="logoutBtn" href="logout.do">로그아웃</a></li>
-		  	<li class="point"><a href="mypageIndex.do" onclick="">마이페이지</a></li>
+		  		<c:if test="${ loginUser.member_id eq 'admin' }">
+		  			<li class="point"><img id="bimg" src="/finalp/resources/images/adminimage/bell1.png" /></li>	
+		  			<li class="point"><a href="adminMain.do" >관리자페이지</a></li>
+		  		</c:if>
+		  		<c:if test="${ loginUser.member_id ne 'admin' }">
+		  			<li class="point"><a href="mypageIndex.do" onclick="">마이페이지</a></li>
+		  		</c:if>
 		  </c:if>
 		  </ul>
+		  
+<!-- 관리자 알람 div	 -->  
+<div id="alarmbox" >
+		 <ul id="alarmul">
+		<!--  <a class="alarmlia" href="adminReport.do"><li id="lidd">신고회원이 3명 있습니다.</li></a>
+		  <a class="alarmlia" href="adminProject.do"><li id="lidd">프로젝트 승인 신청이 5건 있습니다.</li></a>
+		  <a class="alarmlia" href="adminQuestion.do"><li id="lidd">답변하지 않은 문의글이 4개있습니다.</li></a>  -->
+		</ul>
+</div>
+		  
 		  <%-- <c:import url="/WEB-INF/views/member/loginModal.jsp"/> --%>
 		
 		<!-- <button class="btn-search"><i class="icon-search"></i></button>
