@@ -14,6 +14,7 @@
 			delete member where member_id=#{member_id} and member_pwd=#{member_pwd}
 		]]>
 	</delete>
+	
 	<update id="modifyMember" parameterType="Member">
 		<if test="profile_img_oriname!=null">
 		<![CDATA[
@@ -42,4 +43,11 @@
 		
 	</select>
 
+	<insert id="insertMember" parameterType="Member">
+		<![CDATA[
+			insert into member(member_id, member_pwd, member_name, age, email) 
+			values(#{member_id}, #{member_pwd}, #{member_name}, 25, #{email})
+		]]>
+		
+	</insert>
 </mapper>
