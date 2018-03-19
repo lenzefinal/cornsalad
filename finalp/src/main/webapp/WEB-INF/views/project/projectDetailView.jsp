@@ -1185,6 +1185,7 @@ li {
 </style>
 </head>
 <body>
+<c:import url="../header.jsp"/>
 	
 
 	<div id="container" class="wd-layout-sub-content reward actionbar-hide">
@@ -1572,14 +1573,16 @@ li {
 
 										<div class="recommend-box">
 											<h3 class="title">인기 프로젝트</h3>
+											<c:set var="count" value="1"/>
 											<c:forEach var="hot" items="${hotlist}">
 											
 												<div class="item">
-													<div class="number">1</div>
+													<div class="number">${count}</div>
 													<div class="text">
 														<a>${hot.project_name }</a>
 													</div>
 												</div>
+												<c:set var ="count" value="${count+1}"/>
 											</c:forEach> 
 
 
@@ -1650,32 +1653,8 @@ li {
 												</figcaption>
 											</figure>
 										</li>
-										<li class="support-item showblock_1" id="0">
-											<figure>
-												<a href="#" onclick="goUserProfile(708130818);">
-													<div class="profile"
-														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
-												</a>
-												<figcaption class="info">
-													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
-														<span> 펀딩</span>으로 참여 하셨습니다.
-													</strong><br> <abbr>2017-08-08 </abbr>
-												</figcaption>
-											</figure>
-										</li>
-										<li class="support-item showblock_1" id="0">
-											<figure>
-												<a href="#" onclick="goUserProfile(708130818);">
-													<div class="profile"
-														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
-												</a>
-												<figcaption class="info">
-													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
-														<span> 펀딩</span>으로 참여 하셨습니다.
-													</strong><br> <abbr>2017-08-08 </abbr>
-												</figcaption>
-											</figure>
-										</li>
+										
+										
 									</ul>
 								</div>
 								<!--서포터////////////////  -->
@@ -1754,9 +1733,6 @@ li {
 					<!-- Modal -->
 					<link href="/finalp/resources/css/modalcss/blacklistModal.css"
 						rel="stylesheet">
-
-
-
 					<div class="modal fade" id="blacklist-modal" tabindex="-1"
 						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 						style="display: none; z-index: 9999;">
@@ -1767,14 +1743,12 @@ li {
 									class="xi-close-thin xi-2x"></i></a>
 								<h1>프로젝트 신고하기</h1>
 								<br>
-								<form action="/doubleb/insertblacklist" method="post">
-									<input type="hidden" name="mno_send" value=""> <input
-										type="text" value=""> <input type="hidden"
-										name="mno_receive" value=""> <input type="text"
-										value="">
-
-									<textarea name="content" placeholder="신고사유"></textarea>
-
+								<form action="reportProject.do" method="post">
+									<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
+										<input type="text" value="${ loginUser.member_name}">
+										 <input type="hidden" name="project_id" value="프로젝트 아이디"> 
+										 	<input type="text"	value="">
+									<textarea name="report_reason" placeholder="신고사유"></textarea>
 									<input type="submit" class="blacklist blacklist-submit"
 										value="신고하기">
 								</form>

@@ -3,32 +3,38 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="projectdetailMapper"><!--comment-->
-
-	<resultMap id="HotListMap" type="Likes">
+ 	<resultMap id="hotListMap" type="HotListView">
 		<result property="project_name" column="project_name"/>
+		<result property="project_id" column="project_id"/>
 		<result property="likecount" column="likecount"/>
-	</resultMap>
+		
+	</resultMap> 
 	
-	<select id="selectHotList" resultMap="HotListMap">
+	<select id="selectHotList" resultType="HotListView">
 	<![CDATA[
-		SELECT PROJECT_NAME,COUNT(L.MEMBER_ID) as likecount FROM LIKES L
-	    JOIN PROJECT P ON(P.PROJECT_ID=L.PROJECT_ID)
-		GROUP BY PROJECT_NAME
-		ORDER BY 2 DESC
+		select project_name,project_id, likecount from v_hotlist
+	]]>
+	
+	</select>
+		<select id="selectGiftList" resultType="GiftView">
+	<![CDATA[
+		select * from v_gift
 	]]>
 	</select>
-		<select id="selectHotList1" resultMap="HotListMap">
+	<insert id="insertReport"  parameterType="Report">
 	<![CDATA[
-		SELECT PROJECT_NAME,COUNT(L.MEMBER_ID) as likecount FROM LIKES L
-	    JOIN PROJECT P ON(P.PROJECT_ID=L.PROJECT_ID)
-		GROUP BY PROJECT_NAME
-		ORDER BY 2 DESC
+		insert into Report values(seq_report.nextval,'R-PROJ','201803102234341',null,null,null,#{report_reason},#{member_id},sysdate,'N')
+	]]>
+	</insert>
+	<select id="selectLikes" parameterType="String" resultType="int">
+	<![CDATA[
+		select count(project_id) from likes where project_id= #{project_id};
 	]]>
 	</select>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 </mapper>
