@@ -51,9 +51,9 @@
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
 var size=4;
-
 	$(window).ready(function(){
 		var member_id=$('#memberId').val();
+
 		$.ajax({
 			url:"myProductList.do",
 			data:{"size":size, "member_id": member_id},
@@ -63,26 +63,39 @@ var size=4;
 				var jsonStr=JSON.stringify(e);
 				var json=JSON.parse(jsonStr); 
 				var tag="";
+				if(json.product[0]!=null){
 				for(var i=0;i<json.product.length;i++){
 					if(json.product[i].image_rename==null){
 					tag+='<tr class="list" name="tt">'
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
-						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-						/* +'<td><b>${project.creation_date }</b></td>' */
+						+'<c:url var="projectDetail" value="projectDetailView.do">'
+						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+						+'<c:param name="project_id" value="${product.project_id }"/>'
+						+'</c:url>'
+						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+						+'<td><b>'+json.product[i].creation_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
 							+'</td>'
-							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-							/* +'<td><b>${project.creation_date }</b></td>' */
+							+'<c:url var="projectDetail" value="projectDetailView.do">'
+							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+							+'<c:param name="project_id" value="${product.project_id }"/>'
+							+'</c:url>'
+							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+							+'<td><b>'+json.product[i].creation_date+'</b></td>'
 							+'</tr>';
 					}
 				}
 				$('.tbl_type').html(tag);
+				} else{
+					$('#result').html("결과가 없습니다.");
+					$('#container').css("height","600px");
+				}
 			},
 			error: function(request, status, errorData) {
 				alert("에러코드: " + request.status + "\n" + "메세지: "
@@ -102,33 +115,42 @@ var size=4;
 		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
 			
 			 $.ajax({
-					url:"myProductList.do",
-					data:{"size":Number(size), "member_id":member_id},
-					dataType:"json",
-					type:"post",
-					success:function(e){
-						var jsonStr=JSON.stringify(e);
-						var json=JSON.parse(jsonStr); 
-						var tag="";
-						for(var i=0;i<json.product.length;i++){
-							if(json.product[i].image_rename==null){
+				url:"myProductList.do",
+				data:{"size":Number(size), "member_id":member_id},
+				dataType:"json",
+				type:"post",
+				success:function(e){
+					var jsonStr=JSON.stringify(e);
+					var json=JSON.parse(jsonStr); 
+					var tag="";
+					for(var i=0;i<json.product.length;i++){
+						if(json.product[i].image_rename==null){
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<c:url var="projectDetail" value="projectDetailView.do">'
+							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+							+'<c:param name="project_id" value="${product.project_id }"/>'
+							+'</c:url>'
+							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+							+'<td><b>'+json.product[i].creation_date+'</b></td>'
+							+'</tr>';
+						} else{
 							tag+='<tr class="list" name="tt">'
 								+'<td class="limg">'
-								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-								/* +'<td><b>${project.creation_date }</b></td>' */
+								+'<c:url var="projectDetail" value="projectDetailView.do">'
+								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+								+'<c:param name="project_id" value="${product.project_id }"/>'
+								+'</c:url>'
+								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+								+'<td><b>'+json.product[i].creation_date+'</b></td>'
 								+'</tr>';
-							} else{
-								tag+='<tr class="list" name="tt">'
-									+'<td class="limg">'
-									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
-									+'</td>'
-									+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-									/* +'<td><b>${project.creation_date }</b></td>' */
-									+'</tr>';
-							}
 						}
+						 size++;
+					}
 						$('.tbl_type').html(tag);
 						$('#checksize').val(Number(size));
 						
@@ -143,7 +165,6 @@ var size=4;
 					}
 				 });
 		 	}
-		 	 size=size+3;
 		 	 $('#load').removeClass('display-none');
 		 	
 		 }, 500);
@@ -156,6 +177,7 @@ var size=4;
 	<div id="container">
 		<div id="content" class="section_home" >
 			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
+			
 			<div class="c_header">
 				<h2>내가 등록한 공동구매</h2>
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>
@@ -166,6 +188,7 @@ var size=4;
 			</table>
 		</div>
 		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
+		<div id="result" style="text-align:center;"></div>
 	</div>
 </body>
 </html>

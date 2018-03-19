@@ -115,6 +115,7 @@
 			SELECT * 
 			FROM ITEM
 			WHERE PROJECT_ID = #{ project_id }
+			ORDER BY ITEM_ID
 		]]>
 	</select>
 	
@@ -130,6 +131,7 @@
 			SELECT * 
 			FROM GIFT
 			WHERE PROJECT_ID = #{ project_id }
+			ORDER BY SUPPORT_PRICE
 		]]>
 	</select>
 	

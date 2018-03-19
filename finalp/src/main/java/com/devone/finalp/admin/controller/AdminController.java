@@ -65,7 +65,7 @@ public class AdminController {
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int limit = 10; //한 페이지에 출력할 목록 갯수
+		int limit = 1; //한 페이지에 출력할 목록 갯수
 		int listCount = adminService.memListCount();
 		int maxPage = (int)((double)listCount / limit + 0.9);
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
@@ -157,13 +157,22 @@ public class AdminController {
 		return "admin/adminProject";
 	}
 	
-	//관리자 프로젝트 승인처리
-	@RequestMapping("adminProjectUp.do")
+	//관리자 프로젝트 승인처리(프로젝트 활성화)
+	@RequestMapping("adminProjectOn.do")
 	public String updateProjectOn(@RequestParam(value="project_id") String project_id) {
 		int result=adminService.updateProjectOn(project_id);
 		if(result>0)
-			System.out.println("프로젝트 승인 처리 완료");
-		return "admin/adminProject";
+			System.out.println("프로젝트 승인(활성화) 처리 완료");
+		return "redirect:adminProject.do";
+	}
+	
+	//관리자 프로젝트 비활성화
+	@RequestMapping("adminProjectOff.do")
+	public String updateProjectOff(@RequestParam(value="project_id") String project_id) {
+		int result=adminService.updateProjectOff(project_id);
+		if(result > 0)
+			System.out.println("프로젝트 비활성화 처리 완료");
+		return "redirect:adminProject.do";
 	}
 
 	//관리자 공지사항리스트

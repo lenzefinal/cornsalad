@@ -25,6 +25,7 @@ public interface AdminService {
 	List<AProject> selectProjectList();
 	List<AProject> selectOffProject();
 	int updateProjectOn(String project_id);
+	int updateProjectOff(String project_id);
 	int memListCount();
 	List<AMember> selectMemberList(HashMap<String,Object> map);
 	AMember memberDetail(String member_name);

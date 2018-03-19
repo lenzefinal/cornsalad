@@ -34,112 +34,135 @@
 <c:import url="../header.jsp"/>
 <c:import url="mypageLikesHeader.jsp"/>
 <c:import url="mypageLikesSide.jsp"/>
+
 <script type="text/javascript">
 var size=4;
-	$(window).ready(function(){
-		var member_id=$('#memberId').val();
-		$.ajax({
-			url:"lProjectList.do",
-			data:{"size":size, "member_id": member_id},
-			dataType:"json",
-			type:"post",
-			success:function(e){
-				var jsonStr=JSON.stringify(e);
-				var json=JSON.parse(jsonStr); 
-				var tag="";
-				for(var i=0;i<json.lproject.length;i++){
-					if(json.lproject[i].image_rename==null){
+
+$(window).ready(function(){
+	var member_id=$('#memberId').val();
+	$.ajax({
+		url:"lProjectList.do",
+		data:{"size":size, "member_id": member_id},
+		dataType:"json",
+		type:"post",
+		success:function(e){
+			var jsonStr=JSON.stringify(e);
+			var json=JSON.parse(jsonStr); 
+			var tag="";
+			if(json.lproject[0]!=null){
+			for(var i=0;i<json.lproject.length;i++){
+				if(json.lproject[i].image_rename==null){
+				tag+='<tr class="list" name="tt">'
+					+'<td class="limg">'
+					+'<img name="img_rename" src="resources/images/logo.png"/>'
+					+'</td>'
+					+'<c:url var="projectDetail" value="projectDetailView.do">'
+					+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+					+'<c:param name="project_id" value="${lproduct.project_id }"/>'
+					+'</c:url>'
+					+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+					+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
+					+'</tr>';
+				} else{
 					tag+='<tr class="list" name="tt">'
 						+'<td class="limg">'
-						+'<img name="img_rename" src="resources/images/logo.png"/>'
+						+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproject[i].image_rename)+'"/>'
 						+'</td>'
-						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-						/* +'<td><b>${project.creation_date }</b></td>' */
+						+'<c:url var="projectDetail" value="projectDetailView.do">'
+						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+						+'<c:param name="project_id" value="${lproduct.project_id }"/>'
+						+'</c:url>'
+						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+						+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
 						+'</tr>';
-					} else{
+				}
+			}
+			$('.tbl_type').html(tag);
+			} else{
+
+				$('#result').html("결과가 없습니다.");
+				$('#container').css("height","600px");
+			}
+		},
+		error: function(request, status, errorData) {
+			alert("에러코드: " + request.status + "\n" + "메세지: "
+					+ request.responseText + "\n" + "에러: "
+					+ errorData);
+		}
+	});
+});
+
+ $(window).scroll(function() {
+	 var member_id=$('#memberId').val();
+	 console.log("구분자");
+	 console.log($(window).scrollTop());
+	 console.log($(document).height()-$(window).height());
+	 setTimeout(function(){
+		
+	 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
+		
+		 $.ajax({
+				url:"lProjectList.do",
+				data:{"size":Number(size), "member_id":member_id},
+				dataType:"json",
+				type:"post",
+				success:function(e){
+					var jsonStr=JSON.stringify(e);
+					var json=JSON.parse(jsonStr); 
+					var tag="";
+					for(var i=0;i<json.lproject.length;i++){
+						if(json.lproject[i].image_rename==null){
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
-							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproject[i].image_rename)+'"/>'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-							/* +'<td><b>${project.creation_date }</b></td>' */
+							+'<c:url var="projectDetail" value="projectDetailView.do">'
+							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+							+'<c:param name="project_id" value="${lproduct.project_id }"/>'
+							+'</c:url>'
+							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
 							+'</tr>';
-					}
-				}
-				$('.tbl_type').html(tag);
-			},
-			error: function(request, status, errorData) {
-				alert("에러코드: " + request.status + "\n" + "메세지: "
-						+ request.responseText + "\n" + "에러: "
-						+ errorData);
-			}
-		});
-	});
-	
-	 $(window).scroll(function() {
-		 var member_id=$('#memberId').val();
-		 console.log("구분자");
-		 console.log($(window).scrollTop());
-		 console.log($(document).height()-$(window).height());
-		 setTimeout(function(){
-			
-		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
-			
-			 $.ajax({
-					url:"lProjectList.do",
-					data:{"size":Number(size), "member_id":member_id},
-					dataType:"json",
-					type:"post",
-					success:function(e){
-						var jsonStr=JSON.stringify(e);
-						var json=JSON.parse(jsonStr); 
-						var tag="";
-						for(var i=0;i<json.lproject.length;i++){
-							if(json.lproject[i].image_rename==null){
+						} else{
 							tag+='<tr class="list" name="tt">'
 								+'<td class="limg">'
-								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-								/* +'<td><b>${project.creation_date }</b></td>' */
+								+'<c:url var="projectDetail" value="projectDetailView.do">'
+								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+								+'<c:param name="project_id" value="${lproduct.project_id }"/>'
+								+'</c:url>'
+								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+								+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
 								+'</tr>';
-							} else{
-								tag+='<tr class="list" name="tt">'
-									+'<td class="limg">'
-									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproject[i].image_rename)+'"/>'
-									+'</td>'
-									+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-									/* +'<td><b>${project.creation_date }</b></td>' */
-									+'</tr>';
-							}
 						}
-						$('.tbl_type').html(tag);
-						$('#checksize').val(Number(size));
-						
-					},
-					complete:function(){
-						$('#load').addClass('display-none');
-					},
-					error: function(request, status, errorData) {
-						alert("에러코드: " + request.status + "\n" + "메세지: "
-								+ request.responseText + "\n" + "에러: "
-								+ errorData);
+						 size++;
 					}
-				 });
-		 	}
-		 	 size=size+3;
-		 	 $('#load').removeClass('display-none');
-		 	
-		 }, 500);
-		
-	}); 
+					$('.tbl_type').html(tag);
+					$('#checksize').val(Number(size));
+					
+				},
+				complete:function(){
+					$('#load').addClass('display-none');
+				},
+				error: function(request, status, errorData) {
+					alert("에러코드: " + request.status + "\n" + "메세지: "
+							+ request.responseText + "\n" + "에러: "
+							+ errorData);
+				}
+			 });
+	 	}
+	 	 $('#load').removeClass('display-none');
+	 }, 1000);
 	
+}); 
 	
 </script>
 	
 	<div id="container">
 		<div id="content" class="section_home" >
 			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
+			
 			<div class="c_header">
 				<h2>찜한 프로젝트</h2>
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>
@@ -150,6 +173,7 @@ var size=4;
 			</table>
 		</div>
 		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
+		<div id="result" style="text-align:center;"></div>
 	</div>
 </body>
 </html>

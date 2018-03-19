@@ -1,5 +1,7 @@
 package com.devone.finalp.mypage.model.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +14,7 @@ public class MyLikes implements java.io.Serializable {
 	private String project_id;
 	private String member_id;
 	private String project_name;
-	private String creation_date;
+	private Date creation_date;
 	private String image_rename;
 	private int size;
 
@@ -20,7 +22,7 @@ public class MyLikes implements java.io.Serializable {
 
 	}
 
-	public MyLikes(String project_id, String member_id, String project_name, String creation_date, String image_rename,
+	public MyLikes(String project_id, String member_id, String project_name, Date creation_date, String image_rename,
 			int size) {
 		super();
 		this.project_id = project_id;
@@ -55,11 +57,11 @@ public class MyLikes implements java.io.Serializable {
 		this.project_name = project_name;
 	}
 
-	public String getCreation_date() {
+	public Date getCreation_date() {
 		return creation_date;
 	}
 
-	public void setCreation_date(String creation_date) {
+	public void setCreation_date(Date creation_date) {
 		this.creation_date = creation_date;
 	}
 

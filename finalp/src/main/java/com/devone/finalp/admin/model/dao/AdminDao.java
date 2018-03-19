@@ -69,6 +69,11 @@ public class AdminDao {
 	public int updateProjectOn(String project_id) {
 		return mybatis.update("adminmapper.ponupdate", project_id);
 	}
+	
+	public int updateProjectOff(String project_id) {
+		return mybatis.update("adminmapper.poffupdate", project_id);
+	}
+
 
 	public int memListCount() {
 		return mybatis.selectOne("adminmapper.memlistCount");
@@ -122,6 +127,7 @@ public class AdminDao {
 		return mybatis.delete("adminmapper.noticeDelete",notice_id);
 	}
 
+	
 	
 
 }
