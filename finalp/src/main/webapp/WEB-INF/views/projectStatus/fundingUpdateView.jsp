@@ -557,6 +557,12 @@
 	}
 	
 	
+	
+	textarea#refundrole-textarea{
+		min-height: 200px;
+		overflow-y:scroll;
+	}
+	
 </style>
 
 
@@ -579,7 +585,7 @@ function getCategoryListFunc(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].categoryId +'">' +
@@ -622,7 +628,7 @@ function getSubCategoryListFuncFirst(categoryId){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].subCategoryId +'">' +
@@ -656,7 +662,7 @@ function getSubCategoryListFunc(categoryId){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].subCategoryId +'">' +
@@ -686,7 +692,7 @@ function getBankList(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].bankId +'">' +
@@ -1304,7 +1310,7 @@ tinymce.init({
         
         
     	
-        
+		
 		
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
@@ -1576,11 +1582,11 @@ tinymce.init({
 		var itemName = $(".modal-item-adddetail-div input").val();
 		var itemNameRep = itemName;
 		
-		itemNameRep = itemNameRep.replace(/</g,"&lt;");
+		/* itemNameRep = itemNameRep.replace(/</g,"&lt;");
 		itemNameRep = itemNameRep.replace(/>/g,"&gt;");
 		itemNameRep = itemNameRep.replace(/\"/g,"&#34;");
 		itemNameRep = itemNameRep.replace(/\'/g,"&#39;");
-		itemNameRep = itemNameRep.replace(/\n/g,"<br />");
+		itemNameRep = itemNameRep.replace(/\n/g,"<br />"); */
 
 		var itemId = new Date().getTime();
 		
@@ -1631,11 +1637,11 @@ tinymce.init({
 		var itemName = $("#"+itemId+" .modal-item-list-name").attr("value");
 		var itemNameRep = itemName;
 		
-		itemNameRep = itemNameRep.replace(/</g,"&lt;");
+		/* itemNameRep = itemNameRep.replace(/</g,"&lt;");
 		itemNameRep = itemNameRep.replace(/>/g,"&gt;");
 		itemNameRep = itemNameRep.replace(/\"/g,"&#34;");
 		itemNameRep = itemNameRep.replace(/\'/g,"&#39;");
-		itemNameRep = itemNameRep.replace(/\n/g,"<br />");
+		itemNameRep = itemNameRep.replace(/\n/g,"<br />"); */
 		
 		var value = $("#"+giftId+" .project-gift-in-item-table").html();
 		
@@ -1710,11 +1716,11 @@ tinymce.init({
 		var updateName = $(updateNamgSel).val();
 		var updateNameRep = updateName;
 		
-		updateNameRep = updateNameRep.replace(/</g,"&lt;");
+		/* updateNameRep = updateNameRep.replace(/</g,"&lt;");
 		updateNameRep = updateNameRep.replace(/>/g,"&gt;");
 		updateNameRep = updateNameRep.replace(/\"/g,"&#34;");
 		updateNameRep = updateNameRep.replace(/\'/g,"&#39;");
-		updateNameRep = updateNameRep.replace(/\n/g,"<br />");
+		updateNameRep = updateNameRep.replace(/\n/g,"<br />"); */
 		
 		var nameTagSel = "#"+itemId+" .modal-item-list-name";
 		$(nameTagSel).attr("value", updateNameRep);
@@ -1800,6 +1806,11 @@ tinymce.init({
 		var refund_role = $("#refundrole-textarea").val();
 		var certif_flag = $("#certifflag_input").attr("value");
 		
+		if(category_sub_id == 'null' ||
+				category_sub_id == '선택하세요.'){
+			category_sub_id = "";
+		}
+		
 		value += '<input id="save-project_id" type="hidden" value="'+ project_id +'">' +
 				 '<input id="save-category_sub_id" type="hidden" value="'+ category_sub_id +'">' +
 				 '<input id="save-project_name" type="hidden" value="'+ project_name +'">' +
@@ -1823,6 +1834,11 @@ tinymce.init({
 		var account_name = $("#accountName-input").val();
 		var account_number = $("#accountNumber-input").val();
 		
+		if(bank_id == "undefined" ||
+				bank_id == '선택하세요.'){
+			bank_id = "";
+		}
+		
 		value += '<input id="save-bank_id" type="hidden" value="'+ bank_id +'">' +
 				 '<input id="save-account_name" type="hidden" value="'+ account_name +'">' +
 				 '<input id="save-account_number" type="hidden" value="'+ account_number +'">';
@@ -1842,7 +1858,7 @@ tinymce.init({
 				capacity = $(idSeletor + " .gift-capacity-input").val();
 			}
 
-			value += '<div id="'+ gift_id +'" class="save-gift">' +
+			value += '<div id="save'+ gift_id +'" class="save-gift">' +
 						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
 						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
 						'<input type="hidden" class="gift-capacity" value="'+ capacity +'">' +
@@ -1860,14 +1876,14 @@ tinymce.init({
 			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
 			var item_nameRep = item_name;
 			
-			item_nameRep = item_nameRep.replace(/</g,"&lt;");
+			/* item_nameRep = item_nameRep.replace(/</g,"&lt;");
 			item_nameRep = item_nameRep.replace(/>/g,"&gt;");
 			item_nameRep = item_nameRep.replace(/\"/g,"&#34;");
 			item_nameRep = item_nameRep.replace(/\'/g,"&#39;");
-			item_nameRep = item_nameRep.replace(/\n/g,"<br />");
+			item_nameRep = item_nameRep.replace(/\n/g,"<br />"); */
 			
 			
-			value += '<div id="'+ item_id +'" class="save-item">' +
+			value += '<div id="save'+ item_id +'" class="save-item">' +
 						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
 						'<input type="hidden" class="item-item_name" value="'+ item_nameRep +'">' +
 					 '</div>';
@@ -1995,7 +2011,11 @@ tinymce.init({
 				$("#project-title-input").val();
 	}
 	
-
+	//textarea 자동조절
+	function resize(obj) {
+		  obj.style.height = "1px";
+		  obj.style.height = (12+obj.scrollHeight)+"px";
+	}
 	
 	
 	//임시
@@ -2282,11 +2302,11 @@ tinymce.init({
 						<tr class="gift-in-item-list ${ item.item_id }" value="${ item.item_id }">	
 					</c:if>
 						<%-- <c:set var="itemName" value="${ fn:replace(item.item_name, '<','&lt;')}"/> --%>
-						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&lt;') }"/>
+					<%-- 	<c:set var="itemName" value="${ item.item_name.replace(/</g,'&lt;') }"/>
 						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&gt;') }"/>
 						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&#34;') }"/>
 						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&#39;') }"/>
-						<c:set var="itemName" value="${ item.item_name.replace(/</g,'<br />') }"/>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'<br />') }"/> --%>
 							<td>
 								<input type="hidden" class="gift-in-item-hidden-itemId" value="${ item.item_id }">
 								<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2301,7 +2321,7 @@ tinymce.init({
 								 </g>
 								</svg>
 							</td>
-							<td style="text-align:left;"><div class="gift_in_item_name" value="${ itemName }">${ item.item_id }</div></td>
+							<td style="text-align:left;"><div class="gift_in_item_name" value="${ item.item_name }">${ item.item_name }</div></td>
 							<td>
 								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 								 <g class="itemcount-minus" value="#${ gift.gift_id } .${ item.item_id }">
@@ -2379,10 +2399,12 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 			<c:if test="${ project.refund_role != null }">
-				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명">${ project.refund_role }</textarea>
+				<textarea name="text" id="refundrole-textarea" onkeydown="resize(this)" onkeyup="resize(this)" class="reward-input" 
+					placeholder="정책 내용" title="상세설명">${ project.refund_role }</textarea>
 			</c:if>
 			<c:if test="${ project.refund_role == null }">
-				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
+				<textarea name="text" id="refundrole-textarea" onkeydown="resize(this)" onkeyup="resize(this)" class="reward-input" 
+				placeholder="정책 내용" title="상세설명"></textarea>
 			</c:if>
 			</div>
 		</div>

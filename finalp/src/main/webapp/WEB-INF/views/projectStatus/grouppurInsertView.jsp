@@ -503,6 +503,11 @@
 		color: white;
 	}
 	
+	textarea#refundrole-textarea{
+		min-height: 200px;
+		overflow-y:scroll;
+	}
+	
 </style>
 
 
@@ -525,7 +530,7 @@ function getCategoryListFunc(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].categoryId +'">' +
@@ -556,7 +561,7 @@ function getSubCategoryListFunc(categoryId){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].subCategoryId +'">' +
@@ -586,7 +591,7 @@ function getBankList(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].bankId +'">' +
@@ -1207,6 +1212,15 @@ function insertProductFunc(){
 	}
 	
 	
+	
+	//textarea 자동조절
+	function resize(obj) {
+		  obj.style.height = "1px";
+		  obj.style.height = (12+obj.scrollHeight)+"px";
+	}
+	
+	
+	
 	//임시
 	function testtinymce(){
 		updateProjectFunc();
@@ -1446,7 +1460,8 @@ function insertProductFunc(){
 				<p>마감일 다음날 결제가 일괄 진행되며 결제된 금액은 자동으로 진행자에게 전달되므로, 그 후의 환불 및 교환 요청은 전적으로 진행자가 약속하는 정책을 따릅니다. 이 프로젝트에 꼭 맞는 환불 및 교환 정책을 신중하게 작성해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
+				<textarea name="text" id="refundrole-textarea" onkeydown="resize(this)" onkeyup="resize(this)"
+					class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
 			</div>
 		</div>
 	</div>
