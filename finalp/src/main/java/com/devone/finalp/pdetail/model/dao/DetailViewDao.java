@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -40,5 +41,16 @@ public class DetailViewDao {
 	
 		return mybatis.selectOne("projectdetailMapper.selectLikes", project_id);
  
+	}
+	public Likes existLike(Likes likes) {
+		return mybatis.selectOne("projectdetailMapper.existLike", likes);
+	}
+
+	public int addLikes(Likes likes) {
+		return mybatis.insert("projectdetailMapper.addLikes", likes);
+	}
+
+	public int deleteLike(Likes likes) {
+		return mybatis.delete("projectdetailMapper.deleteLike", likes);
 	}
 }

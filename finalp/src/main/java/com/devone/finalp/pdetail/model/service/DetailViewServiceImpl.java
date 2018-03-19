@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
 import com.devone.finalp.pdetail.model.vo.GiftView;
@@ -34,6 +35,17 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public int selectLikes(String project_id) {
 		
 		return detailviewDao.selectLikes(project_id);
+	}
+	@Override
+	public Likes existList(Likes likes) {
+		
+		return detailviewDao.existLike(likes);
+	}
+	public int addLike(Likes likes) {
+		return detailviewDao.addLikes(likes);
+	}
+	public int deleteLike(Likes likes) {
+		return detailviewDao.deleteLike(likes);
 	}
 
 	

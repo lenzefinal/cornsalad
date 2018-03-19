@@ -46,6 +46,7 @@
 
 	});
 </script>
+
 <style>
 body, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td,
 	form, fieldset, legend, input, textarea, button, select {
@@ -1186,7 +1187,10 @@ li {
 </head>
 <body>
 <c:import url="../header.jsp"/>
+
+
 	
+<input type="hidden" id="member_id" value="${loginUser.member_id }">
 
 	<div id="container" class="wd-layout-sub-content reward actionbar-hide">
 		<!-- S : 캠페인 액션바 -->
@@ -1250,14 +1254,93 @@ li {
 								<button onclick="location.href='account.do'"
 									class="wz-btn primary large block">펀딩하기</button>
 							</div>
+							
+							
 
 							<div class="btn-wrap share">
-								<button id="btnLike" class="campaign-like btn-like"
+								<button id="btnLike" class="cam	paign-like btn-like"
 									style="width: 100%">
-									<img src="resources/images/icon/하트.png"
-										style="width: 10%; size: 10%;"> <em id="cntLike"
-										class="cnt-like">119</em>
+									<c:if test="${empty loginUser}">
+											<img src="resources/images/icon/love1.png"
+												class="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
+												class="cnt-like">${ like}</em>
+									</c:if>
+									<c:if test="${not empty loginUser}">	
+											<c:if test="${not empty exist}">
+												<img src="resources/images/icon/love2.png"
+												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
+												class="cnt-like">${ like}</em>
+											</c:if>
+											<c:if test="${empty exist}">
+												<img src="resources/images/icon/love1.png"
+												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
+												class="cnt-like">${ like}</em>
+											</c:if>
+									</c:if>
 								</button>
+								
+								<script>
+									$(document).ready(function(){
+										
+										var member_id=$("#member_id").val();
+										
+								 		/* $("#like3").on("click",function(){
+											$.ajax({
+												url:"addLike.do",
+												type:"post",
+												data:{project_id:"201803102249023",
+													  member_id: member_id},
+												success:function(data){
+													if(data="ok"){
+														console.log("add");
+														$("#btnLike").html('<img src="resources/images/icon/love2.png" id="like2" style="width: 10%; size: 10%;">')
+													}
+												}
+											});
+										}); 
+								 		
+								 		
+										$("#like2").on("click",function(){
+											$.ajax({
+												url:"deleteLike.do",
+												type:"post",
+												data:{project_id:"201803102249023",
+													  member_id: member_id},
+												success:function(data){
+													if(data="ok"){
+														console.log("delete");
+														//$("#btnLike").html('<img src="resources/images/icon/love1.png" id="like3" style="width: 10%; size: 10%;">')
+														$("#like3").attr('src',"resources/images/icon/love1.png" );
+													}
+												}
+											});
+										}); */ 
+										
+										$("#btnLike").on("click",function(){
+											$.ajax({
+												url:"Like.do",
+												type:"post",
+												dataType:"json",
+												data:{project_id:"201803102249023",
+													  member_id: member_id},
+												success:function(data){
+													if(data.result==="add"){
+														console.log("add");
+														$("#like").attr("src","resources/images/icon/love2.png");
+														$("#cntLike").text(data.like);
+													}else{
+														console.log("delete");
+														$("#like").attr("src","resources/images/icon/love1.png");
+														$("#cntLike").text(data.like);
+													}
+												}
+											});
+										}); 
+											
+											
+									});
+</script>
+								
 								<div id="shareSection" class="share-section">
 									<ul class="share-list" style="margin-top: 10px">
 										<li><button class="wz-btn icon-facebook circular"
@@ -1484,6 +1567,7 @@ li {
 
 
 											</button>
+											
 
 											<button class="rightinfo-reward-list soldout ing"
 												onclick="backMoney('26839', 'true')">

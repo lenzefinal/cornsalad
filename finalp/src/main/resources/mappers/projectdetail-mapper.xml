@@ -28,9 +28,26 @@
 	</insert>
 	<select id="selectLikes" parameterType="String" resultType="int">
 	<![CDATA[
-		select count(project_id) from likes where project_id= #{project_id};
+		select count(project_id) from likes where project_id= #{project_id}
 	]]>
 	</select>
+	<select id="existLike" parameterType="Likes" resultType="Likes">
+	<![CDATA[
+		select * from likes where project_id=#{project_id} and member_id=#{member_id} 
+	]]>
+	</select>
+	<insert id="addLikes"  parameterType="Likes">
+	<![CDATA[
+			insert into Likes values(#{project_id},#{member_id})
+	]]>
+	</insert>
+	
+	<delete id="deleteLike" parameterType="Likes">
+		<![CDATA[
+			delete from Likes where project_id=#{project_id} and member_id=#{member_id}
+		]]>
+	</delete>
+
 
 
 
