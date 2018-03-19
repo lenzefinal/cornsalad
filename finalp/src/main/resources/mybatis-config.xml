@@ -22,6 +22,7 @@
 		<typeAlias type="com.devone.finalp.board.model.vo.Board_Pagectr" alias="Board_Pagectr" />
 		<typeAlias type="com.devone.finalp.memberaccount.model.vo.MemberAccount" alias="MemberAccount"/>
 		<typeAlias type="com.devone.finalp.common.model.vo.Payment" alias="Payment" />
+		<typeAlias type="com.devone.finalp.common.model.vo.Report" alias="Report" />
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.MemberView" alias="MemberView"/>
