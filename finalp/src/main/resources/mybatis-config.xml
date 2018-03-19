@@ -47,6 +47,7 @@
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MemberAccount" alias="MemberAccount"/>
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MyLikes" alias="MyLikes"/>
 		
+		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
@@ -59,5 +60,6 @@
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/myStatus-mapper.xml"/>
 		<mapper resource="mappers/payment-mapper.xml"/>
+		<mapper resource="mappers/projectlist-mapper.xml" />
 	</mappers>
 </configuration>
