@@ -28,8 +28,11 @@
 		border:1.5px solid #F7D358; 
 	}
 	#projec div.okptable{
-		background-color:#F6FFCC;
+		background-color:#FAF4C0;
 		text-align:center;
+	}
+	#projec button.btn{
+		font-size:10pt;
 	}
 	#projec img.iconi{
 		width:18px;
@@ -82,6 +85,7 @@
     <thead>
       <tr class="active">
         <th>카테고리</th>
+        <th>소카테고리</th>
         <th>제목</th>
 		<th>작성자</th>
 		<th>승인</th>
@@ -93,6 +97,7 @@
     			<c:forEach items="${ oplist }" var="oprow">
     				<tr>
        					<td>${ oprow.project_category_name }</td>
+       					<td>${ oprow.category_sub_name }</td>
         				<td>${ oprow.project_name }</td>
 						<td>${ oprow.member_name }</td>
 						<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
@@ -135,10 +140,12 @@
     <thead>
       <tr class="active">
         <th>카테고리</th>
+        <th>소카테고리</th>
         <th>제목</th>
 		<th>작성자</th>
 		<th>후원현황</th>
-		<th>진행 / 종료</th>
+		<th>목표 달성</th>
+		<th>활성화 / 비활성화</th>
       </tr>
     </thead>
     <tbody>
@@ -147,15 +154,29 @@
     			<c:forEach items="${ aplist }" var="aprow">
     				<tr>
        					<td>${ aprow.project_category_name }</td>
+       					<td>${ aprow.category_sub_name }</td>
         				<td>${ aprow.project_name }</td>
 						<td>${ aprow.member_name }</td>
 						<td>${ aprow.spon } % </td>
 						<td>
-							<c:if test="${ aprow.ing_flag eq 'Y' }">
+						<c:choose>
+							<c:when test="${ aprow.ing_flag eq 'Y' }">
 								진행중
+							</c:when>
+							<c:when test="${ (aprow.ing_flag eq 'N') and ( aprow.spon < 100 ) }">
+								실패 <button class="btn btn-danger">환불</button>
+							</c:when>
+							<c:when test="${ (aprow.ing_flag eq 'N') and (aprow.spon >= 100) }">
+								성공
+							</c:when>
+						</c:choose>
+						</td>
+						<td>
+							<c:if test="${ aprow.project_onoff_flag eq 'Y' }">
+								<a href="adminProjectOff.do?project_id=${ aprow.project_id }"><button class="btn btn-danger">비활성화</button></a>
 							</c:if>
-							<c:if test="${ aprow.ing_flag eq 'N' }">
-								종료
+							<c:if test="${ aprow.project_onoff_flag eq 'N' }">
+								<a href="adminProjectOn.do?project_id=${ aprow.project_id }"><button class="btn btn-success">활성화</button></a>
 							</c:if>
 						</td>
       				</tr>
