@@ -8,8 +8,12 @@
 		<![CDATA[
 			select * from v_projectList
 		]]>
-		
 	</select>
-
+	
+	<select id="selectProjectListKeyword" parameterType="String" resultType="ProjectListView">
+		<![CDATA[
+			select * from v_projectList where project_name like #{keyword}
+		]]>
+	</select>
 
 </mapper>

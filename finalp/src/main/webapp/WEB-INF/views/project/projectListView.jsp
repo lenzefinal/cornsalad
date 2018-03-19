@@ -406,7 +406,7 @@
 		
 		<div id="searchSortArea">
 			<div class="search-area">
-				<input type="text" id="keyword" name="keyword" placeholder="프로젝트 검색하기">
+				<input type="text" id="keyword" name="project_name" placeholder="프로젝트 검색하기">
 				<button type="button" onclick="keywordSearch()" style="box-sizing:inherit !important;"></button>
 			</div>
 				<div class="selects-wrap">
@@ -429,6 +429,8 @@
 					</div>
 				</div>
 		</div>
+		
+		
 		
 		<div class="thumnailContainer">
 			<c:forEach var="projectList" items="${ list }">
@@ -478,6 +480,67 @@
 			
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+			
+			 
+			$("#keyword").keyup(function(){
+				var keyword = $('#keyword').val();
+				console.log(keyword);
+				
+				$.ajax({
+					url:"keywordSearch.do",
+					data:{project_name: keyword},
+					dataType:"json",
+					type:"post",
+					success:function(data){
+						var jsonStr = JSON.stringify(data);
+						var json = JSON.parse(jsonStr);
+						var values="";
+						
+						for(var i in json.list){
+							values+=
+								'<div class="thumnailContent">'+
+										'<c:url var="projectDetail" value="projectDetailView.do">'+
+											'<c:param name="member_id" value='+${ loginUser.member_id }+'/>'+
+											'<c:param name="project_id" value='+json.list[i].project_id+'/>'+
+										'</c:url>'+
+										'<a class="thumnailAtag" href="${ projectDetail }">'+
+											'<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
+												'<div class="thumnailTextWrap">'+
+													'<div class="fundingTitle">'+
+														'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
+														'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
+													'</div>'+
+													'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
+														'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>'+
+														'<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라-->'+
+													'</svg>'+
+													'<div class="fundingInfo">'+
+														'<span style="font-size: 0.8rem;">'+
+															'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
+															'<span style="font-weight: 700;">'+21+'</span>'+
+															'<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
+														'</span>'+
+														'<div>'+
+															'<span class="fundingMoney">'+
+																'<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->'+
+															'</span>'+
+															'<span class="fundingRate">'+
+																'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
+															'</span>'+
+														'</div></div></div></a></div>'														;
+						}
+						$(".thumnailContainer").html(values);
+						
+						
+					}
+				});
+			});
+			
+		});
+	</script>
 	
 	<c:import url="../footer.jsp"/>
 </body>
