@@ -44,10 +44,11 @@
 		margin:10px;
 	}
 	#adminmemde .table{
-		width:600px;
+		width:800px;
 		clear:both;
 		text-align:center;
 		float:right;
+		margin-top: 2%;
 	}
 	#adminmemde a.btna{
 		text-decoration:none;

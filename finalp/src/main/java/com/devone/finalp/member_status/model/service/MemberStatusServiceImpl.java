@@ -22,6 +22,11 @@ public class MemberStatusServiceImpl implements MemberStatusService {
 		return memberStatusDao.joinedEmailFind(email);
 	}
 
+	@Override
+	public int insertMember(Member member) {
+		return memberStatusDao.insertMember(member);
+	}
+
 
 
 }

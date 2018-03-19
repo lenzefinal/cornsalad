@@ -6,4 +6,6 @@ public interface MemberStatusService {
 
 	Member login(Member member);
 	Member joinedEmailFind(String email);
+	
+	int insertMember(Member member);
 }

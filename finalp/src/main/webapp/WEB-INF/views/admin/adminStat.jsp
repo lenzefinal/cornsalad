@@ -92,20 +92,20 @@
   <h3>통계</h3>
   <hr class="hrst">
   <ul class="tab">
-    <li class="current" data-tab="tab1"><a href="#" id="sta">PROJECT</a></li>
-    <li data-tab="tab2"><a href="#" id="sta">PRODUCT</a></li>
-    <li data-tab="tab3"><a href="#" id="sta">SPONSOR</a></li>
+    <li class="current" data-tab="tab1"><a href="#" id="sta">CATEGORY COUNT</a></li>
+    <li data-tab="tab2"><a href="#" id="sta">PROJECT TOP 10</a></li>
+    <li data-tab="tab3"><a href="#" id="sta">SPONSOR TOP 3</a></li>
   </ul>
 
     <div id="tab1" class="tabcontent current">
     <br>
-      <h4><strong>프로젝트</strong> 매출 TOP 10</h4>
+      <h4><strong>카테고리 </strong>별 프로젝트 현황</h4>
 	  <hr>
       <div class="stback"></div>
     </div>
     <div id="tab2" class="tabcontent">
     <br>
-      <h4><strong>공동구매</strong> 매출 TOP 10</h4>
+      <h4><strong>매출</strong> TOP 10</h4>
       <hr>
 	  <div class="stback"></div>
     </div>

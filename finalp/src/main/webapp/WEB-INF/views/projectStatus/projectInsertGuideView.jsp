@@ -52,7 +52,7 @@
 	}
 	
 	function funUpdate(){
-		location.href="fundingUpdateView.do?projectId=152104495033964";
+		location.href="fundingUpdateView.do?projectId=152145778182347";
 	}
 	
 	function grouUpdate(){

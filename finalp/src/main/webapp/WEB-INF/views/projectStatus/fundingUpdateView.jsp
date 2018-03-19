@@ -896,6 +896,7 @@ function insertItemFunc(){
  		item.item_name = 	$(itemIdSel + " .item-item_name").attr("value");
  		item.project_id = 	projectId;
  		
+ 		console.log(item.item_name);
  		itemArr[i] = item;
  	}
 
@@ -1573,12 +1574,19 @@ tinymce.init({
 	//아이템 저장
 	function saveItem(){
 		var itemName = $(".modal-item-adddetail-div input").val();
+		var itemNameRep = itemName;
 		
+		itemNameRep = itemNameRep.replace(/</g,"&lt;");
+		itemNameRep = itemNameRep.replace(/>/g,"&gt;");
+		itemNameRep = itemNameRep.replace(/\"/g,"&#34;");
+		itemNameRep = itemNameRep.replace(/\'/g,"&#39;");
+		itemNameRep = itemNameRep.replace(/\n/g,"<br />");
+
 		var itemId = new Date().getTime();
 		
 		var value = $(".modal-item-table").html();
 		value += '<tr id="' + itemId + '" class="modal-item-list-basic">' +
-						'<td style="text-align:left; padding-left:20px;" class="modal-item-list-name" value="'+ itemName +'">'+ itemName + '</td>' +
+						'<td style="text-align:left; padding-left:20px;" class="modal-item-list-name" value="'+ itemNameRep +'">'+ itemName + '</td>' +
 						'<td style="padding-right:20px;"><button class="btn btn-default" onclick="showUpdateItem('+ itemId +')"><b>수정하기</b></button></td>' +
 						'<td style="padding-right:20px;"><button class="btn btn-default" onclick="deleteListItem('+ itemId +')"><b>삭제하기</b></button></td>' +
 					'</tr>' +
@@ -1621,6 +1629,13 @@ tinymce.init({
 	}
 	function addGiftInItemFunc(giftId, itemId){
 		var itemName = $("#"+itemId+" .modal-item-list-name").attr("value");
+		var itemNameRep = itemName;
+		
+		itemNameRep = itemNameRep.replace(/</g,"&lt;");
+		itemNameRep = itemNameRep.replace(/>/g,"&gt;");
+		itemNameRep = itemNameRep.replace(/\"/g,"&#34;");
+		itemNameRep = itemNameRep.replace(/\'/g,"&#39;");
+		itemNameRep = itemNameRep.replace(/\n/g,"<br />");
 		
 		var value = $("#"+giftId+" .project-gift-in-item-table").html();
 		
@@ -1634,7 +1649,7 @@ tinymce.init({
 						 '</g>' +
 						'</svg>' +
 					'</td>' +
-					'<td style="text-align:left;"><div class="gift_in_item_name" value="'+itemName+'">'+itemName+'</div></td>' +
+					'<td style="text-align:left;"><div class="gift_in_item_name" value="'+itemNameRep+'">'+itemName+'</div></td>' +
 					'<td>' +
 						'<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
 						 '<g class="itemcount-minus" value="#' + giftId + ' .'+ itemId +'">' +
@@ -1693,9 +1708,16 @@ tinymce.init({
 	function updateItemName(itemId){
 		var updateNamgSel = "."+itemId+" .modal-item-list-updatename";
 		var updateName = $(updateNamgSel).val();
+		var updateNameRep = updateName;
+		
+		updateNameRep = updateNameRep.replace(/</g,"&lt;");
+		updateNameRep = updateNameRep.replace(/>/g,"&gt;");
+		updateNameRep = updateNameRep.replace(/\"/g,"&#34;");
+		updateNameRep = updateNameRep.replace(/\'/g,"&#39;");
+		updateNameRep = updateNameRep.replace(/\n/g,"<br />");
 		
 		var nameTagSel = "#"+itemId+" .modal-item-list-name";
-		$(nameTagSel).attr("value", updateName);
+		$(nameTagSel).attr("value", updateNameRep);
 		$(nameTagSel).text(updateName);
 		
 		$(updateNamgSel).val('');//input 초기화
@@ -1703,11 +1725,11 @@ tinymce.init({
 		$("#modal-item-list-box ."+itemId).hide();
 		
 		//선물 바디
-		$("."+itemId+" .gift_in_item_name").attr("value", updateName);
+		$("."+itemId+" .gift_in_item_name").attr("value", updateNameRep);
 		$("."+itemId+" .gift_in_item_name").text(updateName);
 		
 		//선물 헤드
-		$("."+itemId+" .gift-item-name").attr("value", updateName);
+		$("."+itemId+" .gift-item-name").attr("value", updateNameRep);
 		$("."+itemId+" .gift-item-name").text(updateName);
 	}
 	
@@ -1823,7 +1845,7 @@ tinymce.init({
 			value += '<div id="'+ gift_id +'" class="save-gift">' +
 						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
 						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
-						'<input type="hidden" class="gift-capacity=" value="'+ capacity +'">' +
+						'<input type="hidden" class="gift-capacity" value="'+ capacity +'">' +
 					 '</div>';
 		}
 		
@@ -1836,10 +1858,18 @@ tinymce.init({
 			var idSeletor = "#" + item_id;
 			
 			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
+			var item_nameRep = item_name;
+			
+			item_nameRep = item_nameRep.replace(/</g,"&lt;");
+			item_nameRep = item_nameRep.replace(/>/g,"&gt;");
+			item_nameRep = item_nameRep.replace(/\"/g,"&#34;");
+			item_nameRep = item_nameRep.replace(/\'/g,"&#39;");
+			item_nameRep = item_nameRep.replace(/\n/g,"<br />");
+			
 			
 			value += '<div id="'+ item_id +'" class="save-item">' +
 						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
-						'<input type="hidden" class="item-item_name" value="'+ item_name +'">' +
+						'<input type="hidden" class="item-item_name" value="'+ item_nameRep +'">' +
 					 '</div>';
 		}
 		
@@ -2000,7 +2030,7 @@ tinymce.init({
 			페이지에서 벗어날 때 임시 저장한 내용이 자동으로 저장됩니다.</p>
 	</div>
 	<div class="project-outter-div-margin" align="center"  style="margin-top:20px;margin-bottom:20px;">
-		<button class="btn btn-primary" onclick=""><b>미리 보기</b></button>
+		<button class="btn btn-primary" onclick="lastUpdate()"><b>미리 보기</b></button>
 		<button class="btn btn-greentea" style="width:150px;" onclick="sendRequest()">
 			<svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  			 <path fill="#26a499" id="svg_1444" d="m9.21033,6.39269a0.25125,0.25125 0 0 0 -0.36042,-0.34655l-4.50518,3.83286l-2.37908,-0.92009a0.57874,0.57874 0 0 1 -0.06758,-1.05005l9.87673,-5.5327a0.48691,0.48691 0 0 1 0.71563,0.47478l-0.86638,9.03114a0.5978,0.5978 0 0 1 -0.81786,0.49904l-2.89544,-1.1211l-1.81766,1.7033a0.46958,0.46958 0 0 1 -0.79014,-0.34655l0,-1.33769l3.90737,-4.88639l-0.00001,0l0.00001,0.00001z"/>
@@ -2251,6 +2281,12 @@ tinymce.init({
 					<c:if test="${ itemFlag == false }">
 						<tr class="gift-in-item-list ${ item.item_id }" value="${ item.item_id }">	
 					</c:if>
+						<%-- <c:set var="itemName" value="${ fn:replace(item.item_name, '<','&lt;')}"/> --%>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&lt;') }"/>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&gt;') }"/>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&#34;') }"/>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'&#39;') }"/>
+						<c:set var="itemName" value="${ item.item_name.replace(/</g,'<br />') }"/>
 							<td>
 								<input type="hidden" class="gift-in-item-hidden-itemId" value="${ item.item_id }">
 								<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2265,7 +2301,7 @@ tinymce.init({
 								 </g>
 								</svg>
 							</td>
-							<td style="text-align:left;"><div class="gift_in_item_name" value="${ item.item_name }">${ item.item_name }</div></td>
+							<td style="text-align:left;"><div class="gift_in_item_name" value="${ itemName }">${ item.item_id }</div></td>
 							<td>
 								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 								 <g class="itemcount-minus" value="#${ gift.gift_id } .${ item.item_id }">

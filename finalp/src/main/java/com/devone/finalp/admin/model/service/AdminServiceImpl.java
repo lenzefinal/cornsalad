@@ -87,10 +87,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectOffProject();
 	}
 	
-	//관리자 프로젝트 승인처리(프로젝트 수정)
+	//관리자 프로젝트 승인처리(프로젝트 활성화)
 	@Override
 	public int updateProjectOn(String project_id) {
 		return adminDao.updateProjectOn(project_id);
+	}
+	
+	//관리자 프로젝트 비활성화
+	@Override
+	public int updateProjectOff(String project_id) {
+		return adminDao.updateProjectOff(project_id);
 	}
 	
 	//관리자 회원 수(페이징 처리용)
@@ -170,6 +176,8 @@ public class AdminServiceImpl implements AdminService {
 	public int noticeDelete(int notice_id) {
 		return adminDao.noticeDelete(notice_id);
 	}
+
+	
 	
 	
 	

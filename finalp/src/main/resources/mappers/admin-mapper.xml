@@ -135,19 +135,25 @@
 	
 	<select id="selectprojectlist" resultMap="AProjectmap" >
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_ONOFF_FLAG='Y'
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
 		]]>
 	</select>
 	
 	<select id="selectoffproject" resultMap="AProjectmap" >
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='Y'
 		]]>
 	</select>
 	
 	<update id="ponupdate" parameterType="String">
 		<![CDATA[
-			UPDATE PROJECT SET PROJECT_ONOFF_FLAG= 'Y' WHERE PROJECT_ID = #{ project_id }
+			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='Y',PROJECT_REQUEST_FLAG='N' WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
+	<update id="poffupdate" parameterType="String">
+		<![CDATA[
+			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='N' WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</update>
 	
