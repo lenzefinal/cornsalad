@@ -23,11 +23,37 @@
 		<result property="report_count" column="report_count" />
 		<result property="certif_flag" column="certif_flag" />
 	</resultMap>
+	
+	<resultMap type="MyLikes" id="Likes">
+		<result property="project_id" column="project_id"/>
+	</resultMap>
+	
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
-			select * from project where member_id=#{member_id} and rownum<#{size} 
+			select * from project where member_id=#{member_id} and rownum<#{size} and project_category_id='PC-FUND'
 		]]>
 	</select>
-
+	<select id="myProduct" resultMap="projectList">
+		<![CDATA[
+			select * from project where member_id=#{member_id} and rownum<#{size} and project_category_id='PC-PROD'
+		]]>
+	</select>
+	<select id="projectLikes" resultMap="Likes">
+		<![CDATA[
+			select p.image_rename ,p.project_name, p.creation_date 
+			from likes l 
+			join project p on(l.project_id=p.project_id) 
+			where p.project_category_id='PC-FUND' and l.member_id=#{member_id} and rownum<#{size}
+		]]>
+	</select>
+	<select id="productLikes" resultMap="Likes">
+		<![CDATA[
+			select p.image_rename ,p.project_name, p.creation_date 
+			from likes l 
+			join project p on(l.project_id=p.project_id) 
+			where p.project_category_id='PC-PROD' and l.member_id=#{member_id} and rownum<#{size}
+		]]>
+	</select>
+	
 </mapper>

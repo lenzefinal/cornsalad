@@ -56,7 +56,7 @@
 	}
 	
 	function grouUpdate(){
-		location.href="fundingUpdateView.do?projectId=152104495033964";
+		location.href="grouppurUpdateView.do?projectId=152138655640921";
 	}
 	
 	

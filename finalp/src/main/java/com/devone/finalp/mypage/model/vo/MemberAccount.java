@@ -1,5 +1,8 @@
-package com.devone.finalp.memberaccount.model.vo;
+package com.devone.finalp.mypage.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberAccount implements java.io.Serializable {
 
 	/**

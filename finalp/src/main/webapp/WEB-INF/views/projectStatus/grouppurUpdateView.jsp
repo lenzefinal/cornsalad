@@ -16,13 +16,6 @@
 <link rel="stylesheet" href="/finalp/resources/css/jquery-ui.css"/>
 <!-- <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script> -->
 <style>
-	
-	
-	/* body, button, input, select, textarea {
-		font-family: Roboto,Noto Sans KR,-apple-system,Dotum,sans-serif;
-		font-weight: 400;
-		background-color: rgba(253,255,232,0.5);
-	} */
 	body{
 		background: rgba(220,220,220,0.2);
 	}
@@ -42,8 +35,6 @@
 		text-weight: bold;
 	}
 	
-	/* 충돌 테스트 */
-	
 	.project-outter-div-margin{
 		display: block;
 	    max-width: 100%!important;
@@ -51,14 +42,15 @@
 	    /* border:1px solid rgba(0,0,0,0.3);
 	    border-radius: .28571429rem; */
 	}
-	
 	@media only screen and (min-width: 1200px){
 		.project-outter-div-margin {
 		    width: 1071px;
 		    margin-left: auto!important;
 		    margin-right: auto!important;
 		}
-		
+		html{
+			font-size: 14px;
+		}
 	}
 	@media only screen and (max-width: 1199px) and (min-width: 992px){
 		.project-outter-div-margin {
@@ -67,6 +59,9 @@
 		    margin-right: auto!important;
 		}
 		
+		html{
+			font-size: 16px;
+		}
 	}
 	@media only screen and (max-width: 991px) and (min-width: 768px){
 		.project-outter-div-margin {
@@ -75,6 +70,9 @@
 		    margin-right: auto!important;
 		}
 		
+		html{
+			font-size: 19px;
+		}
 	}
 	@media only screen and (max-width: 767px){
 		.project-outter-div-margin {
@@ -83,7 +81,9 @@
 		    margin-right: 0.8em!important;
 		}
 		
-		
+		html{
+			font-size: 25px;
+		}
 	}
 	
 	
@@ -129,9 +129,6 @@
 	
 	
 	
-	
-	
-	
 	.session,
 	session-tap {
 		/* font-size: 0.9rem; */
@@ -145,10 +142,7 @@
 			font-size: 3rem;
 		}
 	}
-	
-	/* .project-div{
-		background-color:#f8f8f8;
-	} */
+
 	
 	.project-title {
 		margin-top: 30px;
@@ -160,7 +154,7 @@
 	}
 	
 	.project-title-last{
-		margin-bottom: 50px;
+		margin-bottom: 150px;
 	}
 	
 	.project-box {
@@ -182,10 +176,10 @@
 	
 	/* 설명 버튼 ================================================= */
 	.project-description-button {
-		border: 1px solid rgba(0,0,0,0.1);
+		border: 1px solid #FAD07E;
 		/* background-color: rgba(215,255,73,0.2); */
-		background-color: #3b4c53;
-		color: white;
+		background-color: #FAD07E;
+		color: #777777;
 		font-weight: bold;
 	    border-radius: .25rem;
 	    
@@ -195,6 +189,8 @@
 	.project-description-button-active {
 		/* background-color: rgba(215,255,73,0.5); */
 		background-color: #1ea18e;
+		border-color: #1ea18e;
+		color: white;
 	}
 	.project-description-button-panel{
 		padding: 0 18px;
@@ -238,10 +234,10 @@
 	/*		#FFFBC5;			*/
 	
 	.project-element-content-div{
-		/* opacity: 0.7; */
-		border: 1px solid rgba(249, 191, 48, 0.1);
-		background-color: rgba(249, 191, 48, 0.2);
-		/* background-color: #f9bf30; */
+		/* opacity: 0.8; */
+		background-color: rgba(59,76,83,0.1);
+		border: 1px solid rgba(59,76,83,0.1);
+		/* background-color: #3b4c53; */
 		/* border: 3px solid #FFC72B;
 		background-color: white; */
 		/* border: 1px solid rgba(0,0,0,0.1);
@@ -427,60 +423,7 @@
 	}
 	   
 	
-	/*선물 체크 박스---------------------------------------*/
-	.gift-chk-btn{
-		cursor: pointer;
-	}
-	.gift-chk-btn circle{
-		fill: #E2E2E2;
-		transition: 0.4s;
-	}
-	.gift-chk-btn polyline {
-		stroke: #000000;
-		transition: 0.4s;
-	}
 	
-	.gift-chk-btn-active circle{
-		fill: #2CCDFF;
-		transition: 0.4s;
-	}
-	.gift-chk-btn-active polyline {
-		stroke: #FFFFFF;
-		transition: 0.4s;
-	}
-	
-	
-	/* 선물 안 아이템 수량 ----------------------------------------------*/
-	..itemcount-minus,
-	.itemcount-plus{
-		cursor: pointer;
-	}
-	.itemcount-minus circle,
-	.itemcount-plus circle {
-		fill: #E2E2E2;
-		transition: 0.4s;
-	}
-	
-	.itemcount-minus line,
-	.itemcount-plus line {
-		stroke: #000000;
-	}
-	
-	.itemcount-minus:hover circle,
-	.itemcount-plus:hover circle {
-		fill: #F7D358;
-		transition: 0.4s;
-	}
-	
-	.itemcount-minus_plus-mousedown line{
-		stroke: #FFFFFF;
-	}
-	
-	/* 취소하기 / 수정하기 / 삭제하기 버튼 */
-	.project-custom-btn{
-		display: inline-block;
-		margin-left: 10px;
-	}
 	
 	
 	.gift-pretitle-style{
@@ -528,6 +471,7 @@
 		fill: white;
 	}
 	
+	
 	/* 인증 관련 */
 	.field em.error,
 	em.timeout {
@@ -539,10 +483,9 @@
 		border-color: #f66;
 	}
 	
-	
 	/* 탭 위에 */
 	.project-notice{
-		border: 1px solid #f9bf30;
+		border: 1px solid #3b4c53;
     	border-radius: .25rem;
     	font-weight: bold;
     	color: rgba(0,0,0,0.3);
@@ -556,8 +499,12 @@
 		color: white;
 	}
 	
+	.colorwhite{
+		color: white;
+	}
 	
 </style>
+
 
 
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=n950z8giku55kswh4gbnzrjj5d4wgtd69uzc7hg7jkp1r2yd"></script>
@@ -817,17 +764,17 @@ function updateProjectAccountFunc(){
 
 }
 
-function removeGiftItemFunc(){
+function removeProductFunc(){
 	
 	var projectId = $("#save-project_id").val();
 	
 	$.ajax({
-		url: "deleteGiftItem.do",
+		url: "deleteProduct.do",
 		data: { "projectId": projectId },
 		type: "post",
 		async: false,
 		success: function(){
-			console.log("해당 프로젝트 선물아이템 삭제 성공")
+			console.log("해당 프로젝트 물품 삭제 성공")
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -839,112 +786,35 @@ function removeGiftItemFunc(){
 
 
 
-function insertGiftFunc(){
+function insertProductFunc(){
 	
  	var projectId = $("#save-project_id").val();
- 	var giftEles = document.getElementsByClassName("save-gift");
- 	var giftArr = [];
+ 	var prodEles = document.getElementsByClassName("save-gift");
+ 	var prodArr = [];
  	
- 	for(var i=0; i<giftEles.length; ++i){
+ 	for(var i=0; i<prodEles.length; ++i){
  		
- 		var giftSaveIds = giftEles[i].getAttribute("id");
- 		var giftIdSel = "#" + giftSaveIds;
- 		var gift = new Object();
+ 		var prodSaveIds = prodEles[i].getAttribute("id");
+ 		var prodIdSel = "#" + prodSaveIds;
+ 		var product = new Object();
  		
- 		gift.gift_id = 			$(giftIdSel + " .gift-gift_id").attr("value");
- 		gift.support_price = 	$(giftIdSel + " .gift-support_price").attr("value");
- 		gift.capacity = 		$(giftIdSel + " .gift-capacity").attr("value");
- 		gift.project_id = 		projectId;
+ 		product.product_id = 		$(prodIdSel + " .gift-product_id").attr("value");
+ 		product.project_id = 		projectId;
+ 		product.product_name = 		$(prodIdSel + " .gift-product_name").attr("value");
+ 		product.product_price = 	$(prodIdSel + " .gift-product_price").attr("value");
+ 		product.mincount = 			$(prodIdSel + " .gift-mincount").attr("value");
  		
- 		console.log("capacity]"+gift.capacity);
- 		
- 		giftArr[i] = gift;
+ 		prodArr[i] = product;
  	}
 	
 	$.ajax({
-		url: "insertGift.do",
-		data: JSON.stringify(giftArr),
+		url: "insertProduct.do",
+		data: JSON.stringify(prodArr),
 		type: "post",
 		async: false,
 		contentType: "application/json; charset=UTF-8",
 		success: function(result){
-			console.log("선물 insert 성공")
-		},
-		error: function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
-					+ "message : " + request.responseText + "\n"
-					+ "error : " + errorData);
-		}
-	});
-	
-}
-
-
-function insertItemFunc(){
-
-	var projectId = $("#save-project_id").val();
-	var itemEles = document.getElementsByClassName("save-item");
- 	var itemArr = [];
- 	
- 	for(var i=0; i<itemEles.length; ++i){
- 		
- 		var itemSaveIds = itemEles[i].getAttribute("id");
- 		var itemIdSel = "#" + itemSaveIds;
- 		var item = new Object();
- 		
- 		item.item_id = 		$(itemIdSel + " .item-item_id").attr("value");
- 		item.item_name = 	$(itemIdSel + " .item-item_name").attr("value");
- 		item.project_id = 	projectId;
- 		
- 		itemArr[i] = item;
- 	}
-
-	$.ajax({
-		url: "insertItem.do",
-		data: JSON.stringify(itemArr),
-		type: "post",
-		async: false,
-		contentType: "application/json; charset=UTF-8",
-		success: function(result){
-			console.log("아이템 insert 성공")
-		},
-		error: function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
-					+ "message : " + request.responseText + "\n"
-					+ "error : " + errorData);
-		}
-	});
-	
-}
-
-
-function insertGiftInItemFunc(){
-	
- 	var giftInItemEles = document.getElementsByClassName("save-giftinitem");
- 	var giftInItemArr = [];
- 	
- 	for(var i=0; i<giftInItemEles.length; ++i){
- 		
- 		var giftInItemSaveIds = giftInItemEles[i].getAttribute("id");
- 		var giftInItemIdSel = "#" + giftInItemSaveIds;
- 		var giftInItem = new Object();
- 		
- 		giftInItem.gift_id = 	$(giftInItemIdSel + " .item-gift_id").attr("value");
- 		giftInItem.item_id = 	$(giftInItemIdSel + " .item-item_id").attr("value");
- 		giftInItem.count = 		$(giftInItemIdSel + " .item-count").attr("value");
- 		
- 		giftInItemArr[i] = giftInItem;
- 	}
-
-	
-	$.ajax({
-		url: "insertGitfInItem.do",
-		data: JSON.stringify(giftInItemArr),
-		type: "post",
-		async: false,
-		contentType: "application/json; charset=UTF-8",
-		success: function(result){
-			console.log("선물 속 아이템 insert 성공")
+			console.log("물품 insert 성공")
 		},
 		error: function(request, status, errorData){
 			alert("error code: " + request.status + "\n"
@@ -1093,16 +963,16 @@ tinymce.init({
 		
 		
 		//펀딩 마감일 ------------------------------------------------------
-		$("#fundingDatepicker").datepicker();
+		$( "#fundingDatepicker" ).datepicker();
 		
 		$('#fundingDatepicker').on('change', function() {
-			var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
-			var currentDate = new Date().getTime();
-			
-			var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
-			$("#dday-input").attr("value", gap);
+				var pickerDate = $("#fundingDatepicker").datepicker("getDate").getTime();
+				var currentDate = new Date().getTime();
+				
+				var gap = Math.ceil((pickerDate - currentDate)/1000/60/60/24);
+				$("#dday-input").attr("value", gap);
 		});
-			
+		
 		
 		
 		//처음에는 처음 탭 영역만 보이도록 -----------------------------------------
@@ -1117,173 +987,82 @@ tinymce.init({
 			$("#"+this.id+" em").removeClass("project-tap-em-hover");
 		});
 	
-		 
 	    
-		//아이템 체크, 수량 버튼
-		settingItemListChk_Count_btn();
-		
-		
-		
-		//영역을 벗어나고 mousedown 이벤트가 발생했을 때 계속 증감되는 버그 방지 코드
-		window.addEventListener("mouseup", function(){
-			clearTimeout($(".itemcount-plus").downTimer);
-			$(".itemcount-plus").removeClass("itemcount-minus_plus-mousedown");
-			
-			clearTimeout($(".itemcount-minus").downTimer);
-			$(".itemcount-minus").removeClass("itemcount-minus_plus-mousedown");
-		});
-	    
-	    
-	    
-	    //선물 추가 버튼
+		 //물품 추가 버튼
 	    $(".gift-add-btn").on("click", function(){
 	    	descriptionBtnFunc();
 	    	
-	    	var giftId = new Date().getTime();
+	    	var productId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
-	    	value += '<div class="project-box gift-head-div '+ giftId + '">' +
+	    	value += '<div class="project-box gift-head-div '+ productId +'">' +
 						'<div class="project-element-div project-bgcol-white">' +
 							'<div class="project-element-in-div">' +
 								'<div align="right">' +
-									'<button class="btn btn-danger project-custom-btn" onclick="deleteGift(' + giftId + ',1)">삭제하기</button>' + 
-									'<button class="btn btn-primary project-custom-btn" onclick="updateGift(' + giftId + ')">수정하기</button>' +
-								'</div>' + 
-								'<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">0</span>원 이상 후원하시는 분께 드리는 선물</div>' +
-								'<ol></ol>' +
+									'<button class="btn btn-danger project-custom-btn" onclick="deleteGift('+ productId +',1)">삭제하기</button>' +
+									'<button class="btn btn-primary project-custom-btn" onclick="updateGift('+ productId +')">수정하기</button>' +
+								'</div>' +
+								'<div class="gift-pretitle-style" style="display:inline-block;">' +
+									'<span class="gift-name"><b></b></span>' +
+								'</div>' +
+								'<div class="gift-price-style" >' +
+									'<span class="gift-price"></span> 원' +
+								'</div>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
-					'<div id="' + giftId + '" class="project-box gift-body-div">' +
+					'<div id="'+ productId +'" class="project-box gift-body-div">' +
 						'<div class="project-element-div project-bgcol-white">' +
-							'<div class="project-element-in-div project-element-title-div project-element-in-title">최소 후원 금액</div>' +
-							'<div class="project-element-in-div project-description-button">설명</div>' +
-							'<div class="project-description-button-panel">' +
-								'<p>인기 금액대인 1만원대 선물부터 특별한 의미를 담은 10만원 이상 선물까지, 다양한 금액대로 구성하면 성공률이 더욱 높아집니다. <br>' +
-								'배송이 필요한 선물의 경우, 배송비 포함된 금액으로 작성해주세요.</p>' +
-							'</div>' +
+							'<div class="project-element-in-div project-element-title-div project-element-in-title">물품 이름(정보)</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="text" class="gift-supportPrice-input" style="width:200px;" placeholder="0원부터 시작합니다." value="1000"> 원 이상 후원하시는 분께 드리는 선물입니다.' +
+								'<input type="text" class="gift-name-input" placeholder="ex) s사이즈_티셔츠(black)">' +
 							'</div>' +
 						'</div>' +
 						'<div class="project-element-div project-bgcol-white">' +
-							'<div class="project-element-in-div project-element-title-div project-element-in-title">선물에 포함된 아이템</div>' +
-							'<div class="project-element-in-div project-description-button">설명</div>' +
-							'<div class="project-description-button-panel">' +
-								'<p>아이템은 선물에 포함되는 구성 품목을 말합니다. 이 금액대의 선물을 선택한 후원자에게 어떤 아이템들을 얼마나 전달하실건가요?</p>' +
-							'</div>' +
+							'<div class="project-element-in-div project-element-title-div project-element-in-title">가격</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<div style="border:1px solid rgba(0,0,0,0.15); border-radius: 3px;">' +
-								'<table class="project-gift-in-item-table">' +
-									'<colgroup>' +
-										'<col style="width: 7%;">' +
-										'<col style="width: 72%;">' +
-										'<col>' +
-										'<col style="width: 5%;">' +
-										'<col>' +
-									'</colgroup>' +
-									'<tr>' +
-										'<th>선택</th><th style="text-align:left;">아이템 이름</th><th colspan="3">수량</th>' +
-									'</tr>' +
-								'</table>' +
-								'</div>' +
-								'<br>' +
-								'<div align="right"><button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal">아이템 관리</button></div>' +
+								'<input type="text" class="gift-price-input" style="width:200px;" placeholder="0원부터 시작합니다." value="0"> 원' +
 							'</div>' +
 						'</div>' +
 						'<div class="project-element-div project-bgcol-white">' +
-							'<div class="project-element-in-div project-element-title-div project-element-in-title">한정판 설정</div>' +
+							'<div class="project-element-in-div project-element-title-div project-element-in-title">최소 구매량 설정</div>' +
 							'<div class="project-element-in-div project-description-button">설명</div>' +
 							'<div class="project-description-button-panel">' +
-								'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>' +
+								'<p>최소 구매량을 설정해주세요. 마감일까지 각 물품마다 하나라도 최소 구매량을 넘지 못하면 모금액 전액은 구매자에게 환불됩니다. <br>' +
+								'	최소 구매량을 따로 설정하지 않을 때는 기본값인 0을 입력하세요.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
-								'<input type="checkbox" id="cap-chk'+giftId+'" class="capacity-flag" name="capacity-flag" onchange="changeGiftCapacityChk('+ giftId +')" value="'+ giftId +'"/>' +
-								'<label for="cap-chk'+giftId+'"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="0"> 개 입니다.</label>' +
-								'<input type="hidden" class="capacity-flag-save-input" value="0">' +
+								'선 구매가 <input type="text" class="gift-mincount-input" style="width:50px;height:30px;text-align:right;" ' +
+									'name="mincount" value="0"> 건 이상일 때 공동 구매를 진행합니다.' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
-							'<button class="btn btn-primary project-custom-btn" onclick="cancleGift('+ giftId + ')"><b>x</b> 취소하기</button>' +
-							'<button class="btn btn-danger project-custom-btn" onclick="deleteGift('+ giftId + ',0)">삭제하기</button>' +
-							'<button class="btn btn-primary project-custom-btn" onclick="saveGift('+ giftId + ')">저장하기</button>' +
+							'<button class="btn btn-primary project-custom-btn" onclick="cancleGift('+ productId +')"><b>x</b> 취소하기</button>' +
+							'<button class="btn btn-danger project-custom-btn" onclick="deleteGift('+ productId +',0)">삭제하기</button>' +
+							'<button class="btn btn-primary project-custom-btn" onclick="saveGift('+ productId +')">저장하기</button>' +
 						'</div>' +
 					'</div>';
 				
 	    	$("#gift-totalbox-div").html(value);
 	    	
-	    	$("."+giftId).hide();
-	    	$("#"+giftId).hide();
-	    	$("#"+giftId).fadeToggle(toggleSpeed);
+	   		$("."+productId).hide();
+	    	$("#"+productId).hide();
+	    	$("#"+productId).fadeToggle(toggleSpeed); 
 	    	
-	
-	    	//생성된 아이템이 없으면 빈 아이템을 생성
-	    	if($(".modal-item-list-basic").length == 0){
-	    		addEmptyItemFunc(giftId);
-	    	}
-	    	else{//이미 존재하는 아이템들 각 선물에 추가
-	    		var itemList = document.getElementsByClassName("modal-item-list-basic");
 	    	
-	    		console.log(itemList.length);
-	    		for(var i=0; i<itemList.length; ++i){
-	    			var loc_itemId = itemList[i].id;
-	    			console.log("[loc_itemId]"+loc_itemId);
-	    			
-	    			addGiftInItemFunc(giftId, loc_itemId);
-	    		}
-	    	}
-	    	
-	    	//선물 추가 버튼 박스는 안보이게
+	    	//물품 추가 버튼 박스는 안보이게
 	    	$(".gift-add-btn-box").hide();
 	    	
 	    	//설명 버튼 이벤트 연결
 	    	descriptionBtnFunc();
-	    	
-	    	settingItemListChk_Count_btn();
-	    	
+
 	    });
-		
-		//아이템 추가 버튼
-		$(".item-add-btn").on("click", function(){
-			var value = '<div class="modal-item-adddetail-div">' +
-							'<div style="padding:1em;">' +
-								'<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>' +
-								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요."/></div>' +
-								'<div align="right">' +
-									'<button class="btn btn-default btn-greentea project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
-									'<button class="btn btn-primary btn-greentea project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
-								'</div>' +
-							'</div>' +
-						'</div>';
-			
-			$(".modal-item-adddetail-location").html(value);
-			
-			$(".modal-item-add-div").slideToggle(toggleSpeed);
-			$(".modal-item-adddetail-location").hide();
-			$(".modal-item-adddetail-location").slideToggle(toggleSpeed);
-			
-			
-		});
-		
-		//아이템 리스트는 없을 경우 안보이도록
-		if($(".modal-item-list-basic").length == 0){
-			$("#modal-item-list-box").hide();
-		}
-		else{
-			$(".modal-item-notin-div").hide();
-		}
-		
-		//아이템 관리에서 아이템 수정 div 안보이도록
-		$(".modal-item-list-update").hide();
-		
-		
-		
+	    
+	    
 		//설명 버튼 이벤트 연결
 		descriptionBtnFunc();
 		
 		//처음에 페이지 들어올 때 프로젝트 정보 가져오기	-------------------update-------------------------------------
-		//선물 창 hide
-    	console.log("선물 갯수:"+$(".gift-body-div").length);
     	$(".gift-body-div").hide();
     		
     	
@@ -1302,8 +1081,6 @@ tinymce.init({
 		$("#dday-input").attr("value", gap);
         
         
-    	
-        
 		
 		//페이지 나갈 때 실행되는 함수 ============================================================================
 		$(window).on("beforeunload", function (){
@@ -1315,127 +1092,6 @@ tinymce.init({
 		 
 	});//ready end
 	
-	
-	//빈 아이템 추가 함수 ---------------------------------------------------
-	function addEmptyItemFunc(giftId){
-		var itemValue = $("#"+giftId+" .project-gift-in-item-table").html();
-		itemValue += '<tr class="gift-in-item" value="itemId">' +
-						'<td>' +
-							'<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-							 '<g class="gift_chk_btn" value="#' + giftId + ' .gift-in-item">' +
-							  '<circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>' +
-							  '<polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>' +
-							 '</g>' +
-							'</svg>' +
-						'</td>' +
-						'<td style="text-align:left;"><div class="gift_in_item_name" value="">아이템을 생성해주세요</div></td>' +
-						'<td>' +
-							'<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-							 '<g class="itemcount_minus" value="#' + giftId + ' .gift-in-item">' +
-							  '<circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>' +
-							  '<line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-							 '</g>' +
-							'</svg>' +
-						'</td>' +
-						'<td><div class="gift-in-item-count" value="0" >0</div></td>' +
-						'<td>' +
-							'<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-							 '<g class="itemcount_plus" value="#' + giftId + ' .gift-in-item">' +
-							  '<circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>' +
-							  '<line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-							  '<line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-							 '</g>' +
-							'</svg>' +
-						'</td>' +
-					'</tr>';
-			
-		$("#"+giftId+" .project-gift-in-item-table").html(itemValue);
-	}
-	
-	//아이템 체크, 수량 버튼 ------------------------------------------------
-	function settingItemListChk_Count_btn(){
-		
-		//선물 체크 버튼 
-	    $(".gift-chk-btn").on("click", function(){
-	    	
-	    	console.log("선물체크버튼 클릭");
-	    	var countSelector = $(this).attr("value")+" .gift-in-item-count";
-	    	
-	    	if($(this).hasClass("gift-chk-btn-active")){//선택 해제
-	    		
-	    		$(countSelector).attr("value", 0);
-	    		$(countSelector).text(0);
-	    	} 
-	    	else{
-	    		var count = 0;
-	    		
-	   			if($(countSelector).attr("value") == 0){
-	   				count = 1;
-	   			} 
-	   			else{
-	   				count = $(countSelector).attr("value");
-	   			}
-	   			
-	    		$(countSelector).attr("value", count);
-	    		$(countSelector).text(count);
-	    	}
-	    	
-	    	$(this).toggleClass("gift-chk-btn-active");
-	    	$($(this).attr("value")).toggleClass("project-gift-in-item-check");
-	    	
-	    });
-	    
-	    //수량 버튼 
-		$(".itemcount-minus").on("mousedown", function() {
-	        clearTimeout(this.downTimer);
-	        
-	        var thisValue = $(this).attr("value");
-	       
-	        this.downTimer = setInterval(function() {
-	        	//버튼 눌렀을 때 실행될 코드
-	            var itemcountTagId = thisValue + " .gift-in-item-count";
-	        	var itemCount = Number($(itemcountTagId).attr("value"));
-	        	var totalCount = 0;
-	        	
-	        	if(itemCount > 0){
-	        		totalCount = itemCount - 1;
-	        		$(itemcountTagId).attr("value", totalCount);
-		        	$(itemcountTagId).text(totalCount);
-	        	}
-	        	
-	        }, 100);
-	       
-	        $(this).addClass("itemcount-minus_plus-mousedown");
-	        
-	    }).mouseup(function(e) {
-	        clearTimeout(this.downTimer);
-	        $(this).removeClass("itemcount-minus_plus-mousedown");
-	    });
-	    
-		$(".itemcount-plus").mousedown(function(e) {
-			clearTimeout(this.downTimer);
-		        
-	        var thisValue = $(this).attr("value");
-	       
-	        this.downTimer = setInterval(function() {
-	        	//버튼 눌렀을 때 실행될 코드
-	            var itemcountTagId = thisValue + " .gift-in-item-count";
-	        	var totalCount = Number($(itemcountTagId).attr("value")) + 1;
-	        	
-	        	$(itemcountTagId).attr("value", totalCount);
-	        	$(itemcountTagId).text(totalCount);
-	        	
-	        }, 100);
-	       
-	        $(this).addClass("itemcount-minus_plus-mousedown");
-	        
-	    }).mouseup(function(e) {
-	    	 clearTimeout(this.downTimer);
-		     $(this).removeClass("itemcount-minus_plus-mousedown");
-	    });
-		
-	}
-
 	
 	//탭 버튼 색 ---------------------------------------------
 	function tapChange(sessionDivId, sessionTapId){
@@ -1452,26 +1108,20 @@ tinymce.init({
 	
 	
 	
-	//선물 ------------------------------------------------------------------
-	//선물 index
-	giftIndex = 0;
-	//선물 id pre
-	giftIdPre = "gift-in-item";
-	
-	
-	//선물 토글 스피드
+	//물품 -----------------------------------------------------------------
+	//물품 토글 스피드
 	toggleSpeed = 300;
 	
-	//선물 수정 취소
+	//물품 수정 취소
 	function cancleGift(giftIdIndex){
 		$("."+giftIdIndex).slideToggle(toggleSpeed);
 		$("#"+giftIdIndex).slideToggle(toggleSpeed);
 		
-		//선물 추가 버튼 박스 보이게
+		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 	}
 	
-	//선물 삭제
+	//물품 삭제
 	function deleteGift(giftId, flag){
 		if(flag == 0){
 			$("#gift-totalbox-div "+"#"+giftId).fadeToggle(toggleSpeed,function(){
@@ -1484,7 +1134,7 @@ tinymce.init({
 		} 
 		else if(flag == 1){		
 			$("#gift-totalbox-div "+"."+giftId).fadeToggle(toggleSpeed,function(){
-				$("#gift-totalbox-div "+"."+giftIdx).remove();
+				$("#gift-totalbox-div "+"."+giftId).remove();
 				$("#gift-totalbox-div "+"#"+giftId).remove();
 			});
 		}
@@ -1494,7 +1144,7 @@ tinymce.init({
 		}
 	}
 	
-	//선물 저장
+	//물품 저장
 	function saveGift(giftId){
 		var giftId_class = "."+giftId;
 		var giftId_id = "#"+giftId;
@@ -1502,48 +1152,28 @@ tinymce.init({
 		$(giftId_class).slideToggle(toggleSpeed);
 		$(giftId_id).slideToggle(toggleSpeed);
 		
-		//내용을 선물 헤드에 저장
+		//물품 이름
+		var productName = $(giftId_id + " .gift-name-input").val();
+		$(giftId_class+" .gift-name").attr("value", productName);
+		$(giftId_class+" .gift-name").text(productName);
+		$(giftId_id+" .gift-name-input").attr("value", productName);
 		
-		//후원 금액
-		var priceValue = $(giftId_id+" .gift-supportPrice-input").val();
-		$(giftId_class+" .gift-price").attr("value", priceValue);
-		$(giftId_class+" .gift-price").text(priceValue);
+		//가격
+		var productPrice = $(giftId_id + " .gift-price-input").val();
+		$(giftId_class+" .gift-price").attr("value", productPrice);
+		$(giftId_class+" .gift-price").text(productPrice);
+		$(giftId_id+" .gift-price-input").attr("value", productPrice);
 		
-		$(giftId_id+" .gift-supportPrice-input").attr("value", priceValue);
-		
-    	//선물 헤드에 체크한 아이템 추가
-    	var giftInItemChkBtnList = $(giftId_id+" .gift-chk-btn-active");//document.getElementsByClassName("gift-chk-btn");
-    	console.log("과연"+giftInItemChkBtnList.length);
+		//최소 구매량
+		var productMincount = $(giftId_id + " .gift-mincount-input").val();
+		$(giftId_id+" .gift-mincount-input").attr("value", productMincount);
     	
-    	var giftHeadItemValue = "";
-    	for(var i=0; i<giftInItemChkBtnList.length; ++i){
-    		//체크된 아이템이면
-   			var itemId = $(giftInItemChkBtnList[i].getAttribute("value")+" .gift-in-item-hidden-itemId").val();
-   	    	var itemCount = $(giftInItemChkBtnList[i].getAttribute("value")+" .gift-in-item-count").attr("value");
-   	    	var itemName = $(giftInItemChkBtnList[i].getAttribute("value")+" .gift_in_item_name").attr("value");
-   	    	
-   	    	console.log("itemid]"+itemId);
-   	    	console.log("giftId]"+giftId);
-   	    	console.log("itemCount]"+itemCount);
-   	    	console.log("itemName]"+itemName);
-   	    	
-   	    	
-   	    	/* var giftHeadItemValue = $(".gift-head-div"+" ."+itemId+" ol").html(); */
-   			giftHeadItemValue += '<li class="'+itemId+'">' +
-   									'<span class="gift-item-name" value="'+itemName+'">'+itemName+'</span> (X <span class="gift-item-count">'+itemCount+'</span>)</li>';
-    	}
-    	
-    	$(giftId_class+" ol").html(giftHeadItemValue);
-    	
-    	
-    	var capacityValue = $(giftId_id+" .gift-capacity-input").val();
-    	$(giftId_id+" .gift-capacity-input").attr("value", capacityValue);
-								
-		//선물 추가 버튼 박스 보이게
+   
+		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 	}
 	
-	//선물 수정
+	//물품 수정
 	function updateGift(giftId){
 		$(".gift-head-div").show();
 		$(".gift-body-div").hide();
@@ -1551,165 +1181,15 @@ tinymce.init({
 		$("."+giftId).hide();
 		$("#"+giftId).fadeToggle(toggleSpeed);
 		
-		//선물 추가 버튼 박스는 안보이게
+		//물품 추가 버튼 박스는 안보이게
     	$(".gift-add-btn-box").hide();
-		
-    	var priceValue = $("."+giftId+" .gift-supportPrice-input-div").attr("value");
-    	$("."+giftId+" .gift-supportPrice-input").val(priceValue);
-		
 	}
 	
-	//아이템 -----------------------------------------------------------------
 	
-	//아이템 추가 취소
-	function cancleItem(){
-		$(".modal-item-adddetail-location").slideToggle(toggleSpeed, function(){
-			$(".modal-item-adddetail-div").remove();
-		});
-		
-		$(".modal-item-add-div").slideToggle(toggleSpeed);
-	}
 	
-	//아이템 저장
-	function saveItem(){
-		var itemName = $(".modal-item-adddetail-div input").val();
-		
-		var itemId = new Date().getTime();
-		
-		var value = $(".modal-item-table").html();
-		value += '<tr id="' + itemId + '" class="modal-item-list-basic">' +
-						'<td style="text-align:left; padding-left:20px;" class="modal-item-list-name" value="'+ itemName +'">'+ itemName + '</td>' +
-						'<td style="padding-right:20px;"><button class="btn btn-default" onclick="showUpdateItem('+ itemId +')"><b>수정하기</b></button></td>' +
-						'<td style="padding-right:20px;"><button class="btn btn-default" onclick="deleteListItem('+ itemId +')"><b>삭제하기</b></button></td>' +
-					'</tr>' +
-					'<tr class="modal-item-list-update ' + itemId + '">' +
-						'<td colspan="3">' +
-							'<div style="padding:1em;">' +
-								'<div style="color:rgba(0,0,0,0.6);" align="left"><b>아이템 이름</b></div>' +
-								'<div style="padding: 10px 0px 10px 0px;"><input type="text" class="modal-item-list-updatename" placeholder="수정할 아이템의 이름을 입력하세요."/></div>' +
-								'<div align="right">' +
-									'<button class="btn btn-default project-custom-btn" onclick="cancleListItem(' + itemId + ')"><b>x&nbsp;취소하기</b></button>' +
-									'<button class="btn btn-primary project-custom-btn" onclick="updateItemName(' + itemId + ')"><b>수정하기</b></button>' +
-								'</div>' +
-							'</div>' +
-						'</td>' +
-					'</tr>';
-					
-		$(".modal-item-table").html(value);
-		$("."+itemId).hide();
-		
-		$(".modal-item-notin-div").hide();
-		
-		$("#modal-item-list-box").show();
-		$(".modal-item-adddetail-location").slideToggle(toggleSpeed);
-		$(".modal-item-add-div").slideToggle(toggleSpeed);
-		
-		//빈 리스트에 아이템을 추가하는 경우
-		var giftBodyDiv = document.getElementsByClassName("gift-body-div");
-		for(var i=0; i<giftBodyDiv.length; ++i){
-			seleteEmptyItemFunc(giftBodyDiv[i].id);
-			
-			//각 선물에 아이템 추가
-			addGiftInItemFunc(giftBodyDiv[i].id, itemId);
-		}
-		
-		settingItemListChk_Count_btn();
-		
-	}
-	function seleteEmptyItemFunc(giftId){
-		$("#"+giftId+" .gift-in-item").remove();
-	}
-	function addGiftInItemFunc(giftId, itemId){
-		var itemName = $("#"+itemId+" .modal-item-list-name").attr("value");
-		
-		var value = $("#"+giftId+" .project-gift-in-item-table").html();
-		
-		value += '<tr class="gift-in-item-list '+ itemId +'" value="'+itemId+'">' +
-					'<td>' +
-						'<input type="hidden" class="gift-in-item-hidden-itemId" value="'+itemId+'">' +
-						'<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-						 '<g class="gift-chk-btn" value="#' + giftId + ' .'+ itemId +'">' +
-						  '<circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>' +
-						  '<polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>' +
-						 '</g>' +
-						'</svg>' +
-					'</td>' +
-					'<td style="text-align:left;"><div class="gift_in_item_name" value="'+itemName+'">'+itemName+'</div></td>' +
-					'<td>' +
-						'<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-						 '<g class="itemcount-minus" value="#' + giftId + ' .'+ itemId +'">' +
-						  '<circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>' +
-						  '<line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-						 '</g>' +
-						'</svg>' +
-					'</td>' +
-					'<td><div class="gift-in-item-count" value="0" >0</div></td>' +
-					'<td>' +
-						'<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-						 '<g class="itemcount-plus" value="#' + giftId + ' .'+ itemId +'">' +
-						  '<circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>' +
-						  '<line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-						  '<line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>' +
-						 '</g>' +
-						'</svg>' +
-					'</td>' +
-				'</tr>';
-			
-		$("#"+giftId+" .project-gift-in-item-table").html(value);
-	}
 	
-	//아이템 수정 영역 show
-	function showUpdateItem(itemId){
-		$("#modal-item-list-box ."+itemId).slideToggle(toggleSpeed);
-		console.log("아이템수정 영역 쇼"+toggleSpeed);
-	}
 	
-	//리스트에서 아이템 삭제
-	function deleteListItem(itemId){
-		$("#"+itemId).fadeToggle(toggleSpeed, function(){
-			$("."+itemId).remove();
-			$("#"+itemId).remove();
-			
-			//아이템이 한 개도 없으면
-			if($(".modal-item-list-basic").length == 0){
-				$(".modal-item-notin-div").show();
-				$("#modal-item-list-box").hide();
-				
-				//각 선물에 빈 아이템 추가
-				var giftBodyDiv = document.getElementsByClassName("gift-body-div");
-				for(var i=0; i<giftBodyDiv.length; ++i){
-					addEmptyItemFunc(giftBodyDiv[i].id);
-				}
-			}
-		});
-	}
 	
-	//모달 아이템 리스트 업데이트에서 취소
-	function cancleListItem(itemId){
-		$("#modal-item-list-box ."+itemId).hide();
-	}
-	
-	//모달 아이템 리스트 업데이트에서 수정
-	function updateItemName(itemId){
-		var updateNamgSel = "."+itemId+" .modal-item-list-updatename";
-		var updateName = $(updateNamgSel).val();
-		
-		var nameTagSel = "#"+itemId+" .modal-item-list-name";
-		$(nameTagSel).attr("value", updateName);
-		$(nameTagSel).text(updateName);
-		
-		$(updateNamgSel).val('');//input 초기화
-		
-		$("#modal-item-list-box ."+itemId).hide();
-		
-		//선물 바디
-		$("."+itemId+" .gift_in_item_name").attr("value", updateName);
-		$("."+itemId+" .gift_in_item_name").text(updateName);
-		
-		//선물 헤드
-		$("."+itemId+" .gift-item-name").attr("value", updateName);
-		$("."+itemId+" .gift-item-name").text(updateName);
-	}
 	
 	
 	
@@ -1805,73 +1285,31 @@ tinymce.init({
 				 '<input id="save-account_name" type="hidden" value="'+ account_name +'">' +
 				 '<input id="save-account_number" type="hidden" value="'+ account_number +'">';
 		
-		//gift
-		var giftEles = document.getElementsByClassName("gift-body-div");
+		//product
+		var prodEles = document.getElementsByClassName("gift-body-div");
 		
-		var giftesArr = [];
-		for(var i=0; i<giftEles.length; ++i){
-			var gift_id = giftEles[i].getAttribute("id");
-			var idSeletor = "#" + gift_id;
+		for(var i=0; i<prodEles.length; ++i){
+			var product_id = prodEles[i].getAttribute("id");
+			var idSeletor = "#" + product_id;
 			
-			var support_price = $(idSeletor + " .gift-supportPrice-input").val(); //후원금액
+			var name = $(idSeletor + " .gift-name-input").val(); 
+			var price = $(idSeletor + " .gift-price-input").val(); //가격
+			var mincount = $(idSeletor + " .gift-mincount-input").val();
 			
-			var capacity = "0";
-			if($(idSeletor + " .capacity-flag").is(":checked")){
-				capacity = $(idSeletor + " .gift-capacity-input").val();
-			}
 
-			value += '<div id="'+ gift_id +'" class="save-gift">' +
-						'<input type="hidden" class="gift-gift_id" value="'+ gift_id +'">' +
-						'<input type="hidden" class="gift-support_price" value="'+ support_price +'">' +
-						'<input type="hidden" class="gift-capacity=" value="'+ capacity +'">' +
+			value += '<div id="'+ product_id +'" class="save-gift">' +
+						'<input type="hidden" class="gift-product_id" value="'+ product_id +'">' +
+						'<input type="hidden" class="gift-product_name" value="'+ name +'">' +
+						'<input type="hidden" class="gift-product_price" value="'+ price +'">' +
+						'<input type="hidden" class="gift-mincount" value="'+ mincount +'">' +
 					 '</div>';
 		}
 		
-		//item
-		var itemEles = document.getElementsByClassName("modal-item-list-basic");
-		
-		var itemesArr = [];
-		for(var i=0; i<itemEles.length; ++i){
-			var item_id = itemEles[i].getAttribute("id");
-			var idSeletor = "#" + item_id;
-			
-			var item_name = $(idSeletor + " .modal-item-list-name").attr("value");
-			
-			value += '<div id="'+ item_id +'" class="save-item">' +
-						'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
-						'<input type="hidden" class="item-item_name" value="'+ item_name +'">' +
-					 '</div>';
-		}
-		
-		//giftInItem
-		var giftEles = document.getElementsByClassName("gift-body-div");
-		
-		for(var i=0; i<giftEles.length; ++i){
-			var gift_id = giftEles[i].getAttribute("id");
-			var giftIdSeletor = "#" + gift_id;
-			var thisGift = document.getElementById(gift_id);
-			
-			var itemEles = thisGift.getElementsByClassName("gift-in-item-list");
-			
-			for(var j=0; j<itemEles.length; ++j){
-				var item_id = itemEles[j].getAttribute("value");
-				
-				if($(giftIdSeletor + " ."+item_id + " .gift-chk-btn").hasClass("gift-chk-btn-active")){
-					
-					var count = $(giftIdSeletor + " ."+ item_id + " .gift-in-item-count").attr("value");
-					
-					value += '<div id="'+ gift_id + item_id +'" class="save-giftinitem">' +
-								'<input type="hidden" class="item-gift_id" value="'+ gift_id +'">' +
-								'<input type="hidden" class="item-item_id" value="'+ item_id +'">' +
-								'<input type="hidden" class="item-count" value="'+ count +'">' +
-							 '</div>';
-				}
-			}
-		}
 		
 		$("#temporarySave-div").html(value);
 		
 		snackbarShowfunc();
+		
 	}
 	
 	//다음 단계로 이동 버튼 
@@ -1889,52 +1327,15 @@ tinymce.init({
 		$(".tap em").removeClass("project-tap-em-active")
 		$(sessionTapId + " em").addClass("project-tap-em-active");
 		
-		document.documentElement.scrollTop = 320;
+		document.documentElement.scrollTop = 300;
 		
-		//선물 수정 영역 안보이게
+		//물품 수정 영역 안보이게
 		$(".gift-body-div").hide();
 		$(".gift-head-div").show();
 	
 	}
 	
 	
-	
-	function changeGiftCapacityChk(giftId){
-	      console.log("giftId]"+giftId);
-	      
-	      if($("#"+giftId+" .capacity-flag").attr("checked") == true){
-	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "0");
-	         
-	         console.log("체크해제");
-	      } 
-	      else{
-	         $("#"+giftId+" .capacity-flag-save-input").attr("value", "1");
-	         console.log("체크");
-	      }
-	   }
-	
-	function setTotalGiftCapacityChk(){
-		
-		var capacityFlagEles = document.getElementsByClassName("capacity-flag");
-		
-		for(var i=0; i<capacityFlagEles.length; ++i){
-			
-			var giftId = capacityFlagEles[i].getAttribute("value");
-			var giftIdSel = "#" + giftId;
-			
-			console.log(giftIdSel + " .capacity-flag-save-input");
-			console.log($(giftIdSel + " .capacity-flag-save-input").attr("value"));
-			if($(giftIdSel + " .capacity-flag-save-input").attr("value") == "1"){
-				$(giftIdSel + " .capacity-flag").attr("checked", true);
-				
-				console.log("true~");
-			}
-			else{
-				$(giftIdSel + " .capacity-flag").attr("checked", false);
-				console.log("false~");
-			}
-		}
-	}
 	
 	
 	//임시 저장이 됐으면 업데이트
@@ -1944,10 +1345,8 @@ tinymce.init({
 			updateProjectFunc();
 			updateProjectContentFunc();
 			updateProjectAccountFunc();
-			removeGiftItemFunc();
-			insertGiftFunc();
-			insertItemFunc();
-			insertGiftInItemFunc();
+			removeProductFunc();
+			insertProductFunc();
 		}
 	}
 	
@@ -2014,14 +1413,14 @@ tinymce.init({
 			<tr>
 				<th><div id="session1-tap" class="tap project-tap-on" onclick="tapChange('#session-1', '#session1-tap');">
 					<span class="tap-span">
-						<span>펀딩</span> 
+						<span>공동거래</span> 
 						<span>개요</span>
 					</span>
 					<em class="project-tap-em-active" style="color:black"></em>
 				</div></th>
 				<th><div id="session2-tap" class="tap project-tap-off" onclick="tapChange('#session-2', '#session2-tap');">
 					<span class="tap-span">
-						<span>펀딩</span> 
+						<span>물품</span> 
 						<span>구성</span>
 					</span> 
 					<em style="color:black"></em>
@@ -2046,15 +1445,15 @@ tinymce.init({
 
 <div id="session-1" class="session">
 <div id="project-intro" class="project-div project-outter-div-margin project-first project-title-last">
-	<div class="project-title project-title-first">펀딩 개요</div>
+	<div class="project-title project-title-first">공동거래 개요</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">펀딩 제목</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">공동거래 제목</div>
 			<div class="project-element-in-div project-description-button">
 				설명
 			</div>
 			<div class="project-description-button-panel">
-				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
+				<p>프로젝트를 대표할 이미지입니다. 구매자들이 한 번에 무슨 프로젝트인지 알 수 있도록 물품 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<c:if test="${ !empty project.project_name }">
@@ -2068,11 +1467,11 @@ tinymce.init({
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">펀딩 카테고리</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">공동거래 카테고리</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
 				<p>프로젝트의 성격에 맞는 카테고리를 선택해 주세요.<br>
-				(프로젝트 성격과 맞지 않는 카테고리를 선택하실 시 후원자가 해당 프로젝트를 찾기 어려워지기에 에디터에 의해 조정될 수 있습니다.)</p>
+				(프로젝트 성격과 맞지 않는 카테고리를 선택하실 시 구매자가 해당 프로젝트를 찾기 어려워지기에 에디터에 의해 조정될 수 있습니다.)</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 				<select id="project-category" name="category" onchange="categorySelectEvent()">
@@ -2086,10 +1485,10 @@ tinymce.init({
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-title-div project-element-in-div project-element-in-title">펀딩 대표 이미지</div>
+			<div class="project-element-title-div project-element-in-div project-element-in-title">공동거래 대표 이미지</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>프로젝트를 대표할 이미지입니다. 후원자들이 한 번에 무슨 프로젝트인지 알 수 있도록 프로젝트의 선물 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
+				<p>프로젝트를 대표할 이미지입니다. 구매자들이 한 번에 무슨 프로젝트인지 알 수 있도록 물품의 이미지 혹은 프로젝트 주제를 대표하는 이미지를 등록해 주시는 것이 좋답니다.</p>
 			</div>
 			<form id="projectRepImageUploadForm" action="projectRepImageUpload.do" method="post" enctype="multipart/form-data">
 				<div class="project-element-content-div project-element-in-div">
@@ -2119,7 +1518,7 @@ tinymce.init({
 			<div class="project-element-title-div project-element-in-div project-element-in-title">대표 문구</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>후원자 분들에게 본 프로젝트를 간략하게 소개해 봅시다.</p>
+				<p>구매자 분들에게 본 프로젝트를 간략하게 소개해 봅시다.</p>
 			</div>
 			<div class="project-element-content-div project-element-in-div">
 			<c:if test="${ project.rep_content != null }">
@@ -2146,24 +1545,26 @@ tinymce.init({
 			<div class="project-element-in-div project-element-title-div project-element-in-title">목표 금액</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>이번 프로젝트를 통해 모으고자 하는 펀딩 목표 금액이 얼마인가요?<br>
-				마감일 자정까지 목표 금액을 100% 이상 달성하셔야만 모인 후원금이 결제 됩니다.<br>
-				막판에 후원을 취소하는 후원자들도 있는 점을 감안해 10% 이상 초과 달성을 목표로 하시는게 안전합니다.<br>
-				(목표 금액은 제작비, 선물 배송비, 진행자의 인건비, 예비 비용 등을 고려하시기 바랍니다.)<br>
+				<p>마감일 자정까지 목표 금액을 100% 이상 달성하셔야만 모인 모금액이 결제 됩니다.<br>
+				막판에 구매를 취소하는 구매자들도 있는 점을 감안해 10% 이상 초과 달성을 목표로 하시는게 안전합니다.<br>
+				(목표 금액은 제작비, 물품 배송비, 진행자의 인건비, 예비 비용 등을 고려하시기 바랍니다.)<br>
+				<br>
+				만약, 각 물품의 최소 구매량만 적용하고 싶을 때는 목표 금액에 0을 입력해주세요.
 				</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input id="goalprice-input" type="text" name="goalPrice" style="width:200px;" placeholder="최소 1000원 이상" value="${ project.target_amount }"> 원
+				<input id="goalprice-input" type="text" name="goalPrice" style="width:300px;" 
+						placeholder="목표 금액을 적용하지 않을 때는 0을 입력하세요." value="${ project.target_amount }"> 원
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-title-div project-element-in-title">펀딩 마감일</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>펀딩이 끝나는 마감일을 정해주세요.</p>
+				<p>공동구매가 끝나는 마감일을 정해주세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도" >  
+				<input type="text" name="deadlineDate" style="width:200px;" id="fundingDatepicker" placeholder="월/일/년도">  
 				<span style="align:right; margin-left: 2%;">
 					<input id="dday-input" type="number" name="dday" style="width:100px; text-align:right;" value="10" readonly> 일 후에 마감일입니다.
 				</span>
@@ -2172,162 +1573,64 @@ tinymce.init({
 	</div>
 </div>
 <div id="gift-totalbox-div" class="project-div project-outter-div-margin">
-	<div class="project-title project-title-first">선물 구성</div>
-<c:forEach var="gift" items="${ giftList }">
-	<div class="project-box gift-head-div ${ gift.gift_id }">
+	<div class="project-title project-title-first">물품 구성</div>
+<c:forEach var="product" items="${ prodList }">
+	<div class="project-box gift-head-div ${ product.product_id }">
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div">
 				<div align="right">
-					<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ gift.gift_id },1)">삭제하기</button>
-					<button class="btn btn-primary project-custom-btn" onclick="updateGift(${ gift.gift_id })">수정하기</button>
+					<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ product.product_id },1)">삭제하기</button>
+					<button class="btn btn-primary project-custom-btn" onclick="updateGift(${ product.product_id })">수정하기</button>
 				</div>
-				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">${ gift.support_price }</span>원 이상 후원하시는 분께 드리는 선물</div>
-				<ol>
-				<c:forEach var="item" items="${ itemList }">
-					<c:set var="itemFlag" value="false"/>
-					<c:set var="itemCount" value="1" />
-					<c:forEach var="giftInItem" items="${ giftinitemList }">
-						<c:if test="${ giftInItem.gift_id == gift.gift_id && giftInItem.item_id == item.item_id }">
-							<c:set var="itemFlag" value="true"/>
-							<c:set var="itemCount" value="${ giftInItem.count }" />
-						</c:if>
-					</c:forEach>
-					
-					<c:if test="${ itemFlag == true }">
-						<li class="${ item.item_id }">
-   							<span class="gift-item-name" value="${ item.item_name }">${ item.item_name }</span> (X <span class="gift-item-count">${ itemCount }</span>)
-   						</li>
-					</c:if>	
-   				</c:forEach>
-				</ol>
+				<div class="gift-pretitle-style" style="display:inline-block;">
+					<span class="gift-name"><b>${ product.product_name }</b></span>
+				</div>
+				<div class="gift-price-style" >
+					<span class="gift-price">${ product.product_price }</span> 원
+				</div>
 			</div>
 		</div>
 	</div>
-	<div id="${ gift.gift_id }" class="project-box gift-body-div">
+	<div id="${ product.product_id }" class="project-box gift-body-div">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">최소 후원 금액</div>
-			<div class="project-element-in-div project-description-button">설명</div>
-			<div class="project-description-button-panel">
-				<p>인기 금액대인 1만원대 선물부터 특별한 의미를 담은 10만원 이상 선물까지, 다양한 금액대로 구성하면 성공률이 더욱 높아집니다. <br>
-				배송이 필요한 선물의 경우, 배송비 포함된 금액으로 작성해주세요.</p>
-			</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">물품 이름(정보)</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input type="text" class="gift-supportPrice-input" style="width:200px;" placeholder="0원부터 시작합니다." value="${ gift.support_price }"> 원 이상 후원하시는 분께 드리는 선물입니다.
+				<input type="text" class="gift-name-input" placeholder="ex) s사이즈_티셔츠(black)"value="${ product.product_name }">
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">선물에 포함된 아이템</div>
-			<div class="project-element-in-div project-description-button">설명</div>
-			<div class="project-description-button-panel">
-				<p>아이템은 선물에 포함되는 구성 품목을 말합니다. 이 금액대의 선물을 선택한 후원자에게 어떤 아이템들을 얼마나 전달하실건가요?</p>
-			</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">가격</div>
 			<div class="project-element-in-div project-element-content-div">
-				<div style="border:1px solid rgba(0,0,0,0.15); border-radius: 3px;">
-				<table class="project-gift-in-item-table">
-					<colgroup>
-						<col style="width: 7%;">
-						<col style="width: 72%;">
-						<col>
-						<col style="width: 5%;">
-						<col>
-					</colgroup>
-					<tr>
-						<th>선택</th><th style="text-align:left;">아이템 이름</th><th colspan="3">수량</th>
-					</tr>
-					<c:forEach var="item" items="${ itemList }">
-						
-						<c:set var="itemFlag" value="false"/>
-						<c:set var="itemCount" value="0" />
-						<c:forEach var="giftInItem" items="${ giftinitemList }">
-							<c:if test="${ giftInItem.gift_id == gift.gift_id && giftInItem.item_id == item.item_id }">
-								<c:set var="itemFlag" value="true"/>
-								<c:set var="itemCount" value="${ giftInItem.count }" />
-							</c:if>
-						</c:forEach>
-						
-					<c:if test="${ itemFlag == true }">	
-						<tr class="gift-in-item-list ${ item.item_id } project-gift-in-item-check" value="${ item.item_id }">
-					</c:if>
-					<c:if test="${ itemFlag == false }">
-						<tr class="gift-in-item-list ${ item.item_id }" value="${ item.item_id }">	
-					</c:if>
-							<td>
-								<input type="hidden" class="gift-in-item-hidden-itemId" value="${ item.item_id }">
-								<svg width="31.75" height="32.75" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-							<c:if test="${ itemFlag == true }">	 
-								 <g class="gift-chk-btn gift-chk-btn-active" value="#${ gift.gift_id } .${ item.item_id }">
-							</c:if>
-							<c:if test="${ itemFlag == false }">	
-								 <g class="gift-chk-btn" value="#${ gift.gift_id } .${ item.item_id }"> 
-							</c:if>
-								  <circle r="13.963" cy="16.538" cx="15.963" fill="#E2E2E2"/>
-								  <polyline points="  11.942,17.091 15.096,19.96 19.983,15.362 " stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#000000" fill="none"/>
-								 </g>
-								</svg>
-							</td>
-							<td style="text-align:left;"><div class="gift_in_item_name" value="${ item.item_name }">${ item.item_name }</div></td>
-							<td>
-								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-								 <g class="itemcount-minus" value="#${ gift.gift_id } .${ item.item_id }">
-								  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-								  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-								 </g>
-								</svg>
-							</td>
-							<td><div class="gift-in-item-count" value="${ itemCount }" >${ itemCount }</div></td>
-							<td>
-								<svg width="29.833" height="30" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-								 <g class="itemcount-plus" value="#${ gift.gift_id } .${ item.item_id }">
-								  <circle r="13.963" cy="15.061" cx="15.002" fill="#E2E2E2"/>
-								  <line y2="15.06" x2="19.627" y1="15.06" x1="10.377" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-								  <line y2="19.625" x2="14.917" y1="10.375" x1="14.917" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#000000" fill="none"/>
-								 </g>
-								</svg>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-				</div>
-				<br>
-				<div align="right">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#itemManager-modal" 
-						style="width:120px;height:45px;">아이템 관리</button>
-				</div>
+				<input type="text" class="gift-price-input" style="width:200px;" placeholder="0원부터 시작합니다." value="${ product.product_price }"> 원
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">한정판 설정</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">최소 구매량 설정</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				'<p>한정판 선물을 선택할 수 있는 인원을 제한해주세요. 배송이 필요한 선물인 경우 후원자에게 주소지를 요청합니다.</p>
+				<p>최소 구매량을 설정해주세요. 마감일까지 각 물품마다 하나라도 최소 구매량을 넘지 못하면 모금액 전액은 구매자에게 환불됩니다. <br>
+					최소 구매량을 따로 설정하지 않을 때는 기본값인 0을 입력하세요.</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-			<c:if test="${ gift.capacity > 0 }">
-				<input type="hidden" class="capacity-flag-save-input" value="1">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
-				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }" checked />
-			</c:if>
-			<c:if test="${ gift.capacity == 0 }">
-				<input type="hidden" class="capacity-flag-save-input" value="0">
-				<input type="checkbox" id="cap-chk${ gift.gift_id }" class="capacity-flag" name="capacity-flag" 
-				onchange="changeGiftCapacityChk(${ gift.gift_id })" value="${ gift.gift_id }"/>
-			</c:if>
-				<label for="cap-chk${ gift.gift_id }"><span></span>선물의 최대 수량은 <input type="text" class="gift-capacity-input" style="width:50px;height:30px;text-align:right;" name="capacity" value="${ gift.capacity }"> 개 입니다.</label>
+				선 구매가 <input type="text" class="gift-mincount-input" style="width:50px;height:30px;text-align:right;" 
+					name="mincount" value="${ product.mincount }"> 건 이상일 때 공동 구매를 진행합니다.
 			</div>
 		</div>
 		<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">
-			<button class="btn btn-primary project-custom-btn" onclick="cancleGift(${ gift.gift_id })"><b>x</b> 취소하기</button>
-			<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ gift.gift_id },0)">삭제하기</button>
-			<button class="btn btn-primary project-custom-btn" onclick="saveGift(${ gift.gift_id })">저장하기</button>
+			<button class="btn btn-primary project-custom-btn" onclick="cancleGift(${ product.product_id })"><b>x</b> 취소하기</button>
+			<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ product.product_id },0)">삭제하기</button>
+			<button class="btn btn-primary project-custom-btn" onclick="saveGift(${ product.product_id })">저장하기</button>
 		</div>
 	</div>	
 </c:forEach>
+
+
 </div>
 <div class="project-div project-outter-div-margin gift-add-btn-box">
 <div class="project-box">
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div project-element-content-div">
-				<div align="center" style="padding: 10px 10px 10px 10px;"><b>선물 추가하기</b></div>
+				<div align="center" style="padding: 10px 10px 10px 10px;"><b>물품 추가하기</b></div>
 				<div align="center"><button class="btn btn-primary gift-add-btn"><b>+</b> 추가하기</button></div>
 			</div>
 		</div>
@@ -2681,6 +1984,8 @@ tinymce.init({
 			       	  	  $("input[name='tokenValue']").prop("disabled", true);
 			       	  	  
 			       	  	  $("#certifflag_input").attr("value","Y");
+			       	  	  
+			       	  	  console.log("인증성공임");
 			       	  }
 	  	       	  	  
 	            }, 
@@ -2721,84 +2026,7 @@ tinymce.init({
 </script>
 
 
-
-<!-- 아이템 관리 modal -------------------------------------------------------------- -->
-<link href="/finalp/resources/css/modalcss/itemManagerModal.css" rel="stylesheet"/>
 <style>
-	/* 선물 안 아이템 테이블 -----------------------------------------------------*/
-	#itemManager-modal input[type=text], input[type=password] {
-	  height: 40px;
-	  font-size: 16px;
-	  width: 100%;
-	  margin-bottom: 10px;
-	  -webkit-appearance: none;
-	  background: #fff;
-	  border: 1px solid #d9d9d9;
-	  border-top: 1px solid #c0c0c0;
-	  /* border-radius: 2px; */
-	  padding: 0 8px;
-	  box-sizing: border-box;
-	  -moz-box-sizing: border-box;
-	}
-	
-	#itemManager-modal input[type=text]:hover, input[type=password]:hover {
-	  border: 1px solid #b9b9b9;
-	  border-top: 1px solid #a0a0a0;
-	  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	}
-	.modal-item-table{
-	    border-collapse: collapse;
-	    width: 100%;
-	    background-color:white;
-	    margin-bottom:0px;
-	}
-	.modal-item-table td{
-	    text-align: center;
-	    padding-top: 10px;
-		padding-bottom: 10px;
-		border-top: 1px solid #ddd;
-	}
-	.modal-item-table tr:first-child td{
-		border-top: none;
-	}
-	.modal-item-table tr{
-		transition: 0.2s;
-	}
-	
-	.modal-item-tableoutter{
-		border:1px solid rgba(0,0,0,0.15); 
-		border-radius: 5px;
-	}
-	.modal-item-table .modal-item-list-update{
-		background-color: rgba(249, 191, 48, 0.2);
-	}
-	
-	.modal-item-add-div{
-		padding: 1.5em;
-		margin: 0.5em;
-		border: 1px solid rgba(0,0,0,0.1);
-		border-radius: .25rem;
-		background-color:white;
-	}
-	.modal-item-adddetail-div{
-		padding: 1.5em;
-		margin: 0.5em;
-		border: 1px solid rgba(249, 191, 48, 0.2);
-		border-radius: .25rem; 
-		background-color: rgba(249, 191, 48, 0.2);
-	}
-	.modal-item-title{
-		padding-top: 2em;
-		padding-bottom: 0.5em;
-		margin: 0.5em;
-		font-weight: bold;
-		color: rgba(0,0,0,0.6);
-	}
-	.modal-item-notin-div{
-		margin: 1em 0.5em 0.5em 0.5em;
-	}
 	
 	.btn-default:hover{
 		background-color: rgba(200,200,200,1);
@@ -2829,6 +2057,7 @@ tinymce.init({
 		background-color: #167b72;
 		color: white;
 	}
+	
 	
 	/* snackbar */
 	#snackbar {
@@ -2872,81 +2101,8 @@ tinymce.init({
 	    from {bottom: 30px; opacity: 1;}
 	    to {bottom: 0; opacity: 0;}
 	}
-	
 
 </style>
-
-<div class="modal fade" id="itemManager-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; z-index:9999;">
-	<div class="modal-dialog">
-	 <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding-bottom: 5px;">
-          <h4 class="modal-title"><b>아이템 관리</b></h4>
-          <button type="button" class="close" data-dismiss="modal"><b>&times;</b></button>
-        </div>
-        <div class="modal-body" style="background-color: #f6f5f5;">
-			<div class="modal-item-add-div">
-				<div align="center" style="padding: 10px 10px 0px 10px;"><b>아이템 추가하기</b></div>
-				<div align="center" style="padding: 0px 10px 10px 10px;">선물 구성에 추가할 아이템을 만듭니다</div>
-				<div align="center"><button class="btn btn-primary btn-greentea item-add-btn"><b>+</b> 추가하기</button></div>
-			</div>
-			<div class="modal-item-adddetail-location">
-				<!-- <div class="modal-item-adddetail-div">
-					<div style="padding:1em;">
-						<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>
-						<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요."/></div>
-						<div align="right">
-							<button class="btn btn-default project-custom-btn" onclick="cancleGift('+ giftIndex + ')"><b>x&nbsp;취소하기</b></button>
-							<button class="btn btn-primary project-custom-btn" onclick="saveGift('+ giftIndex + ')"><b>저장하기</b></button>
-						</div>
-					</div>
-				</div> -->
-			</div>
-			<div id="modal-item-list-box">
-				<div class="modal-item-title">아이템 목록</div>
-				<div class="modal-item-in-div modal-item-tableoutter">
-			        <table class="modal-item-table">
-						<colgroup>
-							<col style="width: 80%;">
-							<col style="width: 10%;">
-							<col>
-						</colgroup>
-						<tbody>
-						<c:forEach var="item" items="${ itemList }">
-							<tr id="${ item.item_id }" class="modal-item-list-basic">
-								<td style="text-align:left; padding-left:20px;" class="modal-item-list-name" value="${ item.item_name }">${ item.item_name }</td>
-								<td style="padding-right:20px;"><button class="btn btn-default" onclick="showUpdateItem(${ item.item_id })"><b>수정하기</b></button></td>
-								<td style="padding-right:20px;"><button class="btn btn-default" onclick="deleteListItem(${ item.item_id })"><b>삭제하기</b></button></td>
-							</tr>
-							<tr class="modal-item-list-update ${ item.item_id }">
-								<td colspan="3">
-									<div style="padding:1em;">
-										<div style="color:rgba(0,0,0,0.6);" align="left"><b>아이템 이름</b></div>
-										<div style="padding: 10px 0px 10px 0px;"><input type="text" class="modal-item-list-updatename" placeholder="수정할 아이템의 이름을 입력하세요."/></div>
-										<div align="right">
-											<button class="btn btn-default project-custom-btn" onclick="cancleListItem(${ item.item_id })"><b>x&nbsp;취소하기</b></button>
-											<button class="btn btn-primary project-custom-btn" onclick="updateItemName(${ item.item_id })"><b>수정하기</b></button>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</c:forEach>
-						</tbody>
-				    </table>
-			    </div>
-		    </div>
-		    <div class="modal-item-notin-div" align="center">
-	        	<div><img src="/finalp/resources/images/icon/noun_1539704_cc.png"></div>
-	        	<div style="color: rgba(0,0,0,0.4);"><b>추가된 아이템이 존재하지 않습니다.</b></div>
-	        </div>
-        </div>
-        <div class="modal-footer" style="padding-top: 5px;">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-        </div>
-      </div>	
-	</div>
-</div>
-	
 
 <div id="snackbar">현재까지 입력하신 정보가 임시 저장되었습니다.</div>
 
@@ -2958,6 +2114,7 @@ tinymce.init({
 	    x.className = "show";
 	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 	}
+
 
 	function descriptionBtnFunc(){
 		//설명 버튼 ----------------------------------------------------

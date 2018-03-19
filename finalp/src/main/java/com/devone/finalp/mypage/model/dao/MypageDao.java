@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
-import com.devone.finalp.memberaccount.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyLikes;
 
 @Repository("mypageDao")
 public class MypageDao {
@@ -49,5 +50,19 @@ public class MypageDao {
 	public List selectMyProject(Project project) {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.myProject", project);
+	}
+	
+	public List selectMyProduct(Project project) {
+		return mybatis.selectList("mystatusmapper.myProduct", project);
+	}
+
+	public List<MyLikes> selectProjectLikes(MyLikes projectLikes) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.projectLikes", projectLikes);
+	}
+
+	public List<MyLikes> selectProductLikes(MyLikes productLikes) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.productLikes", productLikes);
 	}
 }

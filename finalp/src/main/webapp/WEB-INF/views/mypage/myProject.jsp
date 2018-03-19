@@ -13,6 +13,7 @@
 	}
 	td img{
 		width:200px;
+		height:200px;
 	}
 	.limg{
 		width:230px;
@@ -55,8 +56,6 @@ var size=4;
 
 	$(window).ready(function(){
 		var member_id=$('#memberId').val();
-		var project_id=$('#project').val();
-		if(project_id!=null){
 		$.ajax({
 			url:"myProjectList.do",
 			data:{"size":size, "member_id": member_id},
@@ -68,22 +67,20 @@ var size=4;
 				var tag="";
 				for(var i=0;i<json.project.length;i++){
 					if(json.project[i].image_rename==null){
-					tag+="<input type='hidden' id='size' value='"+json.project.length+"'/>"
-						+'<tr class="list" name="tt">'
+					tag+='<tr class="list" name="tt">'
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
 						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-					/* 	+'<td><b>${project.creation_date }</b></td>' */
+						/* +'<td><b>${project.creation_date }</b></td>' */
 						+'</tr>';
 					} else{
-						tag+='<input type="hidden" value="'+json.project.length+'"id="checksize"/>'
-							+'<tr class="list" name="tt">'
+						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 							+'</td>'
 							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-						/* 	+'<td><b>${project.creation_date }</b></td>' */
+							/* +'<td><b>${project.creation_date }</b></td>' */
 							+'</tr>';
 					}
 				}
@@ -95,7 +92,6 @@ var size=4;
 						+ errorData);
 			}
 		});
-		}
 	});
 	
 	 $(window).scroll(function() {
@@ -109,7 +105,7 @@ var size=4;
 			
 			 $.ajax({
 					url:"myProjectList.do",
-					data:{"size":size, "member_id":member_id},
+					data:{"size":Number(size), "member_id":member_id},
 					dataType:"json",
 					type:"post",
 					success:function(e){
@@ -123,7 +119,7 @@ var size=4;
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
 								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-							/* 	+'<td><b>${project.creation_date }</b></td>' */
+								/* +'<td><b>${project.creation_date }</b></td>' */
 								+'</tr>';
 							} else{
 								tag+='<tr class="list" name="tt">'
@@ -131,7 +127,7 @@ var size=4;
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 									+'</td>'
 									+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-								/* 	+'<td><b>${project.creation_date }</b></td>' */
+									/* +'<td><b>${project.creation_date }</b></td>' */
 									+'</tr>';
 							}
 						}
@@ -162,7 +158,6 @@ var size=4;
 	<div id="container">
 		<div id="content" class="section_home" >
 			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
-			<input type="hidden" id="project" value="${project.project_id }"/>
 			<div class="c_header">
 				<h2>내가 등록한 프로젝트</h2>
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>

@@ -51,6 +51,7 @@
 	}
 	#adminmemde a.btna{
 		text-decoration:none;
+		color:black;
 	}
 	#adminmemde #btn1{
 		margin-left:80px;
@@ -128,9 +129,6 @@
 		</tr>
 		<tr>
 			<th class="active">이름</th><td>&nbsp;&nbsp;${ mdetail.member_name }</td>
-		</tr>
-		<tr>
-			<th class="active">성별 / 나이</th><td>&nbsp;&nbsp;${ mdetail.gender } / ${ mdetail.age }</td>
 		</tr>
 		<tr>
 			<th class="active">이메일</th><td>&nbsp;&nbsp;${ mdetail.email }</td>

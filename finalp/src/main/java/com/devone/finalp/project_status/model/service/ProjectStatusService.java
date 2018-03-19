@@ -38,8 +38,11 @@ public interface ProjectStatusService {
 	List<GiftInItems> selectListGiftInItems(String projectId);
 	ProjectStatusUpdate selectOneProjectStatusUpdateByProId(String projectId);
 	List<GiftInItemsUpdate> selectListGiftInItemsUpdate(String projectId);
+	
 	int updateProjectAccount(ProjectAccount projectAcc);
 	int deleteGift(String projectId);
 	int deleteItem(String projectId);
 	int insertProduct(Product product);
+	List<Product> selectListProduct(String projectId);
+	int deleteProduct(String projectId);
 }

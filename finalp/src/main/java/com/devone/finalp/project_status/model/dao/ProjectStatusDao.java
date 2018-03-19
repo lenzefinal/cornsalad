@@ -124,4 +124,12 @@ public class ProjectStatusDao {
 	public int insertProduct(Product product) {
 		return mybatis.insert("projectstatusMapper.insertProduct", product);
 	}
+
+	public List<Product> selectListProduct(String projectId) {
+		return mybatis.selectList("projectstatusMapper.selectListProduct", projectId);
+	}
+
+	public int deleteProduct(String projectId) {
+		return mybatis.update("projectstatusMapper.deleteProduct", projectId);
+	}
 }

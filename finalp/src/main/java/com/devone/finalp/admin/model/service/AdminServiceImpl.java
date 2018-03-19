@@ -12,6 +12,7 @@ import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
 @Service("adminService")
@@ -49,6 +50,12 @@ public class AdminServiceImpl implements AdminService {
 	public AReport reportDetail(int report_id) {
 		return adminDao.reportDetail(report_id);
 	}
+	
+	//관리자 신고글 확인 여부(신고글 수정)
+	@Override
+	public int reportAUpdate(int report_id) {
+		return adminDao.reportAUpdate(report_id);
+	}
 
 	//관리자 문의글 리스트
 	@Override
@@ -78,6 +85,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<AProject> selectOffProject() {
 		return adminDao.selectOffProject();
+	}
+	
+	//관리자 프로젝트 승인처리(프로젝트 수정)
+	@Override
+	public int updateProjectOn(String project_id) {
+		return adminDao.updateProjectOn(project_id);
 	}
 	
 	//관리자 회원 수(페이징 처리용)
@@ -121,6 +134,43 @@ public class AdminServiceImpl implements AdminService {
 	public int memberDelete(String member_name) {
 		return adminDao.memberDelete(member_name);
 	}
+
+	//관리자 신고 댓글 삭제
+	@Override
+	public int replyDelete(AReport report) {
+		return adminDao.replyDelete(report);
+	}
+	
+	//관리자 공지사항 리스트
+	@Override
+	public List<Notice> selectNoticeList() {
+		return adminDao.selectNoticeList();
+	}
+
+	//관리자 공지사항 등록
+	@Override
+	public int noticeInsert(Notice notice) {
+		return adminDao.noticeInsert(notice);
+	}
+	
+	//관리자 공지사항 상세보기
+	@Override
+	public Notice noticeDetail(int notice_id) {
+		return adminDao.noticeDetail(notice_id);
+	}
+
+	//관리자 공지사항 수정
+	@Override
+	public int noticeUpdate(Notice notice) {
+		return adminDao.noticeUpdate(notice);
+	}
+
+	//관리자 공지사항삭제
+	@Override
+	public int noticeDelete(int notice_id) {
+		return adminDao.noticeDelete(notice_id);
+	}
+	
 	
 	
 }

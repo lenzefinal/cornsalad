@@ -59,6 +59,7 @@
 	}
 	#adminMain a.btna{
 		text-decoration:none;
+		color:black;
 	}
 	
  } 
