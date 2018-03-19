@@ -502,6 +502,7 @@
 		#headerBar div#alarmbox{
 			width:350px;
 			height: 153px;
+			display:none;
 			border:1px solid #BDBDBD;
 			border-radius:3px;
 			background-color: white;
@@ -550,7 +551,7 @@
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
 	$(function(){
-		$("#alarmbox").hide();
+		/* $("#alarmbox").hide(); */
 		var flag="true";
 		$("#bimg").click(function(){
 			if(flag == "true"){
