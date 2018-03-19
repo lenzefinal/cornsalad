@@ -47,7 +47,6 @@ var size=4;
 				var jsonStr=JSON.stringify(e);
 				var json=JSON.parse(jsonStr); 
 				var tag="";
-				if(json.lproduct[0]!=null){
 				for(var i=0;i<json.lproduct.length;i++){
 					if(json.lproduct[i].image_rename==null){
 					tag+='<tr class="list" name="tt">'
@@ -55,7 +54,7 @@ var size=4;
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
 						+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-						+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+						/* +'<td><b>${project.creation_date }</b></td>' */
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -63,15 +62,11 @@ var size=4;
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproduct[i].image_rename)+'"/>'
 							+'</td>'
 							+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+							/* +'<td><b>${project.creation_date }</b></td>' */
 							+'</tr>';
 					}
 				}
 				$('.tbl_type').html(tag);
-				} else{
-					$('#result').html("결과가 없습니다.");
-					$('#container').css("height","600px");
-				}
 			},
 			error: function(request, status, errorData) {
 				alert("에러코드: " + request.status + "\n" + "메세지: "
@@ -104,7 +99,7 @@ var size=4;
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
 								+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+								/* +'<td><b>${project.creation_date }</b></td>' */
 								+'</tr>';
 							} else{
 								tag+='<tr class="list" name="tt">'
@@ -112,7 +107,7 @@ var size=4;
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproduct[i].image_rename)+'"/>'
 									+'</td>'
 									+'<td><b><a href="#" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-									+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+									/* +'<td><b>${project.creation_date }</b></td>' */
 									+'</tr>';
 							}
 						}
@@ -149,7 +144,6 @@ var size=4;
 			</table>
 		</div>
 		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
-		<div id="result" style="text-align:center;"></div>
 	</div>
 </body>
 </html>
