@@ -120,6 +120,58 @@
 				}
   	  	});
   	}
+  	
+  	//문의글 답변 미완료된것만
+  	$(function(){
+  		$('#find').click(function(){
+  			var recont = document.getElementById("recont");
+  			var option = recont.options[recont.selectIndex].value;
+  			
+  			$.ajax({
+  				url: "searchQuestion.do",
+  				data:{
+  					option :  option
+  				},
+  				type: "post",
+  				dataType: "json",
+  				success: function(data){
+					var jsonStr = JSON.stringify(data);
+ 					
+ 					var json = JSON.parse(jsonStr);
+ 					
+ 					$('#qtable').empty();
+ 					
+ 					var value = "<table class='table table-bordered table-hover' id='qtable'><thead><tr class='active'>"+
+ 							"<th>작성자</th><th>문의글 제목</th><th>작성날짜</th><th>답변</th></tr></thead><tbody>";
+ 					
+ 					for(var i in json.sqlist){
+						if(json.sqlist.length > 0 ){
+							value +="<tr><td>"+decodeURIComponent(json.sqlist[i].send_member_name)+"</td><td>"+decodeURIComponent(json.sqlist[i].replace(/\+/g," "))+
+								"</td><td>"+json.sqlist[i].send_creation_date+"</td>";
+								if(json.sqlist[i].re_content == null){
+									value+="<td><button class='btn anbt' data-toggle='modal'data-target='#quModal' "+
+										"onclick='qubtn("+json.sqlist[i].question_id+")'>답변</button></td></tr>";
+								}else{
+									value+="<td>완료 &nbsp;<button class='btn anbt' data-toggle='modal'data-target='#quModal' "+
+										"onclick='qubtn("+json.sqlist[i].question_id+")'>답변</button></td></tr>";
+								}
+						}else{
+							value += "<tr><td colspan='4'>조회된 문의함 내역이 없습니다.</td></tr>"
+						}
+					}
+ 					
+ 					$('#qtable').html(value);
+  					
+  				},
+  				error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  			});
+  			
+  		});
+  	});
   </script>
  </head>
  <body class="skin_main">
@@ -141,12 +193,12 @@
 <div class="searchdiv">
   <form action="#">
     <div class="input-group">
-      <select class="form-control">
-		<option>답변 미완료</option>
-		<option>답변 완료</option>
-		<option>ca3</option>
-		<option>ca4</option>
-		</select>
+      <select class="form-control" name="recont" id="recont">
+		<option value="all">----</option>
+		<option value="nore">답변 미완료</option>
+		<option value="okre">답변 완료</option>
+	  </select>
+	 <button class="btn btn-danger" id="find">검색</button>
     </div>
   </form>
 </div>

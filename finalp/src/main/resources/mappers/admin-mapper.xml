@@ -115,6 +115,18 @@
 		]]>
 	</update>
 	
+	<select id="norecontent" resultMap="AQuestionmap">
+		<![CDATA[
+			SELECT * FROM A_QUESTION WHERE (RECEIVE_MEMBER_NAME = '관리자' OR SEND_MEMBER_NAME = '관리자') AND RE_CONTENT IS NULL
+		]]>
+	</select>
+	
+	<select id="okrecontent" resultMap="AQuestionmap">
+		<![CDATA[
+			SELECT * FROM A_QUESTION WHERE (RECEIVE_MEMBER_NAME = '관리자' OR SEND_MEMBER_NAME = '관리자') AND RE_CONTENT IS NOT NULL
+		]]>
+	</select>
+	
 	<resultMap id="AProjectmap" type="AProject">
 		<result property="rnum" column="rnum" />
 		<result property="project_category_name" column="project_category_name" />

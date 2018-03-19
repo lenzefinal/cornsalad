@@ -40,4 +40,8 @@ public interface AdminService {
 	int noticeUpdate(Notice notice);
 	int noticeDelete(int notice_id);
 	
+	List<AQuestion> norequestion();
+	List<AQuestion> okrequestion();
+	
+	
 }
