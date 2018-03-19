@@ -19,5 +19,9 @@ public class MemberStatusDao {
 	public Member joinedEmailFind(String email) {
 		return mybatis.selectOne("memberMapper.joinedEmailFind", email);
 	}
+	
+	public int insertMember(Member member) {
+		return mybatis.insert("memberMapper.insertMember", member);
+	}
 
 }

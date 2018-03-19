@@ -102,11 +102,11 @@ public class TestController {
 		out.close();*/
 	}
 	
-	@RequestMapping(value="/projectlist.do")
+	/*@RequestMapping(value="/projectlist.do")
 	public String selectProjectList() {
 		System.out.println("아아");
 		return "project/projectListView";
-	}
+	}*/
 	
 	@RequestMapping(value="/projectdetail.do")
 	public String detailView() {

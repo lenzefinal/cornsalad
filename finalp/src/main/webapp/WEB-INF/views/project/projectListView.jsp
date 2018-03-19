@@ -393,7 +393,7 @@
 	}
 </style>
 </head>
-<body>
+<body style="background:#f6f5f5;">
 	<c:import url="../header.jsp"/>
 	<div class="wrap">
 		<div id="noticeSection" style="margin-top:100px;">
@@ -431,22 +431,27 @@
 		</div>
 		
 		<div class="thumnailContainer">
+			<c:forEach var="projectList" items="${ list }">
 			<div class="thumnailContent">
+				<c:url var="projectDetail" value="projectDetailView.do">
+					<c:param name="member_id" value="${ loginUser.member_id }"/>
+					<c:param name="project_id" value="${ projectList.project_id }"/>
+				</c:url> 
 
-				<a class="thumnailAtag" href="#">
+				<a class="thumnailAtag" href="${ projectDetail }">
 
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
+					<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/${ projectList.image_rename }" alt="${ projectList.project_name }">
 
 					<div class="thumnailTextWrap">
 
 						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
+							<h1 class="projectTitle">${ projectList.project_name }</h1>
+							<p class="creatorName">${ projectList.member_name }</p>
 						</div>
 
 						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
 							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
+							<rect x="0" y="0" height="2" width="${ projectList.percent }" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
 						</svg>
 
 						<div class="fundingInfo">
@@ -458,282 +463,19 @@
 
 							<div>
 								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
+									<!-- react-text: 239 -->${projectList.total_amount}<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
 								</span>
 								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
+									<!-- react-text: 242 -->${projectList.percent}<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->
 								</span>
 							</div>
 						</div>
 					</div>
 				</a>
 			</div>
+			</c:forEach>
 
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
 			
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="thumnailContent">
-
-				<a class="thumnailAtag" href="#">
-
-					<img class="thumnailImage" src="https://tumblbug-pci2.imgix.net/17ab7961bf0169b14c9d3d9d3f30a7f21e8884c7/46bfc9ff587c3cab9b078e766398a02803cc11bb/31bf3b28d9a093ae996a6fcd979129a3a13202fd/1c04c0e2-cb61-4eee-9460-5d0540f63ae1.jpeg?w=620&h=465&auto=format%2Ccompress&lossless=true&fit=crop&q=60" alt="당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’ 이미지">
-
-					<div class="thumnailTextWrap">
-
-						<div class="fundingTitle">
-							<h1 class="projectTitle">당신의 하루를 반짝이게 만들어줄, 우주를 담은 ‘썬캐쳐’</h1>
-							<p class="creatorName">ANE</p>
-						</div>
-
-						<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">
-							<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>
-							<rect x="0" y="0" height="2" width="60%" fill="#F7D358"></rect><!--여기서의 width값에 따라-->
-						</svg>
-
-						<div class="fundingInfo">
-							<span style="font-size: 0.8rem;">
-								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
-							</span>
-
-							<div>
-								<span class="fundingMoney">
-									<!-- react-text: 239 -->4,062,000<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->
-								</span>
-								<span class="fundingRate">
-									<!-- react-text: 242 -->4061<!-- /react-text --><!-- react-text: 243 -->%<!-- /react-text -->
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
 		</div>
 	</div>
 	

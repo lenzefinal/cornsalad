@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -170,11 +169,24 @@ public class MemberStatusController {
 	}
 	
 	@RequestMapping(value="enrollMember.do", method=RequestMethod.POST)
-	public void insertMember(Member member, HttpServletResponse response) {
+	public void insertMember(Member member, HttpServletResponse response,
+							 HttpSession session) throws IOException {
 		System.out.println("잘들어왔나");
-		
-		
 		System.out.println(member);
+		
+		int result = memberStatusService.insertMember(member);
+		
+		PrintWriter out = response.getWriter();
+		if(result>0) {
+			out.append("SUSS000");
+			session.setAttribute("loginUser", memberStatusService.login(member));
+		}else {
+			out.append("Failed");
+		}
+		
+		out.flush();
+		out.close();
+		
 	}
 	
 	
