@@ -177,6 +177,24 @@ public class AdminServiceImpl implements AdminService {
 	public int noticeDelete(int notice_id) {
 		return adminDao.noticeDelete(notice_id);
 	}
+	
+	//관리자 통계(카테고리별 카운트)
+	@Override
+	public Astat categoryStat() {
+		return adminDao.categoryStat();
+	}
+
+	//관리자 통계(매출 탑 10)
+	@Override
+	public List<Astat> moneyStat() {
+		return adminDao.moneyStat();
+	}
+
+	//관리자 통계(후원자 탑 3)
+	@Override
+	public List<Astat> sponStat() {
+		return adminDao.sponStat();
+	}
 
 	//관리자 ajax 검색용
 	//문의글 답변 안된것만
@@ -197,26 +215,11 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.searchReport(report_category_name);
 	}
 
-	//관리자 통계(카테고리별 카운트)
+	//관리자 회원 검색(이름으로)
 	@Override
-	public Astat categoryStat() {
-		return adminDao.categoryStat();
+	public List<AMember> searchMember(String member_name) {
+		return adminDao.searchMember(member_name);
 	}
-
-	//관리자 통계(매출 탑 10)
-	@Override
-	public List<Astat> moneyStat() {
-		return adminDao.moneyStat();
-	}
-
-	//관리자 통계(후원자 탑 3)
-	@Override
-	public List<Astat> sponStat() {
-		return adminDao.sponStat();
-	}
-
-	
-	
 	
 	
 }

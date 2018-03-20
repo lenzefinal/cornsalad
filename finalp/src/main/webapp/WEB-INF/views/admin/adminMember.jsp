@@ -64,8 +64,57 @@
 	
  } 
 </style>
+<script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		$('#bid').click(function(){
+  			var search = document.getElementById("search").value;
+  			console.log(search);
+  			$.ajax({
+  				url: "searchMember.do",
+  				data:{
+  					search :  search
+  				},
+  				type: "post",
+  				dataType: "json",
+  				success: function(data){
+					var jsonStr = JSON.stringify(data);
+ 					
+ 					var json = JSON.parse(jsonStr);
+ 					
+ 					$('#mtable').empty();
+ 					
+ 					var value = "<table class='table table-bordered table-hover' id='mtable'><thead><tr class='active'>"+
+						"<th>이름</th><th>프로젝트 수</th><th>총 후원금</th><th>누적 신고 수</th><th>BLACKLIST</th><th>정지 / 탈퇴</th></tr></thead><tbody>";
+					
+ 					if(json.smlist.length > 0 ){
+ 						for(var i in json.smlist){
+							value +="<tr><td><a href='adminMemberDetail.do?member_name="+ decodeURIComponent(json.smlist[i].member_name) +"'>"+
+									decodeURIComponent(json.smlist[i].member_name) + "</a></td><td>"+ json.smlist[i].project_count +
+									"</td><td>"+ json.smlist[i].spon_money +"</td><td>"+ json.smlist[i].total_report_count + 
+									"</td><td>"+ json.smlist[i].blacklist_flag +"</td><td><a class='btna' href='adminMemberBlack.do?member_name="+
+									decodeURIComponent(json.smlist[i].member_name) + "'><button class='btn btn-defult'>정지</button></a>&nbsp;"+
+									"<a class='btna' href='adminMemberDelete.do?member_name="+
+									decodeURIComponent(json.smlist[i].member_name) + "'><button class='btn btn-danger'>탈퇴</button></span></a></td></tr>";
 
+							}
+					}else{
+						value += "<tr><td colspan='6'>조회된 회원이 없습니다.</td></tr>"
+					}
+ 					
+ 					$('mtable').html(value);
+  				},
+  				error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  			});
+  		});
+  	});
+  </script>
 </head>
+
 <body class="skin_main">
  <c:import url="adminMenu.jsp"/>
    <div id="lnb_area">
@@ -83,21 +132,19 @@
 <hr class="hrst">
 <br>
 <div class="searchdiv">
-  <form action="#">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" name="search">
+      <input type="text" class="form-control" placeholder="Search" id="search">
       <div class="input-group-btn">
-        <button id="bid" class="btn btn-default" type="submit">
+        <button id="bid" class="btn btn-default">
         <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
       </div>
     </div>
-  </form>
 </div>
 
 <br>
 
   <div class="memtable">
-  <table class="table table-bordered table-hover" >
+  <table class="table table-bordered table-hover" id="mtable" >
     <thead>
       <tr class="active">
         <th>이름</th>

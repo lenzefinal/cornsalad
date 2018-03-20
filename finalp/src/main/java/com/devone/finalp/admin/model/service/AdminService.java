@@ -47,5 +47,6 @@ public interface AdminService {
 	List<AQuestion> norequestion();
 	List<AQuestion> okrequestion();
 	List<AReport> searchReport(String report_category_name);
+	List<AMember> searchMember(String member_name);
 	
 }

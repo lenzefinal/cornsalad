@@ -231,6 +231,12 @@
 		]]>
 	</delete>
 	
+	<select id="searchMember" parameterType="String" resultMap="AMembermap">
+		<![CDATA[
+			SELECT * FROM A_MEMBER WHERE MEMBER_NAME LIKE '%#{ search }%'
+		]]>	
+	</select>
+	
 	<resultMap id="NoticeMap" type="Notice">
 		<result property="notice_id" column="notice_id" />
 		<result property="title" column="title" />

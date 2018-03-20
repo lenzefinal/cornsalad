@@ -127,6 +127,18 @@ public class AdminDao {
 	public int noticeDelete(int notice_id) {
 		return mybatis.delete("adminmapper.noticeDelete",notice_id);
 	}
+	
+	public Astat categoryStat() {
+		return mybatis.selectOne("adminmapper.categoryStat");
+	}
+
+	public List<Astat> moneyStat() {
+		return mybatis.selectList("adminmapper.moneyStat");
+	}
+
+	public List<Astat> sponStat() {
+		return mybatis.selectList("adminmapper.sponStat");
+	}
 
 	public List<AQuestion> norequestion() {
 		return mybatis.selectList("adminmapper.norecontent");
@@ -140,16 +152,8 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.searchReport", report_category_name);
 	}
 
-	public Astat categoryStat() {
-		return mybatis.selectOne("adminmapper.categoryStat");
-	}
-
-	public List<Astat> moneyStat() {
-		return mybatis.selectList("adminmapper.moneyStat");
-	}
-
-	public List<Astat> sponStat() {
-		return mybatis.selectList("adminmapper.sponStat");
+	public List<AMember> searchMember(String member_name) {
+		return mybatis.selectList("adminmapper.searchMember", member_name);
 	}
 	
 

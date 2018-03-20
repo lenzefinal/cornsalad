@@ -247,7 +247,7 @@
  					$('#rtable').empty();
  					
  					var value = "<table class='table table-bordered table-hover' id='rtable'><thead><tr class='active'>"+
- 							"<th>카테고리</th><th>신고 작성 회원</th><th>신고 당한 회원</th><th>신고 날짜</th><th>신고 횟수</th><th>상세보기</th></tr></thead><tbody>";
+ 							"<th>카테고리</th><th>신고 작성 회원</th><th>신고 당한 회원</th><th>신고 날짜</th><th>신고 횟수</th><th>상세보기</th></tr></thead>";
  							
  					if(json.srlist.length > 0 ){
  						for(var i in json.srlist){

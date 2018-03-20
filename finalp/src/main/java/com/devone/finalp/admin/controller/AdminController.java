@@ -1,7 +1,5 @@
 package com.devone.finalp.admin.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -26,7 +24,6 @@ import com.devone.finalp.admin.model.vo.AAlarm;
 import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
-import com.devone.finalp.admin.model.vo.Astat;
 import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -479,5 +476,40 @@ public class AdminController {
 		out.close(); 
 	}
 	
+	//회원 이름으로 검색
+	@RequestMapping(value="searchMember.do", method=RequestMethod.POST )
+	public void searchMember(HttpServletResponse response,
+			@RequestParam(value="search") String search) throws IOException{
+		List<AMember> smlist=adminService.searchMember(search);
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AMember amember : smlist) {
+			JSONObject jmember=new JSONObject();
+			jmember.put("rnum", amember.getRnum());
+			jmember.put("member_id", amember.getMember_id());
+			jmember.put("member_name", URLEncoder.encode(amember.getMember_name(),"utf-8"));
+			jmember.put("email", amember.getEmail());
+			jmember.put("phone", amember.getPhone());
+			jmember.put("total_report_count", amember.getTotal_report_count());
+			jmember.put("blacklist_flag", amember.getBlacklist_flag());
+			jmember.put("profile_img_oriname", amember.getProfile_img_oriname());
+			jmember.put("profile_img_rename", amember.getProfile_img_rename());
+			jmember.put("project_count", amember.getProject_count());
+			jmember.put("spon_money", amember.getSpon_money());
+			
+			jarr.add(jmember);
+		}
+		
+		sendjson.put("smlist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
+		
+	}
 
 }
