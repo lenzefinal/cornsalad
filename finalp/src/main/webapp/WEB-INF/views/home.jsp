@@ -73,14 +73,14 @@
     			<div class="ranking-wrap">
 	    			<div class="ranking-tab">
 	    				<ul>
-	    					<li class="active"><button onclick="selectRankingTab('1')">투자</button></li>
-	    					<li class=""><button onclick="selectRankingTab('2')">리워드</button></li>
-	    					<li class=""><button onclick="selectRankingTab('3')">오픈예정</button></li>
+	    					<li class="active"><button onclick="selectRankingTab('1')">기대 상승!</button></li>
+	    					<li class=""><button onclick="selectRankingTab('2')">최대 후원금</button></li>
+	    					<li class=""><button onclick="selectRankingTab('3')">인기</button></li>
 	    				</ul>
 	    			</div>
 	    				
 	    			<div id="rankContent1" class="ranking-content" style="display: none;">
-		    			<a href="/web/ftcampaign/detail/726" title="4차산업의 혁명 인공지능 영상분석 전문가 핀텔">
+		    			<!-- <a href="/web/ftcampaign/detail/726" title="4차산업의 혁명 인공지능 영상분석 전문가 핀텔">
 							<em class="ranking-img" style="background-image:url('https://cdn.wadiz.kr/ft/images/green001/2018/0208/20180208104145664_0.jpg/wadiz/quality/95/optimize')"></em>
 						</a>
 			    		<div class="ranking-list">
@@ -121,14 +121,14 @@
 								</li>
 								
 							</ol>
-						</div>
+						</div> -->
 		    		</div>
 	    				
 	    			<div id="rankContent2" class="ranking-content" style="display: block;">
-	    				<a href="/web/campaign/detail/18115" title="스마트 고양이 자동 화장실 라비봇,  고양이와 집사를 위한 집사.">
+	    				<!--<a href="/web/campaign/detail/18115" title="스마트 고양이 자동 화장실 라비봇,  고양이와 집사를 위한 집사.">
 							<em class="ranking-img" style="background-image:url('https://cdn.wadiz.kr/wwwwadiz/green001/2018/0228/20180228194954615_18115.jpg/wadiz/quality/95/optimize')"></em>
 						</a>
-						<div class="ranking-list">
+						 <div class="ranking-list">
 							<ol>
 								
 								<li>
@@ -167,11 +167,11 @@
 								</li>
 															
 							</ol>
-						</div>
+						</div> -->
 	    			</div>
 	    				
 					<div id="rankContent3" class="ranking-content" style="display: none;">
-		    			<a href="/web/wcomingsoon/ivt/740" title="파스텔의 세번째 복합문화공간, 한남동 온다빌레">
+		    			<!-- <a href="/web/wcomingsoon/ivt/740" title="파스텔의 세번째 복합문화공간, 한남동 온다빌레">
 							<em class="ranking-img" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2018/0213/20180213114334090_0.png/wadiz/resize/516/quality/95/optimize)"></em>
 						</a>
 	    				<div class="ranking-list">
@@ -212,7 +212,7 @@
 								</li>   
 								
 							</ol>
-						</div>
+						</div> -->
 					</div>
 				</div>
     		</div>
@@ -718,6 +718,7 @@
 		if(false){
 			rankingTabNum = 1;
 			selectRankingTab(''+rankingTabNum);
+			
 		}else if(true){
 			rankingTabNum = 2;
 			selectRankingTab(''+rankingTabNum);
@@ -732,6 +733,7 @@
 			}else{
 				rankingTabNum++;
 			}
+			
 			selectRankingTab(''+rankingTabNum);
 		}, 10000);
 		
@@ -744,6 +746,7 @@
 					}else{
 						rankingTabNum++;
 					}
+					
 					selectRankingTab(''+rankingTabNum);
 				}, 10000);
 		  });
@@ -769,6 +772,17 @@
 
 	function selectRankingTab(num){
 		var tabNum = num-1;
+		
+		//jieun
+		//ajax 실행
+		//console.log("tabNum]"+tabNum);
+		switch(tabNum){
+			case 0: getExpectationTop5();   break;
+			case 1: getPaymentAmountTop5(); break;
+			case 2: getPaymentCountTop5();  break;
+		}
+		
+		
 		$('#rankingSection .helpinfo').removeClass('invest').removeClass('reward').removeClass('coming');
 		if(num == 1){
 			$('#rankingSection .helpinfo').addClass('invest');
@@ -786,7 +800,212 @@
 		$('html, body').animate({scrollTop : 0},600);
 		return false;
 	}
-    
+	
+	
+	
+	//-----------
+	//jieun
+	//-----------
+	//후원금에 비해 결제 건수가 높은 경우(기대치) top5
+	function getExpectationTop5(){
+		
+		//컨트롤러로 부터 리스트를 받아서 출력 처리함
+		$.ajax({
+			url: "realTimeExpectationTopRank.do",
+			type: "post",
+			dataType: "json",
+			success: function(data){
+				//리턴된 하나의 객체를 문자열로 변환
+				var jsonStr = JSON.stringify(data);
+				//변환된 문자열을 json 객체로 변환
+				var json = JSON.parse(jsonStr);
+				
+				var renameImg = "";
+				var proName = "";
+				for(var i in json.list){
+					var rank = i + 1;
+					if(rank == json.list[i].rankNum){
+						
+						renameImg = json.list[i].imageRename;
+						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
+						break;
+					}
+				}
+				
+				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
+							 '</a>';
+				
+				//json.list[i]
+				
+				values += '<div class="ranking-list">' +
+							'<ol>';
+				
+				for(var i=0; i<5; ++i){
+					for(var j in json.list){
+						var rank = i + 1;
+						if(rank == json.list[j].rankNum){
+							
+							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
+							values += '<li>' +
+										 '<div>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+										 '</div>' +
+									  '</li>';
+							break;
+						}							
+					}
+				}
+				
+				values += 	'</ol>' +
+						'</div>';
+						
+				$("#rankContent1").html(values);
+			},
+			error: function(request, status, errorData){
+				alert("error code: " + request.status + "\n"
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData);
+			}
+		});
+	}
+	
+	//후원금 top5
+	function getPaymentAmountTop5(){
+		
+		//컨트롤러로 부터 리스트를 받아서 출력 처리함
+		$.ajax({
+			url: "realTimePaymentAmountTopRank.do",
+			type: "post",
+			dataType: "json",
+			success: function(data){
+				//리턴된 하나의 객체를 문자열로 변환
+				var jsonStr = JSON.stringify(data);
+				//변환된 문자열을 json 객체로 변환
+				var json = JSON.parse(jsonStr);
+				
+				var renameImg = "";
+				var proName = "";
+				for(var i in json.list){
+					var rank = i + 1;
+					if(rank == json.list[i].rankNum){
+						
+						renameImg = json.list[i].imageRename;
+						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
+						break;
+					}
+				}
+				
+				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
+							 '</a>';
+				
+				//json.list[i]
+				
+				values += '<div class="ranking-list">' +
+							'<ol>';
+				
+				for(var i=0; i<5; ++i){
+					for(var j in json.list){
+						var rank = i + 1;
+						if(rank == json.list[j].rankNum){
+							
+							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
+							values += '<li>' +
+										 '<div>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+										 '</div>' +
+									  '</li>';
+							break;
+						}							
+					}
+				}
+				
+				values += 	'</ol>' +
+						'</div>';
+						
+				$("#rankContent2").html(values);
+			},
+			error: function(request, status, errorData){
+				alert("error code: " + request.status + "\n"
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData);
+			}
+		});
+	}
+	
+	//결제 수 top5
+	function getPaymentCountTop5(){
+		
+		//컨트롤러로 부터 리스트를 받아서 출력 처리함
+		$.ajax({
+			url: "realTimePaymentCountTopRank.do",
+			type: "post",
+			dataType: "json",
+			success: function(data){
+				//리턴된 하나의 객체를 문자열로 변환
+				var jsonStr = JSON.stringify(data);
+				//변환된 문자열을 json 객체로 변환
+				var json = JSON.parse(jsonStr);
+				
+				var renameImg = "";
+				var proName = "";
+				for(var i in json.list){
+					var rank = i + 1;
+					if(rank == json.list[i].rankNum){
+						
+						renameImg = json.list[i].imageRename;
+						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
+						break;
+					}
+				}
+				
+				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
+							 '</a>';
+				
+				//json.list[i]
+				
+				values += '<div class="ranking-list">' +
+							'<ol>';
+				
+				for(var i=0; i<5; ++i){
+					for(var j in json.list){
+						var rank = i + 1;
+						if(rank == json.list[j].rankNum){
+							
+							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
+							values += '<li>' +
+										 '<div>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+										 '</div>' +
+									  '</li>';
+							break;
+						}							
+					}
+				}
+				
+				values += 	'</ol>' +
+						'</div>';
+						
+				$("#rankContent3").html(values);
+			},
+			error: function(request, status, errorData){
+				alert("error code: " + request.status + "\n"
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData);
+			}
+		});
+	}
+	
+	String.prototype.replaceAll = function(org, dest) {
+	    return this.split(org).join(dest);
+	}
+
+
 </script>
 
 <c:import url="footer.jsp"/>

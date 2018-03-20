@@ -53,9 +53,7 @@
 		
 		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
 		
-		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.HotTopRankView" alias="HotTopRankView"/>
-		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.PaymentAmountTopRankView" alias="PaymentAmountTopRankView"/>
-		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.PaymentCountTopRankView" alias="PaymentCountTopRankView"/>
+		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.RealTimeRankTopView" alias="RealTimeRankTopView"/>
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
