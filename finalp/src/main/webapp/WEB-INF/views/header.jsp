@@ -672,7 +672,10 @@
 		  			<li class="point"><a href="adminMain.do" >관리자페이지</a></li>
 		  		</c:if>
 		  		<c:if test="${ loginUser.member_id ne 'admin' }">
-		  			<li class="point"><a href="mypageIndex.do" onclick="">마이페이지</a></li>
+		  			<c:url var="mypageIndex" value="mypageIndex.do">
+		  				<c:param name="member_id" value="${loginUser.member_id }"/>
+		  			</c:url>
+		  			<li class="point"><a href="${mypageIndex }" onclick="">마이페이지</a></li>
 		  		</c:if>
 		  </c:if>
 		  </ul>

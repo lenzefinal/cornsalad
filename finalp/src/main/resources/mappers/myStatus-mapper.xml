@@ -55,5 +55,28 @@
 			where p.project_category_id='PC-PROD' and l.member_id=#{member_id} and rownum<#{size}
 		]]>
 	</select>
-	
+	<select id="projectCount" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(project_category_id) from project where project_category_id='PC-FUND' and member_id=#{member_id}
+		]]>
+	</select>
+	<select id="productCount" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(project_category_id) from project where project_category_id='PC-PROD' and member_id=#{member_id}
+		]]>
+	</select>
+	<select id="lprojectCount" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(p.project_category_id) from project p 
+			join likes l on(p.project_id=l.project_id) 
+			where p.project_category_id='PC-FUND' and l.member_id=#{member_id}
+		]]>
+	</select>
+	<select id="lproductCount" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(p.project_category_id) from project p 
+			join likes l on(p.project_id=l.project_id) 
+			where p.project_category_id='PC-PROD' and l.member_id=#{member_id}
+		]]>
+	</select>
 </mapper>

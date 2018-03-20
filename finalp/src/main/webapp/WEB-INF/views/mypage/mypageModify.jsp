@@ -240,26 +240,6 @@
 	}
 </style>
 <script>
-	function pwdCheck(){
-	     var pw = document.getElementById("member_pwd").value;
-	     var pwck = document.getElementById("pwd_check").value;
-	 
-	     if (pw != pwck) {
-	    	 $('#same').html("비밀번호가 일치하지 않습니다!");
-	         $('#same').css('color', 'red');
-	         $('#modify').attr('disabled', true);
-	         $('#modify').css('color', 'gray');
-	         $('#modify').css('background-color', '#f5f6f8');
-	         $('#modify').css('cursor', 'default');
-	     } else {
-        	 $('#same').html("비밀번호가 잘 맞네요!")
-        	 $('#same').css('color', 'blue');
-        	 $('#modify').attr('disabled', false);
-        	 $('#modify').css('color', 'white');
-        	 $('#modify').css('background-color', '#F7D358');
-        	 $('#modify').css('cursor', 'pointer');
-	     }
-	}
 	function imgModify(img){
 		if(img.files && img.files[0]){
 			var reader=new FileReader();
@@ -309,9 +289,9 @@
 					<dt><b>ID</b></dt>
 					<dd>${member.member_id }</dd>
 					<dt><b>변경할 비밀번호</b></dt>
-					<dd><input type="password" maxlength="16" id="member_pwd" name="member_pwd" onchange="pwdCheck()" required></dd>
+					<dd><input type="password" maxlength="16" id="member_pwd" name="member_pwd" required></dd>
 					<dt><b>비밀번호 확인</b></dt>
-					<dd><input type="password" maxlength="16" id="pwd_check" onchange="pwdCheck()" required>&nbsp;&nbsp;<span id="same"></span></dd>
+					<dd><input type="password" maxlength="16" id="pwd_check" required>&nbsp;&nbsp;<span id="same"></span></dd>
 					
 					<dt><b>Phone</b></dt>
 					<dd><input type="tel" name="phone" maxlength="16" value="${member.phone }"></dd>
@@ -340,6 +320,48 @@
 					
 					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 					<script>
+					
+						$('#member_pwd').keyup(function(){
+							var pw = document.getElementById("member_pwd").value;
+							var pwck = document.getElementById("pwd_check").value;
+							console.log('zz');
+							
+						     if (pw != pwck) {
+						    	 $('#same').html("비밀번호가 일치하지 않습니다!");
+						         $('#same').css('color', 'red');
+						         $('#modify').attr('disabled', true);
+						         $('#modify').css('color', 'gray');
+						         $('#modify').css('background-color', '#f5f6f8');
+						         $('#modify').css('cursor', 'default');
+						     } else {
+					        	 $('#same').html("비밀번호가 잘 맞네요!")
+					        	 $('#same').css('color', 'blue');
+					        	 $('#modify').attr('disabled', false);
+					        	 $('#modify').css('color', 'white');
+					        	 $('#modify').css('background-color', '#F7D358');
+					        	 $('#modify').css('cursor', 'pointer');
+						     }
+						});
+						$('#pwd_check').keyup(function(){
+							var pw = document.getElementById("member_pwd").value;
+							var pwck = document.getElementById("pwd_check").value;
+						     if (pw != pwck) {
+						    	 $('#same').html("비밀번호가 일치하지 않습니다!");
+						         $('#same').css('color', 'red');
+						         $('#modify').attr('disabled', true);
+						         $('#modify').css('color', 'gray');
+						         $('#modify').css('background-color', '#f5f6f8');
+						         $('#modify').css('cursor', 'default');
+						     } else {
+						       	 $('#same').html("비밀번호가 잘 맞네요!")
+						       	 $('#same').css('color', 'blue');
+						       	 $('#modify').attr('disabled', false);
+						       	 $('#modify').css('color', 'white');
+						       	 $('#modify').css('background-color', '#F7D358');
+						       	 $('#modify').css('cursor', 'pointer');
+						     }
+						});
+						
 					    // 우편번호 찾기 찾기 화면을 넣을 element
 					    var element_wrap = document.getElementById('wrap');
 					

@@ -14,16 +14,16 @@ import com.devone.finalp.mypage.model.vo.MyLikes;
 
 @Repository("mypageDao")
 public class MypageDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
+
 	public int memberDelete(Member member) {
 		return mybatis.delete("memberMapper.deleteMember", member);
 	}
 
 	public int memberModify(Member member) {
-		
+
 		return mybatis.update("memberMapper.modifyMember", member);
 	}
 
@@ -51,7 +51,7 @@ public class MypageDao {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.myProject", project);
 	}
-	
+
 	public List selectMyProduct(Project project) {
 		return mybatis.selectList("mystatusmapper.myProduct", project);
 	}
@@ -64,5 +64,24 @@ public class MypageDao {
 	public List<MyLikes> selectProductLikes(MyLikes productLikes) {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.productLikes", productLikes);
+	}
+
+	public int projectCount(String member_id) {
+		return mybatis.selectOne("mystatusmapper.projectCount", member_id);
+	}
+
+	public int productCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.productCount", member_id);
+	}
+
+	public int lprojectCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.lprojectCount", member_id);
+	}
+
+	public int lproductCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.lproductCount", member_id);
 	}
 }

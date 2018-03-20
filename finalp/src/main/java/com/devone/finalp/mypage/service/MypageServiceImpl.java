@@ -63,4 +63,24 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		return mypageDao.selectProductLikes(productLikes);
 	}
+	@Override
+	public int projectCount(String member_id) {
+		return mypageDao.projectCount(member_id);
+	}
+	@Override
+	public int productCount(String member_id) {
+		return mypageDao.productCount(member_id);
+	}
+
+	@Override
+	public int lprojectCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mypageDao.lprojectCount(member_id);
+	}
+
+	@Override
+	public int lproductCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mypageDao.lproductCount(member_id);
+	}
 }

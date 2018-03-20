@@ -19,4 +19,8 @@ public interface MypageService {
 	List<Project> selectMyProduct(Project product);
 	List<MyLikes> selectLikesProject(MyLikes projectLikes);
 	List<MyLikes> selectLikesProduct(MyLikes productLikes);
+	int projectCount(String member_id);
+	int productCount(String member_id);
+	int lprojectCount(String member_id);
+	int lproductCount(String member_id);
 }

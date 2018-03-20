@@ -10,7 +10,6 @@
  <body class="skin_main">
 <c:import url="../header.jsp"/>
 <c:import url="mypageIndexHeader.jsp"/>
-
   <div id="container" style="height:724px;">
 	<div id="content" class="section_home">
 		<div class="column">
@@ -53,10 +52,11 @@
 				<div class="sh_content">
 					<dl class="sh_lst2">
 						<dt class="blind">찜</dt>
-						<dt>프젝</dt>
-						<dd>12345678901건</dd>
-						<dt>공구</dt>
-						<dd>x 건</dd>
+						<dt>프로젝트</dt>
+						<dd>${lprojectCount } 건</dd>
+						<dt>공동구매</dt>
+						<dd>${lproductCount } 건</dd>
+						
 					</dl>
 				</div>
 			</div>
@@ -73,14 +73,14 @@
 				<div class="sh_content">
 					<dl class="sh_lst2">
 						<dt class="blind">내 현황 보기</dt>
-						<dt>판매1</dt>
-						<dd>x 건</dd>
-						<dt>판매2</dt>
-						<dd>x 건</dd>
-						<dt>판매3</dt>
-						<dd>x 건</dd>
-						<dt>판매4</dt>
-						<dd>x 건</dd>
+						<dt>등록한 프로젝트</dt>
+						<dd>${projectCount} 건</dd>
+						<dt>펀딩한 프로젝트</dt>
+						<dd> 건</dd>
+						<dt>등록한 공동구매</dt>
+						<dd>${productCount } 건</dd>
+						<dt>구매한 공동구매</dt>
+						<dd> 건</dd>
 					</dl>
 				</div>
 			</div>

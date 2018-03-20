@@ -61,22 +61,7 @@
 	    	$('.btn0').css("color", "gray");
 		}
 	}
-	function checkpwd(){
-	     var pw = document.getElementById("member_pwd").value;
-	     var pwck = document.getElementById("memberpwd").value;
-	 
-	     if (pw != pwck) {
-	    	 $('#checkpwd').html("비밀번호가 일치하지 않습니다. 확인 후 다시 시도해주세요.");
-	         $('#checkpwd').css('color', 'red');
-	         $('#mdelete').attr('disabled', true);
-	         $('#mdelete').css('background-color', 'gray');
-	     } else {
-	       	 $('#checkpwd').html("")
-	       	 $('#mdelete').attr('disabled', false);
-	         $('#mdelete').css('background-color', 'red');
-	         $('#mdelete').css('cursor','pointer')
-		 }
-	}
+	
 </script>
 </head>
 <body class="skin_main">
@@ -129,5 +114,23 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$('#member_pwd').keyup(function(){
+	     var pw = document.getElementById("member_pwd").value;
+	     var pwck = document.getElementById("memberpwd").value;
+	 
+	     if (pw != pwck) {
+	    	 $('#checkpwd').html("비밀번호가 일치하지 않습니다. 확인 후 다시 시도해주세요.");
+	         $('#checkpwd').css('color', 'red');
+	         $('#mdelete').attr('disabled', true);
+	         $('#mdelete').css('background-color', 'gray');
+	     } else {
+	       	 $('#checkpwd').html("")
+	       	 $('#mdelete').attr('disabled', false);
+	         $('#mdelete').css('background-color', 'red');
+	         $('#mdelete').css('cursor','pointer')
+		 }
+	});
+	</script>
 </body>
 </html>

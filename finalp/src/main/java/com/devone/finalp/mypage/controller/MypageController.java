@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,9 +37,14 @@ public class MypageController {
 	// 폼 출력 메소드
 	// 마이페이지 메인
 	@RequestMapping("mypageIndex.do")
-	public String mypageIndex(Model model, Member member) {
+	public String mypageIndex(Model model, Member member, @RequestParam(value = "member_id") String member_id) {
 
 		System.out.println("마이페이지 인덱스 Form");
+		System.out.println(System.currentTimeMillis());
+		model.addAttribute("projectCount", mypageService.projectCount(member_id));
+		model.addAttribute("productCount", mypageService.productCount(member_id));
+		model.addAttribute("lprojectCount", mypageService.lprojectCount(member_id));
+		model.addAttribute("lproductCount", mypageService.lproductCount(member_id));
 
 		return "mypage/mypageIndex";
 	}
@@ -186,7 +192,6 @@ public class MypageController {
 		}
 		json.put("project", jarr);
 		System.out.println(json.toJSONString());
-		
 
 		PrintWriter out = response.getWriter();
 		out.println(json.toJSONString());
@@ -231,7 +236,7 @@ public class MypageController {
 		System.out.println("찜한 프로젝트 list");
 		List<MyLikes> list = mypageService.selectLikesProject(projectLikes);
 		response.setContentType("application/json; charset=utf-8");
-		SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
 
@@ -252,31 +257,32 @@ public class MypageController {
 		out.flush();
 		out.close();
 	}
+
 	// 찜한 공동구매 상품 리스트 출력 메소드
-		@RequestMapping(value = "lProductList.do", method = RequestMethod.POST)
-		public void ProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
-			System.out.println("찜한 프로젝트 list");
-			List<MyLikes> list = mypageService.selectLikesProduct(productLikes);
-			response.setContentType("application/json; charset=utf-8");
+	@RequestMapping(value = "lProductList.do", method = RequestMethod.POST)
+	public void ProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
+		System.out.println("찜한 프로젝트 list");
+		List<MyLikes> list = mypageService.selectLikesProduct(productLikes);
+		response.setContentType("application/json; charset=utf-8");
 
-			JSONObject json = new JSONObject();
-			JSONArray jarr = new JSONArray();
-			
-			for (MyLikes lpd : list) {
-				JSONObject j = new JSONObject();
-				j.put("image_rename", lpd.getImage_rename());
-				j.put("project_name", lpd.getProject_name());
-				j.put("member_id", lpd.getMember_id());
-				j.put("creation_date", lpd.getCreation_date().toString());
-				jarr.add(j);
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-			}
-			json.put("lproduct", jarr);
-			System.out.println(json.toJSONString());
-			
-			PrintWriter out = response.getWriter();
-			out.println(json.toJSONString());
-			out.flush();
-			out.close();
+		for (MyLikes lpd : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", lpd.getImage_rename());
+			j.put("project_name", lpd.getProject_name());
+			j.put("member_id", lpd.getMember_id());
+			j.put("creation_date", lpd.getCreation_date().toString());
+			jarr.add(j);
+
 		}
+		json.put("lproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
 }
