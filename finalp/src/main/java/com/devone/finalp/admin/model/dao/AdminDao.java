@@ -127,6 +127,14 @@ public class AdminDao {
 		return mybatis.delete("adminmapper.noticeDelete",notice_id);
 	}
 
+	public List<AQuestion> norequestion() {
+		return mybatis.selectList("adminmapper.norecontent");
+	}
+
+	public List<AQuestion> okrequestion() {
+		return mybatis.selectList("adminmapper.okrecontent");
+	}
+
 	
 	
 

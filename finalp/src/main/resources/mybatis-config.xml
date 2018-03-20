@@ -52,6 +52,10 @@
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MyLikes" alias="MyLikes"/>
 		
 		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
+		
+		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.HotTopRankView" alias="HotTopRankView"/>
+		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.PaymentAmountTopRankView" alias="PaymentAmountTopRankView"/>
+		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.PaymentCountTopRankView" alias="PaymentCountTopRankView"/>
 	</typeAliases>
 	
 	<!-- mapper 등록 -->
@@ -65,5 +69,6 @@
 		<mapper resource="mappers/myStatus-mapper.xml"/>
 		<mapper resource="mappers/payment-mapper.xml"/>
 		<mapper resource="mappers/projectlist-mapper.xml" />
+		<mapper resource="mappers/realtimetoprank-mapper.xml" />
 	</mappers>
 </configuration>

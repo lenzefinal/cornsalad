@@ -177,6 +177,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.noticeDelete(notice_id);
 	}
 
+	//관리자 ajax 검색용
+	//문의글 답변 안된것만
+	@Override
+	public List<AQuestion> norequestion() {
+		return adminDao.norequestion();
+	}
+
+	//문의글 답변 된것만
+	@Override
+	public List<AQuestion> okrequestion() {
+		return adminDao.okrequestion();
+	}
+
 	
 	
 	

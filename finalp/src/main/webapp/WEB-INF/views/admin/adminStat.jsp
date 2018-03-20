@@ -74,7 +74,45 @@
 	#stat .tabcontent.current {
 		display: block;
 	}
+	
  </style>
+ <style>
+#chartdiv {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+</style>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<!-- Chart code -->
+<script>
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "dataProvider": [ {
+    "title": "New",
+    "value": 4852
+  }, {
+    "title": "Returning",
+    "value": 9899
+  } ],
+  "titleField": "title",
+  "valueField": "value",
+  "labelRadius": 5,
+
+  "radius": "42%",
+  "innerRadius": "60%",
+  "labelText": "[[title]]",
+  "export": {
+    "enabled": true
+  }
+} );
+</script>
+
  </head>
   <body class="skin_main">
  <c:import url="adminMenu.jsp"/> 
@@ -101,7 +139,9 @@
     <br>
       <h4><strong>카테고리 </strong>별 프로젝트 현황</h4>
 	  <hr>
-      <div class="stback"></div>
+      <div class="stback">
+      <div id="chartdiv"></div>	
+      </div>
     </div>
     <div id="tab2" class="tabcontent">
     <br>

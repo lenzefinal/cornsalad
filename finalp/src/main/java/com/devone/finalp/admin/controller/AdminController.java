@@ -65,7 +65,7 @@ public class AdminController {
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int limit = 1; //한 페이지에 출력할 목록 갯수
+		int limit = 10; //한 페이지에 출력할 목록 갯수
 		int listCount = adminService.memListCount();
 		int maxPage = (int)((double)listCount / limit + 0.9);
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
@@ -372,6 +372,55 @@ public class AdminController {
 	@RequestMapping("adminStat.do")
 	public String adminStat() {
 		return "admin/adminStat";
+	}
+	
+	//검색용 ajax 모아놓기
+	//question검색(답변 미완료/완료)
+	@RequestMapping(value="",method=RequestMethod.POST)
+	public void searchQuestion(HttpServletResponse response,
+			@RequestParam(value="option") String option) throws IOException {
+		List<AQuestion> sqlist=null;
+		
+		if(option.equals("nore")) {
+			sqlist=adminService.norequestion();
+		}else if(option.equals("okre")) {
+			sqlist=adminService.okrequestion();
+		}else {
+			sqlist=adminService.selectQuestionList();
+		}
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AQuestion aquestion : sqlist) {
+			JSONObject jquestion=new JSONObject();
+			jquestion.put("question_id", aquestion.getQuestion_id());
+			jquestion.put("question_category_name", URLEncoder.encode(aquestion.getQuestion_category_name(),"utf-8"));
+			jquestion.put("receive_member_name", URLEncoder.encode(aquestion.getReceive_member_name(),"utf-8"));
+			jquestion.put("send_member_name", URLEncoder.encode(aquestion.getSend_member_name(),"utf-8"));
+			jquestion.put("title", URLEncoder.encode(aquestion.getTitle(),"utf-8"));
+			jquestion.put("content", URLEncoder.encode(aquestion.getContent(),"utf-8"));
+			if(aquestion.getRe_content() != null) {
+				jquestion.put("re_content", URLEncoder.encode(aquestion.getRe_content(),"utf-8"));
+			}else {
+				jquestion.put("re_content", aquestion.getRe_content());
+			}
+			jquestion.put("send_creation_date", aquestion.getSend_creation_date().toString().trim());
+			if(aquestion.getReceive_creation_date() != null) {
+				jquestion.put("receive_creation_date", aquestion.getReceive_creation_date().toString().trim());
+			}else {
+				jquestion.put("receive_creation_date", aquestion.getReceive_creation_date());
+			}
+			jarr.add(jquestion);
+		}
+		
+		sendjson.put("sqlist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 

@@ -503,6 +503,11 @@
 		color: white;
 	}
 	
+	textarea#refundrole-textarea{
+		min-height: 200px;
+		overflow-y:scroll;
+	}
+	
 </style>
 
 
@@ -526,7 +531,7 @@ function getCategoryListFunc(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].categoryId +'">' +
@@ -569,7 +574,7 @@ function getSubCategoryListFuncFirst(categoryId){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].subCategoryId +'">' +
@@ -603,7 +608,7 @@ function getSubCategoryListFunc(categoryId){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].subCategoryId +'">' +
@@ -633,7 +638,7 @@ function getBankList(){
 			//변환된 문자열을 json 객체로 변환
 			var json = JSON.parse(jsonStr);
 			
-			var values = "<option>선택하세요.</option>";
+			var values = "<option value=''>선택하세요.</option>";
 			
 			for(var i in json.list){
 				values += '<option value="'+ json.list[i].bankId +'">' +
@@ -1258,6 +1263,11 @@ tinymce.init({
 		var refund_role = $("#refundrole-textarea").val();
 		var certif_flag = $("#certifflag_input").attr("value");
 		
+		if(category_sub_id == 'null' ||
+				category_sub_id == '선택하세요.'){
+			category_sub_id = "";
+		}
+		
 		value += '<input id="save-project_id" type="hidden" value="'+ project_id +'">' +
 				 '<input id="save-category_sub_id" type="hidden" value="'+ category_sub_id +'">' +
 				 '<input id="save-project_name" type="hidden" value="'+ project_name +'">' +
@@ -1280,6 +1290,11 @@ tinymce.init({
 		var bank_id = $("#project-bank option:selected").val();
 		var account_name = $("#accountName-input").val();
 		var account_number = $("#accountNumber-input").val();
+		
+		if(bank_id == "undefined" ||
+				bank_id == '선택하세요.'){
+			bank_id = "";
+		}
 		
 		value += '<input id="save-bank_id" type="hidden" value="'+ bank_id +'">' +
 				 '<input id="save-account_name" type="hidden" value="'+ account_name +'">' +
@@ -1364,6 +1379,12 @@ tinymce.init({
 				$("#project-title-input").val();
 	}
 	
+	
+	//textarea 자동조절
+	function resize(obj) {
+		  obj.style.height = "1px";
+		  obj.style.height = (12+obj.scrollHeight)+"px";
+	}
 
 	
 	
@@ -1646,7 +1667,8 @@ tinymce.init({
 			</div>
 			<div class="project-element-in-div project-element-content-div">
 			<c:if test="${ project.refund_role != null }">
-				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명">${ project.refund_role }</textarea>
+				<textarea name="text" id="refundrole-textarea" onkeydown="resize(this)" onkeyup="resize(this)" 
+					class="reward-input" placeholder="정책 내용" title="상세설명">${ project.refund_role }</textarea>
 			</c:if>
 			<c:if test="${ project.refund_role == null }">
 				<textarea name="text" id="refundrole-textarea" maxlength="400" class="reward-input" placeholder="정책 내용" title="상세설명"></textarea>
