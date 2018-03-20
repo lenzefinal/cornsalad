@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.service.DetailViewServiceImpl;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -29,26 +30,36 @@ public class DetailViewController {
 	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,@RequestParam("member_id") String member_id,Likes likes) {
 		System.out.println("잘들어왓나");
 		List<HotListView> list = detailviewService.selectHotList();
-		//List<lGiftView> ist1=detailviewService.selectGiftList("15210212364391");
-		int like=detailviewService.selectLikes(project_id);
-		Likes exist=detailviewService.existList(likes);
-
 		
+		//List<lGiftView> ist1=detailviewService.selectGiftList("15210212364391");
+		System.out.println(project_id);
+		
+		int like=detailviewService.selectLikes(project_id);
+		likes=detailviewService.existList(likes);
+		System.out.println(likes.getProject_id());
+
 		model.addAttribute("hotlist", list);
 //		model.addAttribute("giftlist", list1); 
 		model.addAttribute("like", like);
-		model.addAttribute("exist", exist);		
+		model.addAttribute("likes", likes);	
+		
 		return "project/projectDetailView";
 	}
 	
 	@RequestMapping(value="reportProject.do", method=RequestMethod.POST)
-	public void reportProject(Report report) {
+	public String reportProject(Report report,Model model) {
 	
 		System.out.println("신고하기" + report);
 		int result=detailviewService.insertReport(report);
+		
+		if(result>0) {
+			System.out.println("성공");
+			model.addAttribute("project_id", report.getProject_id());
+			model.addAttribute("member_id", report.getMember_id());
+			return "redirect:projectDetailView.do";
+		}
+		return null;
 	}
-	
-
 	
 	@RequestMapping(value="Like.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -66,7 +77,6 @@ public class DetailViewController {
 			detailviewService.addLike(likes);
 			result="add";
 		}
-		
 		int like=detailviewService.selectLikes(likes.getProject_id());
 		
 		JSONObject job  = new JSONObject();
@@ -80,6 +90,21 @@ public class DetailViewController {
 		out.close();*/
 		
 		return job.toJSONString();
+	}
+	@RequestMapping(value="insertQuestion", method=RequestMethod.POST)
+	public String insertQuestion(Question question,@RequestParam("project_id") String project_id,Model model) {
+		System.out.println(question);
+		
+		int result=detailviewService.insertQuestion(question);
+		
+		if(result>0) {
+			System.out.println("성공");
+			model.addAttribute("project_id", project_id);
+			model.addAttribute("member_id", question.getSend_member_id());
+			return "redirect:projectDetailView.do";
+		}
+		return null;
+	
 	}
 	
 	

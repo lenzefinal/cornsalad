@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -52,5 +53,10 @@ public class DetailViewDao {
 
 	public int deleteLike(Likes likes) {
 		return mybatis.delete("projectdetailMapper.deleteLike", likes);
+	}
+
+	public int insertQuestion(Question question) {
+		
+		return mybatis.insert("projectdetailMapper.insertQuestion", question);
 	}
 }

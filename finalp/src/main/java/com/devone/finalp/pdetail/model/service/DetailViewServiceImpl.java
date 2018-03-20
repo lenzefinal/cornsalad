@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
 import com.devone.finalp.pdetail.model.vo.GiftView;
@@ -46,6 +47,10 @@ public class DetailViewServiceImpl implements DetailViewService{
 	}
 	public int deleteLike(Likes likes) {
 		return detailviewDao.deleteLike(likes);
+	}
+	public int insertQuestion(Question question) {
+		return detailviewDao.insertQuestion(question);
+		
 	}
 
 	

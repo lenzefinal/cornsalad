@@ -1,9 +1,14 @@
 package com.devone.finalp.common.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Report {
+public class Report implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4487634032609990842L;
 	private int report_id;
 	private String report_category_id;
 	private String project_id;

@@ -23,7 +23,7 @@
 	</select>
 	<insert id="insertReport"  parameterType="Report">
 	<![CDATA[
-		insert into Report values(seq_report.nextval,'R-PROJ','201803102234341',null,null,null,#{report_reason},#{member_id},sysdate,'N')
+		insert into Report values(seq_report.nextval,'R-PROJ',#{project_id},null,null,null,#{report_reason},#{member_id},sysdate,'N')
 	]]>
 	</insert>
 	<select id="selectLikes" parameterType="String" resultType="int">
@@ -47,6 +47,13 @@
 			delete from Likes where project_id=#{project_id} and member_id=#{member_id}
 		]]>
 	</delete>
+	
+	<insert id="insertQuestion"  parameterType="Question">
+	<![CDATA[
+			insert into Question values(seq_question.nextval,'Q-SEL','jieun',#{send_member_id},
+				#{title},#{content},null,sysdate,null)
+	]]>
+	</insert>
 
 
 

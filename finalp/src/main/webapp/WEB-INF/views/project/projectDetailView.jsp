@@ -1254,74 +1254,48 @@ li {
 								<button onclick="location.href='account.do'"
 									class="wz-btn primary large block">펀딩하기</button>
 							</div>
-							
+									
+									<c:if test="${empty loginUser}">
+										<button id="btnLike1" class="cam	paign-like btn-like"
+										style="width: 100%">
+											<img src="resources/images/icon/love1.png"
+												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
+												class="cnt-like">${ like}</em>
+										</button>
+									</c:if>
 							
 
-							<div class="btn-wrap share">
-								<button id="btnLike" class="cam	paign-like btn-like"
-									style="width: 100%">
-									<c:if test="${empty loginUser}">
-											<img src="resources/images/icon/love1.png"
-												class="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
-												class="cnt-like">${ like}</em>
-									</c:if>
-									<c:if test="${not empty loginUser}">	
-											<c:if test="${not empty exist}">
+								<div class="btn-wrap share">
+									<c:if test="${not empty loginUser}">
+										<button id="btnLike" class="cam	paign-like btn-like"
+										style="width: 100%">	
+											<c:if test="${not empty likes}">
 												<img src="resources/images/icon/love2.png"
 												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
 												class="cnt-like">${ like}</em>
 											</c:if>
-											<c:if test="${empty exist}">
+											<c:if test="${empty likes}">
 												<img src="resources/images/icon/love1.png"
 												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
 												class="cnt-like">${ like}</em>
 											</c:if>
+											</button>
 									</c:if>
-								</button>
+								
 								
 								<script>
 									$(document).ready(function(){
-										
+										$("#btnLike1").on("click",function(){
+											alert("로그인해주세요");
+										});				
 										var member_id=$("#member_id").val();
-										
-								 		/* $("#like3").on("click",function(){
-											$.ajax({
-												url:"addLike.do",
-												type:"post",
-												data:{project_id:"201803102249023",
-													  member_id: member_id},
-												success:function(data){
-													if(data="ok"){
-														console.log("add");
-														$("#btnLike").html('<img src="resources/images/icon/love2.png" id="like2" style="width: 10%; size: 10%;">')
-													}
-												}
-											});
-										}); 
-								 		
-								 		
-										$("#like2").on("click",function(){
-											$.ajax({
-												url:"deleteLike.do",
-												type:"post",
-												data:{project_id:"201803102249023",
-													  member_id: member_id},
-												success:function(data){
-													if(data="ok"){
-														console.log("delete");
-														//$("#btnLike").html('<img src="resources/images/icon/love1.png" id="like3" style="width: 10%; size: 10%;">')
-														$("#like3").attr('src',"resources/images/icon/love1.png" );
-													}
-												}
-											});
-										}); */ 
-										
+										var project_id=${ likes.project_id};
 										$("#btnLike").on("click",function(){
 											$.ajax({
 												url:"Like.do",
 												type:"post",
 												dataType:"json",
-												data:{project_id:"201803102249023",
+												data:{project_id: project_id,
 													  member_id: member_id},
 												success:function(data){
 													if(data.result==="add"){
@@ -1335,11 +1309,12 @@ li {
 													}
 												}
 											});
-										}); 
+										});
+										
 											
 											
 									});
-</script>
+			</script>
 								
 								<div id="shareSection" class="share-section">
 									<ul class="share-list" style="margin-top: 10px">
@@ -1830,7 +1805,7 @@ li {
 								<form action="reportProject.do" method="post">
 									<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
 										<input type="text" value="${ loginUser.member_name}">
-										 <input type="hidden" name="project_id" value="프로젝트 아이디"> 
+										 <input type="hidden" name="project_id" value="${ likes.project_id}"> 
 										 	<input type="text"	value="">
 									<textarea name="report_reason" placeholder="신고사유"></textarea>
 									<input type="submit" class="blacklist blacklist-submit"
@@ -1850,12 +1825,12 @@ li {
 									class="xi-close-thin xi-2x"></i></a>
 								<h1>창작자에게 문의하기</h1>
 								<br>
-								<form action="#" method="post">
-									<input type="hidden" name="" value=""> <input
-										type="text" value=""> <input type="hidden" name=""
-										value=""> <input type="text" value="">
-
-									<textarea name="content" placeholder="문의 내용"></textarea>
+								<form action="insertQuestion.do" method="post">
+										<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
+										<input type="text"  value="${ loginUser.member_name}"> 
+										<input type="hidden" name="project_id" value="${ likes.project_id} ">
+										<input type="text" name="title" value="">
+										<textarea name="content" placeholder="문의 내용"></textarea>
 
 									<input type="submit" class="blacklist blacklist-submit"
 										value="문의하기">
