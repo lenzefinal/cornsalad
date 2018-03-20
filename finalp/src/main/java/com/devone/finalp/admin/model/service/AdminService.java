@@ -8,6 +8,7 @@ import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.admin.model.vo.Astat;
 import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -39,9 +40,12 @@ public interface AdminService {
 	Notice noticeDetail(int notice_id);
 	int noticeUpdate(Notice notice);
 	int noticeDelete(int notice_id);
+	Astat categoryStat();
+	List<Astat> moneyStat();
+	List<Astat> sponStat();
 	
 	List<AQuestion> norequestion();
 	List<AQuestion> okrequestion();
-	
+	List<AReport> searchReport(String report_category_name);
 	
 }

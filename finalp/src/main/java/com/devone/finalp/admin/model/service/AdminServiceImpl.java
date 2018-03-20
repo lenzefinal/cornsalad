@@ -12,6 +12,7 @@ import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.admin.model.vo.Astat;
 import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -188,6 +189,30 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<AQuestion> okrequestion() {
 		return adminDao.okrequestion();
+	}
+
+	//신고글 카테고리별 검색
+	@Override
+	public List<AReport> searchReport(String report_category_name) {
+		return adminDao.searchReport(report_category_name);
+	}
+
+	//관리자 통계(카테고리별 카운트)
+	@Override
+	public Astat categoryStat() {
+		return adminDao.categoryStat();
+	}
+
+	//관리자 통계(매출 탑 10)
+	@Override
+	public List<Astat> moneyStat() {
+		return adminDao.moneyStat();
+	}
+
+	//관리자 통계(후원자 탑 3)
+	@Override
+	public List<Astat> sponStat() {
+		return adminDao.sponStat();
 	}
 
 	

@@ -8,9 +8,6 @@
 <meta charset=UTF-8>
 <title>공지사항</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="/finalp/resources/css/adminPage.css" rel="stylesheet">
   <style>
   div#notice{
@@ -18,6 +15,7 @@
 		margin-top:2%;
 		margin-left:25%;
 		margin-right:10%;
+		margin-bottom: 20%;
 		display:inline-block;
 		width: 60%;
 		float:center;
@@ -26,7 +24,18 @@
   hr.hrst{
 		background-color:#F7D358;
 		border:1.5px solid #F7D358; 
-	}
+  }
+  #notice div.searchdiv{
+		width: 20%;
+		float:right;
+		margin-bottom: 5%;
+  }
+  #notice button#bid{
+		border:1px solid #ced4da;
+  }
+  #notice img.iconi{
+		width:15px;
+  }
   #notice span.btnspan{
 		float:right;
   }
@@ -34,6 +43,7 @@
   		color:black;
   }
   #notice button{
+		font-size:13px;
 		margin-top:-8px;
   }
   #notice textarea#ncont{
@@ -43,13 +53,19 @@
 		height: auto;
   }
   #notice #nomodal div.modal-body #ntitle , #notice #nomodal2 div.modal-body #ntitle{
+		font-size: 14px;
 		width: 720px;
   }
   #notice #nomodal div.modal-body #nwriter , #notice #nomodal2 div.modal-body #nwriter{
+		font-size: 14px;
 		width:300px;
   }
   #notice #nomodal div.modal-body #ndate , #notice #nomodal2 div.modal-body #ndate{
+		font-size: 14px;
 		width:330px;
+  }
+  #notice div.modal-body textarea{
+  		font-size:14px;
   }
   #notice button.inbt{
 		font-size:14px;
@@ -57,12 +73,12 @@
   }
   #notice button.mobt{
   		background-color:#654693;
-  		font-size: 11px;
+  		font-size: 12px;
   		color:white;
   }
   #notice button.debt{
   		background-color:#1D004B;
-  		font-size: 11px;
+  		font-size: 12px;
   		color:white;
   }
   #notice span#cdate{
@@ -128,7 +144,20 @@
 	<br>
 	<button type="button" class="btn inbt" data-toggle="modal" data-target="#nomodal">공지사항 등록</button>
 	<br><br>
-	
+
+<!-- <div class="searchdiv">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search" name="search">
+      <div class="input-group-btn">
+        <button id="bid" class="btn btn-default">
+        <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
+      </div>
+    </div>
+</div>
+<br><br>
+<hr>
+<br><br> -->
+
 <div class="panel-group" id="accordion">
     <c:forEach items="${ anlist }" var="nrow" >
     <div class="panel panel-default" id="noupform">
@@ -149,8 +178,6 @@
     </div>
     </c:forEach>
   </div> 
-
-  <hr>
  
 <!--  <div class="pagediv">
   <ul class="pagination">

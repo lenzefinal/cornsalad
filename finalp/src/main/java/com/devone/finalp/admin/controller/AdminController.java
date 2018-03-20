@@ -1,5 +1,7 @@
 package com.devone.finalp.admin.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -24,6 +26,7 @@ import com.devone.finalp.admin.model.vo.AAlarm;
 import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.admin.model.vo.Astat;
 import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -370,13 +373,17 @@ public class AdminController {
 
 	//관리자 통계
 	@RequestMapping("adminStat.do")
-	public String adminStat() {
+	public String adminStat(Model model) {
+		model.addAttribute("cstat",adminService.categoryStat());
+		model.addAttribute("mstat",adminService.moneyStat());
+		model.addAttribute("sstat",adminService.sponStat());
+
 		return "admin/adminStat";
 	}
 	
 	//검색용 ajax 모아놓기
 	//question검색(답변 미완료/완료)
-	@RequestMapping(value="",method=RequestMethod.POST)
+	@RequestMapping(value="searchQuestion.do",method=RequestMethod.POST)
 	public void searchQuestion(HttpServletResponse response,
 			@RequestParam(value="option") String option) throws IOException {
 		List<AQuestion> sqlist=null;
@@ -421,6 +428,55 @@ public class AdminController {
 		out.println(sendjson.toJSONString());
 		out.flush();
 		out.close();
+	}
+	
+	//report 검색(category별로)
+	@RequestMapping(value="searchReport.do", method=RequestMethod.POST)
+	public void searchReport(HttpServletResponse response,
+			@RequestParam(value="report_category_name") String report_category_name) throws IOException {
+		List<AReport> srlist=null;
+		System.out.println("report_category_name" + report_category_name);
+		if(report_category_name.equals("all")) {
+			srlist=adminService.selectReportList();
+		}else {
+			srlist=adminService.searchReport(report_category_name);
+		}
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AReport areport : srlist) {
+			JSONObject jreport=new JSONObject();
+			jreport.put("rnum", areport.getRnum());
+			jreport.put("report_id", areport.getReport_id() );
+			jreport.put("report_category_name", URLEncoder.encode(areport.getReport_category_name(),"utf-8"));
+			jreport.put("project_id", areport.getProject_id() );
+			jreport.put("project_reply_id", areport.getProject_reply_id() );
+			jreport.put("board_id", areport.getBoard_id() );
+			jreport.put("board_reply_id", areport.getBoard_reply_id() );
+			jreport.put("black_name", URLEncoder.encode(areport.getBlack_name(),"utf-8") );
+			jreport.put("report_reason", URLEncoder.encode(areport.getReport_reason(),"utf-8") );
+			jreport.put("member_name", URLEncoder.encode(areport.getMember_name(),"utf-8") );
+			jreport.put("report_date", areport.getReport_date().toString().trim() );
+			jreport.put("report_project_name", URLEncoder.encode(areport.getReport_project_name(),"utf-8"));
+			if(areport.getReply_content() != null) {
+				jreport.put("reply_content", URLEncoder.encode(areport.getReply_content(),"utf-8") );
+			}else {
+				jreport.put("reply_content",areport.getReply_content());
+			}
+			jreport.put("report_count", areport.getReport_count() );
+			jreport.put("report_read_flag", areport.getReport_read_flag() );
+		
+			jarr.add(jreport);
+		}
+		
+		sendjson.put("srlist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close(); 
 	}
 	
 

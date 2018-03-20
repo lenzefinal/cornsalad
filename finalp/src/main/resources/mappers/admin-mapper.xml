@@ -85,6 +85,12 @@
 		]]>
 	</update>
 	
+	<select id="searchReport" parameterType="String" resultMap="AReportmap">
+		<![CDATA[
+				SELECT * FROM A_REPORT WHERE REPORT_CATEGORY_NAME = #{ report_category_name }
+		]]>
+	</select>
+	
 	<resultMap id="AQuestionmap" type="AQuestion">
 		<result property="question_id" column="question_id" />
 		<result property="question_category_name" column="question_category_name" />
@@ -261,5 +267,39 @@
 			DELETE FROM NOTICE WHERE NOTICE_ID = #{ notice_id }
 		]]>
 	</delete>
+	
+	<resultMap id="astatMap" type="Astat">
+		<result property="fundcount" column="fundcount" />
+		<result property="prodcount" column="prodcount" />
+		<result property="rnum" column="rnum" />
+		<result property="money" column="money" />
+		<result property="project_id" column="project_id" />
+		<result property="project_name" column="project_name" />
+		<result property="project_category_name" column="project_category_name" />
+		<result property="ranum" column="ranum" />
+		<result property="spon" column="spon" />
+		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
+	</resultMap>
+	
+	<select id="categoryStat" resultType="AStat">
+		<![CDATA[
+			SELECT COUNT(CASE WHEN PROJECT_CATEGORY_ID = 'PC-FUND' THEN 1 END) AS FUNDCOUNT,
+      				COUNT(CASE WHEN PROJECT_CATEGORY_ID='PC-PROD' THEN 1 END) AS PRODCOUNT
+			FROM PROJECT
+		]]>	
+	</select>
+	
+ 	<select id="moneyStat" resultMap="astatMap">
+ 		<![CDATA[
+			SELECT * FROM A_MONEYSTAT WHERE RNUM < 11
+		]]>
+	</select>
+	
+	<select id="sponStat" resultMap="astatMap">
+		<![CDATA[
+			SELECT * FROM A_SPONSTAT WHERE RANUM < 4
+		]]>
+	</select>
 	
 </mapper>

@@ -225,6 +225,68 @@
 				}
   	  		});
   		}
+  		
+  	//카테고리별 검색 ajax
+  	$(function(){
+  		$('#find').click(function(){
+  			var cate = document.getElementById("caselect");
+  			var report_category_name = cate.options[cate.selectedIndex].value;
+  			console.log("option : "+report_category_name);
+  			$.ajax({
+  				url: "searchReport.do",
+  				data:{
+  					report_category_name :  report_category_name
+  				},
+  				type: "post",
+  				dataType: "json",
+  				success: function(data){
+					var jsonStr = JSON.stringify(data);
+ 					
+ 					var json = JSON.parse(jsonStr);
+ 					
+ 					$('#rtable').empty();
+ 					
+ 					var value = "<table class='table table-bordered table-hover' id='rtable'><thead><tr class='active'>"+
+ 							"<th>카테고리</th><th>신고 작성 회원</th><th>신고 당한 회원</th><th>신고 날짜</th><th>신고 횟수</th><th>상세보기</th></tr></thead><tbody>";
+ 							
+ 					if(json.srlist.length > 0 ){
+ 						for(var i in json.srlist){
+							value +="<tr><td>"+decodeURIComponent(json.srlist[i].report_category_namereplace(/\+/g," "))+"</td><td>"
+								+decodeURIComponent(json.srlist[i].member_name)+
+								"</td><td>"+decodeURIComponent(json.srlist[i].black_name)+"</td><td>"+
+								json.srlist[i].report_date+"</td><td>"+json.srlist[i].report_count+"</td>";
+
+								if( json.srlist[i].project_id != null){
+									value+="<td><button class='btn btn-primary' data-toggle='modal'  data-target='#redetail1' onclick='rebtn1("+
+											json.srlist[i].report_id + ")'>상세보기</button></td></tr>";
+								}else if(json.srlist[i].project_reply_id != 0){
+									value+="<td><button class='btn btn-primary' data-toggle='modal'  data-target='#redetail2' onclick='rebtn2("+
+											json.srlist[i].report_id + ")'>상세보기</button></td></tr>";
+								}else if(json.srlist[i].board_id != 0){
+									value+="<td><button class='btn btn-primary' data-toggle='modal'  data-target='#redetail1' onclick='rebtn1("+
+											json.srlist[i].report_id + ")'>상세보기</button></td></tr>";
+								}else if(json.srlist[i].board_reply_id != 0){
+									value+="<td><button class='btn btn-primary' data-toggle='modal'  data-target='#redetail2' onclick='rebtn2("+
+											json.srlist[i].report_id + ")'>상세보기</button></td></tr>";
+								}
+								
+							}
+					}else{
+						value += "<tr><td colspan='6'>조회된 신고글 내역이 없습니다.</td></tr>"
+					}
+ 					
+ 					$('#rtable').html(value);
+  					
+  				},
+  				error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+				}
+  			});
+  			
+  		});
+  	});
 
   </script>
  </head>
@@ -247,21 +309,20 @@
  <button type="button" class="btn taboobt" id="taboobtn" data-toggle="modal" data-target="#taboomodal">금지어</button>
  <br>
 <div class="searchdiv">
-  <form action="#">
     <div class="input-group">
-      <select class="form-control">
-		<option>전체</option>
-		<option>프로젝트</option>
-		<option>프로젝트 댓글</option>
-		<option>게시글</option>
-		<option>게시글 댓글</option>
+      <select class="form-control" name="caselect" id="caselect">
+		<option value="all">전체</option>
+		<option value="프로젝트 신고">프로젝트</option>
+		<option value="프로젝트 댓글 신고">프로젝트 댓글</option>
+		<option value="게시글 신고">게시글</option>
+		<option value="게시글 댓글 신고">게시글 댓글</option>
 	  </select>
+	 <button class="btn btn-danger" id="find">검색</button>
     </div>
-  </form>
 </div>
 <br>
    <div class="repotable">
-  <table class="table table-bordered table-hover" >
+  <table class="table table-bordered table-hover" id="rtable" >
     <thead>
       <tr class="active">
         <th>카테고리</th>

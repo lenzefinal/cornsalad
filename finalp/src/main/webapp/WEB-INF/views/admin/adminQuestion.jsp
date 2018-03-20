@@ -14,6 +14,7 @@
 		margin-top:2%;
 		margin-left:25%;
 		margin-right:10%;
+		margin-bottom: 20%;
 		display:inline-block;
 		width: 60%;
 		float:center;
@@ -121,12 +122,12 @@
   	  	});
   	}
   	
-  	//문의글 답변 미완료된것만
+  	//검색 ajax
   	$(function(){
   		$('#find').click(function(){
   			var recont = document.getElementById("recont");
-  			var option = recont.options[recont.selectIndex].value;
-  			
+  			var option = recont.options[recont.selectedIndex].value;
+  			console.log("option : "+option)
   			$.ajax({
   				url: "searchQuestion.do",
   				data:{
@@ -144,20 +145,22 @@
  					var value = "<table class='table table-bordered table-hover' id='qtable'><thead><tr class='active'>"+
  							"<th>작성자</th><th>문의글 제목</th><th>작성날짜</th><th>답변</th></tr></thead><tbody>";
  					
- 					for(var i in json.sqlist){
-						if(json.sqlist.length > 0 ){
-							value +="<tr><td>"+decodeURIComponent(json.sqlist[i].send_member_name)+"</td><td>"+decodeURIComponent(json.sqlist[i].replace(/\+/g," "))+
+ 							
+ 					if(json.sqlist.length > 0 ){
+ 						for(var i in json.sqlist){
+							value +="<tr><td>"+decodeURIComponent(json.sqlist[i].send_member_name)+"</td><td>"
+								+decodeURIComponent(json.sqlist[i].title.replace(/\+/g," "))+
 								"</td><td>"+json.sqlist[i].send_creation_date+"</td>";
 								if(json.sqlist[i].re_content == null){
 									value+="<td><button class='btn anbt' data-toggle='modal'data-target='#quModal' "+
 										"onclick='qubtn("+json.sqlist[i].question_id+")'>답변</button></td></tr>";
 								}else{
 									value+="<td>완료 &nbsp;<button class='btn anbt' data-toggle='modal'data-target='#quModal' "+
-										"onclick='qubtn("+json.sqlist[i].question_id+")'>답변</button></td></tr>";
+										"onclick='qubtn("+json.sqlist[i].question_id+")'>상세보기</button></td></tr>";
 								}
-						}else{
-							value += "<tr><td colspan='4'>조회된 문의함 내역이 없습니다.</td></tr>"
 						}
+					}else{
+						value += "<tr><td colspan='4'>조회된 문의함 내역이 없습니다.</td></tr>"
 					}
  					
  					$('#qtable').html(value);
@@ -191,7 +194,6 @@
 <hr class="hrst">
 <br>
 <div class="searchdiv">
-  <form action="#">
     <div class="input-group">
       <select class="form-control" name="recont" id="recont">
 		<option value="all">----</option>
@@ -200,7 +202,6 @@
 	  </select>
 	 <button class="btn btn-danger" id="find">검색</button>
     </div>
-  </form>
 </div>
 <br>
 

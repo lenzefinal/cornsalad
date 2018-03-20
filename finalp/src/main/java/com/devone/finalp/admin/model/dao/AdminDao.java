@@ -12,6 +12,7 @@ import com.devone.finalp.admin.model.vo.AMember;
 import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
+import com.devone.finalp.admin.model.vo.Astat;
 import com.devone.finalp.common.model.vo.Notice;
 import com.devone.finalp.common.model.vo.Taboo;
 
@@ -135,7 +136,21 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.okrecontent");
 	}
 
-	
+	public List<AReport> searchReport(String report_category_name) {
+		return mybatis.selectList("adminmapper.searchReport", report_category_name);
+	}
+
+	public Astat categoryStat() {
+		return mybatis.selectOne("adminmapper.categoryStat");
+	}
+
+	public List<Astat> moneyStat() {
+		return mybatis.selectList("adminmapper.moneyStat");
+	}
+
+	public List<Astat> sponStat() {
+		return mybatis.selectList("adminmapper.sponStat");
+	}
 	
 
 }
