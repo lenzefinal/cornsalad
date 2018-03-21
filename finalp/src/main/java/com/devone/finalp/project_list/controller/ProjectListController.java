@@ -36,12 +36,13 @@ public class ProjectListController {
 	public void selectProjectListKeyword(ProjectListView projectList,
 										HttpServletResponse response) throws IOException {
 		
-		System.out.println(projectList.getProject_name());
 		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
 		
-		list.addAll(projectListService.selectProjectListKeyword(projectList));
-		
-		System.out.println(projectListService.selectProjectListKeyword(projectList));
+		if(!projectList.getProject_name().equals("")) {
+			list.addAll(projectListService.selectProjectListKeyword(projectList));
+		}else {
+			list.addAll(projectListService.selectProjectList());
+		}
 		
 		JSONObject sendJson = new JSONObject();
 		JSONArray jarr = new JSONArray();
@@ -57,11 +58,12 @@ public class ProjectListController {
 			job.put("category_sub_name", project.getCategory_sub_name());
 			job.put("category_id", project.getCategory_id());
 			job.put("category_name", project.getCategory_name());
-			job.put("start_date", project.getStart_date());
-			job.put("end_date", project.getEnd_date());
+			job.put("start_date", project.getStart_date().toString());
+			job.put("end_date", project.getEnd_date().toString());
 			job.put("member_id", project.getMember_id());
 			job.put("member_name", URLEncoder.encode(project.getMember_name(),"utf-8"));
 			job.put("target_amount", project.getTarget_amount());
+			job.put("dday", Integer.valueOf(project.getDday()).toString());
 			job.put("total_amount", project.getTotal_amount());
 			job.put("percent", project.getPercent());
 			

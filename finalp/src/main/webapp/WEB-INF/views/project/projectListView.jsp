@@ -53,7 +53,6 @@
 		margin: 1rem;
 	}
 	.thumnailContent:hover{
-		background-image:url('img_ov.png');
 	}
 
 	
@@ -207,14 +206,14 @@
 	    margin-bottom: 25px;
 	    padding: 15px;
 	    text-align: center;
-	    background: #F9EDEE;
-	    border: 1px solid #F98F9B;
+	    background: #FCFCEF;
+	    border: 1px solid #F7D358;
 	}
 	#noticeSection p.title {
 	    margin-bottom: 8px;
 	    font-size: 14px;
 	    line-height: 22px;
-	    color: #FF6879;
+	    color: #F7D358;
 	}
 	#noticeSection p.text {
 	    font-size: 12px;
@@ -225,6 +224,7 @@
 	#searchSortArea {
 		width: 100%;
 	   /* margin-bottom: 15px;*/
+	   margin-top:30px;
 	}
 	#searchSortArea:after {
 		content: "";
@@ -391,7 +391,190 @@
 			margin-right:15px;
 		}
 	}
+	
+	/* 카테고리 검색  */
+	form .search_tab, form .search_sel, form .search_submit {
+		float: left;
+		/*border: 1px solid #fff;*/
+		background-color: #fff;
+	}
+	.search_sel {
+		position: relative;
+		width: 142px;
+		overflow: hidden;
+		/*border-right: 1px solid #fff;*/
+		margin-left:17px;
+	}
+	.search_sel:after {
+		content: "";
+		position: absolute;
+		top: 18px;
+		right: 15px;
+		border: 5px solid transparent;
+		border-top-color: black;
+		cursor:pointer;
+	}
+	.search_sel select {
+		width: 170px;
+		height: 42px;
+		padding-left: 10px;
+		border: 0;
+		background: transparent;
+		color: black;
+		border: 1px solid #e4e4e4;
+		/* border-radius : 20px; */
+	}
+	button, select {
+		text-transform: none;
+	}
+	option {
+		font-weight: normal;
+		display: block;
+		white-space: pre;
+		min-height: 1.2em;
+		padding: 0px 2px 1px;
+	}
+	input, textarea, select {
+		font-size: 1em;
+		vertical-align: baseline;
+		vertical-align: middle;
+	}
+	.search_sel + .search_tab {
+		width: 800px;
+	}
+	form .search_tab {
+		/*border-width: 0;*/
+	}
+	.search_tab {
+		width: 952px;
+		height: 42px;
+		/*border: 1px solid #b8b8b8;*/
+		/*background: #c5421b;*/
+		/*margin-top:1px;*/
+		border:1px solid #e4e4e4;
+	}
+	.search_tab ul {
+		padding: 7px 0 0 10px;
+		overflow: hidden;
+	}
+	ul, ol {
+		list-style: none;
+		list-style-image: none;
+	}
+	.search_tab ul:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	.search_tab ul li {
+		float: left;
+		color: #fff;
+	}
+	.search_tab ul li a.ov, .search_tab ul li button.ov {
+		border-radius: 3px;
+		background: #F7D358;
+		text-decoration: underline;
+		color:white;
+	}
+	.search_tab ul li a, .search_tab ul li button {
+		margin: 0 3px;
+		padding: 3px;
+		color: black;
+	}
+	.go-button {
+		display: block;
+		padding: 0;
+		background: transparent;
+		border-width: 0;
+	}
+	button, select {
+		text-transform: none;
+	}
+	button, input {
+		line-height: normal;
+	}
+	button, input, select{
+		font-size: 0.87em;
+		vertical-align: baseline;
+		/*line-height: 1.6;*/
+		font-family: "ngn","Nanum Gothic","shm","돋움",dotum,"Lucida Grande",sans-serif;
+		/* color:#fff; */
+	}
+	button{
+		cursor:pointer;
+	}
+	.search_submit input {
+		display: block;
+		width: 89px;
+		height: 40px;
+		text-indent: 30px;
+		font-weight: 600;
+		border: 1px solid #e4e4e4;
+		/*border-radius:0 20px 20px 0;*/
+		background: url(http://localhost:8222/doubleb/images/search.png) no-repeat 15px 50%;
+		color: black;
+		cursor:pointer;
+		margin-left: -1px;
+	}
+	.form{
+		/*margin-left:100px;*/
+	}
+	
+	.clear {
+	    display: inline-block;
+	    overflow: hidden;
+	    margin-left: 15px;
+	    font-size: 12px;
+	    color: #6b6b6a;
+	    vertical-align: middle;
+	}
+	.ico_clear {
+	    display: inline-block;
+	    overflow: hidden;
+	    width: 12px;
+	    height: 13px;
+	    margin: -2px 5px 0 0;
+	    background: url(https://ssl.pstatic.net/imgshopping/static/pc-real-2017/img/search/sp_search_v30.png) no-repeat -175px -30px;
+	    vertical-align: middle;
+	}
+	
+	.selectlist{
+		border:1px solid #e4e4e4; 
+		width:1044px; 
+		height:42px;
+		margin-top:64px;
+		margin-left:17px;
+		background-color:white;
+	}
+	.bar{
+		margin-left: 56px;
+		padding: 0;
+		color: #d8d8d8;
+		padding-bottom: 7px;
+	}
+	
+	.pic{
+		margin-left: 15px;
+	    font-weight: bold;
+	    color: #F7D358;
+	    
+	    display: inline-block;
+	    position: relative;
+	    vertical-align: middle;
+	    white-space: nowrap;
+	}
+	.del{
+		display: inline-block;
+	    overflow: hidden;
+	    width: 9px;
+	    height: 9px;
+	    margin: -2px 10px 0 6px;
+	    background: url(https://ssl.pstatic.net/imgshopping/static/pc-real-2017/img/search/sp_search_v30.png) no-repeat -180px -50px;
+	    line-height: 9999px;
+	    vertical-align: middle;
+	}
 </style>
+<script src="/finalp/resources/js/search.js" type="text/javascript"></script>
 </head>
 <body style="background:#f6f5f5;">
 	<c:import url="../header.jsp"/>
@@ -403,6 +586,103 @@
 		</div>
 
 		<div class="hEIXJa"></div>
+		
+		<div class="form" align="center">
+			<form id="/doubleb/searchtourlist" action="" method="GET" name="searchForm">
+					<div class="search_sel">
+						<select name="category" id="areaCode" class="search_category" title="중분류">
+							<option >전체</option>
+							<option value="CA-DS" id="c1">디자인</option>
+							<option value="CA-FB" id="c2">패션/뷰티</option>
+							<option value="CA-CK" id="c3">요리</option>
+							<option value="CA-SH" id="c4">공연</option>
+						</select>
+					</div>
+					
+	
+					<div id="s1" data-type="multiple" class="search_tab">
+						<ul>
+							<li><button name="category_sub_name" value="CASB-SP" class="go-button " type="button">공간디자인</button></li>
+							<li><button name="category_sub_name" value="CASB-VI" class="go-button " type="button">시각디자인</button></li>
+							<li><button name="category_sub_name" value="CASB-PR" class="go-button " type="button">제품디자인</button></li>
+							<li><button name="category_sub_name" value="CASB-CH" class="go-button " type="button">캐릭터디자인</button></li>
+						</ul>
+					</div>
+					
+					<div id="s2" data-type="multiple" class="search_tab" style="display:none;">
+						<ul>
+							<li><button name="category_sub_name" value="CASB-CL" class="go-button " type="button">의류</button></li>
+							<li><button name="category_sub_name" value="CASB-GD" class="go-button " type="button">잡화</button></li>
+							<li><button name="category_sub_name" value="CASB-AC" class="go-button " type="button">악세서리</button></li>
+							<li><button name="category_sub_name" value="CASB-CO" class="go-button " type="button">화장품</button></li>
+						</ul>
+					</div>
+					
+					<div id="s3" data-type="multiple" class="search_tab" style="display:none;">
+						<ul>
+							<li><button name="category_sub_name" value="CASB-HE" class="go-button " type="button">건강식품</button></li>
+							<li><button name="category_sub_name" value="CASB-BA" class="go-button " type="button">베이킹</button></li>
+							<li><button name="category_sub_name" value="CASB-HA" class="go-button " type="button">수제</button></li>
+						</ul>
+					</div>
+					
+					<div id="s4" data-type="multiple" class="search_tab" style="display:none;">
+						<ul>
+							<li><button name="category_sub_name" value="CASB-MU" class="go-button " type="button">뮤지컬</button></li>
+							<li><button name="category_sub_name" value="CASB-TH" class="go-button " type="button">연극</button></li>
+							<li><button name="category_sub_name" value="CASB-FE" class="go-button " type="button">페스티벌</button></li>
+						</ul>
+					</div>
+					
+					<p class="search_submit">
+						<input type="submit" value="조회" title="조회">
+					</p>
+			</form>
+		</div>
+		<div class="selectlist">
+			<a id="_resetFilter" href="#" class="clear" style="padding-bottom: 7px;">
+				<span class="ico_clear"></span>전체해제
+			</a>
+			<span class="bar">|</span>
+			
+			<a href="#" class="pic" data-filter-value="50000807" >
+				원피스<span class="del">선택해제</span>
+			</a>
+		</div>
+		
+		<script>
+			$(document).ready(function(){
+				
+				$("#c1").on("click",function(){
+					$("#s1").css("display", "block");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "none");
+				});
+				
+				$("#c2").on("click",function(){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "block");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "none");				
+				});
+								
+				$("#c3").on("click",function(){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "block");
+					$("#s4").css("display", "none");
+				});
+				
+				$("#c4").on("click",function(){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "block");
+				});
+			});
+		</script>
+		
 		
 		<div id="searchSortArea">
 			<div class="search-area">
@@ -429,6 +709,14 @@
 					</div>
 				</div>
 		</div>
+		<script type="text/javascript">
+			(function(){
+				var parent = ".search_tab",
+					btn = ".search_tab button";
+	
+				requiredTagSearch(parent,btn);
+			}());
+		</script>
 		
 		
 		
@@ -459,8 +747,8 @@
 						<div class="fundingInfo">
 							<span style="font-size: 0.8rem;">
 								<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>
-								<span style="font-weight: 700;">21</span>
-								<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
+								<span style="font-weight: 700;">${ projectList.dday }</span>
+								<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->
 							</span>
 
 							<div>
@@ -488,17 +776,17 @@
 			$("#keyword").keyup(function(){
 				var keyword = $('#keyword').val();
 				console.log(keyword);
-				
 				$.ajax({
 					url:"keywordSearch.do",
 					data:{project_name: keyword},
 					dataType:"json",
 					type:"post",
 					success:function(data){
+						
 						var jsonStr = JSON.stringify(data);
 						var json = JSON.parse(jsonStr);
 						var values="";
-						
+						console.log(json.list);
 						for(var i in json.list){
 							values+=
 								'<div class="thumnailContent">'+
@@ -520,8 +808,8 @@
 													'<div class="fundingInfo">'+
 														'<span style="font-size: 0.8rem;">'+
 															'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
-															'<span style="font-weight: 700;">'+21+'</span>'+
-															'<!-- react-text: 235 -->분<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
+															'<span style="font-weight: 700;">'+json.list[i].dday+'</span>'+
+															'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
 														'</span>'+
 														'<div>'+
 															'<span class="fundingMoney">'+

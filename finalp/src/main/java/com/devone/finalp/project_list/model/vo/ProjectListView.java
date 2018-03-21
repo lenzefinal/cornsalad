@@ -18,7 +18,8 @@ public class ProjectListView {
 	private String member_id;
 	private String member_name;
 	private int target_amount;
-	private int total_amount;
+	private int dday;
+	private String total_amount;
 	private String percent;
 	
 	public ProjectListView() {
@@ -28,7 +29,7 @@ public class ProjectListView {
 	public ProjectListView(String project_id, String image_rename, String project_name, String project_category_id,
 			String project_category_name, String category_sub_id, String category_sub_name, String category_id,
 			String category_name, Date start_date, Date end_date, String member_id, String member_name,
-			int target_amount, int total_amount, String percent) {
+			int target_amount, int dday, String total_amount, String percent) {
 		super();
 		this.project_id = project_id;
 		this.image_rename = image_rename;
@@ -44,11 +45,20 @@ public class ProjectListView {
 		this.member_id = member_id;
 		this.member_name = member_name;
 		this.target_amount = target_amount;
+		this.dday = dday;
 		this.total_amount = total_amount;
 		this.percent = percent;
 	}
 
 	
+
+	public int getDday() {
+		return dday;
+	}
+
+	public void setDday(int dday) {
+		this.dday = dday;
+	}
 
 	public String getImage_rename() {
 		return image_rename;
@@ -155,15 +165,17 @@ public class ProjectListView {
 		this.member_name = member_name;
 	}
 
-	public int getTotal_amount() {
+	
+	
+	
+
+	public String getTotal_amount() {
 		return total_amount;
 	}
 
-	public void setTotal_amount(int total_amount) {
+	public void setTotal_amount(String total_amount) {
 		this.total_amount = total_amount;
 	}
-	
-	
 
 	public int getTarget_amount() {
 		return target_amount;
@@ -181,14 +193,20 @@ public class ProjectListView {
 		this.percent = percent;
 	}
 
+
 	@Override
 	public String toString() {
-		return "ProjectListView [project_id=" + project_id + ", image_rename=" + image_rename + ", project_category_id="
-				+ project_category_id + ", project_category_name=" + project_category_name + ", category_sub_id="
-				+ category_sub_id + ", category_sub_name=" + category_sub_name + ", category_id=" + category_id
-				+ ", category_name=" + category_name + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", member_id=" + member_id + ", member_name=" + member_name + ", total_amount=" + total_amount + "]";
+		return "ProjectListView [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
+				+ project_name + ", project_category_id=" + project_category_id + ", project_category_name="
+				+ project_category_name + ", category_sub_id=" + category_sub_id + ", category_sub_name="
+				+ category_sub_name + ", category_id=" + category_id + ", category_name=" + category_name
+				+ ", start_date=" + start_date + ", end_date=" + end_date + ", member_id=" + member_id
+				+ ", member_name=" + member_name + ", target_amount=" + target_amount + ", dday=" + dday
+				+ ", total_amount=" + total_amount + ", percent=" + percent + "]";
 	}
+	
+	
+
 	
 	
 
