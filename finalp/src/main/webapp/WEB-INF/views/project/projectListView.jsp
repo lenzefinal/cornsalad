@@ -90,9 +90,6 @@
 		border: 0;
 	}
 
-	.thumnailImage:hover{
-		background-image:url('img_ov.png');
-	}
 
 	.thumnailTextWrap {
 		-webkit-order: 2;
@@ -439,14 +436,14 @@
 		vertical-align: baseline;
 		vertical-align: middle;
 	}
-	.search_sel + .search_tab {
-		width: 800px;
+	.search_sel .search_tab {
+		/* width: 800px; */
 	}
 	form .search_tab {
 		/*border-width: 0;*/
 	}
 	.search_tab {
-		width: 952px;
+		width:800px;
 		height: 42px;
 		/*border: 1px solid #b8b8b8;*/
 		/*background: #c5421b;*/
@@ -511,7 +508,7 @@
 		font-weight: 600;
 		border: 1px solid #e4e4e4;
 		/*border-radius:0 20px 20px 0;*/
-		background: url(http://localhost:8222/doubleb/images/search.png) no-repeat 15px 50%;
+		/* background: url(http://localhost:8222/doubleb/images/search.png) no-repeat 15px 50%; */
 		color: black;
 		cursor:pointer;
 		margin-left: -1px;
@@ -600,37 +597,37 @@
 					</div>
 					
 	
-					<div id="s1" data-type="multiple" class="search_tab">
+					<div id="s1" data-type="multiple" class="search_tab" style="display:block;">
 						<ul>
-							<li><button name="category_sub_name" value="CASB-SP" class="go-button " type="button">공간디자인</button></li>
-							<li><button name="category_sub_name" value="CASB-VI" class="go-button " type="button">시각디자인</button></li>
-							<li><button name="category_sub_name" value="CASB-PR" class="go-button " type="button">제품디자인</button></li>
-							<li><button name="category_sub_name" value="CASB-CH" class="go-button " type="button">캐릭터디자인</button></li>
+							<li><button name="category_sub_id" value="CASB-SP" class="go-button " type="button">공간디자인</button></li>
+							<li><button name="category_sub_id" value="CASB-VI" class="go-button " type="button">시각디자인</button></li>
+							<li><button name="category_sub_id" value="CASB-PR" class="go-button " type="button">제품디자인</button></li>
+							<li><button name="category_sub_id" value="CASB-CH" class="go-button " type="button">캐릭터디자인</button></li>
 						</ul>
 					</div>
 					
 					<div id="s2" data-type="multiple" class="search_tab" style="display:none;">
 						<ul>
-							<li><button name="category_sub_name" value="CASB-CL" class="go-button " type="button">의류</button></li>
-							<li><button name="category_sub_name" value="CASB-GD" class="go-button " type="button">잡화</button></li>
-							<li><button name="category_sub_name" value="CASB-AC" class="go-button " type="button">악세서리</button></li>
-							<li><button name="category_sub_name" value="CASB-CO" class="go-button " type="button">화장품</button></li>
+							<li><button name="category_sub_id" value="CASB-CL" class="go-button " type="button">의류</button></li>
+							<li><button name="category_sub_id" value="CASB-GD" class="go-button " type="button">잡화</button></li>
+							<li><button name="category_sub_id" value="CASB-AC" class="go-button " type="button">악세서리</button></li>
+							<li><button name="category_sub_id" value="CASB-CO" class="go-button " type="button">화장품</button></li>
 						</ul>
 					</div>
 					
 					<div id="s3" data-type="multiple" class="search_tab" style="display:none;">
 						<ul>
-							<li><button name="category_sub_name" value="CASB-HE" class="go-button " type="button">건강식품</button></li>
-							<li><button name="category_sub_name" value="CASB-BA" class="go-button " type="button">베이킹</button></li>
-							<li><button name="category_sub_name" value="CASB-HA" class="go-button " type="button">수제</button></li>
+							<li><button name="category_sub_id" value="CASB-HE" class="go-button " type="button">건강식품</button></li>
+							<li><button name="category_sub_id" value="CASB-BA" class="go-button " type="button">베이킹</button></li>
+							<li><button name="category_sub_id" value="CASB-HA" class="go-button " type="button">수제</button></li>
 						</ul>
 					</div>
 					
 					<div id="s4" data-type="multiple" class="search_tab" style="display:none;">
 						<ul>
-							<li><button name="category_sub_name" value="CASB-MU" class="go-button " type="button">뮤지컬</button></li>
-							<li><button name="category_sub_name" value="CASB-TH" class="go-button " type="button">연극</button></li>
-							<li><button name="category_sub_name" value="CASB-FE" class="go-button " type="button">페스티벌</button></li>
+							<li><button name="category_sub_id" value="CASB-MU" class="go-button " type="button">뮤지컬</button></li>
+							<li><button name="category_sub_id" value="CASB-TH" class="go-button " type="button">연극</button></li>
+							<li><button name="category_sub_id" value="CASB-FE" class="go-button " type="button">페스티벌</button></li>
 						</ul>
 					</div>
 					
@@ -644,45 +641,9 @@
 				<span class="ico_clear"></span>전체해제
 			</a>
 			<span class="bar">|</span>
-			
-			<a href="#" class="pic" data-filter-value="50000807" >
-				원피스<span class="del">선택해제</span>
-			</a>
+			<div id="piclist" style="display:inline-block;">
+			</div>
 		</div>
-		
-		<script>
-			$(document).ready(function(){
-				
-				$("#c1").on("click",function(){
-					$("#s1").css("display", "block");
-					$("#s2").css("display", "none");
-					$("#s3").css("display", "none");
-					$("#s4").css("display", "none");
-				});
-				
-				$("#c2").on("click",function(){
-					$("#s1").css("display", "none");
-					$("#s2").css("display", "block");
-					$("#s3").css("display", "none");
-					$("#s4").css("display", "none");				
-				});
-								
-				$("#c3").on("click",function(){
-					$("#s1").css("display", "none");
-					$("#s2").css("display", "none");
-					$("#s3").css("display", "block");
-					$("#s4").css("display", "none");
-				});
-				
-				$("#c4").on("click",function(){
-					$("#s1").css("display", "none");
-					$("#s2").css("display", "none");
-					$("#s3").css("display", "none");
-					$("#s4").css("display", "block");
-				});
-			});
-		</script>
-		
 		
 		<div id="searchSortArea">
 			<div class="search-area">
@@ -709,15 +670,6 @@
 					</div>
 				</div>
 		</div>
-		<script type="text/javascript">
-			(function(){
-				var parent = ".search_tab",
-					btn = ".search_tab button";
-	
-				requiredTagSearch(parent,btn);
-			}());
-		</script>
-		
 		
 		
 		<div class="thumnailContainer">
@@ -770,9 +722,90 @@
 	</div>
 	
 	<script type="text/javascript">
-	$(document).ready(function(){
+		
+		
+		$(document).ready(function(){
+			var parent = ".search_tab",
+			btn = ".search_tab button";
 			
-			 
+			requiredTagSearch(parent,btn);
+			
+			$(".clear").on("click",function(){
+				$.each($(".form input[type='hidden']"),function(index){
+					var pic=$(this);
+					
+					pic.prev().removeClass("ov");
+					pic.remove();
+					
+				});
+				
+				$.each($("#piclist a"),function(index){
+					var pic=$(this);
+					pic.remove();
+				});
+			});
+			
+			$("#areaCode").change(function(){
+				
+				var optionSelected = $(this).find("option:selected");
+				var valueSelected = optionSelected.val();
+			
+				if(valueSelected === "CA-DS"){
+					$("#s1").css("display", "block");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "none");
+				}
+				
+				if(valueSelected === "CA-FB"){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "block");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "none");				
+				}
+		
+				if(valueSelected === "CA-CK"){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "block");
+					$("#s4").css("display", "none");
+				}
+				
+				if(valueSelected === "CA-SH"){
+					$("#s1").css("display", "none");
+					$("#s2").css("display", "none");
+					$("#s3").css("display", "none");
+					$("#s4").css("display", "block");
+				} 
+			});
+			
+			/*--------- 카테고리별 다중검색 ajax-----------------*/
+			$(".search_tab button, .clear, .del").on("click",function(){
+				
+				var category="category_sub_id= ";
+				
+				$.each($(".form input[type='hidden']"),function(index){
+					var pic=$(this);
+					
+						category+="&category_sub_id="+pic.attr("value");
+					
+					
+				});
+				
+				
+				$.ajax({
+					url:"categorySearch.do",
+					data:category,
+					dataType:"json",
+					type:"post",
+					success:function(){
+						
+					}
+				});
+			});
+			
+			
+			/*--------- 프로젝트명 검색 시 키워드로 검색 ajax---------*/
 			$("#keyword").keyup(function(){
 				var keyword = $('#keyword').val();
 				console.log(keyword);
