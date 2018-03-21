@@ -1,6 +1,6 @@
 package com.devone.finalp.common.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -20,13 +20,16 @@ public class Member implements java.io.Serializable {
 	private String admin_flag;
 	private String profile_img_oriname;
 	private String profile_img_rename;
+	private String last_login_date;
+	private String sys_date;
+	
 
 	public Member() {
 	}
 
 	public Member(String member_id, String member_pwd, String member_name, String email, String phone,
 			String address_num, String address, Date enroll_date, String blackList_flag, String admin_flag,
-			String profile_img_oriname, String profile_img_rename) {
+			String profile_img_oriname, String profile_img_rename,String last_login_date,String sys_date) {
 		super();
 		this.member_id = member_id;
 		this.member_pwd = member_pwd;
@@ -39,6 +42,26 @@ public class Member implements java.io.Serializable {
 		this.admin_flag = admin_flag;
 		this.profile_img_oriname = profile_img_oriname;
 		this.profile_img_rename = profile_img_rename;
+		this.last_login_date=last_login_date;
+		this.sys_date=sys_date;
+	}
+
+	
+	
+	public String getSys_date() {
+		return sys_date;
+	}
+
+	public void setSys_date(String sys_date) {
+		this.sys_date = sys_date;
+	}
+
+	public String getLast_login_date() {
+		return last_login_date;
+	}
+
+	public void setLast_login_date(String last_login_date) {
+		this.last_login_date = last_login_date;
 	}
 
 	public String getMember_id() {
@@ -146,7 +169,11 @@ public class Member implements java.io.Serializable {
 		return "Member [member_id=" + member_id + ", member_pwd=" + member_pwd + ", member_name=" + member_name
 				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", address_num=" + address_num
 				+ ", enroll_date=" + enroll_date + ", blackList_flag=" + blackList_flag + ", admin_flag=" + admin_flag
-				+ ", profile_img_oriname=" + profile_img_oriname + ", profile_img_rename=" + profile_img_rename + "]";
+				+ ", profile_img_oriname=" + profile_img_oriname + ", profile_img_rename=" + profile_img_rename
+				+ ", last_login_date=" + last_login_date + ", sys_date=" + sys_date + "]";
 	}
+
+
+	
 
 }

@@ -1,0 +1,2 @@
+alter table member add(sys_date VARCHAR2(50 BYTE));
+alter table member modify(lasy_login_date VARCHAR2(50 BYTE));

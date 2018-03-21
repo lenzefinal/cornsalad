@@ -1183,6 +1183,10 @@ li {
 		padding: 0 30px;
 	}
 }
+.project-store img{
+	max-width:100%;
+}
+
 </style>
 </head>
 <body>
@@ -1201,11 +1205,10 @@ li {
 			<div class="bg"
 				style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green001/2018/0222/20180222115943523_14048.png/wadiz/quality/95/optimize)"></div>
 			<p class="title-info">
-				<em>테크</em> <strong>#반려동물로봇고미</strong> 프로젝트
+				<em>테크</em> <strong>${proview.project_name }</strong> 프로젝트
 			</p>
 			<h2 class="title">
-				<a href="/web/campaign/detail/14048">우리 아이를 혼자 두지 마세요. 반려동물용
-					인공지능로봇 [고미볼]</a>
+				<p href="/web/campaign/detail/14048">${proview.rep_content }</p>
 			</h2>
 		</div>
 		<!-- E : 리워드 헤더 -->
@@ -1236,15 +1239,15 @@ li {
 						<h3 class="text-hidden">프로젝트 정보</h3>
 						<div class="project-state-info">
 							<div class="state-box">
-								<p class="remaining-day">27일 남음</p>
+								<p class="remaining-day">${proview.dday }일 남음</p>
 								<p class="rate-bar">
-									<em style="width: 80%"></em>
+									<em style="width: ${proview.percent }%"></em>
 								</p>
 								<p class="achievement-rate">
-									<strong>1382</strong>% 달성
+									<strong>${proview.percent }</strong>% 달성
 								</p>
 								<p class="total-amount">
-									<strong>41,489,100</strong>원 펀딩
+									<strong>${proview.total_amount }</strong>원 펀딩
 								</p>
 								<p class="total-supporter">
 									<strong>471</strong>명의 서포터
@@ -1271,12 +1274,12 @@ li {
 										style="width: 100%">	
 											<c:if test="${not empty likes}">
 												<img src="resources/images/icon/love2.png"
-												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
+												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
 												class="cnt-like">${ like}</em>
 											</c:if>
 											<c:if test="${empty likes}">
 												<img src="resources/images/icon/love1.png"
-												id="like" style="width: 10%; size: 10%;"> <em id="cntLike"
+												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
 												class="cnt-like">${ like}</em>
 											</c:if>
 											</button>
@@ -1300,14 +1303,19 @@ li {
 												success:function(data){
 													if(data.result==="add"){
 														console.log("add");
-														$("#like").attr("src","resources/images/icon/love2.png");
+														
+													}else if($("#cntLike").text(data.like)==0){
+														
+														$("#like1").attr("src","resources/images/icon/love2.png");
 														$("#cntLike").text(data.like);
-													}else{
+													}
+													else{
 														console.log("delete");
-														$("#like").attr("src","resources/images/icon/love1.png");
+														$("#like1").attr("src","resources/images/icon/love1.png");
 														$("#cntLike").text(data.like);
 													}
 												}
+												
 											});
 										});
 										
@@ -1317,20 +1325,7 @@ li {
 			</script>
 								
 								<div id="shareSection" class="share-section">
-									<ul class="share-list" style="margin-top: 10px">
-										<li><button class="wz-btn icon-facebook circular"
-												onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=https://www.wadiz.kr/web/campaign/detail/14048?utm_source=etc&amp;utm_medium=url_facebook','_blank');"
-												title="페이스북 공유"></button></li>
-										<li class="kakao-share"><button
-												class="wz-btn icon-kakao circular" onclick="sendKakaoLink()"
-												title="카카오톡 공유"></button></li>
-										<li><button class="wz-btn icon-twitter circular"
-												onclick="window.open('https://twitter.com/intent/tweet?text=_&amp;url=https://www.wadiz.kr/web/campaign/detail/14048?utm_source=etc&amp;utm_medium=url_twitter','_blank');"
-												title="트위터 공유"></button></li>
-										<li><button id="urlCopyBtn"
-												class="wz-btn icon-link circular" title="URL 공유"
-												data-clipboard-target="#shareLink"></button></li>
-									</ul>
+									
 								</div>
 							</div>
 
@@ -1344,21 +1339,21 @@ li {
 											<div class="eYscdN">
 												<span class="ilGdVJ"></span> <a
 													href="/u/donipisepozodachi/projects"> <span
-													class="fVfxlF">크림히어로즈</span>
+													class="fVfxlF">${proview.member_name }</span>
 												</a>
 											</div>
-											<div class="dHxdxH">유튜브 크림히어로즈 고양이 채널</div>
+											<div class="dHxdxH"></div>
 											<div class="iiBGoJt">
 												<div>
 													<!-- react-text: 598 -->
 													마지막 로그인&nbsp;&nbsp;
 													<!-- /react-text -->
-													<b>38분 전</b>
+													<b>${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
 												</div>
 												<!-- react-text: 600 -->
 												진행한 프로젝트&nbsp;&nbsp;
 												<!-- /react-text -->
-												<b>3</b>
+												<b>${count}</b>
 												<!-- react-text: 602 -->
 												&nbsp;&nbsp;&nbsp;&nbsp; 밀어준 프로젝트&nbsp;&nbsp;
 												<!-- /react-text -->
@@ -1688,8 +1683,7 @@ li {
 
 								<!--스토리  -->
 								<div class="project-store" style="display: block">
-									<h3 class="text-hidden">프로젝트 스토리</h3>
-									이미지가 아닌 동영상 URL이 넘어오는 경우 iframe에 동영상을 보여줘야 함
+									${proview.content }
 								</div>
 
 								<!-- 서포터 -->

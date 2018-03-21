@@ -48,6 +48,18 @@
 			insert into member(member_id, member_pwd, member_name, email) 
 			values(#{member_id}, #{member_pwd}, #{member_name}, #{email})
 		]]>
+	</insert> 
+	<update id="updateTime" parameterType="Member">
+		<![CDATA[
+			update member set last_login_date=sys_date where member_id= #{member_id}
+		]]>
 		
-	</insert>
+	</update>
+	<update id="updateTime1" parameterType="Member">
+		<![CDATA[
+			update member set sys_date= #{sys_date} where member_id= #{member_id}
+		]]>
+		
+	</update> 
+
 </mapper>
