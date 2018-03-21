@@ -83,11 +83,13 @@
 	
  </style>
  <style>
+body { background-color: #30303d;  color: #fff;  }
+
 #chartdiv {
 	width		: 100%;
 	height		: 500px;
-	font-size	: 13px;
-}
+	font-size	: 11px;
+}		
 #chartdiv2 {
   width: 100%;
   height: 500px;
@@ -97,13 +99,25 @@
   top: 10px;
   right: 0;
 }
+#bdiv{
+	width: 30px;
+	height: 90px;
+	position: absolute;
+	background-color: black;
+}
+text.amcharts-axis-title{
+	display: none;
+}
+div.amcharts-chart-div > a{
+	font-size:0px;
+}
 							
 </style>
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/pie.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
 
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 
@@ -117,7 +131,7 @@ $(function(){
 	
 	var chart = AmCharts.makeChart( "chartdiv", {
 	  	"type": "pie",
-	  	"theme": "light",
+	  	"theme": "dark",
 	  	"dataProvider": [ {
 	    	"title": "PROJECT(펀딩)",
 	    	"value": fundcount
@@ -137,67 +151,58 @@ $(function(){
 	  }
 	});
 	
-	var size = document.getElementsByName("project_name").length;
-	
-	/* for(var i=0; i<size; i++){
-		var proname = document.getElementsByName("project_name")[i].getAttribute("value");
-	}
-	
-	console.log(proname[1]); */
-	console.log(size);
+	/* var size = document.getElementsByName("project_name").length; */
+
+	/* console.log(proname[1]); */
+	var pname = document.getElementsByName("project_name");
+	var pcname = document.getElementsByName("project_category_name");
+	var pmoney = document.getElementsByName("money");
+	/* console.log(size);  */
 	
 	var chart = AmCharts.makeChart("chartdiv2", {
 		  "type": "serial",
 		  "theme": "light",
 		  "marginRight": 70,
 		  "dataProvider": [{
-		    "country": "USA",
-		    "visits": 3025,
+		    "country": "["+pcname[0].getAttribute("value")+"]<br>"+pname[0].getAttribute("value"),
+		    "visits": pmoney[0].getAttribute("value"),
 		    "color": "#FF0F00"
 		  }, {
-		    "country": "China",
-		    "visits": 1882,
+			"country": "["+pcname[1].getAttribute("value")+"]<br>"+pname[1].getAttribute("value"),
+			"visits": pmoney[1].getAttribute("value"),
 		    "color": "#FF6600"
 		  }, {
-		    "country": "Japan",
-		    "visits": 1809,
+			"country": "["+pcname[2].getAttribute("value")+"]<br>"+pname[2].getAttribute("value"),
+			"visits": pmoney[2].getAttribute("value"),
 		    "color": "#FF9E01"
 		  }, {
-		    "country": "Germany",
-		    "visits": 1322,
+			"country": "["+pcname[3].getAttribute("value")+"]<br>"+pname[3].getAttribute("value"),
+			"visits": pmoney[3].getAttribute("value"),
 		    "color": "#FCD202"
 		  }, {
-		    "country": "UK",
-		    "visits": 1122,
+			"country": "["+pcname[4].getAttribute("value")+"]<br>"+pname[4].getAttribute("value"),
+			"visits": pmoney[4].getAttribute("value"),
 		    "color": "#F8FF01"
 		  }, {
-		    "country": "France",
-		    "visits": 1114,
+			"country": "["+pcname[5].getAttribute("value")+"]<br>"+pname[5].getAttribute("value"),
+			"visits": pmoney[5].getAttribute("value"),
 		    "color": "#B0DE09"
 		  }, {
-		    "country": "India",
-		    "visits": 984,
+			"country": "["+pcname[6].getAttribute("value")+"]<br>"+pname[6].getAttribute("value"),
+			"visits": pmoney[6].getAttribute("value"),
 		    "color": "#04D215"
 		  }, {
-		    "country": "Spain",
-		    "visits": 711,
+			"country": "["+pcname[7].getAttribute("value")+"]<br>"+pname[7].getAttribute("value"),
+			"visits": pmoney[7].getAttribute("value"),
 		    "color": "#0D8ECF"
 		  }, {
-		    "country": "Netherlands",
-		    "visits": 665,
+			"country": "["+pcname[8].getAttribute("value")+"]<br>"+pname[8].getAttribute("value"),
+			"visits": pmoney[8].getAttribute("value"),
 		    "color": "#0D52D1"
 		  }, {
-		    "country": "Russia",
-		    "visits": 580,
+			"country": "["+pcname[9].getAttribute("value")+"]<br>"+pname[9].getAttribute("value"),
+			"visits": pmoney[9].getAttribute("value"),
 		    "color": "#2A0CD0"
-		  }, {
-		    "country": "South Korea",
-		    "visits": 443,
-		    "color": "#8A0CCF"
-		  }, {
-		    "country": "Canada",
-		    "visits": 441,
-		    "color": "#CD0D74"
 		  }],
 		  "valueAxes": [{
 		    "axisAlpha": 0,
@@ -263,6 +268,7 @@ $(function(){
 	  <hr>
       <div class="stback">
       	<div id="chartdiv">
+      	
       		<input type="hidden" id="fundcount" value="${ cstat.fundcount }">
       		<input type="hidden" id="prodcount" value="${ cstat.prodcount }">
       	</div>	
@@ -275,7 +281,10 @@ $(function(){
 	  <div class="stback">
 	  	<div id="chartdiv2">
 	  		<c:forEach items="${ mstat }" var="mstat">
+	  			<input type="hidden" name="project_category_name" value="${ mstat.project_category_name }">
 	  			<input type="hidden" name="project_name" value="${ mstat.project_name }">
+	  			<input type="hidden" name="money" value="${ mstat.money }">
+	  			<div id="bdiv"></div>
 	  		</c:forEach>
       	</div>
 	  </div>

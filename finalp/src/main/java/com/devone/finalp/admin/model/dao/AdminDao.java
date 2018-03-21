@@ -152,8 +152,9 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.searchReport", report_category_name);
 	}
 
-	public List<AMember> searchMember(String member_name) {
-		return mybatis.selectList("adminmapper.searchMember", member_name);
+	public List<AMember> searchMember(String search) {
+		String searchh="%"+search+"%";
+		return mybatis.selectList("adminmapper.searchMember", searchh);
 	}
 	
 

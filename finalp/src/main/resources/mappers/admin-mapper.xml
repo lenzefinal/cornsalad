@@ -233,7 +233,7 @@
 	
 	<select id="searchMember" parameterType="String" resultMap="AMembermap">
 		<![CDATA[
-			SELECT * FROM A_MEMBER WHERE MEMBER_NAME LIKE '%#{ search }%'
+			SELECT * FROM A_MEMBER WHERE MEMBER_NAME LIKE #{ searchh }
 		]]>	
 	</select>
 	

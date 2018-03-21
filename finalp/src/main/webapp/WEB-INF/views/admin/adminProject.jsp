@@ -87,6 +87,7 @@
         <th>카테고리</th>
         <th>소카테고리</th>
         <th>제목</th>
+        <th>종료일</th>
 		<th>작성자</th>
 		<th>승인</th>
       </tr>
@@ -99,6 +100,7 @@
        					<td>${ oprow.project_category_name }</td>
        					<td>${ oprow.category_sub_name }</td>
         				<td>${ oprow.project_name }</td>
+        				<td>${ oprow.end_date }</td>
 						<td>${ oprow.member_name }</td>
 						<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
       				</tr>
@@ -144,6 +146,7 @@
         <th>제목</th>
 		<th>작성자</th>
 		<th>후원현황</th>
+		<th>종료일</th>
 		<th>목표 달성</th>
 		<th>활성화 / 비활성화</th>
       </tr>
@@ -158,6 +161,7 @@
         				<td>${ aprow.project_name }</td>
 						<td>${ aprow.member_name }</td>
 						<td>${ aprow.spon } % </td>
+						<td>${ aprow.end_date }</td>
 						<td>
 						<c:choose>
 							<c:when test="${ aprow.ing_flag eq 'Y' }">

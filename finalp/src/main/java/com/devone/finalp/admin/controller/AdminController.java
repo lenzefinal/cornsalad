@@ -480,6 +480,7 @@ public class AdminController {
 	@RequestMapping(value="searchMember.do", method=RequestMethod.POST )
 	public void searchMember(HttpServletResponse response,
 			@RequestParam(value="search") String search) throws IOException{
+
 		List<AMember> smlist=adminService.searchMember(search);
 		
 		JSONObject sendjson=new JSONObject();

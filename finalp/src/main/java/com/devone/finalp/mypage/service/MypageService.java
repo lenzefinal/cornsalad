@@ -7,6 +7,7 @@ import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 public interface MypageService {
 	int memberModify(Member member);
@@ -23,4 +24,12 @@ public interface MypageService {
 	int productCount(String member_id);
 	int lprojectCount(String member_id);
 	int lproductCount(String member_id);
+	List<PurchaseProduct> selectPurchaseProduct(PurchaseProduct product);
+	int pproductCount(String member_id);
+	List<Project> selectSearchMyProject(Project project);
+	List<Project> selectSearchMyProduct(Project product);
+	List<MyLikes> selectSearchProjectLikes(MyLikes projectLikes);
+	List<MyLikes> selectSearchProductLikes(MyLikes productLikes);
+	List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct);
+	
 }

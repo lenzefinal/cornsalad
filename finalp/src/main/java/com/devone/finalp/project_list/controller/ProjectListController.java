@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.devone.finalp.project_list.model.service.ProjectListService;
 import com.devone.finalp.project_list.model.vo.ProjectListView;
@@ -29,6 +31,23 @@ public class ProjectListController {
 		model.addAttribute("list", projectListService.selectProjectList());
 		
 		return "project/projectListView";
+	}
+	
+	@RequestMapping(value="categorySearch.do", method=RequestMethod.POST)
+	public void selectProjectListCategory(@RequestParam(value="category_sub_id") String[] category) {
+		
+		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
+		
+		for(int i=1; i<category.length; i++) {
+			System.out.println(category[i]);
+		}
+		
+		if(category[0].equals("")) {
+			list.addAll(projectListService.selectProjectList());
+		}else {
+			
+		}
+		System.out.println("-----");
 	}
 	
 	@RequestMapping(value="keywordSearch.do", method=RequestMethod.POST)

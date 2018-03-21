@@ -11,6 +11,7 @@ import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 @Repository("mypageDao")
 public class MypageDao {
@@ -83,5 +84,43 @@ public class MypageDao {
 	public int lproductCount(String member_id) {
 		// TODO Auto-generated method stub
 		return mybatis.selectOne("mystatusmapper.lproductCount", member_id);
+	}
+
+	public List<PurchaseProduct> selectpurchaseProduct(PurchaseProduct product) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.purchaseProduct", product);
+	}
+
+	public int pproductCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.pproductCount", member_id);
+	}
+
+	public List<Project> selectSearchMyProject(Project project) {
+		String keyword = "%" + project.getProject_name() + "%";
+		project.setProject_name(keyword);
+		return mybatis.selectList("mystatusmapper.searchMyproject", project);
+	}
+	
+	public List<Project> selectSearchMyProduct(Project product) {
+		String keyword = "%" + product.getProject_name() + "%";
+		product.setProject_name(keyword);
+		return mybatis.selectList("mystatusmapper.searchMyproduct", product);
+	}
+
+	public List<MyLikes> selectSearchProjectLikes(MyLikes projectLikes) {
+		String keyword = "%" + projectLikes.getProject_name() + "%";
+		projectLikes.setProject_name(keyword);
+		return mybatis.selectList("mystatusmapper.searchProjectLikes", projectLikes);
+	}
+	public List<MyLikes> selectSearchProductLikes(MyLikes productLikes) {
+		String keyword = "%" + productLikes.getProject_name() + "%";
+		productLikes.setProject_name(keyword);
+		return mybatis.selectList("mystatusmapper.searchProductLikes", productLikes);
+	}
+	public List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct) {
+		String keyword = "%" + purchaseProduct.getProject_name() + "%";
+		purchaseProduct.setProject_name(keyword);
+		return mybatis.selectList("mystatusmapper.searchPurchaseProduct", purchaseProduct);
 	}
 }
