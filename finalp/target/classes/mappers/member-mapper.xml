@@ -14,11 +14,52 @@
 			delete member where member_id=#{member_id} and member_pwd=#{member_pwd}
 		]]>
 	</delete>
+	
 	<update id="modifyMember" parameterType="Member">
+		<if test="profile_img_oriname!=null">
 		<![CDATA[
-			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email} where member_id=#{member_id}
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email},  address_num=#{address_num}, address=#{address}, profile_img_oriname=#{profile_img_oriname},
+			profile_img_rename=#{profile_img_rename} where member_id=#{member_id}
 		]]>	
+		</if>
+		<if test="profile_img_oriname==null">
+		<![CDATA[
+			update member set member_pwd=#{member_pwd}, phone=#{phone}, email=#{email}, address_num=#{address_num}, address=#{address}, profile_img_oriname=null,
+			profile_img_rename=null where member_id=#{member_id}
+		]]>	
+		</if>
 	</update>
+	
+	<select id="memberInfo" resultType="Member" parameterType="Member">
+		<![CDATA[
+			SELECT * FROM MEMBER WHERE member_id=#{member_id}
+		]]>
+	</select>
+	
+	<select id="joinedEmailFind" resultType="Member" parameterType="String">
+		<![CDATA[
+			SELECT * FROM MEMBER WHERE email = #{email}
+		]]>
+		
+	</select>
 
+	<insert id="insertMember" parameterType="Member">
+		<![CDATA[
+			insert into member(member_id, member_pwd, member_name, email) 
+			values(#{member_id}, #{member_pwd}, #{member_name}, #{email})
+		]]>
+	</insert> 
+	<update id="updateTime" parameterType="Member">
+		<![CDATA[
+			update member set last_login_date=sys_date where member_id= #{member_id}
+		]]>
+		
+	</update>
+	<update id="updateTime1" parameterType="Member">
+		<![CDATA[
+			update member set sys_date= #{sys_date} where member_id= #{member_id}
+		]]>
+		
+	</update> 
 
 </mapper>

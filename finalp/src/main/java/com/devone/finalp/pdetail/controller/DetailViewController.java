@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.set.SynchronizedSortedSet;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.service.DetailViewServiceImpl;
 import com.devone.finalp.pdetail.model.vo.HotListView;
+import com.devone.finalp.pdetail.model.vo.LoginTimeView;
+import com.devone.finalp.pdetail.model.vo.ProjectView;
 
 @Controller
 public class DetailViewController {
@@ -27,21 +31,31 @@ public class DetailViewController {
 	private DetailViewServiceImpl detailviewService;
 	
 	@RequestMapping("projectDetailView.do")
-	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,@RequestParam("member_id") String member_id,Likes likes) {
+	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,@RequestParam("member_id") String member_id,Likes likes,LoginTimeView loginTime) {
 		System.out.println("잘들어왓나");
-		List<HotListView> list = detailviewService.selectHotList();
-		
-		//List<lGiftView> ist1=detailviewService.selectGiftList("15210212364391");
 		System.out.println(project_id);
+		List<HotListView> list = detailviewService.selectHotList();
+//      판매자 member_id 알아옴
+		Project project=detailviewService.selectMemberId(project_id);
 		
+		
+		ProjectView proview=detailviewService.selectProView(project_id);
 		int like=detailviewService.selectLikes(project_id);
 		likes=detailviewService.existList(likes);
-		System.out.println(likes.getProject_id());
+//		판매자의 로그인 시간 알아옴
+		loginTime.setMember_id(project.getMember_id());
 
+		
+		LoginTimeView logintime=detailviewService.selectloginTime(loginTime);
+//      진행한 프로젝트 갯수 알아오기
+		int count =detailviewService.selectcount(project.getMember_id());
+		model.addAttribute("LoginTimeView", logintime);
+		model.addAttribute("proview", proview);
 		model.addAttribute("hotlist", list);
 //		model.addAttribute("giftlist", list1); 
 		model.addAttribute("like", like);
 		model.addAttribute("likes", likes);	
+		model.addAttribute("count", count);
 		
 		return "project/projectDetailView";
 	}
@@ -73,7 +87,8 @@ public class DetailViewController {
 		if(exist != null) {
 			detailviewService.deleteLike(likes);
 			result="delete";
-		}else {
+		}
+		else if(exist==null) {
 			detailviewService.addLike(likes);
 			result="add";
 		}

@@ -8,4 +8,6 @@ public interface MemberStatusService {
 	Member joinedEmailFind(String email);
 	
 	int insertMember(Member member);
+	
+	int updateTime(Member member);
 }

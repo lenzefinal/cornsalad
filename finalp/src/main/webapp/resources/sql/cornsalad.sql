@@ -5,8 +5,8 @@ DROP TABLE BANK CASCADE CONSTRAINTS;
 	BANK_NAME VARCHAR2(40)
 );
 
-   COMMENT ON COLUMN BANK.BANK_ID IS 'ÀºÇà ¾ÆÀÌµð';
-   COMMENT ON COLUMN BANK.BANK_NAME IS 'ÀºÇà ÀÌ¸§';
+   COMMENT ON COLUMN BANK.BANK_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN BANK.BANK_NAME IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
   
    
 --SELECT * FROM BANK;
@@ -28,23 +28,24 @@ DROP TABLE MEMBER CASCADE CONSTRAINTS;
     ADMIN_FLAG VARCHAR2(1) CHECK(ADMIN_FLAG IN ('Y', 'N')),
     PROFILE_IMG_ORINAME VARCHAR2(100),
     PROFILE_IMG_RENAME VARCHAR2(100),
-    LAST_LOGIN_DATE DATE
+    LAST_LOGIN_DATE VARCHAR2(50),
+    SYS_DATE VARCHAR2(50)
 
 );
 
-   COMMENT ON COLUMN MEMBER.MEMBER_ID IS 'È¸¿ø¾ÆÀÌµð';
-   COMMENT ON COLUMN MEMBER.MEMBER_PWD IS 'ºñ¹Ð¹øÈ£';
-   COMMENT ON COLUMN MEMBER.MEMBER_NAME IS 'ÀÌ¸§';;
-   COMMENT ON COLUMN MEMBER.EMAIL IS 'ÀÌ¸ÞÀÏ';
-   COMMENT ON COLUMN MEMBER.PHONE IS 'ÀüÈ­¹øÈ£';
-   COMMENT ON COLUMN MEMBER.ADDRESS IS 'ÁÖ¼Ò';
-   COMMENT ON COLUMN MEMBER.ENROLL_DATE IS '°¡ÀÔ³¯Â¥';
-   COMMENT ON COLUMN MEMBER.BLACKLIST_FLAG IS 'ºí·¢¸®½ºÆ® ÇÃ·¡±×';
-   COMMENT ON COLUMN MEMBER.ADMIN_FLAG IS '°ü¸®ÀÚ ÇÃ·¡±×';
-   COMMENT ON COLUMN MEMBER.PROFILE_IMG_ORINAME IS 'ÇÁ·ÎÇÊÀÌ¹ÌÁö ¿ø·¡ ÀÌ¸§';
-   COMMENT ON COLUMN MEMBER.PROFILE_IMG_RENAME IS 'ÇÁ·ÎÇÊÀÌ¹ÌÁö º¯°æµÈ ÀÌ¸§';
-   COMMENT ON COLUMN MEMBER.LAST_LOGIN_DATE IS '¸¶Áö¸· ·Î±×ÀÎ ³¯Â¥';
-   COMMENT ON COLUMN MEMBER.ADDRESS_NUM IS '¿ìÆí ¹øÈ£';
+   COMMENT ON COLUMN MEMBER.MEMBER_ID IS 'È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN MEMBER.MEMBER_PWD IS 'ï¿½ï¿½Ð¹ï¿½È£';
+   COMMENT ON COLUMN MEMBER.MEMBER_NAME IS 'ï¿½Ì¸ï¿½';;
+   COMMENT ON COLUMN MEMBER.EMAIL IS 'ï¿½Ì¸ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN MEMBER.PHONE IS 'ï¿½ï¿½È­ï¿½ï¿½È£';
+   COMMENT ON COLUMN MEMBER.ADDRESS IS 'ï¿½Ö¼ï¿½';
+   COMMENT ON COLUMN MEMBER.ENROLL_DATE IS 'ï¿½ï¿½ï¿½Ô³ï¿½Â¥';
+   COMMENT ON COLUMN MEMBER.BLACKLIST_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ã·ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN MEMBER.ADMIN_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN MEMBER.PROFILE_IMG_ORINAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN MEMBER.PROFILE_IMG_RENAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN MEMBER.LAST_LOGIN_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
+   COMMENT ON COLUMN MEMBER.ADDRESS_NUM IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£';
    
 --SELECT * FROM MEMBER;
 ----------------------------------------------------------------------------------------------------------------
@@ -60,9 +61,9 @@ DROP TABLE MEMBER_ACCOUNT CASCADE CONSTRAINTS;
     CONSTRAINT FK_MEMBERACCOUNT_BANK_ID FOREIGN KEY (BANK_ID) REFERENCES BANK (BANK_ID) ON DELETE SET NULL
 );
 
-   COMMENT ON COLUMN MEMBER_ACCOUNT.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN MEMBER_ACCOUNT.ACCOUNT_NUMBER IS '°èÁÂ¹øÈ£';
-   COMMENT ON COLUMN MEMBER_ACCOUNT.BANK_ID IS 'ÀºÇà ¾ÆÀÌµð';
+   COMMENT ON COLUMN MEMBER_ACCOUNT.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN MEMBER_ACCOUNT.ACCOUNT_NUMBER IS 'ï¿½ï¿½ï¿½Â¹ï¿½È£';
+   COMMENT ON COLUMN MEMBER_ACCOUNT.BANK_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
   
   
    
@@ -78,8 +79,8 @@ DROP TABLE T_MEM_RPT_COUNT CASCADE CONSTRAINTS;
     CONSTRAINT FK_T_MEM_RPT_COUNT_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN T_MEM_RPT_COUNT.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN T_MEM_RPT_COUNT.TOTAL_REPORT_COUNT IS 'ÃÑ ½Å°í È½¼ö';
+   COMMENT ON COLUMN T_MEM_RPT_COUNT.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN T_MEM_RPT_COUNT.TOTAL_REPORT_COUNT IS 'ï¿½ï¿½ ï¿½Å°ï¿½ È½ï¿½ï¿½';
   
    
 --SELECT * FROM T_MEM_RPT_COUNT;
@@ -92,8 +93,8 @@ DROP TABLE CATEGORY CASCADE CONSTRAINTS;
 	CATEGORY_NAME VARCHAR2(50)
 );
 
-   COMMENT ON COLUMN CATEGORY.CATEGORY_ID IS 'ÁßÄ«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN CATEGORY.CATEGORY_NAME IS 'Áß Ä«Å×°í¸® ÀÌ¸§';
+   COMMENT ON COLUMN CATEGORY.CATEGORY_ID IS 'ï¿½ï¿½Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN CATEGORY.CATEGORY_NAME IS 'ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
   
    
 --SELECT * FROM CATEGORY;
@@ -109,9 +110,9 @@ DROP TABLE CATEGORY_SUB CASCADE CONSTRAINTS;
     CONSTRAINT FK_CATEGORY_SUB_CATEGORY_ID FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORY (CATEGORY_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_SUB_ID IS '¼ÒÄ«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_SUB_NAME IS '¼ÒÄ«Å×°í¸® ÀÌ¸§';
-   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_ID IS 'ÁßÄ«Å×°í¸® ¾ÆÀÌµð';
+   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_SUB_ID IS 'ï¿½ï¿½Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_SUB_NAME IS 'ï¿½ï¿½Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN CATEGORY_SUB.CATEGORY_ID IS 'ï¿½ï¿½Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
   
 --SELECT * FROM CATEGORY_SUB;
 ----------------------------------------------------------------------------------------------------------------
@@ -123,8 +124,8 @@ DROP TABLE PROJECT_CATEGORY CASCADE CONSTRAINTS;
 	PROJECT_CATEGORY_NAME VARCHAR2(30)
 );
 
-   COMMENT ON COLUMN PROJECT_CATEGORY.PROJECT_CATEGORY_ID IS 'ÇÁ·ÎÁ§Æ® Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_CATEGORY.PROJECT_CATEGORY_NAME IS 'ÇÁ·ÎÁ§Æ® Ä«Å×°í¸® ÀÌ¸§';
+   COMMENT ON COLUMN PROJECT_CATEGORY.PROJECT_CATEGORY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_CATEGORY.PROJECT_CATEGORY_NAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
   
 --SELECT * FROM PROJECT_CATEGORY;
 ----------------------------------------------------------------------------------------------------------------
@@ -156,24 +157,24 @@ DROP TABLE PROJECT CASCADE CONSTRAINTS;
     CONSTRAINT FK_PROJECT_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN PROJECT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT.PROJECT_CATEGORY_ID IS 'ÇÁ·ÎÁ§Æ® Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT.CATEGORY_SUB_ID IS '¼ÒÄ«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT.PROJECT_NAME IS 'ÇÁ·ÎÁ§Æ® ÀÌ¸§';
-   COMMENT ON COLUMN PROJECT.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT.IMAGE_ORINAME IS '´ëÇ¥ÀÌ¹ÌÁö ¿ø·¡ ÆÄÀÏ¸í';
-   COMMENT ON COLUMN PROJECT.IMAGE_RENAME IS '´ëÇ¥ÀÌ¹ÌÁö º¯°æµÈ ÆÄÀÏ¸í';
-   COMMENT ON COLUMN PROJECT.REP_CONTENT IS 'ÇÁ·ÎÁ§Æ® ¹®±¸';
-   COMMENT ON COLUMN PROJECT.TARGET_AMOUNT IS '¸ñÇ¥±Ý¾×';
-   COMMENT ON COLUMN PROJECT.CREATION_DATE IS 'µî·ÏÀÏ';
-   COMMENT ON COLUMN PROJECT.START_DATE IS '½ÃÀÛÀÏ';
-   COMMENT ON COLUMN PROJECT.END_DATE IS '¸¶°¨ÀÏ';
-   COMMENT ON COLUMN PROJECT.PAYMENT_DATE IS '°áÁ¦ÀÏ';
-   COMMENT ON COLUMN PROJECT.REFUND_ROLE IS 'È¯ºÒÁ¤Ã¥';
-   COMMENT ON COLUMN PROJECT.PROJECT_REQUEST_FLAG IS 'ÇÁ·ÎÁ§Æ® ½ÂÀÎ ¿äÃ» ÇÃ·¡±×';
-   COMMENT ON COLUMN PROJECT.PROJECT_ONOFF_FLAG IS 'ÇÁ·ÎÁ§Æ® ºñÈ°¼ºÈ­ ÇÃ·¡±×';
-   COMMENT ON COLUMN PROJECT.REPORT_COUNT IS '½Å°í È½¼ö';
-   COMMENT ON COLUMN PROJECT.CERTIF_FLAG IS 'ÀÎÁõ ¿©ºÎ';
+   COMMENT ON COLUMN PROJECT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT.PROJECT_CATEGORY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT.CATEGORY_SUB_ID IS 'ï¿½ï¿½Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT.PROJECT_NAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN PROJECT.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT.IMAGE_ORINAME IS 'ï¿½ï¿½Ç¥ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½';
+   COMMENT ON COLUMN PROJECT.IMAGE_RENAME IS 'ï¿½ï¿½Ç¥ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½';
+   COMMENT ON COLUMN PROJECT.REP_CONTENT IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.TARGET_AMOUNT IS 'ï¿½ï¿½Ç¥ï¿½Ý¾ï¿½';
+   COMMENT ON COLUMN PROJECT.CREATION_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.START_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.END_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.PAYMENT_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.REFUND_ROLE IS 'È¯ï¿½ï¿½ï¿½ï¿½Ã¥';
+   COMMENT ON COLUMN PROJECT.PROJECT_REQUEST_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Ã·ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.PROJECT_ONOFF_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ã·ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.REPORT_COUNT IS 'ï¿½Å°ï¿½ È½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT.CERTIF_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
   
    
 --SELECT * FROM PROJECT;
@@ -189,9 +190,9 @@ DROP TABLE PROJECT_CONTENT CASCADE CONSTRAINTS;
     CONSTRAINT FK_PROJECT_CONTENT_PROJECT_ID FOREIGN KEY (PROJECT_ID) REFERENCES PROJECT (PROJECT_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN PROJECT_CONTENT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_CONTENT.VIDEO_URL IS '¼Ò°³ ¿µ»ó URL';
-   COMMENT ON COLUMN PROJECT_CONTENT.CONTENT IS '»ó¼¼ ³»¿ë';
+   COMMENT ON COLUMN PROJECT_CONTENT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_CONTENT.VIDEO_URL IS 'ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ URL';
+   COMMENT ON COLUMN PROJECT_CONTENT.CONTENT IS 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
   
   
    
@@ -209,10 +210,10 @@ DROP TABLE GIFT CASCADE CONSTRAINTS;
     CONSTRAINT FK_GIFT_PROJECT_ID FOREIGN KEY (PROJECT_ID) REFERENCES PROJECT (PROJECT_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN GIFT.GIFT_ID IS '¼±¹° ¾ÆÀÌµð';
-   COMMENT ON COLUMN GIFT.SUPPORT_PRICE IS 'ÈÄ¿ø ±Ý¾×';
-   COMMENT ON COLUMN GIFT.CAPACITY IS 'ÃÖ´ë ¼ö·®';
-   COMMENT ON COLUMN GIFT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
+   COMMENT ON COLUMN GIFT.GIFT_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN GIFT.SUPPORT_PRICE IS 'ï¿½Ä¿ï¿½ ï¿½Ý¾ï¿½';
+   COMMENT ON COLUMN GIFT.CAPACITY IS 'ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN GIFT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
    
 --SELECT * FROM GIFT;
 ----------------------------------------------------------------------------------------------------------------
@@ -227,9 +228,9 @@ DROP TABLE ITEM CASCADE CONSTRAINTS;
     CONSTRAINT FK_ITEM_PROJECT_ID FOREIGN KEY (PROJECT_ID) REFERENCES PROJECT (PROJECT_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN ITEM.ITEM_ID IS '¾ÆÀÌÅÛ ¾ÆÀÌµð';
-   COMMENT ON COLUMN ITEM.ITEM_NAME IS '¾ÆÀÌÅÛ ÀÌ¸§';
-   COMMENT ON COLUMN ITEM.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
+   COMMENT ON COLUMN ITEM.ITEM_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN ITEM.ITEM_NAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN ITEM.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
   
    
 --SELECT * FROM ITEM;
@@ -246,9 +247,9 @@ DROP TABLE GIFT_IN_ITEMS CASCADE CONSTRAINTS;
     CONSTRAINT FK_GIFT_IN_ITEMS_ITEM_ID FOREIGN KEY (ITEM_ID) REFERENCES ITEM (ITEM_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN GIFT_IN_ITEMS.GIFT_ID IS '¼±¹° ¾ÆÀÌµð';
-   COMMENT ON COLUMN GIFT_IN_ITEMS.ITEM_ID IS '¾ÆÀÌÅÛ ¾ÆÀÌµð';
-   COMMENT ON COLUMN GIFT_IN_ITEMS.COUNT IS '¾ÆÀÌÅÛ ¼ö·®';
+   COMMENT ON COLUMN GIFT_IN_ITEMS.GIFT_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN GIFT_IN_ITEMS.ITEM_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN GIFT_IN_ITEMS.COUNT IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
   
    
 --SELECT * FROM GIFT_IN_ITEMS;
@@ -266,11 +267,11 @@ DROP TABLE PRODUCT CASCADE CONSTRAINTS;
     CONSTRAINT FK_PRODUCT_PROJECT_ID FOREIGN KEY (PROJECT_ID) REFERENCES PROJECT (PROJECT_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN PRODUCT.PRODUCT_ID IS '°øµ¿±¸¸Å ¹°Ç° ¾ÆÀÌµð';
-   COMMENT ON COLUMN PRODUCT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PRODUCT.PRODUCT_NAME IS '»óÇ°¸í';
-   COMMENT ON COLUMN PRODUCT.PRODUCT_PRICE IS '»óÇ° °¡°Ý';
-   COMMENT ON COLUMN PRODUCT.MINCOUNT IS 'ÃÖ¼Ò ±¸¸Å·®';
+   COMMENT ON COLUMN PRODUCT.PRODUCT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PRODUCT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PRODUCT.PRODUCT_NAME IS 'ï¿½ï¿½Ç°ï¿½ï¿½';
+   COMMENT ON COLUMN PRODUCT.PRODUCT_PRICE IS 'ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PRODUCT.MINCOUNT IS 'ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½Å·ï¿½';
   
 --SELECT * FROM PRODUCT;
 ----------------------------------------------------------------------------------------------------------------
@@ -287,10 +288,10 @@ DROP TABLE PROJECT_ACCOUNT CASCADE CONSTRAINTS;
     CONSTRAINT FK_PROJECT_ACCOUNT_BANK_ID FOREIGN KEY (BANK_ID) REFERENCES BANK (BANK_ID) ON DELETE SET NULL
 );
 
-   COMMENT ON COLUMN PROJECT_ACCOUNT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_ACCOUNT.BANK_ID IS '°Å·¡ ÀºÇà ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_ACCOUNT.ACCOUNT_NAME IS '¿¹±ÝÁÖ¸í';
-   COMMENT ON COLUMN PROJECT_ACCOUNT.ACCOUNT_NUMBER IS '°èÁÂ ¹øÈ£';
+   COMMENT ON COLUMN PROJECT_ACCOUNT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_ACCOUNT.BANK_ID IS 'ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_ACCOUNT.ACCOUNT_NAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½';
+   COMMENT ON COLUMN PROJECT_ACCOUNT.ACCOUNT_NUMBER IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£';
   
    
 --SELECT * FROM PROJECT_ACCOUNT;
@@ -314,14 +315,14 @@ DROP TABLE PROJECT_REPLY CASCADE CONSTRAINTS;
 );
 
   
-   COMMENT ON COLUMN PROJECT_REPLY.PROJECT_REPLY_ID IS 'ÇÁ·ÎÁ§Æ® ´ñ±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_REPLY.MEMBER_ID IS '´ñ±Û ÀÛ¼ºÀÚ ¾ÆÀÌµð';
-   COMMENT ON COLUMN PROJECT_REPLY.PROJECT_ID IS '¿ø±Û ¾ÆÀÌµð(ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð)';
-   COMMENT ON COLUMN PROJECT_REPLY.REPLY_CONTENT IS '³»¿ë';
-   COMMENT ON COLUMN PROJECT_REPLY.CREATION_DATE IS 'ÀÛ¼ºÀÏ';
-   COMMENT ON COLUMN PROJECT_REPLY.REPLY_LEVEL IS '´ñ±Û ·¹º§';
-   COMMENT ON COLUMN PROJECT_REPLY.REPORT_COUNT IS '½Å°í È½¼ö';
-   COMMENT ON COLUMN PROJECT_REPLY.PROJ_REPLY_ID_REF IS 'ÇÁ·ÎÁ§Æ® ´ñ±Û ¾ÆÀÌµð(´ë´ñ±Û¿ë)';
+   COMMENT ON COLUMN PROJECT_REPLY.PROJECT_REPLY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.MEMBER_ID IS 'ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½)';
+   COMMENT ON COLUMN PROJECT_REPLY.REPLY_CONTENT IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.CREATION_DATE IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.REPLY_LEVEL IS 'ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.REPORT_COUNT IS 'ï¿½Å°ï¿½ È½ï¿½ï¿½';
+   COMMENT ON COLUMN PROJECT_REPLY.PROJ_REPLY_ID_REF IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½ï¿½Û¿ï¿½)';
    
 --SELECT * FROM PROJECT_REPLY;
 ----------------------------------------------------------------------------------------------------------------
@@ -336,8 +337,8 @@ DROP TABLE LIKES CASCADE CONSTRAINTS;
     CONSTRAINT FK_LIKES_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN LIKES.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN LIKES.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
+   COMMENT ON COLUMN LIKES.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN LIKES.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
      
 --SELECT * FROM LIKES;
 ----------------------------------------------------------------------------------------------------------------
@@ -354,10 +355,10 @@ DROP TABLE MEMBER_TRUST CASCADE CONSTRAINTS;
     CONSTRAINT FK_MEMBER_TRUST_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN MEMBER_TRUST.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN MEMBER_TRUST.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN MEMBER_TRUST.CORN_GRADE IS 'ÄÜ Áö¼ö';
-   COMMENT ON COLUMN MEMBER_TRUST.CREATION_DATE IS 'Æò°¡ÇÑ ³¯Â¥';
+   COMMENT ON COLUMN MEMBER_TRUST.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN MEMBER_TRUST.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN MEMBER_TRUST.CORN_GRADE IS 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN MEMBER_TRUST.CREATION_DATE IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
      
 --SELECT * FROM MEMBER_TRUST;
 ----------------------------------------------------------------------------------------------------------------
@@ -382,16 +383,16 @@ DROP TABLE PAYMENT CASCADE CONSTRAINTS;
     CONSTRAINT FK_PAYMENT_PRODUCT_ID FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT (PRODUCT_ID) ON DELETE SET NULL
 );
 
-   COMMENT ON COLUMN PAYMENT.PAYMENT_ID IS '°áÁ¦ ¾ÆÀÌµð';
-   COMMENT ON COLUMN PAYMENT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN PAYMENT.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN PAYMENT.GIFT_ID IS '¼±¹° ¾ÆÀÌµð';
-   COMMENT ON COLUMN PAYMENT.PRODUCT_ID IS '°øµ¿±¸¸Å ¹°Ç° ¾ÆÀÌµð';
-   COMMENT ON COLUMN PAYMENT.TOTAL_AMOUNT IS 'ÃÑ ±Ý¾×';
-   COMMENT ON COLUMN PAYMENT.TOTAL_COUNT IS '±¸¸Å ¼ö·®';
-   COMMENT ON COLUMN PAYMENT.PAYMENT_DATE IS '°áÁ¦ÀÏ';
-   COMMENT ON COLUMN PAYMENT.REFUND_DATE IS 'È¯ºÒ³¯Â¥';
-   COMMENT ON COLUMN PAYMENT.REFUND_FLAG IS 'È¯ºÒ ¿©ºÎ ÇÃ·¡±×';
+   COMMENT ON COLUMN PAYMENT.PAYMENT_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PAYMENT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PAYMENT.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PAYMENT.GIFT_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PAYMENT.PRODUCT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN PAYMENT.TOTAL_AMOUNT IS 'ï¿½ï¿½ ï¿½Ý¾ï¿½';
+   COMMENT ON COLUMN PAYMENT.TOTAL_COUNT IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PAYMENT.PAYMENT_DATE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN PAYMENT.REFUND_DATE IS 'È¯ï¿½Ò³ï¿½Â¥';
+   COMMENT ON COLUMN PAYMENT.REFUND_FLAG IS 'È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½';
      
 --SELECT * FROM PAYMENT;
 ----------------------------------------------------------------------------------------------------------------
@@ -405,8 +406,8 @@ DROP TABLE BOARD_CATEGORY CASCADE CONSTRAINTS;
 	BOARD_CATEGORY_NAME VARCHAR2(30)
 );
 
-   COMMENT ON COLUMN BOARD_CATEGORY.BOARD_CATEGORY_ID IS '°Ô½Ã±Û Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN BOARD_CATEGORY.BOARD_CATEGORY_NAME IS '°Ô½Ã±Û Ä«Å×°í¸® ÀÌ¸§';
+   COMMENT ON COLUMN BOARD_CATEGORY.BOARD_CATEGORY_ID IS 'ï¿½Ô½Ã±ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN BOARD_CATEGORY.BOARD_CATEGORY_NAME IS 'ï¿½Ô½Ã±ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
      
 --SELECT * FROM BOARD_CATEGORY;
 ----------------------------------------------------------------------------------------------------------------
@@ -430,17 +431,17 @@ DROP TABLE BOARD CASCADE CONSTRAINTS;
     CONSTRAINT FK_BOARD_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE SET NULL
 );
 
-   COMMENT ON COLUMN BOARD.BOARD_ID IS '°Ô½Ã±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN BOARD.BOARD_CATEGORY_ID IS '°Ô½Ã±Û Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN BOARD.MEMBER_ID IS 'ÀÛ¼ºÀÚ';
-   COMMENT ON COLUMN BOARD.TITLE IS 'Á¦¸ñ';
-   COMMENT ON COLUMN BOARD.CONTENT IS '³»¿ë';
-   COMMENT ON COLUMN BOARD.CREATION_DATE IS 'ÀÛ¼ºÀÏ';
-   COMMENT ON COLUMN BOARD.READCOUNT IS 'Á¶È¸¼ö';
-   COMMENT ON COLUMN BOARD.RECOMMEND_COUNT IS 'ÃßÃµ¼ö';
-   COMMENT ON COLUMN BOARD.REPORT_COUNT IS '½Å°í È½¼ö';
-   COMMENT ON COLUMN BOARD.ORI_FILENAME IS 'ÆÄÀÏ ¿ø·¡ ÀÌ¸§';
-   COMMENT ON COLUMN BOARD.RE_FILENAME IS 'ÆÄÀÏ º¯°æµÈ ÀÌ¸§';
+   COMMENT ON COLUMN BOARD.BOARD_ID IS 'ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN BOARD.BOARD_CATEGORY_ID IS 'ï¿½Ô½Ã±ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN BOARD.MEMBER_ID IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.TITLE IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.CONTENT IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.CREATION_DATE IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.READCOUNT IS 'ï¿½ï¿½È¸ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.RECOMMEND_COUNT IS 'ï¿½ï¿½Ãµï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.REPORT_COUNT IS 'ï¿½Å°ï¿½ È½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD.ORI_FILENAME IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+   COMMENT ON COLUMN BOARD.RE_FILENAME IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
     
 --SELECT * FROM BOARD;
 ----------------------------------------------------------------------------------------------------------------
@@ -462,14 +463,14 @@ DROP TABLE BOARD_REPLY CASCADE CONSTRAINTS;
     CONSTRAINT FK_BOARD_REPLY_B_REPLY_ID_REF FOREIGN KEY (BOARD_REPLY_ID_REF) REFERENCES BOARD_REPLY (BOARD_REPLY_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN BOARD_REPLY.BOARD_REPLY_ID IS '°Ô½Ã±Û ´ñ±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN BOARD_REPLY.MEMBER_ID IS '´ñ±Û ÀÛ¼ºÀÚ ¾ÆÀÌµð';  
-   COMMENT ON COLUMN BOARD_REPLY.BOARD_ID IS '¿ø±Û ¾ÆÀÌµð(°Ô½Ã±Û ¾ÆÀÌµð)';
-   COMMENT ON COLUMN BOARD_REPLY.BOARD_CONTENT IS '³»¿ë';
-   COMMENT ON COLUMN BOARD_REPLY.CREATION_DATE IS 'ÀÛ¼ºÀÏ';
-   COMMENT ON COLUMN BOARD_REPLY.BOARD_LEVEL IS '´ñ±Û ·¹º§';
-   COMMENT ON COLUMN BOARD_REPLY.REPORT_COUNT IS '½Å°í È½¼ö';
-   COMMENT ON COLUMN BOARD_REPLY.BOARD_REPLY_ID_REF IS '°Ô½Ã±Û ´ñ±Û ¾ÆÀÌµð(´ë´ñ±Û¿ë)';
+   COMMENT ON COLUMN BOARD_REPLY.BOARD_REPLY_ID IS 'ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN BOARD_REPLY.MEMBER_ID IS 'ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';  
+   COMMENT ON COLUMN BOARD_REPLY.BOARD_ID IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½Ìµï¿½)';
+   COMMENT ON COLUMN BOARD_REPLY.BOARD_CONTENT IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD_REPLY.CREATION_DATE IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD_REPLY.BOARD_LEVEL IS 'ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD_REPLY.REPORT_COUNT IS 'ï¿½Å°ï¿½ È½ï¿½ï¿½';
+   COMMENT ON COLUMN BOARD_REPLY.BOARD_REPLY_ID_REF IS 'ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½ï¿½Û¿ï¿½)';
     
 --SELECT * FROM BOARD_REPLY;
 ----------------------------------------------------------------------------------------------------------------
@@ -481,8 +482,8 @@ DROP TABLE QUESTION_CATEGORY CASCADE CONSTRAINTS;
 	QUESTION_CATEGORY_NAME VARCHAR2(50)
 );
 
-   COMMENT ON COLUMN QUESTION_CATEGORY.QUESTION_CATEGORY_ID IS '¹®ÀÇÇÔ Ä«Å×°í¸®';
-   COMMENT ON COLUMN QUESTION_CATEGORY.QUESTION_CATEGORY_NAME IS '¹®ÀÇÇÔ Ä«Å×°í¸® ÀÌ¸§';
+   COMMENT ON COLUMN QUESTION_CATEGORY.QUESTION_CATEGORY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½';
+   COMMENT ON COLUMN QUESTION_CATEGORY.QUESTION_CATEGORY_NAME IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
      
 --SELECT * FROM QUESTION_CATEGORY;
 ----------------------------------------------------------------------------------------------------------------
@@ -507,15 +508,15 @@ DROP TABLE QUESTION CASCADE CONSTRAINTS;
 );
 
   
-   COMMENT ON COLUMN QUESTION.QUESTION_ID IS '¹®ÀÇÇÔ ¾ÆÀÌµð';
-   COMMENT ON COLUMN QUESTION.QUESTION_CATEGORY_ID IS '¹®ÀÇÇÔ Ä«Å×°í¸®';
-   COMMENT ON COLUMN QUESTION.RECEIVE_MEMBER_ID IS '¹Þ´Â È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN QUESTION.SEND_MEMBER_ID IS 'º¸³»´Â È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN QUESTION.TITLE IS '¹®ÀÇÇÔ Á¦¸ñ';
-   COMMENT ON COLUMN QUESTION.CONTENT IS '¹®ÀÇÇÔ ³»¿ë';
-   COMMENT ON COLUMN QUESTION.RE_CONTENT IS '¹®ÀÇÇÔ ´äº¯ ³»¿ë';
-   COMMENT ON COLUMN QUESTION.SEND_CREATION_DATE IS '¹®ÀÇ ÀÛ¼º ³¯Â¥';
-   COMMENT ON COLUMN QUESTION.RECEIVE_CREATION_DATE IS '¹®ÀÇ ´äº¯ ³¯Â¥';
+   COMMENT ON COLUMN QUESTION.QUESTION_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN QUESTION.QUESTION_CATEGORY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½';
+   COMMENT ON COLUMN QUESTION.RECEIVE_MEMBER_ID IS 'ï¿½Þ´ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN QUESTION.SEND_MEMBER_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN QUESTION.TITLE IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN QUESTION.CONTENT IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN QUESTION.RE_CONTENT IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN QUESTION.SEND_CREATION_DATE IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½Â¥';
+   COMMENT ON COLUMN QUESTION.RECEIVE_CREATION_DATE IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½ï¿½Â¥';
     
 --SELECT * FROM QUESTION;
 ----------------------------------------------------------------------------------------------------------------
@@ -527,8 +528,8 @@ DROP TABLE REPORT_CATEGORY CASCADE CONSTRAINTS;
 	REPORT_CATEGORY_NAME VARCHAR2(50)
 );
 
-   COMMENT ON COLUMN REPORT_CATEGORY.REPORT_CATEGORY_ID IS '½Å°í Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT_CATEGORY.REPORT_CATEGORY_NAME IS '½Å°í Ä«Å×°í¸® ÀÌ¸§';
+   COMMENT ON COLUMN REPORT_CATEGORY.REPORT_CATEGORY_ID IS 'ï¿½Å°ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT_CATEGORY.REPORT_CATEGORY_NAME IS 'ï¿½Å°ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';
      
 --SELECT * FROM REPORT_CATEGORY;
 ----------------------------------------------------------------------------------------------------------------
@@ -555,16 +556,16 @@ DROP TABLE REPORT CASCADE CONSTRAINTS;
     CONSTRAINT FK_REPORT_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE
 );
 
-   COMMENT ON COLUMN REPORT.REPORT_ID IS '½Å°í ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.REPORT_CATEGORY_ID IS '½Å°í Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.PROJECT_ID IS 'ÇÁ·ÎÁ§Æ® ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.PROJECT_REPLY_ID IS 'ÇÁ·ÎÁ§Æ® ´ñ±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.BOARD_ID IS '°Ô½Ã±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.BOARD_REPLY_ID IS '°Ô½Ã±Û ´ñ±Û ¾ÆÀÌµð';
-   COMMENT ON COLUMN REPORT.REPORT_REASON IS '½Å°í »çÀ¯';
-   COMMENT ON COLUMN REPORT.MEMBER_ID IS '½Å°íÇÑ È¸¿ø';
-   COMMENT ON COLUMN REPORT.REPORT_DATE IS '½Å°í ³¯Â¥';
-   COMMENT ON COLUMN REPORT.REPORT_READ_FLAG IS '½Å°í ÀÐÀ½ ¿©ºÎ';
+   COMMENT ON COLUMN REPORT.REPORT_ID IS 'ï¿½Å°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.REPORT_CATEGORY_ID IS 'ï¿½Å°ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.PROJECT_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.PROJECT_REPLY_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.BOARD_ID IS 'ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.BOARD_REPLY_ID IS 'ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN REPORT.REPORT_REASON IS 'ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN REPORT.MEMBER_ID IS 'ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½';
+   COMMENT ON COLUMN REPORT.REPORT_DATE IS 'ï¿½Å°ï¿½ ï¿½ï¿½Â¥';
+   COMMENT ON COLUMN REPORT.REPORT_READ_FLAG IS 'ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
     
 --SELECT * FROM REPORT;
 ----------------------------------------------------------------------------------------------------------------
@@ -578,10 +579,10 @@ DROP TABLE NOTICE CASCADE CONSTRAINTS;
     CONTENT VARCHAR2(1000)
 );
 
-   COMMENT ON COLUMN NOTICE.NOTICE_ID IS '°øÁö»çÇ× ¾ÆÀÌµð';
-   COMMENT ON COLUMN NOTICE.TITLE IS 'Á¦¸ñ';
-   COMMENT ON COLUMN NOTICE.CREATION_DATE IS 'ÀÛ¼ºÀÏ';
-   COMMENT ON COLUMN NOTICE.CONTENT IS '³»¿ë';
+   COMMENT ON COLUMN NOTICE.NOTICE_ID IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN NOTICE.TITLE IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN NOTICE.CREATION_DATE IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN NOTICE.CONTENT IS 'ï¿½ï¿½ï¿½ï¿½';
         
 --SELECT * FROM NOTICE;
 ----------------------------------------------------------------------------------------------------------------
@@ -593,7 +594,7 @@ DROP TABLE TABOO CASCADE CONSTRAINTS;
     CONTENT VARCHAR2(50)
 );
 
-   COMMENT ON COLUMN TABOO.CONTENT IS '±ÝÁö´Ü¾î';
+   COMMENT ON COLUMN TABOO.CONTENT IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½';
         
 --SELECT * FROM TABOO;
 ----------------------------------------------------------------------------------------------------------------
@@ -605,8 +606,8 @@ DROP TABLE ALARM_CATEGORY CASCADE CONSTRAINTS;
 	ALA_CATE_NAME VARCHAR2(50)
 );
 
-   COMMENT ON COLUMN ALARM_CATEGORY.ALA_CATE_ID IS '¾Ë¶÷ Ä«Å×°í¸® ¾ÆÀÌµð';
-   COMMENT ON COLUMN ALARM_CATEGORY.ALA_CATE_NAME IS '¾Ë¶÷ Ä«Å×°í¸® ÀÌ¸§';  
+   COMMENT ON COLUMN ALARM_CATEGORY.ALA_CATE_ID IS 'ï¿½Ë¶ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN ALARM_CATEGORY.ALA_CATE_NAME IS 'ï¿½Ë¶ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ì¸ï¿½';  
    
 --SELECT * FROM ALARM_CATEGORY;
 ----------------------------------------------------------------------------------------------------------------
@@ -624,11 +625,11 @@ DROP TABLE ALARM CASCADE CONSTRAINTS;
     CONSTRAINT FK_ALARM_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE SET NULL
 );
 
-   COMMENT ON COLUMN ALARM.ALARM_ID IS '¾Ë¶÷ ¾ÆÀÌµð';
-   COMMENT ON COLUMN ALARM.ALA_CATE_ID IS '¾Ë¶÷ Ä«Å×°í¸® ¾ÆÀÌµð';  
-   COMMENT ON COLUMN ALARM.MEMBER_ID IS 'È¸¿ø ¾ÆÀÌµð';
-   COMMENT ON COLUMN ALARM.CONTENT IS '³»¿ë';
-   COMMENT ON COLUMN ALARM.READ_FLAG IS 'ÀÐÀ½ ¿©ºÎ';
+   COMMENT ON COLUMN ALARM.ALARM_ID IS 'ï¿½Ë¶ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN ALARM.ALA_CATE_ID IS 'ï¿½Ë¶ï¿½ Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';  
+   COMMENT ON COLUMN ALARM.MEMBER_ID IS 'È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½';
+   COMMENT ON COLUMN ALARM.CONTENT IS 'ï¿½ï¿½ï¿½ï¿½';
+   COMMENT ON COLUMN ALARM.READ_FLAG IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
     
 --SELECT * FROM ALARM;
 ----------------------------------------------------------------------------------------------------------------

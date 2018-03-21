@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
+import com.devone.finalp.pdetail.model.vo.LoginTimeView;
+import com.devone.finalp.pdetail.model.vo.ProjectView;
 
 @Service("detailviewService")
 public class DetailViewServiceImpl implements DetailViewService{
@@ -50,7 +53,21 @@ public class DetailViewServiceImpl implements DetailViewService{
 	}
 	public int insertQuestion(Question question) {
 		return detailviewDao.insertQuestion(question);
+	}
+	public ProjectView selectProView(String project_id) {
+		return detailviewDao.selectProView(project_id);
+	}
+	public LoginTimeView selectloginTime(LoginTimeView loginTime) {
 		
+		return detailviewDao.selectloginTime(loginTime);
+	}
+	public Project selectMemberId(String project_id) {
+		
+		return detailviewDao.selectMemberId(project_id);
+	}
+	public int selectcount(String member_id) {
+		
+		return detailviewDao.selectcount(member_id);
 	}
 
 	

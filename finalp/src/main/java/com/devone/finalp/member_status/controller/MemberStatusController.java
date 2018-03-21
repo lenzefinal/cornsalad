@@ -2,6 +2,9 @@ package com.devone.finalp.member_status.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -33,11 +36,19 @@ public class MemberStatusController {
 	private MemberStatusService memberStatusService;
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String loginMethod(Member member, HttpSession session) {
+	public String loginMethod(Member member, HttpSession session) throws ParseException {
 		
 		System.out.println("로그인");
-		session.setAttribute("loginUser", memberStatusService.login(member));
 		
+		long time=System.currentTimeMillis();
+		SimpleDateFormat dayTime=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		String str=dayTime.format(time);
+		
+		member.setSys_date(str);
+		
+		memberStatusService.updateTime(member);
+		session.setAttribute("loginUser", memberStatusService.login(member));
+		System.out.println(memberStatusService.login(member));
 		return "home";
 	}
 	
