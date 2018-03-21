@@ -15,22 +15,12 @@ public class MyLikes implements java.io.Serializable {
 	private String member_id;
 	private String project_name;
 	private Date creation_date;
+	private Date end_date;
 	private String image_rename;
 	private int size;
 
 	public MyLikes() {
 
-	}
-
-	public MyLikes(String project_id, String member_id, String project_name, Date creation_date, String image_rename,
-			int size) {
-		super();
-		this.project_id = project_id;
-		this.member_id = member_id;
-		this.project_name = project_name;
-		this.creation_date = creation_date;
-		this.image_rename = image_rename;
-		this.size = size;
 	}
 
 	public String getProject_id() {
@@ -65,6 +55,14 @@ public class MyLikes implements java.io.Serializable {
 		this.creation_date = creation_date;
 	}
 
+	public Date getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
+	}
+
 	public String getImage_rename() {
 		return image_rename;
 	}
@@ -85,10 +83,24 @@ public class MyLikes implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
+	public MyLikes(String project_id, String member_id, String project_name, Date creation_date, Date end_date,
+			String image_rename, int size) {
+		super();
+		this.project_id = project_id;
+		this.member_id = member_id;
+		this.project_name = project_name;
+		this.creation_date = creation_date;
+		this.end_date = end_date;
+		this.image_rename = image_rename;
+		this.size = size;
+	}
+
 	@Override
 	public String toString() {
 		return "MyLikes [project_id=" + project_id + ", member_id=" + member_id + ", project_name=" + project_name
-				+ ", creation_date=" + creation_date + ", image_rename=" + image_rename + "]";
+				+ ", creation_date=" + creation_date + ", end_date=" + end_date + ", image_rename=" + image_rename
+				+ ", size=" + size + "]";
 	}
+
 
 }

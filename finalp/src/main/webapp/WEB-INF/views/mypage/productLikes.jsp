@@ -59,7 +59,7 @@ var size=4;
 						+'<c:param name="project_id" value="${lproject.project_id }"/>'
 						+'</c:url>'
 						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-						+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+						+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일'+json.lproduct[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -71,7 +71,7 @@ var size=4;
 							+'<c:param name="project_id" value="${lproject.project_id }"/>'
 							+'</c:url>'
 							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+							+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일'+json.lproduct[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 				}
@@ -116,7 +116,7 @@ var size=4;
 								+'<c:param name="project_id" value="${lproject.project_id }"/>'
 								+'</c:url>'
 								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+								+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일'+json.lproduct[i].end_date+'</b></td>'
 								+'</tr>';
 							} else{
 								tag+='<tr class="list" name="tt">'
@@ -128,7 +128,7 @@ var size=4;
 									+'<c:param name="project_id" value="${lproject.project_id }"/>'
 									+'</c:url>'
 									+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-									+'<td><b>'+json.lproduct[i].creation_date+'</b></td>'
+									+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일'+json.lproduct[i].end_date+'</b></td>'
 									+'</tr>';
 							}
 							 size++;

@@ -188,6 +188,7 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
 			jarr.add(j);
 		}
 		json.put("project", jarr);
@@ -217,6 +218,7 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
 			jarr.add(j);
 
 		}
@@ -246,6 +248,7 @@ public class MypageController {
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
 			j.put("creation_date", lpj.getCreation_date().toString());
+			j.put("end_date", lpj.getEnd_date().toString());
 			jarr.add(j);
 
 		}
@@ -274,6 +277,7 @@ public class MypageController {
 			j.put("project_name", lpd.getProject_name());
 			j.put("member_id", lpd.getMember_id());
 			j.put("creation_date", lpd.getCreation_date().toString());
+			j.put("end_date", lpd.getEnd_date().toString());
 			jarr.add(j);
 
 		}

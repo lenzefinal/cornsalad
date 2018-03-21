@@ -61,7 +61,7 @@ $(window).ready(function(){
 					+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 					+'</c:url>'
 					+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-					+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
+					+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
 					+'</tr>';
 				} else{
 					tag+='<tr class="list" name="tt">'
@@ -73,7 +73,7 @@ $(window).ready(function(){
 						+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 						+'</c:url>'
 						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-						+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
+						+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br><br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
 						+'</tr>';
 				}
 			}
@@ -121,7 +121,7 @@ $(window).ready(function(){
 							+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 							+'</c:url>'
 							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-							+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
+							+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -133,7 +133,7 @@ $(window).ready(function(){
 								+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 								+'</c:url>'
 								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-								+'<td><b>'+json.lproject[i].creation_date+'</b></td>'
+								+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br><br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;

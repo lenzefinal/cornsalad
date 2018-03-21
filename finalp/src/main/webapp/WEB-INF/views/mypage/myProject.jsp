@@ -77,7 +77,7 @@ var size=4;
 						+'<c:param name="project_id" value="${project.project_id }"/>'
 						+'</c:url>'
 						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-						+'<td><b>'+json.project[i].creation_date+'</b></td>'
+						+'<td><b>등록일<br>'+json.project[i].creation_date+'<br><br>마감일'+json.project[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -89,7 +89,7 @@ var size=4;
 							+'<c:param name="project_id" value="${project.project_id }"/>'
 							+'</c:url>'
 							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-							+'<td><b>'+json.project[i].creation_date+'</b></td>'
+							+'<td><b>등록일<br>'+json.project[i].creation_date+'<br><br>마감일'+json.project[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 				}
@@ -137,7 +137,7 @@ var size=4;
 								+'<c:param name="project_id" value="${project.project_id }"/>'
 								+'</c:url>'
 								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-								+'<td><b>'+json.project[i].creation_date+'</b></td>'
+								+'<td><b>등록일<br>'+json.project[i].creation_date+'<br><br>마감일'+json.project[i].end_date+'</b></td>'
 								+'</tr>';
 							} else{
 								tag+='<tr class="list" name="tt">'
@@ -149,7 +149,7 @@ var size=4;
 									+'<c:param name="project_id" value="${project.project_id }"/>'
 									+'</c:url>'
 									+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-									+'<td><b>'+json.project[i].creation_date+'</b></td>'
+									+'<td><b>등록일<br>'+json.project[i].creation_date+'<br><br>마감일'+json.project[i].end_date+'</b></td>'
 									+'</tr>';
 							}
 							 size++;
