@@ -217,8 +217,8 @@ public class AdminServiceImpl implements AdminService {
 
 	//관리자 회원 검색(이름으로)
 	@Override
-	public List<AMember> searchMember(String member_name) {
-		return adminDao.searchMember(member_name);
+	public List<AMember> searchMember(String search) {
+		return adminDao.searchMember(search);
 	}
 	
 	

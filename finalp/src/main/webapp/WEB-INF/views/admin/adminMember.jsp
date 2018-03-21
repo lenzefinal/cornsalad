@@ -88,8 +88,8 @@
 						"<th>이름</th><th>프로젝트 수</th><th>총 후원금</th><th>누적 신고 수</th><th>BLACKLIST</th><th>정지 / 탈퇴</th></tr></thead><tbody>";
 					
  					if(json.smlist.length > 0 ){
- 						for(var i in json.smlist){
-							value +="<tr><td><a href='adminMemberDetail.do?member_name="+ decodeURIComponent(json.smlist[i].member_name) +"'>"+
+ 						for(var i =0; i<json.smlist.length; i++){
+							value += "<tr><td><a href='adminMemberDetail.do?member_name="+ decodeURIComponent(json.smlist[i].member_name) +"'>"+
 									decodeURIComponent(json.smlist[i].member_name) + "</a></td><td>"+ json.smlist[i].project_count +
 									"</td><td>"+ json.smlist[i].spon_money +"</td><td>"+ json.smlist[i].total_report_count + 
 									"</td><td>"+ json.smlist[i].blacklist_flag +"</td><td><a class='btna' href='adminMemberBlack.do?member_name="+
@@ -102,7 +102,7 @@
 						value += "<tr><td colspan='6'>조회된 회원이 없습니다.</td></tr>"
 					}
  					
- 					$('mtable').html(value);
+ 					$('#mtable').html(value);
   				},
   				error: function(request, status, errorData){
 					alert("error code : " + request.status + "\n" 
