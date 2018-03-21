@@ -137,8 +137,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.spproduct[i].creation_date
-							+'<br><br>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+							+'<td><b><small>결제일</small><br>'+json.spproduct[i].payment_date
+							+'<br><br><small>마감일</small><br>'+json.spproduct[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -151,8 +151,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.spproduct[i].creation_date
-								+'<br><br>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+								+'<td><b><small>결제일</small><br>'+json.spproduct[i].payment_date
+								+'<br><br><small>마감일</small><br>'+json.spproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -252,8 +252,8 @@ var size=4;
 						+'</c:url>'
 						+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 						+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-						+'<td><b>등록일<br>'+json.spproduct[i].creation_date
-						+'<br><br>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+						+'<td><b><small>결제일</small><br>'+json.spproduct[i].payment_date
+						+'<br><br><small>마감일</small><br>'+json.spproduct[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -266,8 +266,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.spproduct[i].creation_date
-							+'<br><br>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+							+'<td><b><small>결제일</small><br>'+json.spproduct[i].payment_date
+							+'<br><br><small>마감일</small><br>'+json.spproduct[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 					 size++;

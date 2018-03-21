@@ -61,8 +61,8 @@ var size=4;
 						+'</c:url>'
 						+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 						+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-						+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일<br>'
-						+json.lproduct[i].end_date+'</b></td>'
+						+'<td><b><small>등록일</small><br>'+json.lproduct[i].creation_date
+						+'<br><br><small>마감일</small><br>'+json.lproduct[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -75,8 +75,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.lproduct[i].creation_date+'<br><br>마감일<br>'
-							+json.lproduct[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.lproduct[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.lproduct[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 				}
@@ -117,8 +117,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.slproduct[i].creation_date
-							+'<br><br>마감일<br>'+json.slproduct[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -131,8 +131,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.slproduct[i].creation_date
-								+'<br><br>마감일<br>'+json.slproduct[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -177,8 +177,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.lproduct[i].creation_date
-							+'<br><br>마감일<br>'+json.lproduct[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.lproduct[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.lproduct[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -191,8 +191,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.lproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.lproduct[i].creation_date
-								+'<br><br>마감일<br>'+json.lproduct[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.lproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.lproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -230,8 +230,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.slproduct[i].creation_date
-							+'<br><br>마감일<br>'+json.slproduct[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -244,8 +244,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.slproduct[i].creation_date
-								+'<br><br>마감일<br>'+json.slproduct[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;

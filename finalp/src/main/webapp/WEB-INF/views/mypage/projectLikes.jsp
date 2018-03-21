@@ -62,7 +62,8 @@ $(window).ready(function(){
 					+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 					+'</c:url>'
 					+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-					+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
+					+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
+					+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 					+'</tr>';
 				} else{
 					tag+='<tr class="list" name="tt">'
@@ -74,7 +75,8 @@ $(window).ready(function(){
 						+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 						+'</c:url>'
 						+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
-						+'<td><b>등록일<br>'+json.lproject[i].creation_date+'<br><br>마감일<br>'+json.lproject[i].end_date+'</b></td>'
+						+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
+						+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 						+'</tr>';
 				}
 			}
@@ -115,8 +117,8 @@ $(window).ready(function(){
 						+'</c:url>'
 						+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 						+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-						+'<td><b>등록일<br>'+json.slproject[i].creation_date
-						+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+						+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
+						+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -129,8 +131,8 @@ $(window).ready(function(){
 							+'</c:url>'
 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.slproject[i].creation_date
-							+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 					 size++;
@@ -174,9 +176,9 @@ $(window).ready(function(){
 							+'<c:param name="project_id" value="${lproduct.project_id }"/>'
 							+'</c:url>'
 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.slproject[i].creation_date
-							+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+							+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -188,9 +190,9 @@ $(window).ready(function(){
 								+'<c:param name="project_id" value="${project.project_id}"/>'
 								+'</c:url>'
 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-								+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.slproject[i].creation_date
-								+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+								+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -226,8 +228,8 @@ $(window).ready(function(){
 							+'</c:url>'
 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.slproject[i].creation_date
-							+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -240,8 +242,8 @@ $(window).ready(function(){
 								+'</c:url>'
 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.slproject[i].creation_date
-								+'<br><br>마감일<br>'+json.slproject[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
