@@ -27,12 +27,6 @@ public class MemberStatusServiceImpl implements MemberStatusService {
 		return memberStatusDao.insertMember(member);
 	}
 
-	@Override
-	public int updateTime(Member member) {
-		return memberStatusDao.updateTime(member);
-		
-	}
-
 
 
 }

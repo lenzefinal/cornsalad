@@ -24,9 +24,4 @@ public class MemberStatusDao {
 		return mybatis.insert("memberMapper.insertMember", member);
 	}
 
-	public int updateTime(Member member) {
-			   mybatis.update("memberMapper.updateTime", member);
-		return mybatis.update("memberMapper.updateTime1",member);
-	}
-
 }
