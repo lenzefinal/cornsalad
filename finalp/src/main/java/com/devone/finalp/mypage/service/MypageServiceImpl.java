@@ -11,6 +11,7 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.dao.MypageDao;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService {
@@ -82,5 +83,45 @@ public class MypageServiceImpl implements MypageService {
 	public int lproductCount(String member_id) {
 		// TODO Auto-generated method stub
 		return mypageDao.lproductCount(member_id);
+	}
+
+	@Override
+	public List<PurchaseProduct> selectPurchaseProduct(PurchaseProduct product) {
+		// TODO Auto-generated method stub
+		return mypageDao.selectpurchaseProduct(product);
+	}
+
+	@Override
+	public int pproductCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mypageDao.pproductCount(member_id);
+	}
+
+	@Override
+	public List<Project> selectSearchMyProject(Project project) {
+		// TODO Auto-generated method stub
+		return mypageDao.selectSearchMyProject(project);
+	}
+	
+	@Override
+	public List<Project> selectSearchMyProduct(Project product) {
+		// TODO Auto-generated method stub
+		return mypageDao.selectSearchMyProduct(product);
+	}
+
+	@Override
+	public List<MyLikes> selectSearchProjectLikes(MyLikes projectLikes) {
+		// TODO Auto-generated method stub
+		return mypageDao.selectSearchProjectLikes(projectLikes);
+	}
+	@Override
+	public List<MyLikes> selectSearchProductLikes(MyLikes productLikes) {
+		// TODO Auto-generated method stub
+		return mypageDao.selectSearchProductLikes(productLikes);
+	}
+	@Override
+	public List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct) {
+		// TODO Auto-generated method stub
+		return mypageDao.searchPurchaseProduct(purchaseProduct);
 	}
 }

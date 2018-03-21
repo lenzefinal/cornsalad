@@ -13,7 +13,10 @@
 	 <div class="lnb">
 		<ul> 
 			<li id="myInfo" class="on">
-				<a href="mypageIndex.do" style="color:black;">나의 정보<em style="color:black"></em></a>
+				<c:url var="mypageIndex" value="mypageIndex.do">
+	  				<c:param name="member_id" value="${loginUser.member_id }"/>
+	  			</c:url>
+				<a href="${mypageIndex }" style="color:black;">나의 정보<em style="color:black"></em></a>
 			</li>
 			<li id="myStatus" class="on">
 				<a href="myProject.do" style="color:black;">현황 보기</a>

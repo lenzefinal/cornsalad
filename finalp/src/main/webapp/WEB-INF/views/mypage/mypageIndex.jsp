@@ -80,7 +80,7 @@
 						<dt>등록한 공동구매</dt>
 						<dd>${productCount } 건</dd>
 						<dt>구매한 공동구매</dt>
-						<dd> 건</dd>
+						<dd>${pproductCount } 건</dd>
 					</dl>
 				</div>
 			</div>

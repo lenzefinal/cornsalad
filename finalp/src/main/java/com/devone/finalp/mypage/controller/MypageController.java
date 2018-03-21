@@ -15,7 +15,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +25,7 @@ import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 import com.devone.finalp.mypage.service.MypageService;
 
 @Controller
@@ -45,6 +45,7 @@ public class MypageController {
 		model.addAttribute("productCount", mypageService.productCount(member_id));
 		model.addAttribute("lprojectCount", mypageService.lprojectCount(member_id));
 		model.addAttribute("lproductCount", mypageService.lproductCount(member_id));
+		model.addAttribute("pproductCount", mypageService.pproductCount(member_id));
 
 		return "mypage/mypageIndex";
 	}
@@ -173,8 +174,7 @@ public class MypageController {
 
 	// 등록한 프로젝트 리스트 출력
 	@RequestMapping(value = "myProjectList.do", method = RequestMethod.POST)
-	public void myProjectList(Project project, HttpServletResponse response, @RequestParam(value = "size") int size,
-			@RequestParam(value = "member_id") String member_id) throws IOException {
+	public void myProjectList(Project project, HttpServletResponse response) throws IOException {
 		System.out.println("등록 프로젝트 list");
 		List<Project> list = mypageService.selectMyProject(project);
 		response.setContentType("application/json; charset=utf-8");
@@ -198,13 +198,11 @@ public class MypageController {
 		out.println(json.toJSONString());
 		out.flush();
 		out.close();
-		System.out.println(size);
 	}
 
 	// 등록한 공동구매 상품 리스트 출력
 	@RequestMapping(value = "myProductList.do", method = RequestMethod.POST)
-	public void myProductList(Project product, HttpServletResponse response, @RequestParam(value = "size") int size,
-			@RequestParam(value = "member_id") String member_id) throws IOException {
+	public void myProductList(Project product, HttpServletResponse response) throws IOException {
 		System.out.println("등록 공동구매 list");
 		List<Project> list = mypageService.selectMyProduct(product);
 		response.setContentType("application/json; charset=utf-8");
@@ -229,7 +227,39 @@ public class MypageController {
 		out.println(json.toJSONString());
 		out.flush();
 		out.close();
-		System.out.println(size);
+	}
+
+	// 구매한 공동구매 상품 리스트 출력
+	@RequestMapping(value = "purchaseProductList.do", method = RequestMethod.POST)
+	public void purchaseProductList(PurchaseProduct product, HttpServletResponse response) throws IOException {
+		System.out.println("구매 공동구매 list");
+		List<PurchaseProduct> list = mypageService.selectPurchaseProduct(product);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (PurchaseProduct p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("product_name", p.getProduct_name());
+			j.put("total_amount", p.getTotal_amount());
+			j.put("total_count", p.getTotal_count());
+			j.put("member_id", p.getMember_id());
+			j.put("payment_date", p.getPayment_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
+			jarr.add(j);
+
+		}
+		json.put("pproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
 	}
 
 	// 찜한 프로젝트 리스트 출력 메소드
@@ -289,4 +319,150 @@ public class MypageController {
 		out.flush();
 		out.close();
 	}
+
+	// 등록 프로젝트 검색 기능
+	@RequestMapping(value = "searchmyproject.do", method = RequestMethod.POST)
+	public void SearchMyProject(Project project, HttpServletResponse response) throws IOException {
+		System.out.println("등록 프로젝트 검색 list");
+		List<Project> list = mypageService.selectSearchMyProject(project);
+		System.out.println("ddf");
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			j.put("creation_date", p.getCreation_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
+			jarr.add(j);
+		}
+		json.put("smproject", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	// 등록 공동구매 검색 기능
+	@RequestMapping(value = "searchmyproduct.do", method = RequestMethod.POST)
+	public void SearchMyProduct(Project product, HttpServletResponse response) throws IOException {
+		System.out.println("등록 공동구매 검색 list");
+		List<Project> list = mypageService.selectSearchMyProduct(product);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (Project p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("member_id", p.getMember_id());
+			j.put("creation_date", p.getCreation_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
+			jarr.add(j);
+		}
+		json.put("smproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	// 찜 프로젝트 검색 기능
+	@RequestMapping(value = "searchprojectlikes.do", method = RequestMethod.POST)
+	public void SearchProjectLikes(MyLikes projectLikes, HttpServletResponse response) throws IOException {
+		System.out.println("찜 프로젝트 검색 list");
+		List<MyLikes> list = mypageService.selectSearchProjectLikes(projectLikes);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyLikes lpj : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", lpj.getImage_rename());
+			j.put("project_name", lpj.getProject_name());
+			j.put("member_id", lpj.getMember_id());
+			j.put("creation_date", lpj.getCreation_date().toString());
+			j.put("end_date", lpj.getEnd_date().toString());
+			jarr.add(j);
+		}
+		json.put("slproject", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	// 찜 공동구매 검색 기능
+	@RequestMapping(value = "searchproductlikes.do", method = RequestMethod.POST)
+	public void SearchProductLikes(MyLikes productLikes, HttpServletResponse response) throws IOException {
+		System.out.println("찜 프로젝트 검색 list");
+		List<MyLikes> list = mypageService.selectSearchProductLikes(productLikes);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyLikes lpd : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", lpd.getImage_rename());
+			j.put("project_name", lpd.getProject_name());
+			j.put("member_id", lpd.getMember_id());
+			j.put("creation_date", lpd.getCreation_date().toString());
+			j.put("end_date", lpd.getEnd_date().toString());
+			jarr.add(j);
+		}
+		json.put("slproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	// 구매한 공동구매 상품 리스트 출력
+		@RequestMapping(value = "searchpurchaseproduct.do", method = RequestMethod.POST)
+		public void searchPurchaseProduct(PurchaseProduct purchaseProduct, HttpServletResponse response) throws IOException {
+			System.out.println("구매 공동구매 list");
+			List<PurchaseProduct> list = mypageService.searchPurchaseProduct(purchaseProduct);
+			response.setContentType("application/json; charset=utf-8");
+
+			JSONObject json = new JSONObject();
+			JSONArray jarr = new JSONArray();
+
+			for (PurchaseProduct p : list) {
+				JSONObject j = new JSONObject();
+				j.put("image_rename", p.getImage_rename());
+				j.put("project_name", p.getProject_name());
+				j.put("product_name", p.getProduct_name());
+				j.put("total_amount", p.getTotal_amount());
+				j.put("total_count", p.getTotal_count());
+				j.put("member_id", p.getMember_id());
+				j.put("payment_date", p.getPayment_date().toString());
+				j.put("end_date", p.getEnd_date().toString());
+				jarr.add(j);
+
+			}
+			json.put("spproduct", jarr);
+			System.out.println(json.toJSONString());
+
+			PrintWriter out = response.getWriter();
+			out.println(json.toJSONString());
+			out.flush();
+			out.close();
+
+		}
 }

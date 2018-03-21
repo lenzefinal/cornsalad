@@ -72,10 +72,11 @@ var size=4;
 						+'</td>'
 						+'<c:url var="projectDetail" value="projectDetailView.do">'
 						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-						+'<c:param name="project_id" value="${product.project_id }"/>'
+						+'<c:param name="project_id" value=""/>'
 						+'</c:url>'
-						+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-						+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일'+json.product[i].end_date+'</b></td>'
+						+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+						+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+						+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -84,10 +85,11 @@ var size=4;
 							+'</td>'
 							+'<c:url var="projectDetail" value="projectDetailView.do">'
 							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value="${product.project_id }"/>'
+							+'<c:param name="project_id" value=""/>'
 							+'</c:url>'
-							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일'+json.product[i].end_date+'</b></td>'
+							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+							+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+							+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 				}
@@ -102,18 +104,71 @@ var size=4;
 						+ request.responseText + "\n" + "에러: "
 						+ errorData);
 			}
+		}); 
+		$('#project_name').keyup(function(){
+			 var size=4;
+			 var member_id=$('#memberId').val();
+			 var project_name=$('#project_name').val();
+			$.ajax({
+				url:"searchmyproduct.do",
+				dataType:"json",
+				data:{"size":size, "member_id":member_id,"project_name":project_name},
+				type:"post",
+				success:function(e){
+					var jsonStr=JSON.stringify(e);
+					var json=JSON.parse(jsonStr); 
+					var tag="";
+					for(var i=0;i<json.smproduct.length;i++){
+						if(json.smproduct[i].image_rename==null){
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<c:url var="projectDetail" value="projectDetailView.do">'
+							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+							+'<c:param name="project_id" value=""/>'
+							+'</c:url>'
+							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+							+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
+							+'<td><b>등록일<br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'
+							+json.smproject[i].end_date+'</b></td>'
+							+'</tr>';
+						} else{
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproduct[i].image_rename)+'"/>'
+								+'</td>'
+								+'<c:url var="projectDetail" value="projectDetailView.do">'
+								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+								+'<c:param name="project_id" value=""/>'
+								+'</c:url>'
+								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+								+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
+								+'<td><b>등록일<br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
+								+'</tr>';
+						}
+						 size++;
+					}
+					$('.tbl_type').html(tag);
+					$('#checksize').val(Number(size));
+					
+				},
+				error: function(request, status, errorData) {
+					alert("에러코드: " + request.status + "\n" + "메세지: "
+							+ request.responseText + "\n" + "에러: "
+							+ errorData);
+				}
 		});
 	});
 	
 	 $(window).scroll(function() {
 		 var member_id=$('#memberId').val();
+		 var project_name=$('#project_name').val();
 		 console.log("구분자");
 		 console.log($(window).scrollTop());
 		 console.log($(document).height()-$(window).height());
-		 setTimeout(function(){
-			
 		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
-			
+		 	if(project_name==null){
 			 $.ajax({
 				url:"myProductList.do",
 				data:{"size":Number(size), "member_id":member_id},
@@ -131,10 +186,11 @@ var size=4;
 							+'</td>'
 							+'<c:url var="projectDetail" value="projectDetailView.do">'
 							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value="${product.project_id }"/>'
+							+'<c:param name="project_id" value=""/>'
 							+'</c:url>'
-							+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-							+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일'+json.product[i].end_date+'</b></td>'
+							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+							+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+							+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -143,10 +199,11 @@ var size=4;
 								+'</td>'
 								+'<c:url var="projectDetail" value="projectDetailView.do">'
 								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value="${product.project_id }"/>'
+								+'<c:param name="project_id" value=""/>'
 								+'</c:url>'
-								+'<td><b><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-								+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일'+json.product[i].end_date+'</b></td>'
+								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+								+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
+								+'<td><b>등록일<br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -155,9 +212,6 @@ var size=4;
 						$('#checksize').val(Number(size));
 						
 					},
-					complete:function(){
-						$('#load').addClass('display-none');
-					},
 					error: function(request, status, errorData) {
 						alert("에러코드: " + request.status + "\n" + "메세지: "
 								+ request.responseText + "\n" + "에러: "
@@ -165,10 +219,59 @@ var size=4;
 					}
 				 });
 		 	}
-		 	 $('#load').removeClass('display-none');
-		 	
-		 }, 500);
-		
+		 	} else {
+		 		$.ajax({
+					url:"searchmyproduct.do",
+					dataType:"json",
+					data:{"size":size, "member_id":member_id,"project_name":project_name},
+					type:"post",
+					success:function(e){
+						var jsonStr=JSON.stringify(e);
+						var json=JSON.parse(jsonStr); 
+						var tag="";
+						for(var i=0;i<json.smproduct.length;i++){
+							if(json.smproduct[i].image_rename==null){
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'</td>'
+								+'<c:url var="projectDetail" value="projectDetailView.do">'
+								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+								+'<c:param name="project_id" value=""/>'
+								+'</c:url>'
+								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+								+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
+								+'<td><b>등록일<br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'
+								+json.smproduct[i].end_date+'</b></td>'
+								+'</tr>';
+							} else{
+								tag+='<tr class="list" name="tt">'
+									+'<td class="limg">'
+									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproduct[i].image_rename)+'"/>'
+									+'</td>'
+									+'<c:url var="projectDetail" value="projectDetailView.do">'
+									+'<c:param name="member_id" value="${loginUser.member_id }"/>'
+									+'<c:param name="project_id" value=""/>'
+									+'</c:url>'
+									+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
+									+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
+									+'<td><b>등록일<br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
+									+'</tr>';
+							}
+							 size++;
+						}
+						$('.tbl_type').html(tag);
+						$('#checksize').val(Number(size));
+						
+					},
+					error: function(request, status, errorData) {
+						alert("에러코드: " + request.status + "\n" + "메세지: "
+								+ request.responseText + "\n" + "에러: "
+								+ errorData);
+					}
+				}); 
+		 	}	
+		}); 
 	}); 
 	
 	
@@ -183,7 +286,9 @@ var size=4;
 				<p class="contxt">이것 저것 알아볼 수 있어요</p>
 			</div>
 		</div>
+		
 		<div id="list">
+		<input type="text" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색">
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>
