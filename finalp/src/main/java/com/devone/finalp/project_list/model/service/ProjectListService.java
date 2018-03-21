@@ -9,4 +9,6 @@ public interface ProjectListService {
 	List<ProjectListView> selectProjectList();
 
 	List<ProjectListView> selectProjectListKeyword(ProjectListView project);
+	List<ProjectListView> selectProjectListCategory(List<String> category);
+	List<ProjectListView> selectKeywordCategory(List<String> category, String project_name);
 }

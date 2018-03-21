@@ -21,8 +21,17 @@ public class ProjectListServiceImpl implements ProjectListService{
 
 	@Override
 	public List<ProjectListView> selectProjectListKeyword(ProjectListView project) {
-		// TODO Auto-generated method stub
 		return projectListDao.selectProjectListKeyword(project);
+	}
+
+	@Override
+	public List<ProjectListView> selectProjectListCategory(List<String> category) {
+		return projectListDao.selectProjectListCategory(category);
+	}
+
+	@Override
+	public List<ProjectListView> selectKeywordCategory(List<String> category, String project_name) {
+		return projectListDao.selectKeywordCategory(category, project_name);
 	}
 
 }

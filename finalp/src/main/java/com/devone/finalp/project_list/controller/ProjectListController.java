@@ -2,6 +2,7 @@ package com.devone.finalp.project_list.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.project_list.model.service.ProjectListService;
 import com.devone.finalp.project_list.model.vo.ProjectListView;
@@ -34,20 +36,32 @@ public class ProjectListController {
 	}
 	
 	@RequestMapping(value="categorySearch.do", method=RequestMethod.POST)
-	public void selectProjectListCategory(@RequestParam(value="category_sub_id") String[] category) {
+	@ResponseBody
+	public void selectProjectListCategory(@RequestParam(value="category_sub_id") String[] category,
+										  HttpServletResponse response) throws IOException {
 		
 		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
 		
-		for(int i=1; i<category.length; i++) {
-			System.out.println(category[i]);
-		}
-		
-		if(category[0].equals("")) {
+		if(category==null) {
 			list.addAll(projectListService.selectProjectList());
 		}else {
+			List<String> categoryList = new ArrayList<String>();
+			
+			for(int i=0; i<category.length; i++) {
+				categoryList.add(category[i]);
+			}
+			
+			list.addAll(projectListService.selectProjectListCategory(categoryList));
 			
 		}
-		System.out.println("-----");
+		
+		JSONObject sendJson = new JSONObject();
+		sendJson.put("list", returnJarr(list));  // returnJarr 메소드 아래에 있음 
+		
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 	@RequestMapping(value="keywordSearch.do", method=RequestMethod.POST)
@@ -64,6 +78,45 @@ public class ProjectListController {
 		}
 		
 		JSONObject sendJson = new JSONObject();
+		sendJson.put("list", returnJarr(list)); // returnJarr 메소드 아래에 있음 
+		
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	@RequestMapping(value="keywordAndCategory.do", method=RequestMethod.POST)
+	public void selectKeywordCategory(@RequestParam(value="category_sub_id") String[] category,
+									  @RequestParam(value="project_name") String project_name,
+									  HttpServletResponse response) throws IOException {
+		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
+		
+		if(category[0].equals("") && project_name.equals("")) {
+			list.addAll(projectListService.selectProjectList());
+		}else {
+			List<String> categoryList = new ArrayList<String>();
+			for(int i=0; i<category.length; i++) {
+				categoryList.add(category[i]);
+			}
+			
+			list.addAll(projectListService.selectKeywordCategory(categoryList, project_name));
+		}
+		System.out.println(list.size()+"둘다 검색"+list.toString());
+		
+		JSONObject sendJson = new JSONObject();
+		sendJson.put("list", returnJarr(list)); // returnJarr 메소드 아래에 있음 
+		
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	
+	// 검색 ajax시 JSONArray만들어주는 부분 공통으로 자주 쓰이기 때문에 따로 메소드로 구현
+	public JSONArray returnJarr(ArrayList<ProjectListView> list) throws UnsupportedEncodingException {
+		
 		JSONArray jarr = new JSONArray();
 		
 		for(ProjectListView project : list) {
@@ -89,12 +142,7 @@ public class ProjectListController {
 			jarr.add(job);
 		}
 		
-		sendJson.put("list", jarr);
-		
-		PrintWriter out = response.getWriter();
-		out.println(sendJson.toJSONString());
-		out.flush();
-		out.close();
+		return jarr;
 	}
 
 }

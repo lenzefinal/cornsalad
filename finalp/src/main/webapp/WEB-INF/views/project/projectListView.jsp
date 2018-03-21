@@ -779,86 +779,116 @@
 				} 
 			});
 			
-			/*--------- 카테고리별 다중검색 ajax-----------------*/
-			$(".search_tab button, .clear, .del").on("click",function(){
+			
+			$(document).on('click keyup',".go-button, .clear, .del, #keyword",function(){
 				
-				var category="category_sub_id= ";
+				var keyword = $('#keyword').val();
+				var category="";
 				
 				$.each($(".form input[type='hidden']"),function(index){
 					var pic=$(this);
-					
+					if(pic != null)
 						category+="&category_sub_id="+pic.attr("value");
-					
-					
 				});
 				
-				
-				$.ajax({
-					url:"categorySearch.do",
-					data:category,
-					dataType:"json",
-					type:"post",
-					success:function(){
-						
-					}
-				});
-			});
-			
-			
-			/*--------- 프로젝트명 검색 시 키워드로 검색 ajax---------*/
-			$("#keyword").keyup(function(){
-				var keyword = $('#keyword').val();
-				console.log(keyword);
-				$.ajax({
-					url:"keywordSearch.do",
-					data:{project_name: keyword},
-					dataType:"json",
-					type:"post",
-					success:function(data){
-						
-						var jsonStr = JSON.stringify(data);
-						var json = JSON.parse(jsonStr);
-						var values="";
-						console.log(json.list);
-						for(var i in json.list){
-							values+=
-								'<div class="thumnailContent">'+
-										'<c:url var="projectDetail" value="projectDetailView.do">'+
-											'<c:param name="member_id" value='+${ loginUser.member_id }+'/>'+
-											'<c:param name="project_id" value='+json.list[i].project_id+'/>'+
-										'</c:url>'+
-										'<a class="thumnailAtag" href="${ projectDetail }">'+
-											'<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
-												'<div class="thumnailTextWrap">'+
-													'<div class="fundingTitle">'+
-														'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
-														'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
-													'</div>'+
-													'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
-														'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>'+
-														'<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라-->'+
-													'</svg>'+
-													'<div class="fundingInfo">'+
-														'<span style="font-size: 0.8rem;">'+
-															'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
-															'<span style="font-weight: 700;">'+json.list[i].dday+'</span>'+
-															'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
-														'</span>'+
-														'<div>'+
-															'<span class="fundingMoney">'+
-																'<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->'+
-															'</span>'+
-															'<span class="fundingRate">'+
-																'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
-															'</span>'+
-														'</div></div></div></a></div>'														;
+				if(keyword == "" && category != ""){
+					/*--------- 키워드 x 카테고리o --> 다중검색 ajax-----------------*/
+					
+					console.log("키워드 검색은 없고 카테고리 검색은 있음");
+					
+					$.ajax({
+						url:"categorySearch.do",
+						data:category,
+						dataType:"json",
+						type:"post",
+						success:function(data){
+							listHtml(data);
 						}
-						$(".thumnailContainer").html(values);
-						
-						
-					}
-				});
+					});
+					
+				}else if(keyword != "" && category==""){
+					/*---------------- 키워드 o 카테고리 x 검색 ajax---------------*/
+					
+					console.log("키워드 검색은 있고 카테고리 검색은 없음");
+					
+					
+					$.ajax({
+						url:"keywordSearch.do",
+						data:{project_name: keyword},
+						dataType:"json",
+						type:"post",
+						success:function(data){
+							listHtml(data);
+						}
+					});
+					
+				}else if(keyword != "" && category!=""){
+					/*---------------- 키워드 o 카테고리 o 검색 ajax---------------*/
+					
+					console.log("둘다있음");
+					
+					category+="&project_name="+keyword;
+					
+					$.ajax({
+						url:"keywordAndCategory.do",
+						data:category,
+						dataType:"json",
+						type:"post",
+						success:function(data){
+							listHtml(data);
+						}
+					});
+					
+				}else{
+					console.log("전체리스트 출력되야됨");
+				}
+				
+				
+				
+				
 			});
+			
+			function listHtml(data){
+				var jsonStr = JSON.stringify(data);
+				var json = JSON.parse(jsonStr);
+				var values="";
+				console.log(json.list);
+				for(var i in json.list){
+					
+					values+=
+						'<div class="thumnailContent">'+
+								'<c:url var="projectDetail" value="projectDetailView.do">'+
+									'<c:param name="member_id" value="${ loginUser.member_id }"/>'+
+									'<c:param name="project_id" value='json.list[i].project_id'/>'+
+								'</c:url>'+ 
+								'<a class="thumnailAtag" href="${ projectDetail }">'+
+									'<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
+										'<div class="thumnailTextWrap">'+
+											'<div class="fundingTitle">'+
+												'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
+												'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
+											'</div>'+
+											'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
+												'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>'+
+												'<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라-->'+
+											'</svg>'+
+											'<div class="fundingInfo">'+
+												'<span style="font-size: 0.8rem;">'+
+													'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
+													'<span style="font-weight: 700;">'+json.list[i].dday+'</span>'+
+													'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
+												'</span>'+
+												'<div>'+
+													'<span class="fundingMoney">'+
+														'<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->'+
+													'</span>'+
+													'<span class="fundingRate">'+
+														'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
+													'</span>'+
+												'</div></div></div></a></div>'														;
+				}
+				$(".thumnailContainer").html(values);
+			}
 			
 		});
 	</script>

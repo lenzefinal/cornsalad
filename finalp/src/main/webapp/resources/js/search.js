@@ -85,29 +85,20 @@
 				return false;
 			}
 
-			if(t.text() == "전체"){
-				tagSearch().btn.removeClass("ov");
-				t.addClass("ov");
-				removeValue(tagSearch().btn);
+			
 
-				attchValue(t);
+			if(t.attr("class").match("ov") && tagSearch().parent.find(".ov").size() > 1){
+				t.removeClass("ov");
+				detachValue(t);
 			}else{
-				tagSearch().btn.first().removeClass("ov");
-				tagSearch().btn.first().next().remove();
-
-				if(t.attr("class").match("ov") && tagSearch().parent.find(".ov").size() > 1){
-					t.removeClass("ov");
-					detachValue(t);
-				}else{
-					if(tagSearch().parent.attr("data-type") != "multiple"){
-						tagSearch().btn.removeClass("ov");
-						removeValue(tagSearch().btn);
-					}
-					t.addClass("ov");
-					attchValue(t);
+				if(tagSearch().parent.attr("data-type") != "multiple"){
+					tagSearch().btn.removeClass("ov");
+					removeValue(tagSearch().btn);
 				}
-
+				t.addClass("ov");
+				attchValue(t);
 			}
+
 		});
 
 
