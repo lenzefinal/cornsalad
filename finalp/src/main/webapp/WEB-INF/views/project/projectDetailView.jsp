@@ -15,7 +15,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bvootstrap/4.0.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <script
@@ -1292,7 +1292,7 @@ li {
 											alert("로그인해주세요");
 										});				
 										var member_id=$("#member_id").val();
-										var project_id=${ likes.project_id};
+										var project_id=${ proview.project_id};
 										$("#btnLike").on("click",function(){
 											$.ajax({
 												url:"Like.do",
@@ -1303,13 +1303,9 @@ li {
 												success:function(data){
 													if(data.result==="add"){
 														console.log("add");
-														
-													}else if($("#cntLike").text(data.like)==0){
-														
 														$("#like1").attr("src","resources/images/icon/love2.png");
 														$("#cntLike").text(data.like);
-													}
-													else{
+													}else{
 														console.log("delete");
 														$("#like1").attr("src","resources/images/icon/love1.png");
 														$("#cntLike").text(data.like);
