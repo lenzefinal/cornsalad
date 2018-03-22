@@ -33,6 +33,7 @@ public class DetailViewController {
 	@RequestMapping("projectDetailView.do")
 	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,@RequestParam("member_id") String member_id,Likes likes,LoginTimeView loginTime) {
 		System.out.println("잘들어왓나");
+		System.out.println(member_id);
 		System.out.println(project_id);
 		List<HotListView> list = detailviewService.selectHotList();
 //      판매자 member_id 알아옴
