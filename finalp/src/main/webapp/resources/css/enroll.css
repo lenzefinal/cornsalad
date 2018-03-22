@@ -168,7 +168,7 @@
 		padding: 0;
 	}
 	.primary.wz-btn, .wzui a.primary.btn, .wzui button.primary, .wzui form button[type=submit], .wzui form input[type=submit], .wzui input.primary[type=button], .wzui input.primary[type=submit] {
-		background-color: #00cca3;
+		background-color: #F7D358;
 		color: #fff;
 	}
 	.large.wz-btn, .wzui a.large.btn, .wzui button.large, .wzui form.large .wz-btn, .wzui form.large a.btn, .wzui form.large button, .wzui form.large input[type=button], .wzui form.large input[type=submit], .wzui input.large[type=button], .wzui input.large[type=submit] {
@@ -178,7 +178,7 @@
 		font-size: 17px;
 	}
 	.primary-outline.wz-btn, .primary.wz-btn, .wzui a.primary-outline.btn, .wzui a.primary.btn, .wzui button.primary, .wzui button.primary-outline, .wzui form button[type=submit], .wzui form input[type=submit], .wzui input.primary-outline[type=button], .wzui input.primary-outline[type=submit], .wzui input.primary[type=button], .wzui input.primary[type=submit] {
-		border-color: #00cca3;
+		border-color: #F7D358;
 	}
 	.disabled.wz-btn, .wz-btn:disabled, .wzui a.btn:disabled, .wzui a.disabled.btn, .wzui button.disabled, .wzui button:disabled, .wzui input.disabled[type=button], .wzui input.disabled[type=submit], .wzui input[type=button]:disabled, .wzui input[type=submit]:disabled {
 		opacity: .45;
