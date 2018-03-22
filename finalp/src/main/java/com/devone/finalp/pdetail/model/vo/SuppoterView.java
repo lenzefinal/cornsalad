@@ -11,19 +11,42 @@ public class SuppoterView implements java.io.Serializable{
 	private String project_id;
 	private String member_id;
 	private String member_name;
+	private String project_category_name;
 	private Date payment_date;
-	private String Refund_flag;
+	private String refund_flag;
+	private String profile_img_rename;
 	
 	public SuppoterView() {}
 	
-	public SuppoterView(String project_id, String member_id, String member_name, Date payment_date,
-			String refund_flag) {
+	public SuppoterView(String project_id, String member_id, String member_name,String project_category_name, Date payment_date,
+			String refund_flag, String profile_img_rename) {
 		super();
 		this.project_id = project_id;
 		this.member_id = member_id;
 		this.member_name = member_name;
+		this.project_category_name=project_category_name;
 		this.payment_date = payment_date;
-		Refund_flag = refund_flag;
+		this.refund_flag = refund_flag;
+		this.profile_img_rename=profile_img_rename;
+	}
+
+	
+	public String getProject_category_name() {
+		return project_category_name;
+	}
+
+	public void setProject_category_name(String project_category_name) {
+		this.project_category_name = project_category_name;
+	}
+
+
+
+	public String getProfile_img_rename() {
+		return profile_img_rename;
+	}
+
+	public void setProfile_img_rename(String profile_img_rename) {
+		this.profile_img_rename = profile_img_rename;
 	}
 
 	public String getProject_id() {
@@ -58,21 +81,22 @@ public class SuppoterView implements java.io.Serializable{
 		this.payment_date = payment_date;
 	}
 
-	public String getRefund_flag() {
-		return Refund_flag;
-	}
-
 	public void setRefund_flag(String refund_flag) {
-		Refund_flag = refund_flag;
+		this.refund_flag = refund_flag;
+	}
+	public String getRefund_flag() {
+		return refund_flag;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "SuppoterView [project_id=" + project_id + ", member_id=" + member_id + ", member_name=" + member_name
-				+ ", payment_date=" + payment_date + ", Refund_flag=" + Refund_flag + "]";
+				+ ", payment_date=" + payment_date + ", Refund_flag=" + refund_flag + ", profile_img_rename="
+				+ profile_img_rename + "]";
 	}
+
 	
+
 	
 
 }
