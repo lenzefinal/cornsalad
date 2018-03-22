@@ -35,7 +35,8 @@ public interface AdminService {
 	int memberBlack(String member_name);
 	int memberDelete(String member_name);
 	int replyDelete(AReport report);
-	List<Notice> selectNoticeList();
+	int noListCount();
+	List<Notice> selectNoticeList(HashMap<String,Object> map);
 	int noticeInsert(Notice notice);
 	Notice noticeDetail(int notice_id);
 	int noticeUpdate(Notice notice);
@@ -47,6 +48,8 @@ public interface AdminService {
 	List<AQuestion> norequestion();
 	List<AQuestion> okrequestion();
 	List<AReport> searchReport(String report_category_name);
-	List<AMember> searchMember(String member_name);
+	List<AMember> searchMember(String searchM);
+	List<Notice> searchNotice(String searchN);
+	List<AProject> searchCProejct(String cname);
 	
 }

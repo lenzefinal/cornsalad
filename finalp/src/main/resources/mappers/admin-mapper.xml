@@ -87,7 +87,7 @@
 	
 	<select id="searchReport" parameterType="String" resultMap="AReportmap">
 		<![CDATA[
-				SELECT * FROM A_REPORT WHERE REPORT_CATEGORY_NAME = #{ report_category_name }
+			SELECT * FROM A_REPORT WHERE REPORT_CATEGORY_NAME = #{ report_category_name }
 		]]>
 	</select>
 	
@@ -181,6 +181,19 @@
 		]]>
 	</select>
 	
+	<select id="searchCProject" parameterType="String" resultMap="AProjectmap">
+		<if test="cname != 'refund'">
+			<![CDATA[
+				SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ cname }
+			]]>
+		</if>
+		<if test="cname == 'refund'">
+			<![CDATA[
+				SELECT * FROM A_PROJECT WHERE ING_FLAG = 'N' AND SPON < 100
+			]]>
+		</if>
+	</select>
+	
 	<resultMap id="AMembermap" type="AMember">
 		<result property="rnum" column="rnum" />
 		<result property="member_id" column="member_id" />
@@ -189,6 +202,8 @@
 		<result property="phone" column="phone" />
 		<result property="total_report_count" column="total_report_count" />
 		<result property="black_flag" column="black_flag" />
+		<result property="profile_img_oriname" column = "profile_img_oriname" />
+		<result property="profile_img_rename" column = "profile_img_rename" />
 		<result property="project_count" column="project_count" />
 		<result property="spon_money" column="spon_money" />
 	</resultMap>
@@ -233,7 +248,7 @@
 	
 	<select id="searchMember" parameterType="String" resultMap="AMembermap">
 		<![CDATA[
-			SELECT * FROM A_MEMBER WHERE MEMBER_NAME LIKE #{ searchh }
+			SELECT * FROM A_MEMBER WHERE MEMBER_NAME LIKE #{ searchM }
 		]]>	
 	</select>
 	
@@ -244,9 +259,18 @@
 		<result property="content" column="content" />
 	</resultMap>
 	
-	<select id="noticeList" resultMap="NoticeMap">
+	<select id="noticeList" resultMap="NoticeMap" resultType="list" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT * FROM NOTICE ORDER BY CREATION_DATE DESC
+			SELECT ROWNUM,NOTICE_ID,TITLE,CREATION_DATE, CONTENT 
+			FROM NOTICE
+			WHERE ROWNUM >= #{ startRow  } AND ROWNUM <= #{ endRow }
+			ORDER BY CREATION_DATE DESC
+		]]>	
+	</select>
+	
+	<select id="nolistCount" resultType="int" >
+		<![CDATA[
+			SELECT COUNT(*) FROM NOTICE 
 		]]>	
 	</select>
 	
@@ -274,6 +298,12 @@
 		]]>
 	</delete>
 	
+	<select id="searchNotice" parameterType="String" resultMap="NoticeMap">
+		<![CDATA[
+			SELECT * FROM NOTICE WHERE TITLE LIKE #{ searchN } OR CONTENT LIKE #{ searchN }
+		]]>
+	</select>
+	
 	<resultMap id="astatMap" type="Astat">
 		<result property="fundcount" column="fundcount" />
 		<result property="prodcount" column="prodcount" />
@@ -286,6 +316,8 @@
 		<result property="spon" column="spon" />
 		<result property="member_id" column="member_id" />
 		<result property="member_name" column="member_name" />
+		<result property="profile_img_oriname" column = "profile_img_oriname" />
+		<result property="profile_img_rename" column = "profile_img_rename" />
 	</resultMap>
 	
 	<select id="categoryStat" resultType="AStat">
@@ -298,13 +330,13 @@
 	
  	<select id="moneyStat" resultMap="astatMap">
  		<![CDATA[
-			SELECT * FROM A_MONEYSTAT WHERE RNUM < 11
+			SELECT * FROM A_MONEYSTAT
 		]]>
 	</select>
 	
 	<select id="sponStat" resultMap="astatMap">
 		<![CDATA[
-			SELECT * FROM A_SPONSTAT WHERE RANUM < 4
+			SELECT * FROM A_SPONSTAT
 		]]>
 	</select>
 	

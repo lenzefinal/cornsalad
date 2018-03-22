@@ -18,11 +18,13 @@ public class Astat implements java.io.Serializable {
 	private int spon;
 	private String member_id;
 	private String member_name;
+	private String profile_img_oriname;
+	private String profile_img_rename;
 	
 	public Astat() {}
 
 	public Astat(int fundcount, int prodcount, int rnum, int money, String project_id, String project_name,
-			String project_category_name, int ranum, int spon, String member_id, String member_name) {
+			String project_category_name, int ranum, int spon, String member_id, String member_name, String profile_img_oriname,String profile_img_rename) {
 		super();
 		this.fundcount = fundcount;
 		this.prodcount = prodcount;
@@ -35,6 +37,8 @@ public class Astat implements java.io.Serializable {
 		this.spon = spon;
 		this.member_id = member_id;
 		this.member_name = member_name;
+		this.profile_img_oriname = profile_img_oriname;
+		this.profile_img_rename = profile_img_rename;
 	}
 
 	public int getFundcount() {
@@ -125,12 +129,29 @@ public class Astat implements java.io.Serializable {
 		this.member_name = member_name;
 	}
 
+	public String getProfile_img_oriname() {
+		return profile_img_oriname;
+	}
+
+	public void setProfile_img_oriname(String profile_img_oriname) {
+		this.profile_img_oriname = profile_img_oriname;
+	}
+
+	public String getProfile_img_rename() {
+		return profile_img_rename;
+	}
+
+	public void setProfile_img_rename(String profile_img_rename) {
+		this.profile_img_rename = profile_img_rename;
+	}
+
 	@Override
 	public String toString() {
 		return "Astat [fundcount=" + fundcount + ", prodcount=" + prodcount + ", rnum=" + rnum + ", money=" + money
 				+ ", project_id=" + project_id + ", project_name=" + project_name + ", project_category_name="
 				+ project_category_name + ", ranum=" + ranum + ", spon=" + spon + ", member_id=" + member_id
-				+ ", member_name=" + member_name + "]";
+				+ ", member_name=" + member_name + ", profile_img_oriname=" + profile_img_oriname
+				+ ", profile_img_rename=" + profile_img_rename + "]";
 	}
 	
 	

@@ -148,10 +148,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.replyDelete(report);
 	}
 	
+	//공지사항 개수(페이징 처리용)
+	@Override
+	public int noListCount() {
+		return adminDao.noListCount();
+	}
+	
 	//관리자 공지사항 리스트
 	@Override
-	public List<Notice> selectNoticeList() {
-		return adminDao.selectNoticeList();
+	public List<Notice> selectNoticeList(HashMap<String,Object> map) {
+		return adminDao.selectNoticeList(map);
 	}
 
 	//관리자 공지사항 등록
@@ -215,10 +221,22 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.searchReport(report_category_name);
 	}
 
-	//관리자 회원 검색(이름으로)
+	//회원 검색(이름으로)
 	@Override
-	public List<AMember> searchMember(String search) {
-		return adminDao.searchMember(search);
+	public List<AMember> searchMember(String searchM) {
+		return adminDao.searchMember(searchM);
+	}
+
+	//공지사항 검색(제목+내용)
+	@Override
+	public List<Notice> searchNotice(String searchN) {
+		return adminDao.searchNotice(searchN);
+	}
+
+	//프로젝트 카테고리별 검색
+	@Override
+	public List<AProject> searchCProejct(String cname) {
+		return adminDao.searchCProject(cname);
 	}
 	
 	
