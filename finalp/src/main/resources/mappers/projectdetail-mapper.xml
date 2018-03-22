@@ -91,10 +91,29 @@
 		select * from project where project_id=#{project_id}
 	]]>
 	</select>
+	
 	<select id="selectcount" parameterType="String" resultType="int">
 	
 	<![CDATA[
 		select count(#{member_id}) from project where member_id= #{member_id} 
+	]]>
+	</select>
+	
+	<resultMap id="suppoterList" type="SuppoterView">
+		<result property="project_id" column="project_id"></result>
+		<result property="member_id" column="member_id"></result>
+		<result property="member_name" column="member_name"></result>
+		<result property="project_category_name" column="project_category_name"></result>
+		<result property="payment_date" column="payment_date"></result>
+		<result property="refund_flag" column="refund_flag"></result>
+		<result property="profile_img_rename" column="profile_img_rename"></result>
+	</resultMap>
+	
+	
+	<select id="selectSuppoterList" parameterType="String" resultMap="suppoterList">
+	
+	<![CDATA[
+		select * from v_suppoter where project_id=#{project_id}
 	]]>
 	</select>
 	

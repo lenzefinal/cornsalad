@@ -15,6 +15,7 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 @Service("detailviewService")
 public class DetailViewServiceImpl implements DetailViewService{
@@ -68,6 +69,10 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public int selectcount(String member_id) {
 		
 		return detailviewDao.selectcount(member_id);
+	}
+	public List<SuppoterView> selectSuppoterList(String project_id) {
+		
+		return detailviewDao.selectSuppoterList(project_id);
 	}
 
 	

@@ -1807,7 +1807,7 @@ li {
 								<form action="reportProject.do" method="post">
 									<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
 										<input type="text" value="${ loginUser.member_name}">
-										 <input type="hidden" name="project_id" value="${ likes.project_id}"> 
+										 <input type="hidden" name="project_id" value="${ proview.project_id}"> 
 										 	<input type="text"	value="">
 									<textarea name="report_reason" placeholder="신고사유"></textarea>
 									<input type="submit" class="blacklist blacklist-submit"
