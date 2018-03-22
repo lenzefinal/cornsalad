@@ -55,6 +55,7 @@ public class MypageController {
 	public String mypageModify(Member member, Model model, MemberAccount account) {
 		System.out.println("정보 수정 Form");
 		model.addAttribute("member", mypageService.selectMember(member));
+		System.out.println("수정폼 " + member);
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
 		return "mypage/mypageModify";
@@ -169,7 +170,7 @@ public class MypageController {
 		System.out.println("수정: " + member);
 		System.out.println("account:" + account);
 
-		return "redirect:mypageIndex.do";
+		return "redirect:mypageIndex.do?member_id=" + member.getMember_id();
 	}
 
 	// 등록한 프로젝트 리스트 출력
@@ -432,37 +433,38 @@ public class MypageController {
 		out.flush();
 		out.close();
 	}
-	
+
 	// 구매한 공동구매 상품 리스트 출력
-		@RequestMapping(value = "searchpurchaseproduct.do", method = RequestMethod.POST)
-		public void searchPurchaseProduct(PurchaseProduct purchaseProduct, HttpServletResponse response) throws IOException {
-			System.out.println("구매 공동구매 list");
-			List<PurchaseProduct> list = mypageService.searchPurchaseProduct(purchaseProduct);
-			response.setContentType("application/json; charset=utf-8");
+	@RequestMapping(value = "searchpurchaseproduct.do", method = RequestMethod.POST)
+	public void searchPurchaseProduct(PurchaseProduct purchaseProduct, HttpServletResponse response)
+			throws IOException {
+		System.out.println("구매 공동구매 list");
+		List<PurchaseProduct> list = mypageService.searchPurchaseProduct(purchaseProduct);
+		response.setContentType("application/json; charset=utf-8");
 
-			JSONObject json = new JSONObject();
-			JSONArray jarr = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-			for (PurchaseProduct p : list) {
-				JSONObject j = new JSONObject();
-				j.put("image_rename", p.getImage_rename());
-				j.put("project_name", p.getProject_name());
-				j.put("product_name", p.getProduct_name());
-				j.put("total_amount", p.getTotal_amount());
-				j.put("total_count", p.getTotal_count());
-				j.put("member_id", p.getMember_id());
-				j.put("payment_date", p.getPayment_date().toString());
-				j.put("end_date", p.getEnd_date().toString());
-				jarr.add(j);
-
-			}
-			json.put("spproduct", jarr);
-			System.out.println(json.toJSONString());
-
-			PrintWriter out = response.getWriter();
-			out.println(json.toJSONString());
-			out.flush();
-			out.close();
+		for (PurchaseProduct p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("product_name", p.getProduct_name());
+			j.put("total_amount", p.getTotal_amount());
+			j.put("total_count", p.getTotal_count());
+			j.put("member_id", p.getMember_id());
+			j.put("payment_date", p.getPayment_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
+			jarr.add(j);
 
 		}
+		json.put("spproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
 }

@@ -61,12 +61,12 @@
 				</label>
 
 				<label class="field">
-					<input id="pwd1" type="password" name="member_pwd" class="input large" placeholder="비밀번호 입력" readonly="true" required aria-required="true">
+					<input id="pwd1" type="password" name="member_pwd" class="input text block large" placeholder="비밀번호 입력" readonly="true" required aria-required="true">
 					<p class="notice">영문, 숫자, 특수문자 (!@#$%^&amp;*+=-)를 조합한 8자 이상</p>
 				</label>
 
 				<label class="field">
-					<input id="pwd2" type="password" name="password2" class="input large" placeholder="비밀번호 확인" readonly="true" required aria-required="true">
+					<input id="pwd2" type="password" name="password2" class="input text block large" placeholder="비밀번호 확인" readonly="true" required aria-required="true">
 				</label>
 
           	</div>
@@ -446,11 +446,13 @@
 	
 	        // 비밀번호, 이름(닉네임) 입력창 활성화
 	      	function enablePasswordInput(isShow) {
-	          var $inputPassword = $("[type='password']");
+	          var $inputPassword1 = $("#pwd1");
+	          var $inputPassword2 = $("#pwd2");
 	          var $inputmember_name = $("#member_name");
 	          var readonly = isShow ? false : true;
 	          
-	          $inputPassword.prop("readonly", readonly).val("");
+	          $inputPassword1.prop("readonly", readonly).val("");
+	          $inputPassword2.prop("readonly", readonly).val("");
 	          $inputmember_name.prop("readonly", readonly).val("");
 	      	}
 	
@@ -469,20 +471,17 @@
 	          $.ajax({
 	            url: 'enrollMember.do',
 	            data: param,
-	            dataType:"json",
 	            type: 'POST',
 	            success: function(result) {
-	              if ('SUSS000' === result.code) {
+	              if ('SUSS000' === result) {
 	                  var idType = $('#loginIdType').val();
-	                  gaEvt.send("conversion_rate", "joincomplete", idType, 1);
-	                 /*  location.href ='/web/waccount/wAccountRegistFinish'; */
-	              } /* else if (result.code === 'SUSBA22') {
-	                $('#member_name').addClass('error');
-	                $('#member_nameError').show();
-	                $('#member_name').focus();
-	              } */
-	              else {
-	                alertify.alert("오류가 발생했습니다. 관리자에게 문의해주시거나, 입력된 정보가 올바른지 다시 한번 확인해주시기 바랍니다. 오류 코드 : " + result.code);
+	                  //gaEvt.send("conversion_rate", "joincomplete", idType, 1);
+	                  alertify.alert("성공적으로 가입이 되었습니다.", function(){
+	                	  location.href ='home.do';
+	                  });
+	                  
+	              }else {
+	                alertify.alert("오류가 발생했습니다. 관리자에게 문의해주시거나, 입력된 정보가 올바른지 다시 한번 확인해주시기 바랍니다. 오류 코드 : " + result);
 	              }
 	            },
 	            fail: function(xhr) {
@@ -506,10 +505,26 @@
 	
 	<script type="text/javascript">
 
-window.intercomSettings={app_id:"lmfb1tir",hide_default_launcher:true,horizontal_padding:95};
-
-(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rbpfw0z2';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
-</script>
+	window.intercomSettings={app_id:"lmfb1tir",hide_default_launcher:true,horizontal_padding:95};
+	(function(){
+		var w=window;
+		var ic=w.Intercom;
+		if(typeof ic==="function"){
+			ic('reattach_activator');
+			ic('update',intercomSettings);
+		}else{
+			var d=document;
+			var i=function(){
+				i.c(arguments)
+			};
+			i.q=[];
+			i.c=function(args){
+				i.q.push(args)
+			};
+			w.Intercom=i;
+			function l(){
+				var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rbpfw0z2';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+	</script>
 	
 </body>
 </html>
