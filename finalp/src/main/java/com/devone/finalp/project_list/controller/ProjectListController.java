@@ -35,88 +35,39 @@ public class ProjectListController {
 		return "project/projectListView";
 	}
 	
-	@RequestMapping(value="categorySearch.do", method=RequestMethod.POST)
-	@ResponseBody
-	public void selectProjectListCategory(@RequestParam(value="category_sub_id") String[] category,
-										  HttpServletResponse response) throws IOException {
-		
-		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
-		
-		if(category==null) {
-			list.addAll(projectListService.selectProjectList());
-		}else {
-			List<String> categoryList = new ArrayList<String>();
-			
-			for(int i=0; i<category.length; i++) {
-				categoryList.add(category[i]);
-			}
-			
-			list.addAll(projectListService.selectProjectListCategory(categoryList));
-			
-		}
-		
-		JSONObject sendJson = new JSONObject();
-		sendJson.put("list", returnJarr(list));  // returnJarr 메소드 아래에 있음 
-		
-		PrintWriter out = response.getWriter();
-		out.println(sendJson.toJSONString());
-		out.flush();
-		out.close();
-	}
-	
-	@RequestMapping(value="keywordSearch.do", method=RequestMethod.POST)
-	//@ResponseBody
-	public void selectProjectListKeyword(ProjectListView projectList,
-										HttpServletResponse response) throws IOException {
-		
-		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
-		
-		if(!projectList.getProject_name().equals("")) {
-			list.addAll(projectListService.selectProjectListKeyword(projectList));
-		}else {
-			list.addAll(projectListService.selectProjectList());
-		}
-		
-		JSONObject sendJson = new JSONObject();
-		sendJson.put("list", returnJarr(list)); // returnJarr 메소드 아래에 있음 
-		
-		PrintWriter out = response.getWriter();
-		out.println(sendJson.toJSONString());
-		out.flush();
-		out.close();
-	}
-	
 	@RequestMapping(value="keywordAndCategory.do", method=RequestMethod.POST)
 	public void selectKeywordCategory(@RequestParam(value="category_sub_id") String[] category,
 									  @RequestParam(value="project_name") String project_name,
 									  HttpServletResponse response) throws IOException {
 		ArrayList<ProjectListView> list = new ArrayList<ProjectListView>();
+
+		List<String> categoryList = new ArrayList<String>();
 		
-		if(category[0].equals("") && project_name.equals("")) {
+		if(category[0].equals("") && project_name.equals(" ")) {
+			
 			list.addAll(projectListService.selectProjectList());
-		}else {
-			List<String> categoryList = new ArrayList<String>();
+			
+		}else if(!category[0].equals("") && !project_name.equals(" ")) {
+			
 			for(int i=0; i<category.length; i++) {
 				categoryList.add(category[i]);
 			}
 			
 			list.addAll(projectListService.selectKeywordCategory(categoryList, project_name));
+			
+		}else if(category[0].equals("") && !project_name.equals(" ")) {
+			
+			list.addAll(projectListService.selectProjectListKeyword(project_name));
+			
+		}else {
+			for(int i=0; i<category.length; i++) {
+				categoryList.add(category[i]);
+			}
+			
+			list.addAll(projectListService.selectProjectListCategory(categoryList));
 		}
-		System.out.println(list.size()+"둘다 검색"+list.toString());
 		
 		JSONObject sendJson = new JSONObject();
-		sendJson.put("list", returnJarr(list)); // returnJarr 메소드 아래에 있음 
-		
-		PrintWriter out = response.getWriter();
-		out.println(sendJson.toJSONString());
-		out.flush();
-		out.close();
-	}
-	
-	
-	// 검색 ajax시 JSONArray만들어주는 부분 공통으로 자주 쓰이기 때문에 따로 메소드로 구현
-	public JSONArray returnJarr(ArrayList<ProjectListView> list) throws UnsupportedEncodingException {
-		
 		JSONArray jarr = new JSONArray();
 		
 		for(ProjectListView project : list) {
@@ -141,8 +92,11 @@ public class ProjectListController {
 			
 			jarr.add(job);
 		}
+		sendJson.put("list", jarr); // returnJarr 메소드 아래에 있음 
 		
-		return jarr;
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
 	}
-
 }

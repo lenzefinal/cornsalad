@@ -20,8 +20,8 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public List<ProjectListView> selectProjectListKeyword(ProjectListView project) {
-		return projectListDao.selectProjectListKeyword(project);
+	public List<ProjectListView> selectProjectListKeyword(String project_name) {
+		return projectListDao.selectProjectListKeyword(project_name);
 	}
 
 	@Override

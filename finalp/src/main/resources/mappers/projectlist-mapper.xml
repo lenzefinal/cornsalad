@@ -11,24 +11,18 @@
 	</select>
 	
 	<select id="selectProjectListKeyword" parameterType="String" resultType="ProjectListView">
-		<![CDATA[
 			select * from v_projectList where project_name like #{keyword}
-		]]>
 	</select>
 	
 	<select id="selectProjectListCategory" parameterType="hashmap" resultType="ProjectListView">
-		
 			select * from v_projectList where category_sub_id in 
-		
 				<foreach collection="category_sub_id" item="item" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
-		
-		
 	</select>
 	
 	<select id="selectKeywordCategory" parameterType="hashmap" resultType="ProjectListView">
-		select * from v_projectList where project_name like #{project_name} and category_sub_id in
+			select * from v_projectList where project_name like #{project_name} and category_sub_id in
 				<foreach collection="category_sub_id" item="item" open="(" close=")" separator=",">
 					#{item}
 				</foreach>

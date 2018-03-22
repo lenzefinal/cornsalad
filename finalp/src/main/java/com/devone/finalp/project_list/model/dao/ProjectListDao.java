@@ -19,9 +19,9 @@ public class ProjectListDao {
 		return mybatis.selectList("projectListMapper.selectProjectList");
 	}
 
-	public List<ProjectListView> selectProjectListKeyword(ProjectListView project) {
+	public List<ProjectListView> selectProjectListKeyword(String project_name) {
 		// TODO Auto-generated method stub
-		String keyword="%"+project.getProject_name()+"%";
+		String keyword="%"+project_name+"%";
 		return mybatis.selectList("projectListMapper.selectProjectListKeyword", keyword);
 	}
 	
