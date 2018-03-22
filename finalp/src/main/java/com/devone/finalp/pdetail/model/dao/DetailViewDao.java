@@ -15,6 +15,7 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 
 @Repository("detailviewDao")
@@ -82,5 +83,11 @@ public class DetailViewDao {
 	public int selectcount(String member_id) {
 		
 		return mybatis.selectOne("projectdetailMapper.selectcount", member_id);
+	}
+
+	public List<SuppoterView> selectSuppoterList(String project_id) {
+		System.out.println(project_id);
+		return mybatis.selectList("projectdetailMapper.selectSuppoterList", project_id);
+		
 	}
 }

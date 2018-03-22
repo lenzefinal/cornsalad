@@ -23,6 +23,7 @@ import com.devone.finalp.pdetail.model.service.DetailViewServiceImpl;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 @Controller
 public class DetailViewController {
@@ -38,6 +39,12 @@ public class DetailViewController {
 		List<HotListView> list = detailviewService.selectHotList();
 //      판매자 member_id 알아옴
 		Project project=detailviewService.selectMemberId(project_id);
+//		프로젝트에 대한 후원자들 리스트 
+		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
+		
+		System.out.println(suppoter.get(3).getMember_name());
+		System.out.println(suppoter.get(3).getProfile_img_rename());
+		System.out.println(suppoter.get(3).getRefund_flag());
 		
 		
 		ProjectView proview=detailviewService.selectProView(project_id);
@@ -57,6 +64,7 @@ public class DetailViewController {
 		model.addAttribute("like", like);
 		model.addAttribute("likes", likes);	
 		model.addAttribute("count", count);
+		model.addAttribute("SuppoterView", suppoter);
 		
 		return "project/projectDetailView";
 	}

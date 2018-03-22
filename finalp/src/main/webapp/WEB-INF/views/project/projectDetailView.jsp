@@ -79,7 +79,7 @@
 				<li><a class="tab-link a3">환불및 교환 <span class="count-total">2<i
 							class="icon-new"></i></span>
 				</a></li>
-				<li><a class="tab-link a4">서포터 <span class="count-total">463<i
+				<li><a class="tab-link a4">서포터 <span class="count-total">${fn:length(SuppoterView)}<i
 							class="icon-new"></i></span></a></li>
 			</ul>
 		</div>
@@ -127,7 +127,7 @@
 
 								<div class="btn-wrap share">
 									<c:if test="${not empty loginUser}">
-										<button id="btnLike" class="cam	paign-like btn-like"
+										<button id="btnLike" class="campaign-like btn-like"
 										style="width: 100%">	
 											<c:if test="${not empty likes}">
 												<img src="resources/images/icon/love2.png"
@@ -195,13 +195,23 @@
 													class="fVfxlF">${proview.member_name }</span>
 												</a>
 											</div>
+		 			<script>
+					$(document).ready(function(){
+						var min=$("#Min1").text();
+					
+						if(min=="0시간"){
+								$("#Min1").hide();
+						}
+					});
+					
+					</script> 
 											<div class="dHxdxH"></div>
 											<div class="iiBGoJt">
 												<div>
 													<!-- react-text: 598 -->
 													마지막 로그인&nbsp;&nbsp;
 													<!-- /react-text -->
-													<b>${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
+													<b id="Min1">${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
 												</div>
 												<!-- react-text: 600 -->
 												진행한 프로젝트&nbsp;&nbsp;
@@ -541,23 +551,25 @@
 								<!-- 서포터 -->
 								<div class="supporter-tab" style="display: none">
 
-									<strong class="achieve-text"> 현재 이 프로젝트에<br> <span>689명</span>의
+									<strong class="achieve-text"> 현재 이 프로젝트에<br> <span>${fn:length(SuppoterView)} 명</span>의
 										참여가 이루어졌습니다.
 									</strong>
 									<ul class="support-list" style="list-style: none;">
+									 <c:forEach var="suppoter" items="${SuppoterView}">
 										<li class="support-item showblock_1" id="0">
 											<figure>
 												<a href="#" onclick="goUserProfile(708130818);">
 													<div class="profile"
-														style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green002/sns_profile_pics/20170719190534453_96450111.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize), url('/resources/static/img/common/img_blank.png')"></div>
+														style="background-image: url('resources/images/mypageProfiles/${suppoter.profile_img_rename }')"></div>
 												</a>
 												<figcaption class="info">
-													<strong class="title"> 사용자 <span>김혜림</span>님이 펀딩내용
-														<span> 펀딩</span>으로 참여 하셨습니다.
-													</strong><br> <abbr>2017-08-08 </abbr>
+													<strong class="title"> 사용자 <span>${suppoter.member_name }</span>님이 펀딩내용
+														<span>${suppoter.project_category_name }</span>으로 참여 하셨습니다.
+													</strong><br> <abbr>${suppoter.payment_date } </abbr>
 												</figcaption>
 											</figure>
 										</li>
+									</c:forEach> 
 										
 										
 									</ul>
@@ -679,7 +691,7 @@
 								<form action="reportProject.do" method="post">
 									<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
 										<input type="text" value="${ loginUser.member_name}">
-										 <input type="hidden" name="project_id" value="${ likes.project_id}"> 
+										 <input type="hidden" name="project_id" value="${ proview.project_id}"> 
 										 	<input type="text"	value="">
 									<textarea name="report_reason" placeholder="신고사유"></textarea>
 									<input type="submit" class="blacklist blacklist-submit"
