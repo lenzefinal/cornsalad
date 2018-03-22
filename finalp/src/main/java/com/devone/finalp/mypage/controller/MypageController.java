@@ -55,6 +55,7 @@ public class MypageController {
 	public String mypageModify(Member member, Model model, MemberAccount account) {
 		System.out.println("정보 수정 Form");
 		model.addAttribute("member", mypageService.selectMember(member));
+		System.out.println("수정폼 "+member);
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
 		return "mypage/mypageModify";
@@ -169,7 +170,7 @@ public class MypageController {
 		System.out.println("수정: " + member);
 		System.out.println("account:" + account);
 
-		return "redirect:mypageIndex.do";
+		return "redirect:mypageIndex.do?member_id="+member.getMember_id();
 	}
 
 	// 등록한 프로젝트 리스트 출력
