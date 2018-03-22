@@ -1,5 +1,6 @@
 package com.devone.finalp.project_list.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,10 +19,27 @@ public class ProjectListDao {
 		return mybatis.selectList("projectListMapper.selectProjectList");
 	}
 
-	public List<ProjectListView> selectProjectListKeyword(ProjectListView project) {
+	public List<ProjectListView> selectProjectListKeyword(String project_name) {
 		// TODO Auto-generated method stub
-		String keyword="%"+project.getProject_name()+"%";
+		String keyword="%"+project_name+"%";
 		return mybatis.selectList("projectListMapper.selectProjectListKeyword", keyword);
+	}
+	
+	public List<ProjectListView> selectProjectListCategory(List<String> category){
+		
+		HashMap<String, List<String>> hm = new HashMap<String, List<String>>();
+		hm.put("category_sub_id", category);
+	
+		
+		return mybatis.selectList("projectListMapper.selectProjectListCategory", hm);
+	}
+	
+	public List<ProjectListView> selectKeywordCategory(List<String> category, String project_name){
+		HashMap hm = new HashMap();
+		hm.put("project_name", "%"+project_name+"%");
+		hm.put("category_sub_id", category);
+		
+		return mybatis.selectList("projectListMapper.selectKeywordCategory", hm);
 	}
 
 }

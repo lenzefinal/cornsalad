@@ -443,7 +443,7 @@
 		/*border-width: 0;*/
 	}
 	.search_tab {
-		width:800px;
+		width:902px;
 		height: 42px;
 		/*border: 1px solid #b8b8b8;*/
 		/*background: #c5421b;*/
@@ -542,6 +542,7 @@
 		margin-top:64px;
 		margin-left:17px;
 		background-color:white;
+		line-height:3.3;
 	}
 	.bar{
 		margin-left: 56px;
@@ -631,9 +632,7 @@
 						</ul>
 					</div>
 					
-					<p class="search_submit">
-						<input type="submit" value="조회" title="조회">
-					</p>
+					
 			</form>
 		</div>
 		<div class="selectlist">
@@ -722,31 +721,15 @@
 	</div>
 	
 	<script type="text/javascript">
-		
-		
 		$(document).ready(function(){
+			
 			var parent = ".search_tab",
 			btn = ".search_tab button";
-			
+
 			requiredTagSearch(parent,btn);
 			
-			$(".clear").on("click",function(){
-				$.each($(".form input[type='hidden']"),function(index){
-					var pic=$(this);
-					
-					pic.prev().removeClass("ov");
-					pic.remove();
-					
-				});
-				
-				$.each($("#piclist a"),function(index){
-					var pic=$(this);
-					pic.remove();
-				});
-			});
-			
+			//--------------select 중분류별 소분류 표시--------------------//
 			$("#areaCode").change(function(){
-				
 				var optionSelected = $(this).find("option:selected");
 				var valueSelected = optionSelected.val();
 			
@@ -779,55 +762,59 @@
 				} 
 			});
 			
-			/*--------- 카테고리별 다중검색 ajax-----------------*/
-			$(".search_tab button, .clear, .del").on("click",function(){
-				
-				var category="category_sub_id= ";
-				
+			//---------전체해제 누르면 카테고리에 모든 부분 사라짐-----------//
+			$(".clear").on("click",function(){
 				$.each($(".form input[type='hidden']"),function(index){
 					var pic=$(this);
 					
-						category+="&category_sub_id="+pic.attr("value");
-					
+					pic.prev().removeClass("ov");
+					pic.remove();
 					
 				});
 				
-				
-				$.ajax({
-					url:"categorySearch.do",
-					data:category,
-					dataType:"json",
-					type:"post",
-					success:function(){
-						
-					}
+				$.each($("#piclist a"),function(index){
+					var pic=$(this);
+					pic.remove();
 				});
 			});
 			
+			//----------------------카테고리선택, 키워드 검색 바뀔때마다 ajax--------------------------//
+			$(document).on("click keyup",".go-button, .ov, .clear, .del, #keyword",function(){
 			
-			/*--------- 프로젝트명 검색 시 키워드로 검색 ajax---------*/
-			$("#keyword").keyup(function(){
+				var category=""; // ajax에서 최종으로 보낼 변수
 				var keyword = $('#keyword').val();
-				console.log(keyword);
+				
+				// 키워드 검색 유무 판단
+				if(keyword==="")
+					category+="project_name= "+keyword;
+				else if(keyword!=="")
+					category+="project_name="+keyword;
+				
+				// 카테고리 선택 유무 판단
+				if($(".form input[type='hidden']").length === 0){
+					category+="&category_sub_id= ";
+				}else{
+					$.each($(".form input[type='hidden']"),function(index){
+						var pic=$(this);
+						category+="&category_sub_id="+pic.attr("value");
+					});
+				}
+				
 				$.ajax({
-					url:"keywordSearch.do",
-					data:{project_name: keyword},
+					url:"keywordAndCategory.do",
+					data:category,
 					dataType:"json",
 					type:"post",
 					success:function(data){
-						
 						var jsonStr = JSON.stringify(data);
 						var json = JSON.parse(jsonStr);
 						var values="";
 						console.log(json.list);
 						for(var i in json.list){
+							
 							values+=
 								'<div class="thumnailContent">'+
-										'<c:url var="projectDetail" value="projectDetailView.do">'+
-											'<c:param name="member_id" value='+${ loginUser.member_id }+'/>'+
-											'<c:param name="project_id" value='+json.list[i].project_id+'/>'+
-										'</c:url>'+
-										'<a class="thumnailAtag" href="${ projectDetail }">'+
+										'<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">'+
 											'<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
 												'<div class="thumnailTextWrap">'+
 													'<div class="fundingTitle">'+
@@ -854,10 +841,9 @@
 														'</div></div></div></a></div>'														;
 						}
 						$(".thumnailContainer").html(values);
-						
-						
 					}
 				});
+				
 			});
 			
 		});
