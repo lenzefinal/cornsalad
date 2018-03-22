@@ -620,6 +620,27 @@
   })(jQuery);
   
     </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+    	var side = parseInt($("#question").css('top'));
+    	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+    	$(window).scroll(function() {
+    		// 현재 스크롤 위치를 가져온다.
+    		var scrollTop = $(window).scrollTop();
+    		var newPosition = scrollTop + side + "px";
+    		/* 애니메이션 없이 바로 따라감
+    		 $("#floatMenu").css('top', newPosition);
+    		 */
+     
+    		$("#question").stop().animate({
+    			"top" : newPosition
+    		}, 400);
+     
+    	}).scroll();
+     
+    });
+    </script>
 
 <div id="wadizHeader">
 	<input type="checkbox" id="globalNavOpener">
@@ -735,8 +756,15 @@
 <h1>header</h1>
 <hr>
 </div> -->
-<button style="margin-left:88%; margin-top:40%; position:fixed;" data-toggle="modal" data-target="#insertQ">작성 테스트</button>
-
+<c:if test="${loginUser.member_id ne 'admin' and not empty loginUser.member_id }">
+<div>
+<div style="margin-left:93%; margin-top:38%; position:absolute; height:100px; width:100px;" id="question">
+	<label for="insertQ">
+	<img src="resources/images/question.png" data-toggle="modal" data-target="#insertQ" style="height:95px; width:95px; border-radius:30%"/>
+	</label>
+</div>
+</div>
+</c:if>
 <!-- </header> -->
 	
 	<!-- 로그인 modal -->
@@ -776,7 +804,7 @@
 			</div>
 		</div>
 	</div>
-	 <!-- 문의글 작성 -->
+	 <!-- 관리자에게 문의글 작성 -->
   <div class="modal fade" id="insertQ" role="dialog">
     <div class="modal-dialog modal-lg">
     

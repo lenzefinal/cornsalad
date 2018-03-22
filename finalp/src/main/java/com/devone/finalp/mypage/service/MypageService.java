@@ -5,6 +5,7 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
@@ -35,5 +36,6 @@ public interface MypageService {
 	List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct);
 	int insertQuestion(MyQuestion q);
 	List<QuestionCategory> questionCategory();
+	List<MyQuestion> myQuestionList(MyQuestion q);
 	
 }

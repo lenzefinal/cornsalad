@@ -46,9 +46,24 @@
 </style>
 </head>
  <body class="skin_main">
-<c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
-
+<div id="container">
+		<div id="content" class="section_home" >
+			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
+			
+			<div class="c_header">
+				<h2>찜한 프로젝트</h2>
+				<p class="contxt">내가 펀딩한 프로젝트를 확인할 수 있어요.</p>
+			</div>
+		</div>
+		<div id="list">
+			<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색"/>
+			<table class="tbl_type" cellspacing="0" border="1">
+			</table>
+		</div>
+		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
+		<div id="result" style="text-align:center;"></div>
+	</div>
 </body>
 </html>

@@ -6,9 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
@@ -134,5 +134,10 @@ public class MypageDao {
 	public List<QuestionCategory> questionCategory() {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.questionCategory");
+	}
+
+	public List<MyQuestion> myQuestionList(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.myquestionlist", q);
 	}
 }
