@@ -42,11 +42,6 @@ public class DetailViewController {
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
 		
-		System.out.println(suppoter.get(3).getMember_name());
-		System.out.println(suppoter.get(3).getProfile_img_rename());
-		System.out.println(suppoter.get(3).getRefund_flag());
-		
-		
 		ProjectView proview=detailviewService.selectProView(project_id);
 		int like=detailviewService.selectLikes(project_id);
 		likes=detailviewService.existList(likes);
