@@ -23,6 +23,8 @@
 		<result property="report_count" column="report_count" />
 		<result property="certif_flag" column="certif_flag" />
 	</resultMap>
+	
+	<resultMap type="QuestionCategory" id="CategoryList"></resultMap>
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
@@ -134,4 +136,21 @@
 			where pa.member_id=#{member_id} and p.project_category_id='PC-PROD' and rownum<#{size} and p.project_name like #{project_name}
 		]]>
 	</select>
+	
+	
+	
+	
+	<select id="questionCategory" resultMap="CategoryList">
+		<![CDATA[
+			SELECT * FROM QUESTION_CATEGORY
+		]]>
+	</select>
+	
+	<insert id="insertQuestion" parameterType="MyQuestion">
+		<![CDATA[
+			insert into question values((select nvl(max(question_id+1), 1) from question), 
+										#{question_category_id} , #{receive_member_id}, #{send_member_id}, 
+										#{title}, #{content}, null, sysdate, null)
+		]]>
+	</insert>
 </mapper>

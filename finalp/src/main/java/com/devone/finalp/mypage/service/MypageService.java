@@ -5,8 +5,10 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 public interface MypageService {
@@ -31,5 +33,7 @@ public interface MypageService {
 	List<MyLikes> selectSearchProjectLikes(MyLikes projectLikes);
 	List<MyLikes> selectSearchProductLikes(MyLikes productLikes);
 	List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct);
+	int insertQuestion(MyQuestion q);
+	List<QuestionCategory> questionCategory();
 	
 }

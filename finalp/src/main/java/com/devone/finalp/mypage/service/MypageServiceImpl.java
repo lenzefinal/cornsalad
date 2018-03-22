@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.dao.MypageDao;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 @Service("mypageService")
@@ -123,5 +125,17 @@ public class MypageServiceImpl implements MypageService {
 	public List<PurchaseProduct> searchPurchaseProduct(PurchaseProduct purchaseProduct) {
 		// TODO Auto-generated method stub
 		return mypageDao.searchPurchaseProduct(purchaseProduct);
+	}
+
+	@Override
+	public int insertQuestion(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mypageDao.insertQuestion(q);
+	}
+
+	@Override
+	public List<QuestionCategory> questionCategory() {
+		// TODO Auto-generated method stub
+		return mypageDao.questionCategory();
 	}
 }

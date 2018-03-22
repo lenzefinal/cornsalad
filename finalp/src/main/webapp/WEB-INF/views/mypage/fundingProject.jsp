@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찜한 목록 보기</title>
+<title>펀딩한 프로젝트</title>
 <style>
 	td img{
 		width:100px;

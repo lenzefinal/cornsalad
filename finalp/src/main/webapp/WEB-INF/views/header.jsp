@@ -735,6 +735,7 @@
 <h1>header</h1>
 <hr>
 </div> -->
+<button style="margin-left:88%; margin-top:40%; position:fixed;" data-toggle="modal" data-target="#insertQ">작성 테스트</button>
 
 <!-- </header> -->
 	
@@ -775,5 +776,47 @@
 			</div>
 		</div>
 	</div>
+	 <!-- 문의글 작성 -->
+  <div class="modal fade" id="insertQ" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header"> 
+         <h4 class="modal-title">관리자에게 문의하기</h4> 
+           <button type="button" class="close" data-dismiss="modal">&times;</button> 
+        </div>
+        <div class="modal-body" id="qudemo">
+   		<form action="qInsert.do" method="post">
+				<input id="rmember_id" type="hidden" name="receive_member_id" value="admin"/>
+				<input type="hidden" name="question_category_id" value="Q-ADMIN"/>
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="qtitle"> 제목 : &nbsp;</label>
+				<input type="text" name="title" class="form-control" id="qtitle" placeholder="제목 입력" required>&nbsp;&nbsp;
+			</div>
+			</div>
+			<br>
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="qwriter">작성자 : &nbsp;</label>
+				<input type="text" name="send_member_id" class="form-control" id="qwriter" value="${loginUser.member_id }" readonly >&nbsp;
+			</div>
+			</div>
+			<br>
+			
+			<div class="form-inline">
+			<div class="form-group">
+				<textarea name="content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" required></textarea>
+			</div>
+			</div>
+			<br>
+			<button type="submit" class="btn" style="margin-left:75%;">문의 보내기</button>
+		</form>
+		</div>
+      </div>
+    </div>
+  </div>
+	
 </body>
 </html>

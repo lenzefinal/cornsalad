@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 현황보기</title>
+<title>등록한 프로젝트</title>
 
 <style>
 	td{
@@ -292,7 +292,7 @@ var size=4;
 		</div>
 		
 		<div id="list">
-			<input type="text" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색"/>
+			<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>

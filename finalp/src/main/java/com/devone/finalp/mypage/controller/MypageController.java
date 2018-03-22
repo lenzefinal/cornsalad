@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 import com.devone.finalp.mypage.service.MypageService;
 
@@ -466,5 +468,21 @@ public class MypageController {
 		out.flush();
 		out.close();
 
+	}
+	
+	
+	//문의함
+	//리스트
+	@RequestMapping(value="/myQuestion.do")
+	public String myQuestion(Model model) {
+		model.addAttribute("category", mypageService.questionCategory());
+		
+		return "myQuestion";
+	}
+	//작성
+	@RequestMapping(value="/qInsert.do", method = RequestMethod.POST)
+	public String QuestionInsert(MyQuestion q, Model model) {
+		model.addAttribute(mypageService.insertQuestion(q));
+		return "redirect:myQuestion.do";
 	}
 }

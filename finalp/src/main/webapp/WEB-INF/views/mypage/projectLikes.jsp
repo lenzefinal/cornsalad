@@ -271,7 +271,7 @@ $(window).ready(function(){
 			</div>
 		</div>
 		<div id="list">
-			<input type="text" name="project_name" id="project_name" placeholder="프로젝트 명으로 검색"/>
+			<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>
