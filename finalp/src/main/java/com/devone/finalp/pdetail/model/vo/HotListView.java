@@ -1,8 +1,12 @@
 package com.devone.finalp.pdetail.model.vo;
 
-public class HotListView {
+public class HotListView implements java.io.Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2611557126792431691L;
 	private String project_name;
 	private String project_id;
 	private int likecount;

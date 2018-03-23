@@ -1,7 +1,11 @@
 package com.devone.finalp.pdetail.model.vo;
 
-public class LoginTimeView {
+public class LoginTimeView implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3062962198834195604L;
 	private int min;
 	private int second;
 	private String member_id;
