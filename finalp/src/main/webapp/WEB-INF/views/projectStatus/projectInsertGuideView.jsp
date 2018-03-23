@@ -56,7 +56,7 @@
 	}
 	
 	function grouUpdate(){
-		location.href="grouppurUpdateView.do?projectId=152138655640921";
+		location.href="grouppurUpdateView.do?projectId=152154228825211";
 	}
 	
 	

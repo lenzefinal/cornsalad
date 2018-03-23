@@ -140,4 +140,29 @@ public class MypageDao {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.myquestionlist", q);
 	}
+
+	public MyQuestion myQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.myQdetail", questionid);
+	}
+
+	public MyQuestion receiveQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.receiveQdetail", questionid);
+	}
+
+	public List<MyQuestion> myRQeustionList(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.myRQuestion", q);
+	}
+
+	public MyQuestion rmyQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.rmyQdetail", questionid);
+	}
+
+	public int receiveQ(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mybatis.update("mystatusmapper.receiveQ", q);
+	}
 }

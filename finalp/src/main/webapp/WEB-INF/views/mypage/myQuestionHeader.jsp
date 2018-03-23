@@ -8,7 +8,6 @@
 <title>mypageHeader</title>
 </head>
 <body>
-<c:import url="../header.jsp"/>
 <link href="/finalp/resources/css/mypage.css" rel="stylesheet">
  <div id="lnb_area">
 	 <div class="lnb">
@@ -25,8 +24,11 @@
 			<li id="Likes" class="on">
 				<a href="projectLikes.do" style="color:black;">찜한 상품</a>
 			</li>
+				<c:url var="myQuestion" value="myQuestion.do">
+	  				<c:param name="send_member_id" value="${loginUser.member_id }"/>
+	  			</c:url>
 			<li id="mquestion" class="on">
-				<a href="myQuestion.do" style="color:black;">나의 문의<em style="color:black"></a>
+				<a href="${myQuestion }" style="color:black;">나의 문의<em style="color:black"></em></a>
 			</li>
 		</ul>
 	</div>

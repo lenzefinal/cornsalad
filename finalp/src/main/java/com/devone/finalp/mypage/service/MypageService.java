@@ -37,5 +37,10 @@ public interface MypageService {
 	int insertQuestion(MyQuestion q);
 	List<QuestionCategory> questionCategory();
 	List<MyQuestion> myQuestionList(MyQuestion q);
+	MyQuestion myQdetail(int questionid);
+	MyQuestion receiveQdetail(int questionid);
+	List<MyQuestion> myRQuestionList(MyQuestion q);
+	MyQuestion rmyQdetail(int questionid);
+	int receiveQ(MyQuestion q);
 	
 }

@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -472,33 +473,82 @@ public class MypageController {
 	}
 
 	// 문의함
-	// 리스트
+	// 리스트 폼
 	@RequestMapping(value = "myQuestion.do")
-	public String myQuestion() {
+	public String myQuestion(MyQuestion q, Model model) {
 		System.out.println("문의함 리스트 폼");
+		model.addAttribute("question", mypageService.myQuestionList(q));
+
 		return "mypage/myQuestion";
 	}
 
-	@RequestMapping(value = "myQuestionlist.do", method = RequestMethod.POST)
-	public void myQuestionList(MyQuestion q, HttpServletResponse response) throws IOException {
-		System.out.println("나의 문의함 리스트 출력");
-		List<MyQuestion> list = mypageService.myQuestionList(q);
+	// 내 문의글 상세보기
+	@RequestMapping(value = "myQdetail.do", method = RequestMethod.POST)
+	public void myQdetail(MyQuestion q, HttpServletResponse response,
+			@RequestParam(value = "question_id") int questionid) throws IOException {
 		response.setContentType("application/json; charset=utf-8");
-
+		q = mypageService.myQdetail(questionid);
 		JSONObject json = new JSONObject();
-		JSONArray jarr = new JSONArray();
 
-		for (MyQuestion mq : list) {
-			JSONObject j = new JSONObject();
-			j.put("title", mq.getTitle());
-			j.put("receive_member_id", mq.getReceive_member_id());
-			j.put("send_creation_date", mq.getSend_creation_date().toString());
-			j.put("re_content", mq.getRe_content());
-			
-			jarr.add(j);
+		json.put("title", q.getTitle());
+		json.put("receive_member_id", q.getReceive_member_id());
+		json.put("content", q.getContent());
+		json.put("send_creation_date", q.getSend_creation_date().toString());
 
-		}
-		json.put("qlist", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+	// 답변 상세보기
+	@RequestMapping(value = "rQdetail.do", method = RequestMethod.POST)
+	public void receiveQdetail(MyQuestion q, HttpServletResponse response,
+			@RequestParam(value = "question_id") int questionid) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		q = mypageService.receiveQdetail(questionid);
+		JSONObject json = new JSONObject();
+
+		json.put("title", q.getTitle());
+		json.put("receive_member_id", q.getReceive_member_id());
+		json.put("re_content", q.getRe_content());
+		json.put("send_creation_date", q.getSend_creation_date().toString());
+		json.put("receive_creation_date", q.getReceive_creation_date().toString());
+
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+	// 받은 문의함 리스트
+	@RequestMapping(value = "myRQuestion.do")
+	public String receiveQuestion(MyQuestion q, Model model) {
+		System.out.println("받은 문의함 리스트 폼");
+		model.addAttribute("question", mypageService.myRQuestionList(q));
+
+		return "mypage/myQuestionR";
+	}
+
+	// 내 문의글 상세보기
+	@RequestMapping(value = "rmyQdetail.do", method = RequestMethod.POST)
+	public void rmyQdetail(MyQuestion q, HttpServletResponse response,
+			@RequestParam(value = "question_id") int questionid) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		q = mypageService.rmyQdetail(questionid);
+		JSONObject json = new JSONObject();
+
+		json.put("title", q.getTitle());
+		json.put("send_member_id", q.getSend_member_id());
+		json.put("content", q.getContent());
+		json.put("send_creation_date", q.getSend_creation_date().toString());
+
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
@@ -513,6 +563,34 @@ public class MypageController {
 	public String QuestionInsert(MyQuestion q, Model model) {
 		System.out.println("문의글 작성 폼");
 		model.addAttribute(mypageService.insertQuestion(q));
-		return "redirect:myQuestion.do";
+		return "redirect:myQuestion.do?send_member_id=" + q.getSend_member_id();
+	}
+
+	@RequestMapping(value="receiveQForm.do", method=RequestMethod.POST)
+	public void receiveForm(MyQuestion q, HttpServletResponse response,
+			@RequestParam(value = "question_id") int questionid) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		q = mypageService.rmyQdetail(questionid);
+		JSONObject json = new JSONObject();
+
+		json.put("title", q.getTitle());
+		json.put("send_member_id", q.getSend_member_id());
+		json.put("content", q.getContent());
+		json.put("send_creation_date", q.getSend_creation_date().toString());
+		json.put("re_content", q.getRe_content());
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+	// 판매자가 답변
+	@RequestMapping(value="receiveQ.do", method=RequestMethod.POST)
+	public String receiveQ(MyQuestion q, Model model) {
+		System.out.println("문의 답변 작성");
+		mypageService.receiveQ(q);
+		
+		return "redirect:myRQuestion.do?receive_member_id="+q.getReceive_member_id();
 	}
 }
