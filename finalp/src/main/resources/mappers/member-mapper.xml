@@ -45,8 +45,8 @@
 
 	<insert id="insertMember" parameterType="Member">
 		<![CDATA[
-			insert into member(member_id, member_pwd, member_name, email) 
-			values(#{member_id}, #{member_pwd}, #{member_name}, #{email})
+			insert into member(member_id, member_pwd, member_name, email, profile_img_rename, enroll_date, blacklist_flag, admin_flag) 
+			values(#{member_id}, #{member_pwd}, #{member_name}, #{email}, 'defaultProfile.jpg', sysdate, 'N', 'N')
 		]]>
 	</insert> 
 	<update id="updateTime" parameterType="Member">
