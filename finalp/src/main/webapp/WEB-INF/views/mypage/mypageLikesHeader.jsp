@@ -19,10 +19,13 @@
 				<a href="${mypageIndex }" style="color:black;">나의 정보</a>
 			</li>
 			<li id="myStatus" class="on">
-				<a href="myProject.do" style="color:black;">현황 보기</em></a>
+				<a href="myProject.do" style="color:black;">현황 보기</a>
 			</li>
 			<li id="Likes" class="on">
-				<a href="projectLikes.do" style="color:black;">찜한 상품<em style="color:black"></a>
+				<a href="projectLikes.do" style="color:black;">찜한 상품<em style="color:black"></em></a>
+			</li>
+			<li id="mquestion" class="on">
+				<a href="myQuestion.do" style="color:black;">나의 문의</a>
 			</li>
 		</ul>
 	</div>

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.devone.finalp.admin.model.service.AdminService;
 import com.devone.finalp.admin.model.vo.AAlarm;
 import com.devone.finalp.admin.model.vo.AMember;
+import com.devone.finalp.admin.model.vo.AProject;
 import com.devone.finalp.admin.model.vo.AQuestion;
 import com.devone.finalp.admin.model.vo.AReport;
 import com.devone.finalp.common.model.vo.Notice;
@@ -177,8 +178,36 @@ public class AdminController {
 
 	//관리자 공지사항리스트
 	@RequestMapping("adminNotice.do")
-	public String adminNotice(Model model) {
-		model.addAttribute("anlist",adminService.selectNoticeList());
+	public String adminNotice(Model model,HttpServletRequest request) {
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int limit = 10; //한 페이지에 출력할 목록 갯수
+		int listCount = adminService.noListCount();
+		int maxPage = (int)((double)listCount / limit + 0.9);
+		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
+		int endPage = startPage + limit - 1;
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		
+		List<Notice> list = adminService.selectNoticeList(map);
+		
+		if(maxPage < endPage)
+			endPage = maxPage;
+		
+		model.addAttribute("anlist",list);
+		model.addAttribute("limit", limit);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
 		return "admin/adminNotice";
 	}
 	
@@ -479,9 +508,9 @@ public class AdminController {
 	//회원 이름으로 검색
 	@RequestMapping(value="searchMember.do", method=RequestMethod.POST )
 	public void searchMember(HttpServletResponse response,
-			@RequestParam(value="search") String search) throws IOException{
+			@RequestParam(value="searchM") String searchM) throws IOException{
 
-		List<AMember> smlist=adminService.searchMember(search);
+		List<AMember> smlist=adminService.searchMember(searchM);
 		
 		JSONObject sendjson=new JSONObject();
 		JSONArray jarr=new JSONArray();
@@ -511,6 +540,110 @@ public class AdminController {
 		out.flush();
 		out.close();
 		
+	}
+	
+	//공지사항 검색(제목 + 내용)
+	@RequestMapping(value="searchNotice.do", method=RequestMethod.POST)
+	public void searchNotice(HttpServletResponse response,
+			@RequestParam(value="searchN") String searchN) throws IOException {
+		List<Notice> snlist=adminService.searchNotice(searchN);
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(Notice notice : snlist ) {
+			JSONObject jnotice =new JSONObject();
+			jnotice.put("notice_id", notice.getNotice_id());
+			jnotice.put("title", URLEncoder.encode(notice.gettitle(),"utf-8"));
+			jnotice.put("creation_date", notice.getCreation_date().toString().trim());
+			jnotice.put("content", URLEncoder.encode(notice.getContent(),"utf-8"));
+			
+			jarr.add(jnotice);
+		}
+		
+		sendjson.put("snlist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	//프로젝트 카테고리별 검색
+	@RequestMapping(value="searchCProject.do", method=RequestMethod.POST)
+	public void searchCProject(HttpServletResponse response,
+			@RequestParam(value="cname") String cname) throws IOException {
+		List<AProject> splist=adminService.searchCProejct(cname);
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AProject aproj : splist ) {
+			JSONObject jproj =new JSONObject();
+			jproj.put("rnum", aproj.getRnum());
+			jproj.put("project_category_name", URLEncoder.encode(aproj.getProject_category_name(),"utf-8"));
+			jproj.put("category_sub_name", URLEncoder.encode(aproj.getCategory_sub_name(),"utf-8"));
+			jproj.put("project_id", aproj.getProject_id());
+			jproj.put("project_name",URLEncoder.encode(aproj.getProject_name(),"utf-8"));
+			jproj.put("member_name",URLEncoder.encode(aproj.getMember_name(),"utf-8"));
+			jproj.put("creation_date",aproj.getCreation_date().toString().trim());
+			jproj.put("project_request_flag",aproj.getProject_request_flag());
+			jproj.put("project_onoff_flag",aproj.getProject_onoff_flag());
+			jproj.put("target_amount",aproj.getTarget_amount());
+			jproj.put("report_count",aproj.getReport_count());
+			jproj.put("start_date",aproj.getStart_date().toString().trim());
+			jproj.put("end_date",aproj.getEnd_date().toString().trim());
+			jproj.put("spon",aproj.getSpon());
+			jproj.put("ing_flag",aproj.getIng_flag());
+			
+			jarr.add(jproj);
+		}
+		
+		sendjson.put("cplist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	//회원 공지사항 메인
+	@RequestMapping("noticeMain.do")
+	public String noticeMain(Model model,HttpServletRequest request) {
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int limit = 10; //한 페이지에 출력할 목록 갯수
+		int listCount = adminService.noListCount();
+		int maxPage = (int)((double)listCount / limit + 0.9);
+		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
+		int endPage = startPage + limit - 1;
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		
+		List<Notice> list = adminService.selectNoticeList(map);
+		
+		if(maxPage < endPage)
+			endPage = maxPage;
+		
+		model.addAttribute("nlist",list);
+		model.addAttribute("limit", limit);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		return "notice/noticeMain";
 	}
 
 }

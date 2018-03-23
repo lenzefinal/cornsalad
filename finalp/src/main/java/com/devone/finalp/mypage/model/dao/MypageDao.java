@@ -6,11 +6,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.Question;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
 @Repository("mypageDao")
@@ -122,5 +124,20 @@ public class MypageDao {
 		String keyword = "%" + purchaseProduct.getProject_name() + "%";
 		purchaseProduct.setProject_name(keyword);
 		return mybatis.selectList("mystatusmapper.searchPurchaseProduct", purchaseProduct);
+	}
+
+	public int insertQuestion(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mybatis.insert("mystatusmapper.insertQuestion", q);
+	}
+
+	public List<QuestionCategory> questionCategory() {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.questionCategory");
+	}
+
+	public List<MyQuestion> myQuestionList(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.myquestionlist", q);
 	}
 }

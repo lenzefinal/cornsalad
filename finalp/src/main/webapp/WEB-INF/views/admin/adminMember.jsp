@@ -68,12 +68,12 @@
   <script type="text/javascript">
   	$(function(){
   		$('#bid').click(function(){
-  			var search = document.getElementById("search").value;
-  			console.log(search);
+  			var searchM = document.getElementById("search").value;
+  			console.log(searchM);
   			$.ajax({
   				url: "searchMember.do",
   				data:{
-  					search :  search
+  					searchM :  searchM
   				},
   				type: "post",
   				dataType: "json",
@@ -88,7 +88,7 @@
 						"<th>이름</th><th>프로젝트 수</th><th>총 후원금</th><th>누적 신고 수</th><th>BLACKLIST</th><th>정지 / 탈퇴</th></tr></thead><tbody>";
 					
  					if(json.smlist.length > 0 ){
- 						for(var i =0; i<json.smlist.length; i++){
+ 						for(var i=0; i<json.smlist.length; i++){
 							value += "<tr><td><a href='adminMemberDetail.do?member_name="+ decodeURIComponent(json.smlist[i].member_name) +"'>"+
 									decodeURIComponent(json.smlist[i].member_name) + "</a></td><td>"+ json.smlist[i].project_count +
 									"</td><td>"+ json.smlist[i].spon_money +"</td><td>"+ json.smlist[i].total_report_count + 
@@ -178,11 +178,11 @@
 	<c:url var="first" value="adminMember.do">
 		<c:param name="currentPage" value="1" />
 	</c:url>
-	<a href="${first }">[맨처음]</a>
+	<a href="${first }">[<<]</a>
 	<c:url var="prev" value="adminMember.do">
 		<c:param name="currentPage" value="${startPage - limit }" />
 	</c:url>
-	<a href="${prev }">	[prev]</a>
+	<a href="${prev }">	[<]</a>
 	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
 	<c:url var="page" value="adminMember.do">
 		<c:param name="currentPage" value="${p }" />
@@ -197,11 +197,11 @@
 	<c:url var="next" value="adminMember.do">
 		<c:param name="currentPage" value="${endPage + limit }" />
 	</c:url>
-	<a href="${next }">	[next]</a>
+	<a href="${next }">	[>]</a>
 	<c:url var="last" value="adminMember.do">
 		<c:param name="currentPage" value="${maxPage }" />
 	</c:url>
-	<a href="${last }">[맨끝]</a>
+	<a href="${last }">[>>]</a>
 	</div>
 
 </div>

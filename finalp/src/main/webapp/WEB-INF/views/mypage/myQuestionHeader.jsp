@@ -8,6 +8,7 @@
 <title>mypageHeader</title>
 </head>
 <body>
+<c:import url="../header.jsp"/>
 <link href="/finalp/resources/css/mypage.css" rel="stylesheet">
  <div id="lnb_area">
 	 <div class="lnb">
@@ -19,13 +20,13 @@
 				<a href="${mypageIndex }" style="color:black;">나의 정보</a>
 			</li>
 			<li id="myStatus" class="on">
-				<a href="myProject.do" style="color:black;">현황 보기<em style="color:black"></em></a>
+				<a href="myProject.do" style="color:black;">현황 보기</a>
 			</li>
 			<li id="Likes" class="on">
 				<a href="projectLikes.do" style="color:black;">찜한 상품</a>
 			</li>
 			<li id="mquestion" class="on">
-				<a href="myQuestion.do" style="color:black;">나의 문의</a>
+				<a href="myQuestion.do" style="color:black;">나의 문의<em style="color:black"></a>
 			</li>
 		</ul>
 	</div>

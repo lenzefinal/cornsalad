@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 현황보기</title>
+<title>등록한 프로젝트</title>
 
 <style>
 	td{
@@ -48,7 +48,6 @@
 
 </head>
  <body class="skin_main">
-<c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
@@ -287,12 +286,12 @@ var size=4;
 			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
 			<div class="c_header">
 				<h2>내가 등록한 프로젝트</h2>
-				<p class="contxt">이것 저것 알아볼 수 있어요</p>
+				<p class="contxt">등록한 프로젝트를 확인하실 수 있어요.</p>
 			</div>
 		</div>
 		
 		<div id="list">
-			<input type="text" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색"/>
+			<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="제목으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>

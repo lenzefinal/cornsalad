@@ -23,8 +23,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.Question;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 import com.devone.finalp.mypage.service.MypageService;
 
@@ -466,5 +469,50 @@ public class MypageController {
 		out.flush();
 		out.close();
 
+	}
+
+	// 문의함
+	// 리스트
+	@RequestMapping(value = "myQuestion.do")
+	public String myQuestion() {
+		System.out.println("문의함 리스트 폼");
+		return "mypage/myQuestion";
+	}
+
+	@RequestMapping(value = "myQuestionlist.do", method = RequestMethod.POST)
+	public void myQuestionList(MyQuestion q, HttpServletResponse response) throws IOException {
+		System.out.println("나의 문의함 리스트 출력");
+		List<MyQuestion> list = mypageService.myQuestionList(q);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyQuestion mq : list) {
+			JSONObject j = new JSONObject();
+			j.put("title", mq.getTitle());
+			j.put("receive_member_id", mq.getReceive_member_id());
+			j.put("send_creation_date", mq.getSend_creation_date().toString());
+			j.put("re_content", mq.getRe_content());
+			
+			jarr.add(j);
+
+		}
+		json.put("qlist", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+	// 작성
+	@RequestMapping(value = "/qInsert.do", method = RequestMethod.POST)
+	public String QuestionInsert(MyQuestion q, Model model) {
+		System.out.println("문의글 작성 폼");
+		model.addAttribute(mypageService.insertQuestion(q));
+		return "redirect:myQuestion.do";
 	}
 }
