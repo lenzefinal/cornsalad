@@ -27,7 +27,7 @@
 	
 
 	/*-------------구분선-------------------*/
-	.hEIXJa {border-top: 1px solid lightgray;margin: 1.5rem 0;height: 0;}
+	.hEIXJa {border-top: 1px solid lightgray;margin: 1.5rem auto;height: 0;max-width:1046px;}
 
 	/*------------썸네일 부분----------------------*/
 	a, a:hover {text-decoration: none;}
@@ -197,6 +197,8 @@
 	    text-align: center;
 	    background: #FCFCEF;
 	    border: 1px solid #F7D358;
+	    max-width:1014px;
+	    margin:auto;
 	}
 	#noticeSection p.title {
 	    margin-bottom: 8px;
@@ -563,3 +565,37 @@
 	    line-height: 9999px;
 	    vertical-align: middle;
 	}
+.con_menu_wrap{
+	max-width: 1046px;
+    margin: 23px auto;
+}
+.con_menu_wrap .tour_menu{
+	overflow: hidden;
+}
+.con_menu_wrap ul.tour_menu li {
+    width: 50%;
+    float: left;
+    height: 53px;
+    border: 1px solid #e6e6e6;
+    line-height: 53px;
+    border-right: 0;
+    text-align: center;
+    background: #fff;
+    box-sizing: border-box;
+}
+.con_menu_wrap ul li a {
+    color: #333;
+    font-size: 16px;
+    font-family: "Nanum Gothic R";
+    text-decoration: none !important;
+}
+.con_menu_wrap ul li.on {
+    color: #F7D358;
+    border-bottom: 3px solid #F7D358;
+}
+.con_menu_wrap ul li.on a {
+    color: #F7D358;
+}
+.con_menu_wrap ul li:last-child {
+    border-right: 1px solid #e6e6e6;
+}

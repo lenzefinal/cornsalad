@@ -235,8 +235,8 @@ public class AdminServiceImpl implements AdminService {
 
 	//프로젝트 카테고리별 검색
 	@Override
-	public List<AProject> searchCProejct(String cname) {
-		return adminDao.searchCProject(cname);
+	public List<AProject> searchCProejct(String project_category_name) {
+		return adminDao.searchCProject(project_category_name);
 	}
 	
 	

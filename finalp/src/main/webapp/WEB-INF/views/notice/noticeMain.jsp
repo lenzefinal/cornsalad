@@ -83,6 +83,7 @@ result-votes::before, .search-result-meta-count::before {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    /* background-image:; */
     background-color: #fff;
     color: #ddd;
     content: "\1F50D";
@@ -218,6 +219,8 @@ span#cdate{
  <c:import url="../header.jsp"/>
  
 <section class="section hero" style="margin-top:3%;">
+
+
   <div class="hero-inner">
     <h1 style="color:black;">무엇을 도와드릴까요?</h1>
     <div role="search" class="search search-full" data-instant="true" autocomplete="off">

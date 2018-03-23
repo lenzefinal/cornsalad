@@ -50,6 +50,6 @@ public interface AdminService {
 	List<AReport> searchReport(String report_category_name);
 	List<AMember> searchMember(String searchM);
 	List<Notice> searchNotice(String searchN);
-	List<AProject> searchCProejct(String cname);
+	List<AProject> searchCProejct(String project_category_name);
 	
 }

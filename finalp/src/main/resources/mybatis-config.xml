@@ -24,8 +24,8 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Report" alias="Report" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Likes" alias="Likes" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Question" alias="Question" />
+		<typeAlias type="com.devone.finalp.common.model.vo.ProjectReply" alias="ProjectReply"/>
 		<typeAlias type="com.devone.finalp.common.model.vo.QuestionCategory" alias="QuestionCategory" />
-		
 
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
@@ -36,6 +36,7 @@
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.HotListView" alias="HotListView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.LoginTimeView" alias="LoginTimeView"/>
 		<!-- <typeAlias type="com.devone.finalp.pdetail.model.vo.GiftListView" alias="GiftListView"/> -->
+		
 		
 		<typeAlias type="com.devone.finalp.admin.model.vo.AAlarm" alias="Aalarm" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Taboo" alias="Taboo" /> 

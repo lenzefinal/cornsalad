@@ -21,20 +21,37 @@
 		$("#flip").click(function() {
 			$("#panel").slideToggle("slow");
 		});
-
+		
+		
+		
 		$(".a1").click(function() {
+			var pic = $(".active");
+			pic.removeClass("active");
+			
+			$(this).parent().addClass("active");
+			
 			$(".project-store").show();
 			$(".supporter-tab").hide();
 			$(".comment-tab").hide();
 		});
 
 		$(".a2").click(function() {
+			var pic = $(".active");
+			pic.removeClass("active");
+			
+			$(this).parent().addClass("active");
+			
 			$(".project-store").hide();
 			$(".supporter-tab").hide();
 			$(".comment-tab").show();
 		});
 
 		$(".a4").click(function() {
+			var pic = $(".active");
+			pic.removeClass("active");
+			
+			$(this).parent().addClass("active");
+			
 			$(".project-store").hide();
 			$(".supporter-tab").show();
 			$(".comment-tab").hide();
@@ -48,6 +65,7 @@
 <c:import url="../header.jsp"/>
 
 <input type="hidden" id="member_id" value="${loginUser.member_id }">
+<input type="hidden" id="seller_id" valule="${ LoginTimeView.member_id }">
 
 	<div id="container" class="wd-layout-sub-content reward actionbar-hide">
 		<!-- S : 캠페인 액션바 -->
@@ -70,7 +88,7 @@
 			<ul class="tab-list">
 				<li class="active"><a class="tab-link a1">스토리</a></li>
 				<li><a class="tab-link a2">댓글 <span
-						class="count-total comment-total">142</span>
+						class="count-total comment-total">${fn:length(replylist)}</span>
 				</a></li>
 				<li><a class="tab-link a3">환불및 교환 <span class="count-total">2<i
 							class="icon-new"></i></span>
@@ -191,16 +209,7 @@
 													class="fVfxlF">${proview.member_name }</span>
 												</a>
 											</div>
-		 			<script>
-					$(document).ready(function(){
-						var min=$("#Min1").text();
-					
-						if(min=="0시간"){
-								$("#Min1").hide();
-						}
-					});
-					
-					</script> 
+		 			
 											<div class="dHxdxH"></div>
 											<div class="iiBGoJt">
 												<div>
@@ -551,6 +560,7 @@
 										참여가 이루어졌습니다.
 									</strong>
 									<ul class="support-list" style="list-style: none;">
+									
 									 <c:forEach var="suppoter" items="${SuppoterView}">
 										<li class="support-item showblock_1" id="0">
 											<figure>
@@ -575,155 +585,322 @@
 								<!-- 댓글 시작  -->
 								<div class="comment-tab" style="display: none">
 								
-									<p class="comment-num">댓글 <em class="comment-total">33</em></p>
+									<p class="comment-num">댓글 <em class="comment-total">${fn:length(replylist)}</em></p>
 									
 									<!-- 댓글 작성 버튼 loginUser 판단 -->
 									<div class="comment-write">
 										<div class="comment-create">
-											<button type="button" class="wz-btn gray large block">댓글 작성</button>
+											<c:if test="${ empty loginUser }">
+												<button type="button" class="wz-btn gray large block" onclick="alertify.alert('로그인을 해주세요');">댓글 작성</button>
+											</c:if>
+											<c:if test="${ !empty loginUser }">
+												<button type="button" class="wz-btn gray large block" onclick="$('.message-box-comment').show(); $(this).parent().hide();">댓글 작성</button>
+											</c:if>
 										</div>
 										
-										<div class="wz-message-box">
-											<p class="title">댓글 작성 유의사항</p>
-											<ul>
-												<li>펀딩 취소와 옵션 및 배송지 변경은 펀딩 기간(2018.02.28 ~ 2018.04.06)동안 
-													<a href="#">나의 펀딩현황</a>에서 가능합니다.
-												</li> 
-												<li>펀딩 기간 이후의 관련 문의 및 배송 문의는 
-													<a href="mailto:iarsn@iarsn.co.kr">admin@cornsalad.com</a>으로 문의해 주셔야 정확한 답변을 받을 수 있습니다.
-												</li> 
-												<li>서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.</li> 
-												<li>광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다.</li>
-											</ul>
-										</div>
-										
-										<div class="main-comment">
-											<textarea name="body" maxlength="2000" placeholder="후원자만 댓글을 입력할수있습니다." class="wz-textarea" style="overflow-y: hidden; resize: none;"></textarea> 
-											<div class="btn-wrap">
-												<button type="button" class="wz-btn primary">댓글 등록</button>
+										<div class="message-box-comment" style="display:none;">
+											<div class="wz-message-box">
+												<p class="title">댓글 작성 유의사항</p>
+												<ul>
+													<li>펀딩 취소와 옵션 및 배송지 변경은 펀딩 기간(${ proview.start_date } ~ ${ proview.end_date })동안 
+														<a href="#">나의 펀딩현황</a>에서 가능합니다.
+													</li> 
+													<li>펀딩 기간 이후의 관련 문의 및 배송 문의는 
+														<a href="mailto:iarsn@iarsn.co.kr">admin@cornsalad.com</a>으로 문의해 주셔야 정확한 답변을 받을 수 있습니다.
+													</li> 
+													<li>서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.</li> 
+													<li>광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다.</li>
+												</ul>
+											</div>
+											
+											<div class="main-comment">
+												<c:if test="${ suppoterFlag }">
+													<textarea name="reply_content" maxlength="2000" placeholder="후원자입니다. 댓글을 입력해주세요." class="wz-textarea replyZero" 
+														style="overflow-y: hidden; resize: none;"></textarea> 
+													<div class="btn-wrap">
+														<button type="button" class="wz-btn primary btnZero">댓글 등록</button>
+													</div>
+												</c:if>
+												<c:if test="${ !suppoterFlag  }">
+													<textarea name="reply_content" maxlength="2000" placeholder="후원자만 댓글을 입력할수있습니다." readonly class="wz-textarea" 
+														style="overflow-y: hidden; resize: none;"></textarea> 
+													<div class="btn-wrap">
+														<button type="button" class="wz-btn primary" disabled>댓글 등록</button>
+													</div>
+												</c:if>
 											</div>
 										</div>
 									</div>
 									
 									<div class="comment-box">
-									
-										<div class="comment-wrap">
-											<div class="comment-info">
-												<div class="comment-head">
-													<div class="user-picture"
-														style="background-image: url(&quot;https://www.wadiz.kr/wwwwadiz/green001/2018/0212/20180212181912993_343742.jpg&quot;);"></div>
-													<p class="user-name">
-														<a href="#">정남<!----></a>
-													</p>
-													<p class="date">2018.03.09 23:12</p>
-												</div>
-												<!---->
-												<!---->
-											</div>
-											<div class="comment-content">
-												<p>
-													친구공개로 되어있어있었네요^^;;.<br>전체공개로 수정 하였습니다!ㅎㅎ<br>열심히
-													홍보로 응원하겠습니다-!^^
-												</p>
-											</div>
-											<textarea name="body" rows="1" maxlength="2000"
-												placeholder="답글을 입력하려면 로그인이 필요합니다." class="wz-textarea"
-												style="overflow-y: hidden; resize: none; background: #ffff"></textarea>
-											<div class="comment-input-button">
-												<button type="button" disabled="disabled"
-													class="wz-btn dense gray">답글 등록</button>
-	
-											</div>
-										</div>
-											
-	
-										<div class="comment-reply">
-											<div class="comment-item reply">
+										<c:forEach var="reply" items="${ replylist }">
+											<c:if test="${ reply.reply_level eq 0 }">
 												<div class="comment-wrap">
 													<div class="comment-info">
 														<div class="comment-head">
 															<div class="user-picture"
-																style="background-image: url(&quot;https://cdn.wadiz.kr/wwwwadiz/green002/2018/0225/20180225195501603_17013.jpg/wadiz/resize/92x92/format/jpg/quality/95/optimize&quot;);"></div>
+																style="background-image: url('/finalp/resources/images/mypageProfiles/${ reply.profile_img_rename }');"></div>
 															<p class="user-name">
-																<a href="#">FASHARE(파쉐어)<em class="maker">메이커</em></a>
+																<a href="#"><strong>${ reply.member_name }</strong></a>
 															</p>
-															<p class="date">2018.03.10 17:48</p>
+															<p class="date">${ reply.creation_date }</p>
 														</div>
-														<!---->
-														<!---->
 													</div>
 													<div class="comment-content">
-														<p>안녕하세요 정남 서포터님! 응원 감사드립니다!! 댓글 한번더 남겨주셔서 감사합니다
-															확인하였습니다 관심 많이 가져주셔서 정말 감사드립니다. 스멜탄과 함께 쾌적한 하루 하루 되세요! :)</p>
+														<p>${ reply.reply_content }</p>
 													</div>
-													<div class="comment-bottom">
-														<!---->
+													
+													<c:if test="${ empty loginUser }">
+														<textarea name="reply_content" readonly rows="1" maxlength="2000"
+															placeholder="답글을 입력하려면 로그인이 필요합니다." class="wz-textarea"
+															style="overflow-y: hidden; resize: none;"></textarea>
+														<div class="comment-input-button">
+															<button type="button" disabled
+																class="wz-btn dense" style="font-size:14px;">답글 등록</button>
+														</div>
+													</c:if>
+													<c:if test="${ !empty loginUser }">
+														<c:if test="${ suppoterFlag }">
+															<textarea name="reply_content" rows="1" maxlength="2000" 
+															class="wz-textarea replyOne" placeholder="후원자입니다. 답글을 입력하세요." 
+															style="overflow-y: hidden; resize: none; background: #ffff"></textarea>
+															<input type="hidden" id="proj_reply_id_ref" value="${ reply.project_reply_id }">
+															<div class="comment-input-button">
+																<button type="button" 
+																	class="wz-btn dense btnOne" style="font-size:14px;">답글 등록</button>
+															</div>
+														</c:if>
+														<c:if test="${ !suppoterFlag }">
+															<textarea name="reply_content" rows="1" maxlength="2000" 
+															class="wz-textarea" placeholder="후원자만 답글을 달 수 있습니다." readonly
+															style="overflow-y: hidden; resize: none; background: #ffff"></textarea>
+															<div class="comment-input-button">
+																<button type="button" 
+																	class="wz-btn dense" disabled style="font-size:14px;">답글 등록</button>
+															</div>
+														</c:if>
+													</c:if>
+													
+												</div>
+											</c:if>	
+											
+											<c:if test="${ reply.reply_level eq 1 }">
+												<div class="comment-reply">
+													<div class="comment-item reply">
+														<div class="comment-wrap">
+															<div class="comment-info">
+																<div class="comment-head">
+																	<div class="user-picture"
+																		style="background-image: url('/finalp/resources/images/mypageProfiles/${ reply.profile_img_rename }');"></div>
+																	<p class="user-name">
+																		<a href="#"><strong>${ reply.member_name }</strong>
+																			<c:if test="${ reply.member_id eq LoginTimeView.member_id }">
+																				<em class="maker">메이커</em>
+																			</c:if>
+																		</a>
+																	</p>
+																	<p class="date">${ reply.creation_date }</p>
+																</div>
+															</div>
+															<div class="comment-content">
+																<p>${ reply.reply_content }</p>
+															</div>
+															<div class="comment-bottom">
+																<!---->
+															</div>
+														</div>
 													</div>
 												</div>
-												<!---->
-											</div>
-											<!---->
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 								<!--댓글 끝    -->
+								<script type="text/javascript">
+									$(document).ready(function(){
+										var min=$("#Min1").text();
+									
+										if(min=="0시간"){
+												$("#Min1").hide();
+										}
+										
+										var member_id=$("#member_id").val();
+										var project_id=${ proview.project_id };
+										
+										$(document).on("click",".btnOne",function(){
+											
+											$.ajax({
+												url:"insertReplyOne.do",
+												data:{reply_content:$(this).parent().prev().prev().val(),
+													  member_id:member_id,
+													  project_id:project_id,
+													  proj_reply_id_ref:$(this).parent().prev().val()},
+												type:"post",
+												dataType:"json",
+												success:function(data){
+													console.log("성공");
+													$(".replyOne").val("");
+													listHtml(data);
+												}
+											});
+										})
+										
+										$(document).on("click",".btnZero",function(){
+											console.log(member_id+" "+project_id);
+											
+											$.ajax({
+												url:"insertReplyZero.do",
+												data:{reply_content:$(".replyZero").val(),
+													  member_id:member_id,
+													  project_id:project_id},
+												type:"post",
+												dataType:"json",
+												success:function(data){
+													console.log("성공");
+													
+													$(".main-comment .replyZero").val("");
+													listHtml(data);
+												}
+											});
+										});
+										
+										function listHtml(data){
+											var jsonStr = JSON.stringify(data);
+											var json = JSON.parse(jsonStr);
+											
+											var values="";
+											
+											var commentCount = 0;
+											
+											for(var i in json.replylist){
+												
+												if(json.replylist[i].reply_level == 0){
+													values+='<div class="comment-wrap">'+
+																'<div class="comment-info">'+
+																	'<div class="comment-head">'+
+																		'<div class="user-picture" style="background-image: url(/finalp/resources/images/mypageProfiles/'+decodeURIComponent(json.replylist[i].profile_img_rename)+');"></div>'+
+																		'<p class="user-name">'+
+																			'<a href="#"><strong>'+decodeURIComponent(json.replylist[i].member_name.replace(/\+/g," "))+'</strong></a></p>'+
+																		'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
+																'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>';
+													
+													if($("#member_id").val() === "" ){
+														values+='<textarea name="reply_content" readonly rows="1" maxlength="2000" '+
+																'placeholder="답글을 입력하려면 로그인이 필요합니다." class="wz-textarea" '+
+																'style="overflow-y: hidden; resize: none;"></textarea>'+
+																'<div class="comment-input-button">'+
+																	'<button type="button" disabled '+
+																		'class="wz-btn dense" style="font-size:14px;">답글 등록</button></div>';
+													}else{
+														if(${suppoterFlag}){
+															values+='<textarea name="reply_content" rows="1" maxlength="2000" '+
+																	'class="wz-textarea replyOne" placeholder="후원자입니다. 답글을 입력하세요." '+
+																	'style="overflow-y: hidden; resize: none; background: #ffff"></textarea>'+
+																	'<input type="hidden" id="proj_reply_id_ref" value='+json.replylist[i].project_reply_id+'>'+
+																	'<div class="comment-input-button">'+
+																		'<button type="button" '+
+																			'class="wz-btn dense btnOne" style="font-size:14px;">답글 등록</button></div>';
+														}else{
+															values+='<textarea name="reply_content" rows="1" maxlength="2000" '+
+																	'class="wz-textarea" placeholder="후원자만 답글을 달 수 있습니다." readonly '+
+																	'style="overflow-y: hidden; resize: none; background: #ffff"></textarea>'+
+																	'<div class="comment-input-button">'+
+																		'<button type="button" '+
+																			'class="wz-btn dense" disabled style="font-size:14px;">답글 등록</button></div>';
+														}
+													}
+													values+='</div>';
+												}else if(json.replylist[i].reply_level == 1){
+													values+='<div class="comment-reply">'+
+															'<div class="comment-item reply">'+
+																'<div class="comment-wrap">'+
+																	'<div class="comment-info">'+
+																		'<div class="comment-head">'+
+																			'<div class="user-picture" '+
+																				'style="background-image: url(/finalp/resources/images/mypageProfiles/'+decodeURIComponent(json.replylist[i].profile_img_rename)+');"></div>'+
+																			'<p class="user-name">'+
+																				'<a href="#"><strong>'+decodeURIComponent(json.replylist[i].member_name.replace(/\+/g," "))+'</strong>';
+																					if(json.replylist[i].member_id === $("#seller_id").val()){
+																						values+='<em class="maker">메이커</em>';
+																					}
+																						
+																		values+='</a></p>'+
+																			'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
+																	'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>'+
+																	'<div class="comment-bottom"></div></div></div></div>';
+												}
+												
+												commentCount = commentCount+1;
+											}
+											
+											$(".comment-box").html(values);
+											
+											
+											$(".comment-total").html(commentCount);
+										}
+										
+									});
+								</script>
 								
-						</div>
-					</div>
-
-					<!-- Modal -->
-					<link href="/finalp/resources/css/modalcss/blacklistModal.css"
-						rel="stylesheet">
-					<div class="modal fade" id="blacklist-modal" tabindex="-1"
-						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-						style="display: none; z-index: 9999;">
-						<div class="modal-dialog">
-							<div class="blacklist-container">
-								<a data-dismiss="modal"
-									style="margin-left: 90%; max-width: 500px;"><i
-									class="xi-close-thin xi-2x"></i></a>
-								<h1>프로젝트 신고하기</h1>
-								<br>
-								<form action="reportProject.do" method="post">
-									<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
-										<input type="text" value="${ loginUser.member_name}">
-										 <input type="hidden" name="project_id" value="${ proview.project_id}"> 
-										 	<input type="text"	value="">
-									<textarea name="report_reason" placeholder="신고사유"></textarea>
-									<input type="submit" class="blacklist blacklist-submit"
-										value="신고하기">
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div class="modal fade" id="contact" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true"
-						style="display: none; z-index: 9999;">
-						<div class="modal-dialog">
-							<div class="blacklist-container">
-								<a data-dismiss="modal"
-									style="margin-left: 90%; max-width: 500px;"><i
-									class="xi-close-thin xi-2x"></i></a>
-								<h1>창작자에게 문의하기</h1>
-								<br>
-								<form action="insertQuestion.do" method="post">
-										<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
-										<input type="text"  value="${ loginUser.member_name}"> 
-										<input type="hidden" name="project_id" value="${ likes.project_id} ">
-										<input type="text" name="title" value="">
-										<textarea name="content" placeholder="문의 내용"></textarea>
-
-									<input type="submit" class="blacklist blacklist-submit"
-										value="문의하기">
-								</form>
-							</div>
+								
+								
+								
+								
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+	
+	<!-- Modal -->
+	<link href="/finalp/resources/css/modalcss/blacklistModal.css" rel="stylesheet">
+	<div class="modal fade" id="blacklist-modal" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none; z-index: 9999;">
+		<div class="modal-dialog">
+			<div class="blacklist-container">
+				<a data-dismiss="modal"
+					style="margin-left: 90%; max-width: 500px;"><i
+					class="xi-close-thin xi-2x"></i></a>
+				<h1>프로젝트 신고하기</h1>
+				<br>
+				<form action="reportProject.do" method="post">
+					<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
+						<input type="text" value="${ loginUser.member_name}">
+						 <input type="hidden" name="project_id" value="${ proview.project_id}"> 
+						 	<input type="text"	value="">
+					<textarea name="report_reason" placeholder="신고사유"></textarea>
+					<input type="submit" class="blacklist blacklist-submit"
+						value="신고하기">
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="contact" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none; z-index: 9999;">
+		<div class="modal-dialog">
+			<div class="blacklist-container">
+				<a data-dismiss="modal"
+					style="margin-left: 90%; max-width: 500px;"><i
+					class="xi-close-thin xi-2x"></i></a>
+				<h1>창작자에게 문의하기</h1>
+				<br>
+				<form action="insertQuestion.do" method="post">
+						<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
+						<input type="text"  value="${ loginUser.member_name}"> 
+						<input type="hidden" name="project_id" value="${ likes.project_id} ">
+						<input type="text" name="title" value="">
+						<textarea name="content" placeholder="문의 내용"></textarea>
+
+					<input type="submit" class="blacklist blacklist-submit"
+						value="문의하기">
+				</form>
+			</div>
+		</div>
 	</div>
 
 </body>

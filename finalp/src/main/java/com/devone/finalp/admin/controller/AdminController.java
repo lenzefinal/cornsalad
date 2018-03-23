@@ -287,7 +287,6 @@ public class AdminController {
 		}else {
 			job.put("receive_creation_date", question.getReceive_creation_date());
 		}
-		
 
 		return job.toJSONString();
 	}
@@ -337,7 +336,7 @@ public class AdminController {
 	@RequestMapping("adminTabooIn.do")
 	public String insertTaboo(Taboo taboo) {
 		adminService.insertTaboo(taboo);
-		return "redirect:adminTaboo.do";
+		return "redirect:adminReport.do";
 	}
 
 	//관리자 신고글리스트
@@ -574,9 +573,15 @@ public class AdminController {
 	//프로젝트 카테고리별 검색
 	@RequestMapping(value="searchCProject.do", method=RequestMethod.POST)
 	public void searchCProject(HttpServletResponse response,
-			@RequestParam(value="cname") String cname) throws IOException {
-		List<AProject> splist=adminService.searchCProejct(cname);
+			@RequestParam(value="cname") String project_category_name) throws IOException {
+		List<AProject> splist = null;
+		if(project_category_name.equals("all")) {
+			splist=adminService.selectProjectList();
+		}else {
+			splist=adminService.searchCProejct(project_category_name);
+		}
 		
+		System.out.print(project_category_name);
 		JSONObject sendjson=new JSONObject();
 		JSONArray jarr=new JSONArray();
 		
@@ -597,6 +602,7 @@ public class AdminController {
 			jproj.put("end_date",aproj.getEnd_date().toString().trim());
 			jproj.put("spon",aproj.getSpon());
 			jproj.put("ing_flag",aproj.getIng_flag());
+			jproj.put("refund_flag",aproj.getRefund_flag());
 			
 			jarr.add(jproj);
 		}

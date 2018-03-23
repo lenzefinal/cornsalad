@@ -165,8 +165,8 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.searchNotice", searchN);
 	}
 
-	public List<AProject> searchCProject(String cname) {
-		return mybatis.selectList("adminmapper.searchCProject", cname);
+	public List<AProject> searchCProject(String project_category_name) {
+		return mybatis.selectList("adminmapper.searchCProject", project_category_name);
 	}
 	
 
