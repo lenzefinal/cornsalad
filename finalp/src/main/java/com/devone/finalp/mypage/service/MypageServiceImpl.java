@@ -173,6 +173,7 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int receiveQ(MyQuestion q) {
 		// TODO Auto-generated method stub
+		System.out.println("서비스 "+q);
 		return mypageDao.receiveQ(q);
 	}
 }

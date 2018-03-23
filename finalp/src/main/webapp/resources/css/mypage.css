@@ -118,7 +118,7 @@ div {
 .section_home .column {
 	float: left;
 	width: 50%;
-	overflow: auto;
+	overflow: hidden;
 }
 
 .section_home .column+.column {
@@ -214,7 +214,7 @@ a {
 .sh_lst .nic_desc {
 	font-size: 14px;
 	line-height: 21px;
-	margin-top: 8px;
+	margin-top: 4%;
 	letter-spacing: -1px;
 	color: #666;
 }

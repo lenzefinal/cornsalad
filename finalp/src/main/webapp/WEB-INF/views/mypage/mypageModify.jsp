@@ -280,7 +280,7 @@
 						<input class="upload-name" value="파일선택" disabled type="hidden"> <br>
 						<label class="upImg" for="ex_filename"><b>업로드</b></label> 
 						<input type="file" id="ex_filename" name="memberProfile" accept="image/*" class="upload-hidden" onchange="imgModify(this)"> 
-						<label for="basicImg" onclick="basicImg()" class="basicImg"><b>기본 이미지</b></label>
+						<label for="basicImg" onclick="basicImg()" class="basicImg"><b style="font-size:13px;">기본 프로필</b></label>
 					</div>
 				</div>
 			</div>	
@@ -297,7 +297,7 @@
 					<dd><input type="tel" name="phone" maxlength="16" value="${member.phone }"></dd>
 					<dt><b>E-mail</b></dt>
 					<dd><input type="email" name="email" value="${member.email }"/>
-					<dt><b>은행명</b></dt>
+					<%-- <dt><b>은행명</b></dt>
 						<select style="margin-bottom:5%; height:30px;" name="bank_id">
 							<c:forEach var="bank" items="${bank}">
 								<option value="${bank.bank_id }" ${account.bank_id eq bank.bank_id ? 'selected="selected"' : '' }>${bank.bank_name }
@@ -305,7 +305,7 @@
 							</c:forEach>
 						</select>
 					<dt><b>계좌번호</b></dt>
-					<dd><input type="text" style="height:20px;" name="account_number" value="${account.account_number }"></dd>
+					<dd><input type="text" style="height:20px;" name="account_number" value="${account.account_number }"></dd> --%>
 					<dt><b>주소</b></dt>
 					<input type="text" id="sample3_postcode" placeholder="우편번호" class="d_form mini" name="address_num" value="${member.address_num }"> -
 					<input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기" class="d_btn"><br>

@@ -50,6 +50,7 @@ public class MypageController {
 		model.addAttribute("lprojectCount", mypageService.lprojectCount(member_id));
 		model.addAttribute("lproductCount", mypageService.lproductCount(member_id));
 		model.addAttribute("pproductCount", mypageService.pproductCount(member_id));
+		System.out.println(member);
 
 		return "mypage/mypageIndex";
 	}
@@ -60,8 +61,8 @@ public class MypageController {
 		System.out.println("정보 수정 Form");
 		model.addAttribute("member", mypageService.selectMember(member));
 		System.out.println("수정폼 " + member);
-		model.addAttribute("bank", mypageService.bankList());
-		model.addAttribute("account", mypageService.selectAccount(account));
+		/*model.addAttribute("bank", mypageService.bankList());
+		model.addAttribute("account", mypageService.selectAccount(account));*/
 		return "mypage/mypageModify";
 	}
 
@@ -170,7 +171,7 @@ public class MypageController {
 			}
 		}
 		mypageService.memberModify(member);
-		mypageService.accountModify(account);
+		/*mypageService.accountModify(account);*/
 		System.out.println("수정: " + member);
 		System.out.println("account:" + account);
 
@@ -565,19 +566,21 @@ public class MypageController {
 		model.addAttribute(mypageService.insertQuestion(q));
 		return "redirect:myQuestion.do?send_member_id=" + q.getSend_member_id();
 	}
-
+	// 답변 폼
 	@RequestMapping(value="receiveQForm.do", method=RequestMethod.POST)
 	public void receiveForm(MyQuestion q, HttpServletResponse response,
 			@RequestParam(value = "question_id") int questionid) throws IOException {
 		response.setContentType("application/json; charset=utf-8");
 		q = mypageService.rmyQdetail(questionid);
 		JSONObject json = new JSONObject();
-
+		
+		json.put("question_id", q.getQuestion_id());
 		json.put("title", q.getTitle());
 		json.put("send_member_id", q.getSend_member_id());
 		json.put("content", q.getContent());
 		json.put("send_creation_date", q.getSend_creation_date().toString());
 		json.put("re_content", q.getRe_content());
+		json.put("receive_member_id", q.getReceive_member_id());
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
@@ -589,7 +592,9 @@ public class MypageController {
 	@RequestMapping(value="receiveQ.do", method=RequestMethod.POST)
 	public String receiveQ(MyQuestion q, Model model) {
 		System.out.println("문의 답변 작성");
-		mypageService.receiveQ(q);
+		System.out.println(q);
+		int result=mypageService.receiveQ(q);
+		System.out.println(result);
 		
 		return "redirect:myRQuestion.do?receive_member_id="+q.getReceive_member_id();
 	}

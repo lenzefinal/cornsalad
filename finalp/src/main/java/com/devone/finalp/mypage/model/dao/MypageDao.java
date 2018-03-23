@@ -163,6 +163,7 @@ public class MypageDao {
 
 	public int receiveQ(MyQuestion q) {
 		// TODO Auto-generated method stub
+		System.out.println("dao "+q);
 		return mybatis.update("mystatusmapper.receiveQ", q);
 	}
 }

@@ -205,7 +205,7 @@
 	<update id="receiveQ" parameterType="MyQuestion">
 		<![CDATA[
 			update question set receive_creation_date=sysdate, receive_member_id=#{receive_member_id}, re_content=#{re_content}
-			where question_id={#question_id}
+			where question_id=#{question_id}
 		]]>
 	</update>
 </mapper>

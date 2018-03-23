@@ -95,7 +95,7 @@
 					<c:forEach var="qlist" items="${ question }">
 					<tr>
 						<td style="border-right:0.5px solid silver;">
-						<a href="" onclick="qbtn(${qlist.question_id})" data-toggle="modal" data-target="#myQ" style="text-decoration:underline;">
+						<a href="" onclick="qbtn(${qlist.question_id})" data-toggle="modal" data-target="#myQ" style="text-decoration:underline; color:black;">
 						${qlist.title }</a>
 						</td>
 						<c:if test="${qlist.receive_member_id eq 'admin' }">
@@ -109,7 +109,7 @@
 						<td style="width:16%">답변이 아직..</td>
 						</c:if>
 						<c:if test="${not empty qlist.re_content }">
-						<td style="width:16%"><button class="btn" data-toggle="modal" data-target="#rqdetail" onclick="rqbtn(${qlist.question_id})">답변</button></td>
+						<td style="width:16%"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#rqdetail" onclick="rqbtn(${qlist.question_id})">답변</button></td>
 						</c:if>
 					</tr>
 					</c:forEach>
