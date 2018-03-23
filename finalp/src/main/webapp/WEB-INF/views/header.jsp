@@ -758,7 +758,7 @@
 </div> -->
 <c:if test="${loginUser.member_id ne 'admin' and not empty loginUser.member_id }">
 <div>
-<div style="margin-left:93%; margin-top:38%; position:absolute; height:100px; width:100px;" id="question">
+<div style="margin-left:93%; margin-top:35%; position:absolute; height:100px; width:100px;" id="question">
 	<label for="insertQ">
 	<img src="resources/images/question.png" data-toggle="modal" data-target="#insertQ" style="height:95px; width:95px; border-radius:30%"/>
 	</label>
@@ -814,7 +814,7 @@
          <h4 class="modal-title">관리자에게 문의하기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body" id="qudemo">
+        <div class="modal-body" id="qinsert">
    		<form action="qInsert.do" method="post">
 				<input id="rmember_id" type="hidden" name="receive_member_id" value="admin"/>
 				<input type="hidden" name="question_category_id" value="Q-ADMIN"/>
