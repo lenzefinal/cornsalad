@@ -33,6 +33,7 @@
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.SuppoterView" alias="SuppoterView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.HotListView" alias="HotListView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.LoginTimeView" alias="LoginTimeView"/>
+		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftListView" alias="GiftListView"/>
 		
 		<typeAlias type="com.devone.finalp.admin.model.vo.AAlarm" alias="Aalarm" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Taboo" alias="Taboo" /> 
