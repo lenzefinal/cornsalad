@@ -17,7 +17,6 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
-import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
@@ -81,10 +80,6 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public List<GiftListView> selectGlist(String project_id) {
 		
 		return detailviewDao.selectGlist(project_id);
-	}
-	public List<SellCountView> selectSellCount(String project_id) {
-		
-		return detailviewDao.selectSellCount(project_id);
 	}
 	@Override
 	public List<ReplyView> selectReplyList(String project_id) {

@@ -30,7 +30,6 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
-import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
@@ -62,11 +61,9 @@ public class DetailViewController {
 //		판매자의 로그인 시간 알아옴
 		loginTime.setMember_id(project.getMember_id());
 //		프로젝트 아이디에 있는 giftList받아옴
-		List<GiftListView> Glist=detailviewService.selectGlist(project_id);
+		List<GiftListView> glist=detailviewService.selectGlist(project_id);
 //      프로젝트 아이디에 있는 전체 아이템 리스트 받아옴
 		List<GiftView> giftlist=detailviewService.selectGiftList(project_id);
-//     	프로젝트에 있는 선물 구성 남은 개수 알앙옴	
-		List<SellCountView> sellCount=detailviewService.selectSellCount(project_id);
 		
 
 		
@@ -86,24 +83,18 @@ public class DetailViewController {
 		LoginTimeView logintime=detailviewService.selectloginTime(loginTime);
 //      진행한 프로젝트 갯수 알아오기
 		int count =detailviewService.selectcount(project.getMember_id());
-		System.out.println(sellCount);
 		
 		model.addAttribute("LoginTimeView", logintime);
 		model.addAttribute("proview", proview);
 		model.addAttribute("hotlist", list);
-		model.addAttribute("Glist", Glist); 
+		model.addAttribute("glist", glist); 
 		model.addAttribute("giftlist", giftlist);
 		model.addAttribute("replylist", detailviewService.selectReplyList(project_id));
 		model.addAttribute("suppoterFlag", suppoterFlag);
-//		model.addAttribute("giftlist", list1); 
 		model.addAttribute("like", like);
 		model.addAttribute("likes", likes);	
 		model.addAttribute("count", count);
 		model.addAttribute("SuppoterView", suppoter);
-		model.addAttribute("sellCount", sellCount);
-		
-
-
 		
 		return "project/projectDetailView";
 	}

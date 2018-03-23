@@ -768,6 +768,7 @@ button * {
 	background: #f6ecfe;
 }
 
+
 .rightinfo-reward-list .reward-soldcount {
 	font-size: 12px;
 	line-height: 21px;
@@ -775,7 +776,7 @@ button * {
 }
 
 .hover-text {
-	display: block;
+	display: none;
 	position: absolute;
 	top: 50%;
 	margin-top: -25px;
@@ -876,6 +877,9 @@ button * {
 .rightinfo-reward-list.soldout {
 	background: #263441;
 }
+
+
+
 /* ***************좌측**************** */
 .reward .wd-ui-sub-opener-info .project-report-mobile {
 	margin-top: 20px;
@@ -1143,9 +1147,7 @@ li {
 		padding: 0 30px;
 	}
 }
-.project-store img{
-	max-width:100%;
-}
+
 
 
 /* 댓글  */
@@ -1227,3 +1229,16 @@ li {
     left: 12px;
     top: 19px;
 }
+
+.project-store img{
+	max-width:100%;
+}
+
+button.soldout:hover .soldouttext{
+		display:block;
+	
+}
+button.ing:hover .ingtext{
+		display:block;
+}
+

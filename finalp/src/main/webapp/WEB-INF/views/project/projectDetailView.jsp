@@ -124,285 +124,175 @@
 									<strong>471</strong>명의 서포터
 								</p>
 							</div>
+							
 							<div class="btn-wrap funding">
 								<button onclick="location.href='account.do'"
 									class="wz-btn primary large block">펀딩하기</button>
 							</div>
 									
-									<c:if test="${empty loginUser}">
-										<button id="btnLike1" class="cam	paign-like btn-like"
-										style="width: 100%">
-											<img src="resources/images/icon/love1.png"
-												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
-												class="cnt-like">${ like}</em>
-										</button>
-									</c:if>
+							<c:if test="${empty loginUser}">
+								<button id="btnLike1" class="cam	paign-like btn-like"
+								style="width: 100%">
+									<img src="resources/images/icon/love1.png"
+										id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
+										class="cnt-like">${ like}</em>
+								</button>
+							</c:if>
 							
-
-								<div class="btn-wrap share">
-									<c:if test="${not empty loginUser}">
-										<button id="btnLike" class="campaign-like btn-like"
-										style="width: 100%">	
-											<c:if test="${not empty likes}">
-												<img src="resources/images/icon/love2.png"
-												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
-												class="cnt-like">${ like}</em>
-											</c:if>
-											<c:if test="${empty likes}">
-												<img src="resources/images/icon/love1.png"
-												id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
-												class="cnt-like">${ like}</em>
-											</c:if>
-											</button>
-									</c:if>
-								
-								
-								<script>
-									$(document).ready(function(){
-										$("#btnLike1").on("click",function(){
-											alert("로그인해주세요");
-										});				
-										var member_id=$("#member_id").val();
-										var project_id=${ proview.project_id};
-										$("#btnLike").on("click",function(){
-											$.ajax({
-												url:"Like.do",
-												type:"post",
-												dataType:"json",
-												data:{project_id: project_id,
-													  member_id: member_id},
-												success:function(data){
-													if(data.result==="add"){
-														console.log("add");
-														$("#like1").attr("src","resources/images/icon/love2.png");
-														$("#cntLike").text(data.like);
-													}else{
-														console.log("delete");
-														$("#like1").attr("src","resources/images/icon/love1.png");
-														$("#cntLike").text(data.like);
-													}
-												}
-												
-											});
-										});
-										
-											
-											
-									});
-			</script>
-								
+							<div class="btn-wrap share">
+								<c:if test="${not empty loginUser}">
+									<button id="btnLike" class="campaign-like btn-like"
+									style="width: 100%">	
+										<c:if test="${not empty likes}">
+											<img src="resources/images/icon/love2.png"
+											id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
+											class="cnt-like">${ like}</em>
+										</c:if>
+										<c:if test="${empty likes}">
+											<img src="resources/images/icon/love1.png"
+											id="like1" style="width: 10%; size: 10%;"> <em id="cntLike"
+											class="cnt-like">${ like}</em>
+										</c:if>
+										</button>
+								</c:if>
+						
 								<div id="shareSection" class="share-section">
 									
 								</div>
 							</div>
 
-							<div class="banner-section-RB2">
-								<a
-									href="https://www.wadiz.kr/web/wboard/newsBoardDetail/4600?headWordId=2&amp;cPage=1&amp;_refer_section_st=RB2_0"
-									class="banner-coupon">
-									<div class="bJXRvz">
-										<div class="cBbkfc">
-											<div class="fuCNpE">창작자 소개</div>
-											<div class="eYscdN">
-												<span class="ilGdVJ"></span> <a
-													href="/u/donipisepozodachi/projects"> <span
-													class="fVfxlF">${proview.member_name }</span>
-												</a>
-											</div>
-		 			
-											<div class="dHxdxH"></div>
-											<div class="iiBGoJt">
-												<div>
-													<!-- react-text: 598 -->
-													마지막 로그인&nbsp;&nbsp;
-													<!-- /react-text -->
-													<b id="Min1">${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
-												</div>
-												<!-- react-text: 600 -->
-												진행한 프로젝트&nbsp;&nbsp;
+							<div class="bJXRvz">
+								<div class="cBbkfc">
+									<div class="fuCNpE">창작자 소개</div>
+										<div class="eYscdN">
+											<span class="ilGdVJ"></span> 
+											<a href="#"><span class="fVfxlF">${proview.member_name }</span></a>
+										</div>
+		 								<div class="dHxdxH"></div>
+										<div class="iiBGoJt">
+											<div>
+												<!-- react-text: 598 -->
+												마지막 로그인&nbsp;&nbsp;
 												<!-- /react-text -->
-												<b>${count}</b>
-												<!-- react-text: 602 -->
-												&nbsp;&nbsp;&nbsp;&nbsp; 밀어준 프로젝트&nbsp;&nbsp;
+												<b id="Min1">${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
+											</div>
+											<!-- react-text: 600 -->
+											진행한 프로젝트&nbsp;&nbsp;
+											<!-- /react-text -->
+											<b>${count}</b>
+											<!-- react-text: 602 -->
+											&nbsp;&nbsp;&nbsp;&nbsp; 밀어준 프로젝트&nbsp;&nbsp;
+											<!-- /react-text -->
+											<b>0</b>
+										</div>
+										<div class="khYIRi">
+											<button class="dxWcyc" data-toggle="modal"
+												data-target="#contact">
+												<img src="resources/images/icon/메일이메일.png" width="15px"
+													width="10px"
+													style="margin-right: 2px; margin-bottom: -4px;"> <i
+													class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												창작자에게 문의하기
 												<!-- /react-text -->
-												<b>0</b>
-											</div>
-											<div class="khYIRi">
-												<button class="dxWcyc" data-toggle="modal"
-													data-target="#contact">
-													<img src="resources/images/icon/메일이메일.png" width="15px"
-														width="10px"
-														style="margin-right: 2px; margin-bottom: -4px;"> <i
-														class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													창작자에게 문의하기
-													<!-- /react-text -->
-												</button>
-											</div>
-										</div>
-									</div> <!-- E : 프로젝트 위험 요인과 해결 방안  --> <!-- S : 프로젝트 신고하기 모바일 -->
-
-									<div class="wz-message-box project-report-mobile">
-										<p class="title">신고하기란?</p>
-										<p>
-											해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
-										</p>
-
-										<button type="button" class="btn btn-primary"
-											data-toggle="modal" data-target="#blacklist-modal"
-											style="width: 100%;">프로젝트 신고하기</button>
-									</div> <!-- E : 프로젝트 신고하기 --> <!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
-									<div id="campaign-rewards"
-										style="position: relative; top: -50px"></div>
-									<div class="moveRewards">
-										<div class="wd-ui-gift">
-											<h3 class="project-right-title">리워드 선택</h3>
-											<c:forEach var="Glist" items="${Glist }">
- 												
-											
-														<button class="rightinfo-reward-list  ing"
-															onclick="backMoney('26841', 'false')">
-															<div class="top-info">
-																<dl class="reward-info">
-																	<dt>${Glist.support_price}원 펀딩</dt>
-																	<dd>
-																		<c:forEach var="giftlist" items="${giftlist }">
-																		<c:if test="${giftlist.gift_id eq Glist.gift_id }">
-																		
-																			${giftlist.item_name }&nbsp; ${giftlist.count }개<br>
-																		
-																		</c:if>
-																		</c:forEach>
-																		
-																		
-																	</dd>
-																</dl>
-																<ul class="data-info">
-																	<li class="shipping"
-																		style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-																	<li class="date" style="width: 100%;">리워드 발송 시작일 <em>${Glist.payment_date } 예정</em>
-																	</li>
-																</ul>
-															
-																<p class="reward-qty">
-																	제한수량 <strong>${Glist.capacity }</strong>개 &nbsp; <em>현재 ${Glist.capacity},${sellcount.sum_count }개 남음!</em>
-																</p>
-																<p class="reward-soldcount">
-																	총 <strong>${sellcount.sum_count }</strong>개 펀딩완료
-																</p>
-															</div>
-															<p class="hover-text">이 리워드 펀딩하기</p>
-														
-														</button>
-														
-														
-													
-														
-														
-<%-- 														<button class="rightinfo-reward-list soldout ing"
-															onclick="backMoney('26839', 'true')">
-															<div class="top-info">
-																<dl class="reward-info">
-																	<dt>${giftlist.support_price }원 펀딩</dt>
-																	<dd>
-																		
-																		<p>
-																			<br>${giftlist.item_name }&nbsp; ${giftlist.count } set<br>
-																		</p>
-																	</dd>
-																</dl>
-																<ul class="data-info">
-																	<li class="shipping"
-																		style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-																	<li class="date" style="width: 100%;">리워드 발송 시작일 <em>${giftlist.payment_date } 예정</em>
-																	</li>
-																</ul>
-			
-																<p class="reward-qty soldout">
-																	<em>제한수량이 모두 펀딩되었습니다.</em>
-																</p>
-																<p class="reward-soldcount">
-																	총 <strong>100</strong>개 펀딩완료
-																</p>
-			
-			
-															</div>
-			
-															<p class="hover-text soldout">
-																제한수량이<br>모두 펀딩되었습니다.
-															</p>
-			
-														</button> --%>
-													</c:forEach> 	
-													
-													
-												
-											
-
-
-										</div>
-									</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> <!-- S : 인기 프로젝트 리스트 -->
-									<div id="normalpane" class="recommend-box-container stoped">
-
-										<div id="fixed-funding-btn" class="fixed-funding-btn">
-											<button onclick="backMoney('backing', 'false');"
-												class="wz-btn primary large block">이 프로젝트 펀딩하기</button>
-										</div>
-
-
-										<!-- S : 프로젝트 신고하기 -->
-										<!-- E : 프로젝트 신고하기 -->
-
-										<div class="recommend-box">
-											<h3 class="title">인기 프로젝트</h3>
-											<c:set var="count" value="1"/>
-											<c:forEach var="hot" items="${hotlist}">
-											
-												<div class="item">
-													<div class="number">${count}</div>
-													<div class="text">
-														<a>${hot.project_name }</a>
-													</div>
-												</div>
-												<c:set var ="count" value="${count+1}"/>
-											</c:forEach> 
-
-
+											</button>
 										</div>
 									</div>
-									<!-- E : 인기 프로젝트 리스트 --> <!-- S : 프로젝트 신고 팝업 --> <!-- S : 리턴 폼 -->
-									<form action="/web/waccount/wAccountLogin" id="returnForm"
-										method="get" novalidate="novalidate">
-										<input type="hidden" id="returnURL" name="returnURL">
-									</form> <!-- E : 리턴 폼 --> <!-- S : 인증 확인 모달 -->
-									<div id="authMailLypop" class="lypop-fixed"
-										style="display: none;">
-										<div class="popup-mint-basic">
-											<a href="javascript:closeLyPop('authMail');"
-												class="btn-close"><em></em></a>
-											<div class="popup-mint-text">
-												<strong class="tit-popup">펀딩을 진행하기 위한<br> 기본
-													회원 정보를 확인해 주세요.
-												</strong>
-												<div style="padding: 20px;">- 이메일 인증 : 미인증</div>
+								</div> 
+								
+								<!-- S : 프로젝트 신고하기 모바일 -->
+
+								<div class="wz-message-box project-report-mobile">
+									<p class="title">신고하기란?</p>
+									<p>
+										해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
+									</p>
+									<button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#blacklist-modal"
+											style="width: 100%;">프로젝트 신고하기</button>
+								</div> 
+								<!-- E : 프로젝트 신고하기 -->
+								 
+								<!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
+								<div class="moveRewards">
+									<div class="wd-ui-gift">
+										<h3 class="project-right-title">리워드 선택</h3>
+										
+										<c:forEach var="glist" items="${ glist }">
+											<c:if test="${ glist.remain > 0 || glist.capacity eq 0 }">
+	 											<button class="rightinfo-reward-list ing">
+	 											
+ 											</c:if>
+ 											<c:if test="${ glist.remain eq 0 && glist.capacity ne 0 }">
+	 											<button class="rightinfo-reward-list soldout" disabled>
+ 											</c:if>
+ 											
+											<div class="top-info">
+												<dl class="reward-info">
+													<dt>${glist.support_price}원 펀딩</dt>
+													<dd>
+														<c:forEach var="giftlist" items="${ giftlist }">
+															<c:if test="${giftlist.gift_id eq glist.gift_id }">
+																${ giftlist.item_name }&nbsp; x &nbsp; ${ giftlist.count }개<br>
+															</c:if>
+														</c:forEach>
+													</dd>
+												</dl>
+												<ul class="data-info">
+													<li class="shipping"
+														style="width: 100%; margin-bottom: 5px;">배송비 &nbsp;<em>3,000원</em></li>
+													<li class="date" style="width: 100%;">리워드 발송 시작일  &nbsp;-&nbsp;<em>${ glist.payment_date } &nbsp;예정</em>
+													</li>
+												</ul>
+												
+												<c:if test="${ glist.capacity eq 0 }">
+													<p class="reward-qty">제한수량 <strong>없음</strong>&nbsp;&nbsp;</p>
+												</c:if>		
+												<c:if test="${ glist.remain eq 0 && glist.capacity ne 0}">
+													<p class="reward-qty soldout"><em>제한수량이 모두 펀딩되었습니다.</em></p>
+												</c:if>
+												<c:if test="${ glist.remain > 0 }">
+													<p class="reward-qty">제한수량 <strong> &nbsp;${ glist.capacity }</strong>개 &nbsp;&nbsp; 
+														<em>현재 &nbsp; ${ glist.remain }개 남음!</em></p>
+												</c:if>
+												
+												<p class="reward-soldcount">
+													총 <strong>${ glist.sellcount }</strong>개 펀딩완료
+												</p>
 											</div>
-											<div class="btn-wrap">
-												<a class="btn-pd-mint" href="/web/waccount/wAuth">기본
-													회원정보 변경</a>
+											
+											<p class="hover-text ingtext">이 리워드 펀딩하기</p>
+											<p class="hover-text soldouttext">제한수량이<br>모두 펀딩되었습니다.</p>
+											
+										</button>
+									</c:forEach> 	
+								</div>
+							</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> 
+							
+							<div id="normalpane" class="recommend-box-container stoped">
+								<div id="fixed-funding-btn" class="fixed-funding-btn">
+									<button onclick="backMoney('backing', 'false');" class="wz-btn primary large block">이 프로젝트 펀딩하기</button>
+								</div>
+								<!-- S : 인기 프로젝트 리스트 -->
+								<div class="recommend-box">
+									<h3 class="title">인기 프로젝트</h3>
+									<c:set var="count" value="1"/>
+									<c:forEach var="hot" items="${hotlist}">
+									
+										<div class="item">
+											<div class="number">${count}</div>
+											<div class="text">
+												<a>${hot.project_name }</a>
 											</div>
 										</div>
-									</div> <!-- E : 인증 확인 모달 -->
+										<c:set var ="count" value="${count+1}"/>
+									</c:forEach> 
+								</div>
 							</div>
-							<!-- E : 우측 캠페인 관련 정보 -->
-
-
-							<!-- S : 캠페인 정보 -->
-
 						</div>
-
-						<!-- E : 캠페인 정보 -->
-
 					</div>
+					<!-- 오른쪽 부분 끝 -->
+					
 					<div class="wd-ui-sub-campaign-info-container">
 						<div class="wd-ui-sub-campaign-info">
 							<!-- S : 탭 주요 콘텐츠 -->
@@ -578,6 +468,35 @@
 								<!--댓글 끝    -->
 								<script type="text/javascript">
 									$(document).ready(function(){
+										
+										$("#btnLike1").on("click",function(){
+											alert("로그인해주세요");
+										});				
+										var member_id=$("#member_id").val();
+										var project_id=${ proview.project_id};
+										$("#btnLike").on("click",function(){
+											$.ajax({
+												url:"Like.do",
+												type:"post",
+												dataType:"json",
+												data:{project_id: project_id,
+													  member_id: member_id},
+												success:function(data){
+													if(data.result==="add"){
+														console.log("add");
+														$("#like1").attr("src","resources/images/icon/love2.png");
+														$("#cntLike").text(data.like);
+													}else{
+														console.log("delete");
+														$("#like1").attr("src","resources/images/icon/love1.png");
+														$("#cntLike").text(data.like);
+													}
+												}
+												
+											});
+										});
+										
+										
 										var min=$("#Min1").text();
 									
 										if(min=="0시간"){

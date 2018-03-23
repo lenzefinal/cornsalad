@@ -16,7 +16,6 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
-import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
@@ -98,10 +97,6 @@ public class DetailViewDao {
 		return mybatis.selectList("projectdetailMapper.selectGlist", project_id);
 	}
 
-	public List<SellCountView> selectSellCount(String project_id) {
-		
-		return mybatis.selectList("projectdetailMapper.selectSellCount", project_id);
-	}
 	public List<ReplyView> selectReplyList(String project_id){
 		return mybatis.selectList("projectdetailMapper.selectReplyList", project_id);
 	}
