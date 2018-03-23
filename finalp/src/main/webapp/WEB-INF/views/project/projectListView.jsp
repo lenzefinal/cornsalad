@@ -18,6 +18,14 @@
 		    			프로젝트에 따라 제공일 지연, 진행 취소 등의 이슈가 있을 수 있으니 결제하시기 전, 프로젝트 하단의 '위험요인과 해결방안' 정책을 꼭 읽어주세요!</p>
 		</div>
 
+		
+		<div class="con_menu_wrap">
+			<ul class="tour_menu">
+				<li class="on"><a href="#">펀딩프로젝트</a></li>
+				<li><a href="#">공동구매</a></li>		
+			</ul>
+		</div>
+		
 		<div class="hEIXJa"></div>
 		
 		<div class="form" align="center">

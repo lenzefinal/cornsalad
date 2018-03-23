@@ -770,7 +770,7 @@
 											
 											var values="";
 											
-											
+											var commentCount = 0;
 											
 											for(var i in json.replylist){
 												
@@ -829,9 +829,14 @@
 																	'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>'+
 																	'<div class="comment-bottom"></div></div></div></div>';
 												}
+												
+												commentCount = commentCount+1;
 											}
 											
 											$(".comment-box").html(values);
+											
+											
+											$(".comment-total").html(commentCount);
 										}
 										
 									});
