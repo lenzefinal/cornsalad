@@ -543,6 +543,7 @@
   <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
  <!--  <script type="text/javascript" src="/finalp/resources/js/vendor.js"></script> -->
  	<!-- <script type="text/javascript" src="https://cdn.wadiz.kr/resources/assets/base.js?991cc506282739c2e8f8"></script> -->
   <!-- <script type="text/javascript" src="/finalp/resources/js/wMotion.js"></script> -->
