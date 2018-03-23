@@ -1067,7 +1067,7 @@ function insertGiftInItemFunc(){
 	    	var giftId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
-	    	value += '<div class="project-box gift-head-div '+ giftId + '">' +
+	    	value += '<div id="'+ giftIndex +'" class="project-box gift-head-div '+ giftId + '">' +
 						'<div class="project-element-div project-bgcol-white">' +
 							'<div class="project-element-in-div">' +
 								'<div align="right">' +
@@ -1134,6 +1134,8 @@ function insertGiftInItemFunc(){
 							'<button class="btn btn-primary project-custom-btn" onclick="saveGift('+ giftId + ')">저장하기</button>' +
 						'</div>' +
 					'</div>';
+			
+			giftIndex++;
 				
 	    	$("#gift-totalbox-div").html(value);
 	    	
@@ -1176,7 +1178,7 @@ function insertGiftInItemFunc(){
 			var value = '<div class="modal-item-adddetail-div">' +
 							'<div style="padding:1em;">' +
 								'<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>' +
-								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요."/></div>' +
+								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요." autofocus>/></div>' +
 								'<div align="right">' +
 									'<button class="btn btn-default btn-greentea project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
 									'<button class="btn btn-primary btn-greentea project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
@@ -1430,6 +1432,9 @@ function insertGiftInItemFunc(){
 		
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+    	var targetId = $(giftId_class).attr("id");
+		location.href="#"+targetId;
 	}
 	
 	//선물 삭제
@@ -1467,8 +1472,10 @@ function insertGiftInItemFunc(){
 		
 		//후원 금액
 		var priceValue = $(giftId_id+" .gift-supportPrice-input").val();
-		$(giftId_class+" .gift-price").attr("value", priceValue);
-		$(giftId_class+" .gift-price").text(priceValue);
+		var priceValueCom = comma(priceValue);
+		
+		$(giftId_class+" .gift-price").attr("value", priceValueCom);
+		$(giftId_class+" .gift-price").text(priceValueCom);
 		
 		$(giftId_id+" .gift-supportPrice-input").attr("value", priceValue);
 		
@@ -1502,6 +1509,9 @@ function insertGiftInItemFunc(){
 								
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+    	var targetId = $(giftId_class).attr("id");
+		location.href="#"+targetId;
 	}
 	
 	//선물 수정
@@ -1772,6 +1782,13 @@ function insertGiftInItemFunc(){
 	function resize(obj) {
 		  obj.style.height = "1px";
 		  obj.style.height = (12+obj.scrollHeight)+"px";
+	}
+	
+	
+	// 콤마 찍기
+	function comma(str) {
+	  str = String(str);
+	  return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	}
 	
 	

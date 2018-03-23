@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1149,7 +1150,8 @@ tinymce.init({
 	    	var giftId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
-	    	value += '<div class="project-box gift-head-div '+ giftId + '">' +
+	    	value += '<div id="'+ giftIndex +'"></div>' +
+	    			'<div class="project-box gift-head-div '+ giftId + '" value="'+ giftIndex +'">' +
 						'<div class="project-element-div project-bgcol-white">' +
 							'<div class="project-element-in-div">' +
 								'<div align="right">' +
@@ -1216,6 +1218,8 @@ tinymce.init({
 							'<button class="btn btn-primary project-custom-btn" onclick="saveGift('+ giftId + ')">저장하기</button>' +
 						'</div>' +
 					'</div>';
+					
+			giftIndex++;
 				
 	    	$("#gift-totalbox-div").html(value);
 	    	
@@ -1464,7 +1468,7 @@ tinymce.init({
 	
 	//선물 ------------------------------------------------------------------
 	//선물 index
-	giftIndex = 0;
+	giftIndex = 100;
 	//선물 id pre
 	giftIdPre = "gift-in-item";
 	
@@ -1479,6 +1483,10 @@ tinymce.init({
 		
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+    	var targetId = $("."+giftIdIndex).attr("value");
+    	console.log("targetId]"+targetId);
+		location.href="#"+targetId;
 	}
 	
 	//선물 삭제
@@ -1516,8 +1524,10 @@ tinymce.init({
 		
 		//후원 금액
 		var priceValue = $(giftId_id+" .gift-supportPrice-input").val();
-		$(giftId_class+" .gift-price").attr("value", priceValue);
-		$(giftId_class+" .gift-price").text(priceValue);
+		var priceValueCom = comma(priceValue);
+		
+		$(giftId_class+" .gift-price").attr("value", priceValueCom);
+		$(giftId_class+" .gift-price").text(priceValueCom);
 		
 		$(giftId_id+" .gift-supportPrice-input").attr("value", priceValue);
 		
@@ -1551,6 +1561,9 @@ tinymce.init({
 								
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+		var targetId = $(giftId_class).attr("value");
+		location.href="#"+targetId;
 	}
 	
 	//선물 수정
@@ -2021,6 +2034,15 @@ tinymce.init({
 	}
 	
 	
+	
+	// 콤마 찍기
+	function comma(str) {
+	  str = String(str);
+	  return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	}
+	
+	
+	
 	//임시
 	function testtinymce(){
 		console.log(tinymce.get("jieuntextarea").getContent());
@@ -2226,15 +2248,19 @@ tinymce.init({
 </div>
 <div id="gift-totalbox-div" class="project-div project-outter-div-margin">
 	<div class="project-title project-title-first">선물 구성</div>
+<c:set var="giftIdIndex" value="0"/>
 <c:forEach var="gift" items="${ giftList }">
-	<div class="project-box gift-head-div ${ gift.gift_id }">
+	<div id="${ giftIdIndex }" style="width:1px;height:1px;"></div>
+	<div class="project-box gift-head-div ${ gift.gift_id }" value="${ giftIdIndex }">
+	<c:set var="giftIdIndex" value="${ giftIdIndex  + 1 }"/>
 		<div class="project-element-div project-bgcol-white">
 			<div class="project-element-in-div">
 				<div align="right">
 					<button class="btn btn-danger project-custom-btn" onclick="deleteGift(${ gift.gift_id },1)">삭제하기</button>
 					<button class="btn btn-primary project-custom-btn" onclick="updateGift(${ gift.gift_id })">수정하기</button>
 				</div>
-				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">${ gift.support_price }</span>원 이상 후원하시는 분께 드리는 선물</div>
+				<fmt:formatNumber var="commaSupportPrice" value="${ gift.support_price }" type="number"/>
+				<div class="gift-pretitle-style" style="display:inline-block;"><span class="gift-price">${ commaSupportPrice }</span>원 이상 후원하시는 분께 드리는 선물</div>
 				<ol>
 				<c:forEach var="item" items="${ itemList }">
 					<c:set var="itemFlag" value="false"/>
