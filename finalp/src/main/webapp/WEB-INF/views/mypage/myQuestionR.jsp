@@ -86,30 +86,31 @@
 				<thead>
 					<tr  class="active">
 						<th style="border-right:0.5px solid silver;">제목</th>
-						<th style="border-right:0.5px solid silver; width:24%;">수신자</th>
+						<th style="border-right:0.5px solid silver; width:24%;">발신자</th>
 						<th style="border-right:0.5px solid silver; width:16%">문의 날짜</th>
 						<th style="width:16%">답변</th>
 					</tr>
 				</thead>
 				<tbody id="qlist">
-					<c:forEach var="qlist" items="${ question }">
+					<c:forEach var="list" items="${ question }">
 					<tr>
 						<td style="border-right:0.5px solid silver;">
-						<a href="" onclick="qbtn(${qlist.question_id})" data-toggle="modal" data-target="#myQ" style="text-decoration:underline;">
-						${qlist.title }</a>
+						<a href="" onclick="Qdetail(${list.question_id})" data-toggle="modal" data-target="#rmyQ" style="text-decoration:underline;">
+						${list.title }</a>
 						</td>
-						<c:if test="${qlist.receive_member_id eq 'admin' }">
-						<td style="border-right:0.5px solid silver; width:24%;">관리자</td>
+						<td style="border-right:0.5px solid silver; width:24%;">${list.send_member_id }</td>
+						<td style="border-right:0.5px solid silver; width:16%">${list.send_creation_date }</td>
+						<c:if test="${empty list.re_content }">
+						<td style="width:16%">
+						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="rmQ" onclick="receiveQ(${list.question_id })">
+							답변하기
+						</button></td>
 						</c:if>
-						<c:if test="${qlist.receive_member_id ne 'admin' }">
-						<td style="border-right:0.5px solid silver; width:24%;">${qlist.receive_member_id }</td>
-						</c:if>
-						<td style="border-right:0.5px solid silver; width:16%">${qlist.send_creation_date }</td>
-						<c:if test="${empty qlist.re_content }">
-						<td style="width:16%">답변이 아직..</td>
-						</c:if>
-						<c:if test="${not empty qlist.re_content }">
-						<td style="width:16%"><button class="btn" data-toggle="modal" data-target="#rqdetail" onclick="rqbtn(${qlist.question_id})">답변</button></td>
+						<c:if test="${not empty list.re_content }">
+						<td style="width:16%">
+						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rqdetail" onclick="receiveqdetail(${list.question_id})">상세보기
+						</button>
+						</td>
 						</c:if>
 					</tr>
 					</c:forEach>
@@ -124,10 +125,10 @@
 
 <script type="text/javascript">
 	var member_id=$('#send_member_id').val();
-	function qbtn(qid){
+	function Qdetail(qid){
 		$.ajax({
-			url:"myQdetail.do",
-			data:{question_id:Number(qid), send_member_id: member_id},
+			url:"rmyQdetail.do",
+			data:{question_id:Number(qid), receive_member_id: member_id},
 			dataType:"json",
 			type:"post",
 			success:function(e){
@@ -135,14 +136,22 @@
 				//변환된 문자열을 json 객체로 바꿈
 				var json = JSON.parse(jsonStr);
 				
-				$("#myQdetail").empty();
+				$("#mreQdetail").empty();
 				
-				var value = $("#myQdetail").html();
+				var value = $("#mreQdetail").html();
 				value+='<div class="form-inline">'
 						+'<div class="form-group">'
 						+'<h6><b> 제목 : </b></h6>'
 						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
 						+decodeURIComponent(json.title)+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 보낸 사람 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
+						+decodeURIComponent(json.send_member_id)+'">'
 						+'</div>'
 						+'</div>'
 						+'<br>'
@@ -162,7 +171,7 @@
 						+'</div>'
 						+'</div>'
 						+'<br>'
-					$('#myQdetail').html(value);
+					$('#mreQdetail').html(value);
 			},
 			error: function(request, status, errorData){
 					alert("error code : " + request.status + "\n" 
@@ -171,10 +180,119 @@
 			}
 		});
 	}
-	function rqbtn(qid){
+	function receiveQ(qid){
+		$.ajax({
+			url:"receiveQForm.do",
+			data:{question_id:Number(qid), receive_member_id: member_id},
+			dataType:"json",
+			type:"post",
+			success:function(e){
+				var jsonStr = JSON.stringify(e);
+				//변환된 문자열을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+				
+				$("#mreQdetail").empty();
+				
+				var value = $("#mreQdetail").html();
+				if(json.re_content!=null){
+				value+='<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 제목 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="[RE]'
+						+decodeURIComponent(json.title)+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 보낸 사람 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
+						+decodeURIComponent(json.send_member_id)+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 문의 날짜 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
+						+json.send_creation_date+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<textarea name="content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" readonly>'
+						+decodeURIComponent(json.content);
+						+'</textarea>'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<textarea name="re_content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" readonly>'
+						+decodeURIComponent(json.re_content);
+						+'</textarea>'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+				} else{
+					value+='<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 제목 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="[RE]'
+						+decodeURIComponent(json.title)+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 보낸 사람 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
+						+decodeURIComponent(json.send_member_id)+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<h6><b> 문의 날짜 : </b></h6>'
+						+'&nbsp;<input type="text"  class="form-control"  readonly value="'
+						+json.send_creation_date+'">'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<textarea name="content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" readonly>'
+						+decodeURIComponent(json.content);
+						+'</textarea>'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+						+'<div class="form-inline">'
+						+'<div class="form-group">'
+						+'<form action="receiveQ.do" method="post">'
+						+'<textarea name="re_content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" readonly>'
+						+'</textarea>'
+						+'</form>'
+						+'</div>'
+						+'</div>'
+						+'<br>'
+				}
+					$('#mreQdetail').html(value);
+			},
+			error: function(request, status, errorData){
+					alert("error code : " + request.status + "\n" 
+						+ "message : " + request.responseText + "\n"
+						+ "error : " + errorData );	
+			}
+		});
+		
+	}
+	
+	/* function mreqbtn(qid){
 		$.ajax({
 			url:"rQdetail.do",
-			data:{question_id:Number(qid), send_member_id: member_id},
+			data:{question_id:Number(qid), receive_member_id: member_id},
 			dataType:"json",
 			type:"post",
 			success:function(e){
@@ -257,35 +375,39 @@
 						+ "error : " + errorData );	
 			}
 		});
-	}
+	} */
 </script>
  
-  <!-- 내가 보낸 문의 보기 -->
-  <div class="modal fade" id="myQ" role="dialog">
+  <!-- 내가 받은 문의 보기 -->
+  <div class="modal fade" id="rmyQ" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content" >
        <div class="modal-header">
-        <h4 class="modal-title">나의 문의 상세보기</h4> 
+        <h4 class="modal-title">받은 문의 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body" id="myQdetail">
+        <div class="modal-body" id="mreQdetail">
        </div>
       </div>
     </div>
   </div>
   
-  <!-- 답변 -->
- <div class="modal fade" id="rqdetail" role="dialog">
+  <!-- 답변하기 -->
+  <div class="modal fade" id="rmyQ" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
-      <div class="modal-content"  id="receiveQdetail">
-         <div class="modal-header"> 
-       
-		</div>
+      <div class="modal-content" >
+       <div class="modal-header">
+        <h4 class="modal-title">받은 문의 상세보기</h4> 
+           <button type="button" class="close" data-dismiss="modal">&times;</button> 
+        </div>
+        <div class="modal-body" id="mreQdetail">
+       </div>
       </div>
     </div>
   </div>
+
   
 </body>
 </html>

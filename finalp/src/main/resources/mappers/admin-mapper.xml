@@ -149,6 +149,7 @@
 		<result property="end_date" column="end_date" />
 		<result property="spon" column="spon" />
 		<result property="ing_flag" column="ing_flag" />
+		<result property="refund_flag" column="refund_flag" />
 	</resultMap>
 	
 	<select id="selectprojectlist" resultMap="AProjectmap" >
@@ -165,7 +166,8 @@
 	
 	<update id="ponupdate" parameterType="String">
 		<![CDATA[
-			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='Y',PROJECT_REQUEST_FLAG='N' WHERE PROJECT_ID = #{ project_id }
+			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='Y',PROJECT_REQUEST_FLAG='N',START_DATE = SYSDATE 
+			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</update>
 	
@@ -182,12 +184,12 @@
 	</select>
 	
 	<select id="searchCProject" parameterType="String" resultMap="AProjectmap">
-		<if test="cname != 'refund'">
+		<if test="project_category_name != 'refund'">
 			<![CDATA[
-				SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ cname }
+				SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ project_category_name }
 			]]>
 		</if>
-		<if test="cname == 'refund'">
+		<if test="project_category_name == 'refund'">
 			<![CDATA[
 				SELECT * FROM A_PROJECT WHERE ING_FLAG = 'N' AND SPON < 100
 			]]>

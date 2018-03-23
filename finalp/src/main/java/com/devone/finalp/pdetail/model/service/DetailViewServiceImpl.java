@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
@@ -17,6 +18,7 @@ import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.SellCountView;
+import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 @Service("detailviewService")
@@ -83,6 +85,18 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public List<SellCountView> selectSellCount(String project_id) {
 		
 		return detailviewDao.selectSellCount(project_id);
+	}
+	@Override
+	public List<ReplyView> selectReplyList(String project_id) {
+		return detailviewDao.selectReplyList(project_id);
+	}
+	@Override
+	public int insertReplyZero(ProjectReply projectreply) {
+		return detailviewDao.insertReplyZero(projectreply);
+	}
+	@Override
+	public int insertReplyOne(ProjectReply projectreply) {
+		return detailviewDao.insertReplyOne(projectreply);
 	}
 
 	

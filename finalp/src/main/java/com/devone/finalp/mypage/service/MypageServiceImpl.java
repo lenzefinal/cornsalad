@@ -145,4 +145,34 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		return mypageDao.myQuestionList(q);
 	}
+
+	@Override
+	public MyQuestion myQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mypageDao.myQdetail(questionid);
+	}
+
+	@Override
+	public MyQuestion receiveQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mypageDao.receiveQdetail(questionid);
+	}
+
+	@Override
+	public List<MyQuestion> myRQuestionList(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mypageDao.myRQeustionList(q);
+	}
+
+	@Override
+	public MyQuestion rmyQdetail(int questionid) {
+		// TODO Auto-generated method stub
+		return mypageDao.rmyQdetail(questionid);
+	}
+
+	@Override
+	public int receiveQ(MyQuestion q) {
+		// TODO Auto-generated method stub
+		return mypageDao.receiveQ(q);
+	}
 }

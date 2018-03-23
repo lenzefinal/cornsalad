@@ -920,7 +920,7 @@ button * {
 
 .reward-not-story .support-list .info strong span, .reward .support-list .info strong span
 	{
-	color: #0d0f12;
+	color: #F7D358;
 	font-weight: 500;
 }
 
@@ -976,7 +976,14 @@ li {
 	line-height: 20px;
 	letter-spacing: -.3px;
 	font-weight: 500;
+	margin-bottom: 5px;
 }
+.user-name a{
+	color:#44484b;
+	text-decoration:none;
+	font-weight:500;
+}
+
 
 .comment-head .date {
 	font-size: 12px;

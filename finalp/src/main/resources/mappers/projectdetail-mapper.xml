@@ -162,5 +162,37 @@
 	]]>
 	</select>
 
-
+	<select id="selectReplyList" parameterType="String" resultType="ReplyView">
+		<![CDATA[
+			select * from v_reply where project_id=#{project_id}
+		]]>
+	</select>
+	
+	<update id="updateReplyZero" parameterType="ProjectReply">
+		<![CDATA[
+			update project_reply set reply_seq=reply_seq+1 where reply_level=0 and project_id=#{project_id}
+			
+		]]>
+	</update>
+	
+	<insert id="insertReplyZero" parameterType="ProjectReply">
+		<![CDATA[
+			insert into project_reply values(proreply_seq.nextval, #{member_id}, #{project_id}, #{reply_content}, sysdate,
+								0, 0, proreply_seq.currval, 0)
+		]]>
+		
+	</insert>
+	
+	<update id="updateReplyOne" parameterType="ProjectReply">
+		<![CDATA[
+			update project_reply set reply_seq = reply_seq+1 where reply_level=1 and project_id=#{project_id} and proj_reply_id_ref=#{proj_reply_id_ref}
+		]]>
+	</update>
+	
+	<insert id="insertReplyOne" parameterType="ProjectReply">
+		<![CDATA[
+			insert into project_reply values(proreply_seq.nextval, #{member_id}, #{project_id}, #{reply_content}, sysdate,
+							 1, 0, #{proj_reply_id_ref}, 0)
+		]]>
+	</insert>
 </mapper>

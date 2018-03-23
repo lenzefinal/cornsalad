@@ -1,11 +1,15 @@
 package com.devone.finalp.pdetail.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.set.SynchronizedSortedSet;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.service.DetailViewServiceImpl;
@@ -26,6 +31,7 @@ import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.SellCountView;
+import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 @Controller
@@ -35,13 +41,18 @@ public class DetailViewController {
 	private DetailViewServiceImpl detailviewService;
 	
 	@RequestMapping("projectDetailView.do")
-	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,@RequestParam("member_id") String member_id,Likes likes,LoginTimeView loginTime) {
-		System.out.println("잘들어왓나");
+	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,
+									@RequestParam("member_id") String member_id,
+									Likes likes,LoginTimeView loginTime) {
+		
 		System.out.println(member_id);
 		System.out.println(project_id);
+		
 		List<HotListView> list = detailviewService.selectHotList();
+		
 //      판매자 member_id 알아옴
 		Project project=detailviewService.selectMemberId(project_id);
+		
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
 		
@@ -57,6 +68,20 @@ public class DetailViewController {
 //     	프로젝트에 있는 선물 구성 남은 개수 알앙옴	
 		List<SellCountView> sellCount=detailviewService.selectSellCount(project_id);
 		
+
+		
+		boolean suppoterFlag = false;
+		if(member_id.equals(project.getMember_id())) {
+			suppoterFlag=true;
+		}else {
+			for(int i=0; i<suppoter.size(); i++) {
+				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+					suppoterFlag = true;
+					break;
+				}
+			}
+		}
+
 		
 		LoginTimeView logintime=detailviewService.selectloginTime(loginTime);
 //      진행한 프로젝트 갯수 알아오기
@@ -68,6 +93,9 @@ public class DetailViewController {
 		model.addAttribute("hotlist", list);
 		model.addAttribute("Glist", Glist); 
 		model.addAttribute("giftlist", giftlist);
+		model.addAttribute("replylist", detailviewService.selectReplyList(project_id));
+		model.addAttribute("suppoterFlag", suppoterFlag);
+//		model.addAttribute("giftlist", list1); 
 		model.addAttribute("like", like);
 		model.addAttribute("likes", likes);	
 		model.addAttribute("count", count);
@@ -117,12 +145,6 @@ public class DetailViewController {
 		JSONObject job  = new JSONObject();
 		job.put("result", result);
 		job.put("like", like);
-		/*PrintWriter out = response.getWriter();
-		
-		
-		out.append(result);
-		out.flush();
-		out.close();*/
 		
 		return job.toJSONString();
 	}
@@ -142,5 +164,67 @@ public class DetailViewController {
 	
 	}
 	
+	@RequestMapping(value="insertReplyOne.do", method=RequestMethod.POST)
+	public void insertReplyOne(ProjectReply projectreply, HttpServletResponse response) throws IOException {
+		int result = detailviewService.insertReplyOne(projectreply);
+		System.out.println(projectreply.toString());
+		List<ReplyView> list = new ArrayList<ReplyView>();
+		
+		if(result>0) {
+			System.out.println("성공");
+			list = detailviewService.selectReplyList(projectreply.getProject_id());
+		}
+		
+		JSONObject sendJson = new JSONObject();
+		sendJson.put("replylist", returnReplyList(list));
+		
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+		
+		
+	}
+	
+	@RequestMapping(value="insertReplyZero.do", method=RequestMethod.POST)
+	public void insertReplyZero(ProjectReply projectreply, HttpServletResponse response) throws IOException {
+		int result = detailviewService.insertReplyZero(projectreply);
+		List<ReplyView> list = new ArrayList<ReplyView>();
+		if(result>0) {
+			System.out.println("성공");
+			list = detailviewService.selectReplyList(projectreply.getProject_id());
+		}
+		
+		JSONObject sendJson = new JSONObject();
+		sendJson.put("replylist", returnReplyList(list));
+		
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	public JSONArray returnReplyList(List<ReplyView> list) throws UnsupportedEncodingException {
+		JSONArray jarr = new JSONArray();
+		
+		for(ReplyView reply : list) {
+			JSONObject job = new JSONObject();
+			job.put("project_reply_id", reply.getProject_reply_id());
+			job.put("project_id", reply.getProject_id());
+			job.put("member_id", reply.getMember_id());
+			job.put("member_name", URLEncoder.encode(reply.getMember_name(),"utf-8"));
+			job.put("profile_img_rename", URLEncoder.encode(reply.getProfile_img_rename(),"utf-8"));
+			job.put("reply_content", URLEncoder.encode(reply.getReply_content(),"utf-8"));
+			job.put("reply_level", reply.getReply_level());
+			job.put("proj_reply_id_ref", reply.getProj_reply_id_ref());
+			job.put("preply_seq", reply.getPreply_seq());
+			job.put("creation_date", reply.getCreation_date().toString());
+			job.put("report_count", reply.getReport_count());
+			
+			jarr.add(job);
+		}
+		
+		return jarr;
+	}
 	
 }

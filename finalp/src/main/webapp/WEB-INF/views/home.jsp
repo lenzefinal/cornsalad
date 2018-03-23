@@ -750,6 +750,11 @@
 					selectRankingTab(''+rankingTabNum);
 				}, 10000);
 		  });
+		
+		//처음에는 무조건 실행
+		getExpectationTop5();  
+		getPaymentAmountTop5();
+		getPaymentCountTop5(); 
 
 		
 		
@@ -862,12 +867,12 @@
 						'</div>';
 						
 				$("#rankContent1").html(values);
-			},
+			}/* ,
 			error: function(request, status, errorData){
 				alert("error code: " + request.status + "\n"
 						+ "message : " + request.responseText + "\n"
 						+ "error : " + errorData);
-			}
+			} */
 		});
 	}
 	
@@ -927,12 +932,12 @@
 						'</div>';
 						
 				$("#rankContent2").html(values);
-			},
+			}/* ,
 			error: function(request, status, errorData){
 				alert("error code: " + request.status + "\n"
 						+ "message : " + request.responseText + "\n"
 						+ "error : " + errorData);
-			}
+			} */
 		});
 	}
 	
@@ -992,12 +997,12 @@
 						'</div>';
 						
 				$("#rankContent3").html(values);
-			},
+			}/* ,
 			error: function(request, status, errorData){
 				alert("error code: " + request.status + "\n"
 						+ "message : " + request.responseText + "\n"
 						+ "error : " + errorData);
-			}
+			} */
 		});
 	}
 	

@@ -1,6 +1,5 @@
 package com.devone.finalp.pdetail.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.vo.GiftListView;
@@ -17,6 +17,7 @@ import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.SellCountView;
+import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 
@@ -100,5 +101,19 @@ public class DetailViewDao {
 	public List<SellCountView> selectSellCount(String project_id) {
 		
 		return mybatis.selectList("projectdetailMapper.selectSellCount", project_id);
+	}
+	public List<ReplyView> selectReplyList(String project_id){
+		return mybatis.selectList("projectdetailMapper.selectReplyList", project_id);
+	}
+	
+	public int insertReplyZero(ProjectReply projectreply) {
+		mybatis.update("projectdetailMapper.updateReplyZero", projectreply);
+		return mybatis.insert("projectdetailMapper.insertReplyZero", projectreply);
+	}
+	
+	public int insertReplyOne(ProjectReply projectreply	) {
+		mybatis.update("projectdetailMapper.updateReplyOne", projectreply);
+		return mybatis.insert("projectdetailMapper.insertReplyOne", projectreply);
+
 	}
 }

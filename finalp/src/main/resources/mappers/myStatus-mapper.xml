@@ -108,8 +108,9 @@
 	</select>
 	<select id="pproductCount" resultType="int" parameterType="String">
 		<![CDATA[
-			select count(product_id) from payment
-			where member_id=#{member_id}
+			select count(payment_id) from payment pm
+			join project p on (p.project_id=pm.project_id)
+			where pm.member_id=#{member_id} and p.project_category_id='PC-PROD'
 		]]>
 	</select>
 	<select id="searchMyproject" resultType="Project" parameterType="Project">
@@ -165,10 +166,31 @@
 		select * from question where send_member_id=#{send_member_id}  order by send_creation_date desc
 	</select>
 	
+	<select id="myRQuestion" resultMap="MyQuestion">
+		select * from question where receive_member_id=#{receive_member_id} order by send_creation_date desc
+	</select>
 	
 	<select id="questionCategory" resultMap="CategoryList">
 		<![CDATA[
 			SELECT * FROM QUESTION_CATEGORY
+		]]>
+	</select>
+	
+	<select id="myQdetail" resultType="MyQuestion" parameterType="int">
+		<![CDATA[
+			select * from question where question_id=#{question_id}
+		]]>
+	</select>
+	
+	<select id="rmyQdetail" resultType="MyQuestion" parameterType="int">
+		<![CDATA[
+			select * from question where question_id=#{question_id}
+		]]>
+	</select>
+	
+	<select id="receiveQdetail" resultType="MyQuestion" parameterType="int">
+		<![CDATA[
+			select * from question where question_id=#{question_id}
 		]]>
 	</select>
 	
@@ -179,4 +201,11 @@
 										#{title}, #{content}, null, sysdate, null)
 		]]>
 	</insert>
+	
+	<update id="receiveQ" parameterType="MyQuestion">
+		<![CDATA[
+			update question set receive_creation_date=sysdate, receive_member_id=#{receive_member_id}, re_content=#{re_content}
+			where question_id={#question_id}
+		]]>
+	</update>
 </mapper>

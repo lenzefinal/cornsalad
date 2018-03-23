@@ -35,15 +35,13 @@ AS
 
 
 
-CREATE OR REPLACE VIEW V_REPLY
-(PROJECT_ID, PROJECT_REPLY_ID, MEMBER_ID, REPLY_CONTENT, CREATION_DATE,
-REPLY_LEVEL, REPORT_COUNT)
-AS(SELECT P.PROJECT_ID,PR.PROJECT_REPLY_ID,PR.MEMBER_ID,PR.REPLY_CONTENT,
-PR.CREATION_DATE, PR.REPLY_LEVEL, PR.REPORT_COUNT
-FROM PROJECT P 
-LEFT JOIN PROJECT_REPLY PR ON(P.PROJECT_ID=PR.PROJECT_ID)
-LEFT JOIN MEMBER M ON(PR.MEMBER_ID=M.MEMBER_ID));
-
+create or replace view v_reply
+as select project_reply_id, project_id, member_id, member_name, profile_img_rename, reply_content, reply_level, proj_reply_id_ref, reply_seq, creation_date, report_count 
+      from (select * 
+            from project_reply
+            join member m using(member_id)
+            order by proj_reply_id_ref desc, reply_level asc, reply_seq asc
+            );
 
 ------------------SUPPOTER VIEW--------------
 

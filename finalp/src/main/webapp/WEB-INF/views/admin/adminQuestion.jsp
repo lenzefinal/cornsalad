@@ -85,7 +85,7 @@
   	  		dataType: "json",
   	  		success:function(data){ 
   	  			console.log(data);
-  	  				
+  	  			
   	  				var jsonStr = JSON.stringify(data);
 					//변환된 문자열을 json 객체로 바꿈
 					var json = JSON.parse(jsonStr);
@@ -101,7 +101,7 @@
 							"<input type='date' class='form-control' id='qdate' value='"+ json.send_creation_date + "' readonly> </div></div><br>"+
 							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='10' readonly>"+
 							decodeURIComponent(json.content.replace(/\+/g," "))+"</textarea></div>";
-							if(json.re_content == null){
+							if( json.re_content == null){
 								values += "<div class='form-group'><label for='qacontent'>답변내용  </label>"+
 								"<form action='adminQuUpdate.do' method='post' ><div class='form-inline'> "+
 								"<textarea class='form-control' id='qacontent' placeholder='답변을 써주세요' name='re_content' cols='90' rows='8'></textarea>"+
@@ -113,6 +113,7 @@
 							}
 					
 					$("#qudemo").html(values);
+					
   	  			},
   	  			error: function(request, status, errorData){
 					alert("error code : " + request.status + "\n" 
@@ -123,8 +124,7 @@
   	}
   	
   	//검색 ajax
-  	$(function(){
-  		$('#find').click(function(){
+  		function recontChange(){
   			var recont = document.getElementById("recont");
   			var option = recont.options[recont.selectedIndex].value;
   			console.log("option : "+option)
@@ -173,8 +173,7 @@
 				}
   			});
   			
-  		});
-  	});
+  		};
   </script>
  </head>
  <body class="skin_main">
@@ -195,12 +194,12 @@
 <br>
 <div class="searchdiv">
     <div class="input-group">
-      <select class="form-control" name="recont" id="recont">
+      <select class="form-control" name="recont" id="recont" onchange="recontChange()">
 		<option value="all">----</option>
 		<option value="nore">답변 미완료</option>
 		<option value="okre">답변 완료</option>
 	  </select>
-	 <button class="btn btn-danger" id="find">검색</button>
+	<!--  <button class="btn btn-danger" id="find">검색</button> -->
     </div>
 </div>
 <br>
@@ -287,7 +286,7 @@
   </div>
   
   <!-- Modal -->
-  <div class="modal fade" id="quModal2" role="dialog">
+  <div class="modal fade" id="quModal" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
@@ -296,7 +295,7 @@
          <h4 class="modal-title">문의글 상세보기</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
-        <div class="modal-body" id="qudemo">
+        <div class="modal-body" id="qudemoo">
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="qtitle2"> 제목 : &nbsp;</label>
