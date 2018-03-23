@@ -1,14 +1,15 @@
 package com.devone.finalp.pdetail.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.devone.finalp.common.model.vo.Likes;
+import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 
@@ -32,4 +33,9 @@ public interface DetailViewService {
 	int selectcount(String member_id);
 	
 	List<SuppoterView> selectSuppoterList(String project_id);
+	
+	List<ReplyView> selectReplyList(String project_id);
+	
+	int insertReplyZero(ProjectReply projectreply);
+	int insertReplyOne(ProjectReply projectreply);
 }
