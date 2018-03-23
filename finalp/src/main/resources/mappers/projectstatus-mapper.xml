@@ -44,7 +44,7 @@
 			INSERT INTO PROJECT VALUES( #{ project_id }, #{ project_category_id }, NULL,
 							NULL, #{ member_id }, NULL, NULL, 
 							NULL, DEFAULT, SYSDATE, NULL, NULL, 
-							NULL, NULL, 'N', 'N', DEFAULT, 'N'
+							NULL, NULL, 'N', 'N', DEFAULT, 'N', 'N'
 			)
 		]]>
 	</select>
