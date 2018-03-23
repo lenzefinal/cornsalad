@@ -227,8 +227,7 @@
   		}
   		
   	//카테고리별 검색 ajax
-  	$(function(){
-  		$('#find').click(function(){
+  	function caselChange(){
   			var cate = document.getElementById("caselect");
   			var report_category_name = cate.options[cate.selectedIndex].value;
   			console.log("option : "+report_category_name);
@@ -251,7 +250,7 @@
  							
  					if(json.srlist.length > 0 ){
  						for(var i in json.srlist){
-							value +="<tr><td>"+decodeURIComponent(json.srlist[i].report_category_namereplace(/\+/g," "))+"</td><td>"
+							value +="<tr><td>"+decodeURIComponent(json.srlist[i].report_category_name.replace(/\+/g," "))+"</td><td>"
 								+decodeURIComponent(json.srlist[i].member_name)+
 								"</td><td>"+decodeURIComponent(json.srlist[i].black_name)+"</td><td>"+
 								json.srlist[i].report_date+"</td><td>"+json.srlist[i].report_count+"</td>";
@@ -285,8 +284,7 @@
 				}
   			});
   			
-  		});
-  	});
+  		};
 
   </script>
  </head>
@@ -310,14 +308,13 @@
  <br>
 <div class="searchdiv">
     <div class="input-group">
-      <select class="form-control" name="caselect" id="caselect">
+      <select class="form-control" name="caselect" id="caselect" onchange="caselChange()">
 		<option value="all">전체</option>
 		<option value="프로젝트 신고">프로젝트</option>
 		<option value="프로젝트 댓글 신고">프로젝트 댓글</option>
 		<option value="게시글 신고">게시글</option>
 		<option value="게시글 댓글 신고">게시글 댓글</option>
 	  </select>
-	 <button class="btn btn-danger" id="find">검색</button>
     </div>
 </div>
 <br>

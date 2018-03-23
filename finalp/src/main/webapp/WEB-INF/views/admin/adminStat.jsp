@@ -253,22 +253,22 @@ $(function(){
 			        "name": mname[1].getAttribute("value"),
 			        "points": spon[1].getAttribute("value"),
 			        "color": "#7F8DA9",
-			        "bullet": "resources/images/adminimage/second.png"
-			        	/* "resources/images/mypageProfiles/"+irname[1].getAttribute("value") */
+			        "bullet": "resources/images/mypageProfiles/"+irname[1].getAttribute("value") 
+			        	/* "resources/images/adminimage/second.png" */
 			        	/* "https://www.amcharts.com/lib/images/faces/A04.png" */
 			    }, {
 			        "name": mname[0].getAttribute("value"),
 			        "points": spon[0].getAttribute("value"),
 			        "color": "#FEC514",
-			        "bullet": "resources/images/adminimage/first.png"
-			        	/* "resources/images/mypageProfiles/"+irname[0].getAttribute("value") */
+			        "bullet": "resources/images/mypageProfiles/"+irname[0].getAttribute("value")
+			        	/* "resources/images/adminimage/first.png" */
 			        	/* "https://www.amcharts.com/lib/images/faces/C02.png" */
 			    }, {
 			        "name": mname[2].getAttribute("value"),
 			        "points": spon[2].getAttribute("value"),
 			        "color": "#DB4C3C",
-			        "bullet":"resources/images/adminimage/third.png"
-			        	/* "resources/images/mypageProfiles/"+irname[2].getAttribute("value") */
+			        "bullet": "resources/images/mypageProfiles/"+irname[2].getAttribute("value")
+			        	/* "resources/images/adminimage/third.png" */
 			        	/* "https://www.amcharts.com/lib/images/faces/D02.png" */
 			    }],
 			    "valueAxes": [{
