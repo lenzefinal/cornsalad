@@ -35,13 +35,15 @@ AS
 
 
 
-create or replace view v_reply
-as select project_reply_id, project_id, member_id, member_name, profile_img_rename, reply_content, reply_level, proj_reply_id_ref, reply_seq, creation_date, report_count 
-      from (select * 
-            from project_reply
-            join member m using(member_id)
-            order by proj_reply_id_ref desc, reply_level asc, reply_seq asc
-            );
+CREATE OR REPLACE VIEW V_REPLY
+(PROJECT_ID, PROJECT_REPLY_ID, MEMBER_ID, REPLY_CONTENT, CREATION_DATE,
+REPLY_LEVEL, REPORT_COUNT)
+AS(SELECT P.PROJECT_ID,PR.PROJECT_REPLY_ID,PR.MEMBER_ID,PR.REPLY_CONTENT,
+PR.CREATION_DATE, PR.REPLY_LEVEL, PR.REPORT_COUNT
+FROM PROJECT P 
+LEFT JOIN PROJECT_REPLY PR ON(P.PROJECT_ID=PR.PROJECT_ID)
+LEFT JOIN MEMBER M ON(PR.MEMBER_ID=M.MEMBER_ID));
+
 
 ------------------SUPPOTER VIEW--------------
 
@@ -82,3 +84,15 @@ LEFT JOIN MEMBER_TRUST T ON(P.PROJECT_ID=T.PROJECT_ID));
     SELECT P.PROJECT_ID,G.GIFT_ID,G.CAPACITY,P.PAYMENT_DATE+7,G.SUPPORT_PRICE
     FROM PROJECT P 
     JOIN GIFT G ON(P.PROJECT_ID=G.PROJECT_ID);
+
+
+=================V_SELLCOUNT(선물ID에 대한 판매된 개수)===============
+
+CREATE OR REPLACE VIEW V_SELLCOUNT
+(PROJECT_ID,GIFT_ID,SUM_COUNT)
+AS
+SELECT  P.PROJECT_ID,PC.GIFT_ID,
+        SUM(PC.COUNT) AS SUM_COUNT
+FROM PAYMENT_COUNT PC
+JOIN PAYMENT P ON(P.PAYMENT_ID = PC.PAYMENT_ID)
+GROUP BY PC.GIFT_ID,P.PROJECT_ID;
