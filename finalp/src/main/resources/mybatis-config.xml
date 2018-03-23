@@ -25,6 +25,7 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Likes" alias="Likes" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Question" alias="Question" />
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectReply" alias="ProjectReply"/>
+		<typeAlias type="com.devone.finalp.common.model.vo.QuestionCategory" alias="QuestionCategory" />
 
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>
@@ -34,6 +35,7 @@
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.SuppoterView" alias="SuppoterView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.HotListView" alias="HotListView"/>
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.LoginTimeView" alias="LoginTimeView"/>
+		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftListView" alias="GiftListView"/>
 		
 		
 		<typeAlias type="com.devone.finalp.admin.model.vo.AAlarm" alias="Aalarm" />
@@ -55,6 +57,8 @@
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MemberAccount" alias="MemberAccount"/>
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MyLikes" alias="MyLikes"/>
 		<typeAlias type="com.devone.finalp.mypage.model.vo.PurchaseProduct" alias="PurchaseProduct"/>
+		<typeAlias type="com.devone.finalp.mypage.model.vo.MyQuestion" alias="MyQuestion"/>
+		
 		
 		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
 		

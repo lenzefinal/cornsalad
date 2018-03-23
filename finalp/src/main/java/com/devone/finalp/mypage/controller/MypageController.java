@@ -23,8 +23,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.Question;
+import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 import com.devone.finalp.mypage.service.MypageService;
 
@@ -55,6 +58,7 @@ public class MypageController {
 	public String mypageModify(Member member, Model model, MemberAccount account) {
 		System.out.println("정보 수정 Form");
 		model.addAttribute("member", mypageService.selectMember(member));
+		System.out.println("수정폼 " + member);
 		model.addAttribute("bank", mypageService.bankList());
 		model.addAttribute("account", mypageService.selectAccount(account));
 		return "mypage/mypageModify";
@@ -169,7 +173,7 @@ public class MypageController {
 		System.out.println("수정: " + member);
 		System.out.println("account:" + account);
 
-		return "redirect:mypageIndex.do";
+		return "redirect:mypageIndex.do?member_id=" + member.getMember_id();
 	}
 
 	// 등록한 프로젝트 리스트 출력
@@ -432,37 +436,83 @@ public class MypageController {
 		out.flush();
 		out.close();
 	}
-	
+
 	// 구매한 공동구매 상품 리스트 출력
-		@RequestMapping(value = "searchpurchaseproduct.do", method = RequestMethod.POST)
-		public void searchPurchaseProduct(PurchaseProduct purchaseProduct, HttpServletResponse response) throws IOException {
-			System.out.println("구매 공동구매 list");
-			List<PurchaseProduct> list = mypageService.searchPurchaseProduct(purchaseProduct);
-			response.setContentType("application/json; charset=utf-8");
+	@RequestMapping(value = "searchpurchaseproduct.do", method = RequestMethod.POST)
+	public void searchPurchaseProduct(PurchaseProduct purchaseProduct, HttpServletResponse response)
+			throws IOException {
+		System.out.println("구매 공동구매 list");
+		List<PurchaseProduct> list = mypageService.searchPurchaseProduct(purchaseProduct);
+		response.setContentType("application/json; charset=utf-8");
 
-			JSONObject json = new JSONObject();
-			JSONArray jarr = new JSONArray();
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-			for (PurchaseProduct p : list) {
-				JSONObject j = new JSONObject();
-				j.put("image_rename", p.getImage_rename());
-				j.put("project_name", p.getProject_name());
-				j.put("product_name", p.getProduct_name());
-				j.put("total_amount", p.getTotal_amount());
-				j.put("total_count", p.getTotal_count());
-				j.put("member_id", p.getMember_id());
-				j.put("payment_date", p.getPayment_date().toString());
-				j.put("end_date", p.getEnd_date().toString());
-				jarr.add(j);
-
-			}
-			json.put("spproduct", jarr);
-			System.out.println(json.toJSONString());
-
-			PrintWriter out = response.getWriter();
-			out.println(json.toJSONString());
-			out.flush();
-			out.close();
+		for (PurchaseProduct p : list) {
+			JSONObject j = new JSONObject();
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("product_name", p.getProduct_name());
+			j.put("total_amount", p.getTotal_amount());
+			j.put("total_count", p.getTotal_count());
+			j.put("member_id", p.getMember_id());
+			j.put("payment_date", p.getPayment_date().toString());
+			j.put("end_date", p.getEnd_date().toString());
+			jarr.add(j);
 
 		}
+		json.put("spproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+	// 문의함
+	// 리스트
+	@RequestMapping(value = "myQuestion.do")
+	public String myQuestion() {
+		System.out.println("문의함 리스트 폼");
+		return "mypage/myQuestion";
+	}
+
+	@RequestMapping(value = "myQuestionlist.do", method = RequestMethod.POST)
+	public void myQuestionList(MyQuestion q, HttpServletResponse response) throws IOException {
+		System.out.println("나의 문의함 리스트 출력");
+		List<MyQuestion> list = mypageService.myQuestionList(q);
+		response.setContentType("application/json; charset=utf-8");
+
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyQuestion mq : list) {
+			JSONObject j = new JSONObject();
+			j.put("title", mq.getTitle());
+			j.put("receive_member_id", mq.getReceive_member_id());
+			j.put("send_creation_date", mq.getSend_creation_date().toString());
+			j.put("re_content", mq.getRe_content());
+			
+			jarr.add(j);
+
+		}
+		json.put("qlist", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+	// 작성
+	@RequestMapping(value = "/qInsert.do", method = RequestMethod.POST)
+	public String QuestionInsert(MyQuestion q, Model model) {
+		System.out.println("문의글 작성 폼");
+		model.addAttribute(mypageService.insertQuestion(q));
+		return "redirect:myQuestion.do";
+	}
 }

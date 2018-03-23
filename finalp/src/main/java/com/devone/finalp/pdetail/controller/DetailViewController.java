@@ -53,7 +53,6 @@ public class DetailViewController {
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
 		
-		
 		ProjectView proview=detailviewService.selectProView(project_id);
 		int like=detailviewService.selectLikes(project_id);
 		likes=detailviewService.existList(likes);

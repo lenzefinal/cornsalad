@@ -46,7 +46,6 @@
 </style>
 </head>
  <body class="skin_main" >
-<c:import url="../header.jsp"/>
 <c:import url="mypageStatusHeader.jsp"/>
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
@@ -144,7 +143,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
-								+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.smproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -190,7 +190,8 @@ var size=4;
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 							+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-							+'<td><b><small>등록일</small><br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
+							+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.smproduct[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
@@ -203,7 +204,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
-								+'<td><b><small>등록일</small><br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.smproduct[i].end_date+'</b></td>'
 								+'</tr>';
 						}
 						 size++;
@@ -241,8 +243,8 @@ var size=4;
 								+'</c:url>'
 								+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 								+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
-								+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'
-								+json.smproduct[i].end_date+'</b></td>'
+								+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.smproduct[i].end_date+'</b></td>'
 								+'</tr>';
 							} else{
 								tag+='<tr class="list" name="tt">'
@@ -255,7 +257,8 @@ var size=4;
 									+'</c:url>'
 									+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
 									+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
-									+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
+									+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date
+									+'<br><br><small>마감일</small><br>'+json.smproduct[i].end_date+'</b></td>'
 									+'</tr>';
 							}
 							 size++;
@@ -283,16 +286,15 @@ var size=4;
 			
 			<div class="c_header">
 				<h2>내가 등록한 공동구매</h2>
-				<p class="contxt">이것 저것 알아볼 수 있어요</p>
+				<p class="contxt">내가 구매한 공동구매 상품을 확인할 수 있어요.</p>
 			</div>
 		</div>
 		
 		<div id="list">
-		<input type="text" id="project_name" name="project_name" placeholder="프로젝트 명으로 검색">
+		<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="제목으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>
-		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
 		<div id="result" style="text-align:center;"></div>
 	</div>
 </body>

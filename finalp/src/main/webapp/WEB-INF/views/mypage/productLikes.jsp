@@ -31,7 +31,6 @@
 </style>
 </head>
  <body class="skin_main">
-<c:import url="../header.jsp"/>
 <c:import url="mypageLikesHeader.jsp"/>
 <c:import url="mypageLikesSide.jsp"/>
 <script type="text/javascript">
@@ -268,15 +267,14 @@ var size=4;
 			
 			<div class="c_header">
 				<h2>찜한 공동구매 상품</h2>
-				<p class="contxt">이것 저것 알아볼 수 있어요</p>
+				<p class="contxt">내가 찜한 공동구매 상품을 확인할 수 있어요.</p>
 			</div>
 		</div>
 		<div id="list">
-		<input type="text" name="project_name" id="project_name" placeholder="프로젝트 명으로 검색"/>
+		<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="제목으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>
-		<div id="load" class="display-none" style="text-align:center;"><img src="resources/images/loadImg.gif" style="width:20%; height:20%;"></div>
 		<div id="result" style="text-align:center;"></div>
 	</div>
 </body>

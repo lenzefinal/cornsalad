@@ -9,6 +9,7 @@
 <link href="/finalp/resources/css/mypage.css" rel="stylesheet">
 </head>
 <body>
+<c:import url="../header.jsp"/>
 <div id="lnb_area">
 	 <div class="lnb">
 		<ul> 
@@ -23,6 +24,9 @@
 			</li>
 			<li id="Likes" class="on">
 				<a href="projectLikes.do" style="color:black;">찜한 상품</a>
+			</li>
+			<li id="mquestion" class="on">
+				<a href="myQuestion.do" style="color:black;">나의 문의</a>
 			</li>
 		</ul>
 	</div>

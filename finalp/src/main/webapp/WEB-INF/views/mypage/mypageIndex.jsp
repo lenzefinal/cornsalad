@@ -8,9 +8,9 @@
 <title>마이 페이지</title>
 </head>
  <body class="skin_main">
-<c:import url="../header.jsp"/>
 <c:import url="mypageIndexHeader.jsp"/>
   <div id="container" style="height:724px;">
+  <br>
 	<div id="content" class="section_home">
 		<div class="column">
 			<div class="sh_group">

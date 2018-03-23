@@ -95,21 +95,24 @@ body { background-color: #30303d;  color: #fff;  }
   height: 500px;
 }
 
+#chartdiv3 {
+	width	: 100%;
+	height	: 500px;
+}
+/* 
+g.amcharts-pie-item{
+	font-size:15px;
+}
+ */
 .amcharts-export-menu-top-right {
   top: 10px;
   right: 0;
 }
-#bdiv{
-	width: 30px;
-	height: 90px;
-	position: absolute;
-	background-color: black;
-}
 text.amcharts-axis-title{
 	display: none;
 }
-div.amcharts-chart-div > a{
-	font-size:0px;
+div#chardiv3 > g.amcharts-category-axis > text.amcharts-axis-label > tspan{
+	font-size: 17px;
 }
 							
 </style>
@@ -124,10 +127,12 @@ div.amcharts-chart-div > a{
 <!-- Chart code -->
 <script>
 $(function(){
+	
+	//카테고리별 통계
 	var fundcount = document.getElementById("fundcount").getAttribute("value");
 	var prodcount = document.getElementById("prodcount").getAttribute("value");
-	console.log(fundcount);
-	console.log(prodcount);
+/* 	console.log(fundcount);
+	console.log(prodcount); */
 	
 	var chart = AmCharts.makeChart( "chartdiv", {
 	  	"type": "pie",
@@ -151,13 +156,11 @@ $(function(){
 	  }
 	});
 	
-	/* var size = document.getElementsByName("project_name").length; */
 
-	/* console.log(proname[1]); */
+	//매출 top10
 	var pname = document.getElementsByName("project_name");
 	var pcname = document.getElementsByName("project_category_name");
 	var pmoney = document.getElementsByName("money");
-	/* console.log(size);  */
 	
 	var chart = AmCharts.makeChart("chartdiv2", {
 		  "type": "serial",
@@ -234,6 +237,76 @@ $(function(){
 
 		});
 
+
+	//후원자 top3
+	var mname = document.getElementsByName("member_name");
+	var ioname = document.getElementsByName("profile_img_oriname");
+	var irname = document.getElementsByName("profile_img_rename");
+	var spon = document.getElementsByName("spon");
+	console.log(spon[0])
+	
+	var chart = AmCharts.makeChart("chartdiv3",
+			{
+			    "type": "serial",
+			    "theme": "dark",
+			    "dataProvider": [{
+			        "name": mname[1].getAttribute("value"),
+			        "points": spon[1].getAttribute("value"),
+			        "color": "#7F8DA9",
+			        "bullet": "resources/images/adminimage/second.png"
+			        	/* "resources/images/mypageProfiles/"+irname[1].getAttribute("value") */
+			        	/* "https://www.amcharts.com/lib/images/faces/A04.png" */
+			    }, {
+			        "name": mname[0].getAttribute("value"),
+			        "points": spon[0].getAttribute("value"),
+			        "color": "#FEC514",
+			        "bullet": "resources/images/adminimage/first.png"
+			        	/* "resources/images/mypageProfiles/"+irname[0].getAttribute("value") */
+			        	/* "https://www.amcharts.com/lib/images/faces/C02.png" */
+			    }, {
+			        "name": mname[2].getAttribute("value"),
+			        "points": spon[2].getAttribute("value"),
+			        "color": "#DB4C3C",
+			        "bullet":"resources/images/adminimage/third.png"
+			        	/* "resources/images/mypageProfiles/"+irname[2].getAttribute("value") */
+			        	/* "https://www.amcharts.com/lib/images/faces/D02.png" */
+			    }],
+			    "valueAxes": [{
+			        "maximum": spon[0].getAttribute("value"),
+			        "minimum": 0,
+			        "axisAlpha": 0,
+			        "dashLength": 4,
+			        "position": "left"
+			    }],
+			    "startDuration": 1,
+			    "graphs": [{
+			        "balloonText": "<span style='font-size:16px;'>[[category]]: <b>[[value]]원</b></span>",
+			        "bulletOffset": 10,
+			        "bulletSize": 52,
+			        "colorField": "color",
+			        "cornerRadiusTop": 8,
+			        "customBulletField": "bullet",
+			        "fillAlphas": 0.8,
+			        "lineAlpha": 0,
+			        "type": "column",
+			        "valueField": "points"
+			    }],
+			    "marginTop": 0,
+			    "marginRight": 0,
+			    "marginLeft": 0,
+			    "marginBottom": 0,
+			    "autoMargins": false,
+			    "categoryField": "name",
+			    "categoryAxis": {
+			        "axisAlpha": 0,
+			        "gridAlpha": 0,
+			        "inside": true,
+			        "tickLength": 0
+			    },
+			    "export": {
+			    	"enabled": true
+			     }
+			});
 	
 });
 
@@ -294,7 +367,14 @@ $(function(){
       <h4><strong>후원자</strong> TOP 3</h4>
       <hr>
 	  <div class="stback">
-	  	
+	  	<div id="chartdiv3">
+	  		<c:forEach items="${ sstat }" var="sstat">
+	  			<input type="hidden" name="member_name" value="${ sstat.member_name }">
+	  			<input type="hidden" name="spon" value="${ sstat.spon }">
+	  			<input type="hidden" name="profile_img_oriname" value="${ sstat.profile_img_oriname }">
+	  			<input type="hidden" name="profile_img_rename" value="${ sstat.profile_img_rename }">
+	  		</c:forEach>
+	  	</div>
 	  </div>
     </div>
   </div>

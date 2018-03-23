@@ -621,6 +621,27 @@
   })(jQuery);
   
     </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+    	var side = parseInt($("#question").css('top'));
+    	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+    	$(window).scroll(function() {
+    		// 현재 스크롤 위치를 가져온다.
+    		var scrollTop = $(window).scrollTop();
+    		var newPosition = scrollTop + side + "px";
+    		/* 애니메이션 없이 바로 따라감
+    		 $("#floatMenu").css('top', newPosition);
+    		 */
+     
+    		$("#question").stop().animate({
+    			"top" : newPosition
+    		}, 400);
+     
+    	}).scroll();
+     
+    });
+    </script>
 
 <div id="wadizHeader">
 	<input type="checkbox" id="globalNavOpener">
@@ -736,7 +757,15 @@
 <h1>header</h1>
 <hr>
 </div> -->
-
+<c:if test="${loginUser.member_id ne 'admin' and not empty loginUser.member_id }">
+<div>
+<div style="margin-left:93%; margin-top:38%; position:absolute; height:100px; width:100px;" id="question">
+	<label for="insertQ">
+	<img src="resources/images/question.png" data-toggle="modal" data-target="#insertQ" style="height:95px; width:95px; border-radius:30%"/>
+	</label>
+</div>
+</div>
+</c:if>
 <!-- </header> -->
 	
 	<!-- 로그인 modal -->
@@ -776,5 +805,47 @@
 			</div>
 		</div>
 	</div>
+	 <!-- 관리자에게 문의글 작성 -->
+  <div class="modal fade" id="insertQ" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header"> 
+         <h4 class="modal-title">관리자에게 문의하기</h4> 
+           <button type="button" class="close" data-dismiss="modal">&times;</button> 
+        </div>
+        <div class="modal-body" id="qudemo">
+   		<form action="qInsert.do" method="post">
+				<input id="rmember_id" type="hidden" name="receive_member_id" value="admin"/>
+				<input type="hidden" name="question_category_id" value="Q-ADMIN"/>
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="qtitle"> 제목 : &nbsp;</label>
+				<input type="text" name="title" class="form-control" id="qtitle" placeholder="제목 입력" required>&nbsp;&nbsp;
+			</div>
+			</div>
+			<br>
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="qwriter">작성자 : &nbsp;</label>
+				<input type="text" name="send_member_id" class="form-control" id="qwriter" value="${loginUser.member_id }" readonly >&nbsp;
+			</div>
+			</div>
+			<br>
+			
+			<div class="form-inline">
+			<div class="form-group">
+				<textarea name="content" class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10" required></textarea>
+			</div>
+			</div>
+			<br>
+			<button type="submit" class="btn" style="margin-left:75%;">문의 보내기</button>
+		</form>
+		</div>
+      </div>
+    </div>
+  </div>
+	
 </body>
 </html>

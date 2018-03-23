@@ -75,7 +75,6 @@ public class AdminDao {
 		return mybatis.update("adminmapper.poffupdate", project_id);
 	}
 
-
 	public int memListCount() {
 		return mybatis.selectOne("adminmapper.memlistCount");
 	}
@@ -107,9 +106,13 @@ public class AdminDao {
 	public int replyDelete(AReport report) {
 		return mybatis.delete("adminmapper.replyDelete", report);
 	}
+	
+	public int noListCount() {
+		return mybatis.selectOne("adminmapper.nolistCount");
+	}
 
-	public List<Notice> selectNoticeList() {
-		return mybatis.selectList("adminmapper.noticeList");
+	public List<Notice> selectNoticeList(HashMap<String,Object> map) {
+		return mybatis.selectList("adminmapper.noticeList",map);
 	}
 
 	public int noticeInsert(Notice notice) {
@@ -152,9 +155,18 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.searchReport", report_category_name);
 	}
 
-	public List<AMember> searchMember(String search) {
-		String searchh="%"+search+"%";
-		return mybatis.selectList("adminmapper.searchMember", searchh);
+	public List<AMember> searchMember(String searchM) {
+		searchM="%"+searchM+"%";
+		return mybatis.selectList("adminmapper.searchMember", searchM);
+	}
+
+	public List<Notice> searchNotice(String searchN) {
+		searchN = "%"+searchN+"%";
+		return mybatis.selectList("adminmapper.searchNotice", searchN);
+	}
+
+	public List<AProject> searchCProject(String cname) {
+		return mybatis.selectList("adminmapper.searchCProject", cname);
 	}
 	
 
