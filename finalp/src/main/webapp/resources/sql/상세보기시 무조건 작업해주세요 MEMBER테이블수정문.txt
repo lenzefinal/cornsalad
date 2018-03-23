@@ -6,7 +6,6 @@ alter table project_reply
 add (reply_seq number);
 
 
-select proreply_seq.nextval
 create sequence proreply_seq
 start with 1
 increment by 1;
