@@ -248,228 +248,88 @@
 									<div class="moveRewards">
 										<div class="wd-ui-gift">
 											<h3 class="project-right-title">리워드 선택</h3>
-
-											<button class="rightinfo-reward-list  ing"
-												onclick="backMoney('26841', 'false')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>99,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">일반버드 (고미볼 1세트)</p>
-															<p>
-																정상가 159,000원 (할인율 38%)<br>고미볼(흰색) 1set
+											<c:forEach var="Glist" items="${Glist }">
+ 												
+											
+														<button class="rightinfo-reward-list  ing"
+															onclick="backMoney('26841', 'false')">
+															<div class="top-info">
+																<dl class="reward-info">
+																	<dt>${Glist.support_price}원 펀딩</dt>
+																	<dd>
+																		<c:forEach var="giftlist" items="${giftlist }">
+																		<c:if test="${giftlist.gift_id eq Glist.gift_id }">
+																		
+																			${giftlist.item_name }&nbsp; ${giftlist.count }개<br>
+																		
+																		</c:if>
+																		</c:forEach>
+																		
+																		
+																	</dd>
+																</dl>
+																<ul class="data-info">
+																	<li class="shipping"
+																		style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
+																	<li class="date" style="width: 100%;">리워드 발송 시작일 <em>${Glist.payment_date } 예정</em>
+																	</li>
+																</ul>
+															
+																<p class="reward-qty">
+																	제한수량 <strong>${Glist.capacity }</strong>개 &nbsp; <em>현재 ${Glist.capacity},${sellcount.sum_count }개 남음!</em>
+																</p>
+																<p class="reward-soldcount">
+																	총 <strong>${sellcount.sum_count }</strong>개 펀딩완료
+																</p>
+															</div>
+															<p class="hover-text">이 리워드 펀딩하기</p>
+														
+														</button>
+														
+														
+													
+														
+														
+<%-- 														<button class="rightinfo-reward-list soldout ing"
+															onclick="backMoney('26839', 'true')">
+															<div class="top-info">
+																<dl class="reward-info">
+																	<dt>${giftlist.support_price }원 펀딩</dt>
+																	<dd>
+																		
+																		<p>
+																			<br>${giftlist.item_name }&nbsp; ${giftlist.count } set<br>
+																		</p>
+																	</dd>
+																</dl>
+																<ul class="data-info">
+																	<li class="shipping"
+																		style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
+																	<li class="date" style="width: 100%;">리워드 발송 시작일 <em>${giftlist.payment_date } 예정</em>
+																	</li>
+																</ul>
+			
+																<p class="reward-qty soldout">
+																	<em>제한수량이 모두 펀딩되었습니다.</em>
+																</p>
+																<p class="reward-soldcount">
+																	총 <strong>100</strong>개 펀딩완료
+																</p>
+			
+			
+															</div>
+			
+															<p class="hover-text soldout">
+																제한수량이<br>모두 펀딩되었습니다.
 															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-														</li>
-													</ul>
-													<p class="reward-qty">
-														제한수량 <strong>200</strong>개 &nbsp; <em>현재 163개 남음!</em>
-													</p>
-													<p class="reward-soldcount">
-														총 <strong>37</strong>개 펀딩완료
-													</p>
-												</div>
-												<p class="hover-text">이 리워드 펀딩하기</p>
-											</button>
-											<button class="rightinfo-reward-list  ing"
-												onclick="backMoney('26842', 'false')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>158,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">커플/친구 패키지 (고미볼 2세트)</p>
-															<p>
-																정상가 159,000원 (할인율 50%)<br>고미볼(흰색) 2set
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-														</li>
-													</ul>
-													<p class="reward-qty">
-														제한수량 <strong>150</strong>개 &nbsp; <em>현재 90개 남음!</em>
-													</p>
-													<p class="reward-soldcount">
-														총 <strong>60</strong>개 펀딩완료
-													</p>
-												</div>
-												<p class="hover-text">이 리워드 펀딩하기</p>
-											</button>
-											<button class="rightinfo-reward-list  ing"
-												onclick="backMoney('34830', 'false')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>237,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">다둥이용 패키지 (고미볼 3세트)</p>
-															<p>
-																정상가 159,000원 (할인율 50%)<br>고미볼(흰색) 3set
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-														</li>
-													</ul>
-													<p class="reward-qty">
-														제한수량 <strong>50</strong>개 &nbsp; <em>현재 44개 남음!</em>
-													</p>
-													<p class="reward-soldcount">
-														총 <strong>6</strong>개 펀딩완료
-													</p>
-												</div>
-												<p class="hover-text">이 리워드 펀딩하기</p>
-											</button>
-
-											<button class="rightinfo-reward-list ing"
-												onclick="backMoney('34831', 'false')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>890,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">동호회 패키지 A (고미볼 10세트)</p>
-															<p>
-																정상가 159,000원 (할인율 44%)<br>고미볼(흰색) 10set
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>6,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-														</li>
-													</ul>
-													<p class="reward-qty">
-														제한수량 <strong>10</strong>개 &nbsp; <em>현재 10개 남음!</em>
-													</p>
-													<p class="reward-soldcount">
-														총 <strong>0</strong>개 펀딩완료
-													</p>
-												</div>
-												<p class="hover-text">이 리워드 펀딩하기</p>
-											</button>
-
-											<button class="rightinfo-reward-list ing"
-												onclick="backMoney('34832', 'false')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>1,780,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">동호회 패키지 B (고미볼 20세트)</p>
-															<p>
-																정상가 159,000원 (할인율 44%)<br>고미볼(흰색) 20set
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>9,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-														</li>
-													</ul>
-													<p class="reward-qty">
-														제한수량 <strong>10</strong>개 &nbsp; <em>현재 10개 남음!</em>
-													</p>
-
-													<p class="reward-soldcount">
-														총 <strong>0</strong>개 펀딩완료
-													</p>
-
-												</div>
-
-												<p class="hover-text">이 리워드 펀딩하기</p>
-
-
-											</button>
+			
+														</button> --%>
+													</c:forEach> 	
+													
+													
+												
 											
 
-											<button class="rightinfo-reward-list soldout ing"
-												onclick="backMoney('26839', 'true')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>79,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">슈퍼 얼리버드 (고미볼 1세트)</p>
-															<p>
-																정상가 159,000원 (할인율 50%)<br>고미볼 1set<br>
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 중순 (11~20일) 예정</em>
-														</li>
-													</ul>
-
-													<p class="reward-qty soldout">
-														<em>제한수량이 모두 펀딩되었습니다.</em>
-													</p>
-													<p class="reward-soldcount">
-														총 <strong>100</strong>개 펀딩완료
-													</p>
-
-
-												</div>
-
-												<p class="hover-text soldout">
-													제한수량이<br>모두 펀딩되었습니다.
-												</p>
-
-											</button>
-
-											<button class="rightinfo-reward-list soldout ing"
-												onclick="backMoney('26840', 'true')">
-												<div class="top-info">
-													<dl class="reward-info">
-														<dt>89,000원 펀딩</dt>
-														<dd>
-															<p class="reward-name">얼리버드 (고미볼 1세트)</p>
-															<p>
-																정상가 159,000원 (할인율 44%)<br>고미볼(흰색) 1set
-															</p>
-														</dd>
-													</dl>
-													<ul class="data-info">
-														<li class="shipping"
-															style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-														<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2018년
-																06월 말 (21~말일) 예정</em>
-
-
-														</li>
-													</ul>
-
-													<p class="reward-qty soldout">
-														<em>제한수량이 모두 펀딩되었습니다.</em>
-													</p>
-
-													<p class="reward-soldcount">
-														총 <strong>200</strong>개 펀딩완료
-													</p>
-
-												</div>
-
-												<p class="hover-text soldout">
-													제한수량이<br>모두 펀딩되었습니다.
-												</p>
-											</button>
 
 										</div>
 									</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> <!-- S : 인기 프로젝트 리스트 -->

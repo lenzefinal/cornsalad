@@ -11,10 +11,12 @@ import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
+import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 
@@ -32,7 +34,7 @@ public class DetailViewDao {
 
 	public List<GiftView> selectGiftList(String project_id) {
 		
-		return mybatis.selectList("projectdetailMapper.selectGiftList");
+		return mybatis.selectList("projectdetailMapper.selectGiftList",project_id);
 	}
 
 
@@ -86,8 +88,17 @@ public class DetailViewDao {
 	}
 
 	public List<SuppoterView> selectSuppoterList(String project_id) {
-		System.out.println(project_id);
 		return mybatis.selectList("projectdetailMapper.selectSuppoterList", project_id);
 		
+	}
+
+	public List<GiftListView> selectGlist(String project_id) {
+		
+		return mybatis.selectList("projectdetailMapper.selectGlist", project_id);
+	}
+
+	public List<SellCountView> selectSellCount(String project_id) {
+		
+		return mybatis.selectList("projectdetailMapper.selectSellCount", project_id);
 	}
 }

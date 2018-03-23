@@ -6,9 +6,12 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
+import com.devone.finalp.pdetail.model.vo.GiftListView;
+import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 
@@ -25,6 +28,8 @@ public interface DetailViewService {
 	
 	int insertQuestion(Question question);
 	
+	List<GiftView> selectGiftList(String project_id);
+	
 	ProjectView selectProView(String project_id);
 	
 	LoginTimeView selectloginTime(LoginTimeView loginTime);
@@ -32,4 +37,8 @@ public interface DetailViewService {
 	int selectcount(String member_id);
 	
 	List<SuppoterView> selectSuppoterList(String project_id);
+	
+	List<GiftListView> selectGlist(String project_id);
+	
+	List<SellCountView> selectSellCount(String project_id);
 }

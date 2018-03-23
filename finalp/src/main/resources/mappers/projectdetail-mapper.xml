@@ -9,28 +9,26 @@
 	<![CDATA[
 		select project_name,project_id, likecount from v_hotlist
 	]]>
+	</select>
 	
-	</select>
-		<select id="selectGiftList" resultType="GiftView">
-	<![CDATA[
-		select * from v_gift
-	]]>
-	</select>
 	<insert id="insertReport"  parameterType="Report">
 	<![CDATA[
 		insert into Report values(seq_report.nextval,'R-PROJ',#{project_id},null,null,null,#{report_reason},#{member_id},sysdate,'N')
 	]]>
 	</insert>
+	
 	<select id="selectLikes" parameterType="String" resultType="int">
 	<![CDATA[
 		select count(project_id) from likes where project_id= #{project_id}
 	]]>
 	</select>
+	
 	<select id="existLike" parameterType="Likes" resultType="Likes">
 	<![CDATA[
 		select * from likes where project_id=#{project_id} and member_id=#{member_id} 
 	]]>
 	</select>
+	
 	<insert id="addLikes"  parameterType="Likes">
 	<![CDATA[
 			insert into Likes values(#{project_id},#{member_id})
@@ -72,6 +70,7 @@
 			<result property="percent" column="percent"/>
 		
 	</resultMap>	
+	
 	<select id="selectProView" parameterType="String" resultMap="proview">
 	<![CDATA[
 		select * from v_project where project_id=#{project_id}
@@ -79,7 +78,6 @@
 	</select>
 	
 	<select id="selectloginTime" parameterType="LoginTimeView" resultType="LoginTimeView">
-	
 	<![CDATA[
 		select * from v_logintime where member_id=#{member_id}
 	]]>
@@ -117,6 +115,52 @@
 	]]>
 	</select>
 	
+	<resultMap id="glist" type="GiftListView">
+		<result property="project_id" column="project_id"></result>
+		<result property="gift_id" column="gift_id"></result>
+		<result property="capacity" column="capacity"></result>
+		<result property="payment_date" column="payment_date"></result>
+		<result property="support_price" column="support_price"></result>
+	</resultMap>
+	
+	
+	
+	<select id="selectGlist" parameterType="String" resultMap="glist">
+	
+	<![CDATA[
+		select * from v_giftlist where project_id=#{project_id}
+	]]>
+	</select>
+
+	<resultMap id="giftlist" type="GiftView">
+		<result property="project_id" column="project_id"></result>
+		<result property="gift_id" column="gift_id"></result>
+		<result property="item_name" column="item_name"></result>
+		<result property="count" column="count"></result>
+		
+	</resultMap>
+	
+	<select id="selectGiftList" parameterType="String" resultMap="giftlist">
+	
+	<![CDATA[
+		select * from v_gift where project_id=#{project_id}
+	]]>
+	</select>
+	
+	
+	
+	<resultMap id="SellCount" type="SellCountView">
+		<result property="project_id" column="project_id"></result>
+		<result property="gift_id" column="gift_id"></result>
+		<result property="sum_count" column="sum_count"></result>
+	</resultMap>
+	
+	<select id="selectSellCount" parameterType="String" resultMap="SellCount">
+	
+	<![CDATA[
+		select * from v_sellCount where project_id=#{project_id}
+	]]>
+	</select>
 
 
 </mapper>

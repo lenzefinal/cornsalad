@@ -11,10 +11,12 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
+import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
+import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
 @Service("detailviewService")
@@ -73,6 +75,14 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public List<SuppoterView> selectSuppoterList(String project_id) {
 		
 		return detailviewDao.selectSuppoterList(project_id);
+	}
+	public List<GiftListView> selectGlist(String project_id) {
+		
+		return detailviewDao.selectGlist(project_id);
+	}
+	public List<SellCountView> selectSellCount(String project_id) {
+		
+		return detailviewDao.selectSellCount(project_id);
 	}
 
 	
