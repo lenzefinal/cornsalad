@@ -29,6 +29,7 @@ import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
+import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
@@ -52,6 +53,8 @@ public class DetailViewController {
 //      판매자 member_id 알아옴
 		Project project=detailviewService.selectMemberId(project_id);
 		
+		System.out.println(project);
+		
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
 		
@@ -65,14 +68,16 @@ public class DetailViewController {
 //      프로젝트 아이디에 있는 전체 아이템 리스트 받아옴
 		List<GiftView> giftlist=detailviewService.selectGiftList(project_id);
 		
-
+		System.out.println(suppoter);
 		
 		boolean suppoterFlag = false;
 		if(member_id.equals(project.getMember_id())) {
 			suppoterFlag=true;
 		}else {
 			for(int i=0; i<suppoter.size(); i++) {
-				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+				//getMember_id가 null일 때 문제가 발생함
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
 					suppoterFlag = true;
 					break;
 				}
@@ -104,9 +109,12 @@ public class DetailViewController {
 	
 		System.out.println("신고하기" + report);
 		int result=detailviewService.insertReport(report);
-		
+
 		if(result>0) {
 			System.out.println("성공");
+			Project project=detailviewService.selectMemberId(report.getProject_id());
+			System.out.println("이용환"+project);
+			detailviewService.addReportCount(project);
 			model.addAttribute("project_id", report.getProject_id());
 			model.addAttribute("member_id", report.getMember_id());
 			return "redirect:projectDetailView.do";
@@ -145,13 +153,14 @@ public class DetailViewController {
 		
 		int result=detailviewService.insertQuestion(question);
 		
+		String str = "";
 		if(result>0) {
 			System.out.println("성공");
 			model.addAttribute("project_id", project_id);
 			model.addAttribute("member_id", question.getSend_member_id());
-			return "redirect:projectDetailView.do";
+			str= "redirect:projectDetailView.do";
 		}
-		return null;
+		return str;
 	
 	}
 	
@@ -216,6 +225,73 @@ public class DetailViewController {
 		}
 		
 		return jarr;
+	}
+	
+	//----------
+	// jieun 
+	//----------
+	//펀딩 공동구매 servlet 복붙해서 gift부분만 수정
+	//공동구매 상세페이지
+	@RequestMapping("projectDetailGPView.do")
+	public String projectDetailGPViewMethod(Model model,@RequestParam("project_id") String project_id,
+									@RequestParam("member_id") String member_id,
+									Likes likes,LoginTimeView loginTime) {
+		
+		System.out.println(member_id);
+		System.out.println(project_id);
+		
+		List<HotListView> list = detailviewService.selectHotList();
+		
+//      판매자 member_id 알아옴
+		Project project=detailviewService.selectMemberId(project_id);
+		
+//		프로젝트에 대한 후원자들 리스트 
+		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
+		
+		ProjectView proview=detailviewService.selectGPView(project_id);
+		int like=detailviewService.selectLikes(project_id);
+		likes=detailviewService.existList(likes);
+//		판매자의 로그인 시간 알아옴
+		loginTime.setMember_id(project.getMember_id());
+		
+		
+		
+		
+		//물품 리스트
+//		List<ProductDetailView> productList = detailviewService.selectListProductView(project_id);
+		
+
+		boolean suppoterFlag = false;
+		if(member_id.equals(project.getMember_id())) {
+			suppoterFlag=true;
+		}else {
+			for(int i=0; i<suppoter.size(); i++) {
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
+					suppoterFlag = true;
+					break;
+				}
+			}
+		}
+
+		
+		LoginTimeView logintime=detailviewService.selectloginTime(loginTime);
+//      진행한 프로젝트 갯수 알아오기
+		int count =detailviewService.selectcount(project.getMember_id());
+		
+		model.addAttribute("LoginTimeView", logintime);
+		model.addAttribute("proview", proview);
+		model.addAttribute("hotlist", list);
+//		model.addAttribute("productList", productList); 
+		model.addAttribute("replylist", detailviewService.selectReplyList(project_id));
+		model.addAttribute("suppoterFlag", suppoterFlag);
+		model.addAttribute("like", like);
+		model.addAttribute("likes", likes);	
+		model.addAttribute("count", count);
+		model.addAttribute("SuppoterView", suppoter);
+		model.addAttribute("SuppoterCount", suppoter.size());
+		
+		return "project/projectDetailGPView";
 	}
 	
 }
