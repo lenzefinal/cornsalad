@@ -19,10 +19,16 @@
 				<a href="${mypageIndex }" style="color:black;">나의 정보</a>
 			</li>
 			<li id="myStatus" class="on">
-				<a href="myProject.do" style="color:black;">현황 보기</a>
+				<c:url var="myProject" value="myProject.do">
+	  				<c:param name="member_id" value="${loginUser.member_id }"/>
+	  			</c:url>
+				<a href="${myProject}" style="color:black;">현황 보기</a>
 			</li>
 			<li id="Likes" class="on">
-				<a href="projectLikes.do" style="color:black;">찜한 상품</a>
+				<c:url var="projectLikes" value="projectLikes.do">
+	  				<c:param name="member_id" value="${loginUser.member_id }"/>
+	  			</c:url>
+				<a href="${projectLikes }" style="color:black;">찜한 상품</a>
 			</li>
 				<c:url var="myQuestion" value="myQuestion.do">
 	  				<c:param name="send_member_id" value="${loginUser.member_id }"/>

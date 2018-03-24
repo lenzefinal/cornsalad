@@ -52,198 +52,117 @@
 <c:import url="mypageStatusSide.jsp"/>
 <script type="text/javascript">
 var size=4;
+$(window).ready(function(){
+	var member_id=$('#memberId').val();
 
-	$(window).ready(function(){
-		var member_id=$('#memberId').val();
-		$.ajax({
-			url:"myProjectList.do",
-			data:{"size":Number(size), "member_id": member_id},
-			dataType:"json",
-			type:"post",
-			success:function(e){
-				var jsonStr=JSON.stringify(e);
-				var json=JSON.parse(jsonStr); 
-				var tag="";
-				if(json.project[0]!=null){
-				for(var i=0;i<json.project.length;i++){
+	$.ajax({
+		url:"myProjectList.do",
+		data:{"size":size, "member_id": member_id},
+		dataType:"json",
+		type:"post",
+		success:function(e){
+			var jsonStr=JSON.stringify(e);
+			var json=JSON.parse(jsonStr); 
+			var tag="";
+			if(json.project[0]!=null){
+			for(var i=0;i<json.project.length;i++){
+				if((json.project[i].project_request_flag=='N'&&json.project[i].project_onoff_flag=='Y')||(json.project[i].project_request_flag=='Y'&&json.project[i].project_onoff_flag=='N')){
 					if(json.project[i].image_rename==null){
-					tag+='<tr class="list" name="tt">'
-						+'<td class="limg">'
-						+'<img name="img_rename" src="resources/images/logo.png"/>'
-						+'</td>'
-						+'<c:url var="projectDetail" value="projectDetailView.do">'
-						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-						+'<c:param name="project_id" value=""/>'
-						+'</c:url>'
-						+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-						+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-						+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
-						+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
-						+'</tr>';
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+							+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+							+'<td><b><small>등록일</small><br>'+json.project[i].creation_date+'<br><br>마감일<br>'+json.project[i].end_date+'</b></td>'
+							+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 							+'</td>'
-							+'<c:url var="projectDetail" value="projectDetailView.do">'
-							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value=""/>'
-							+'</c:url>'
-							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+							+'<td><b><small>등록일</small><br>'+json.project[i].creation_date+'<br><br>마감일<br>'+json.project[i].end_date+'</b></td>'
+							+'</tr>';
+					}
+				} if(json.project[i].project_request_flag=='N'&&json.project[i].project_onoff_flag=='N'){
+					if(json.project[i].image_rename==null){
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
 							+'</tr>';
-					}
+						} else{
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
+								+'</td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
+								+'</tr>';
+						}
 				}
-				$('.tbl_type').html(tag);
-				} else{
-					$('#result').html("결과가 없습니다.");
-					$('#container').css("height","600px");
-				}
-			},
-			error: function(request, status, errorData) {
-				alert("에러코드: " + request.status + "\n" + "메세지: "
-						+ request.responseText + "\n" + "에러: "
-						+ errorData);
 			}
-		});
-		$('#project_name').keyup(function(){
-			 var size=4;
-			 var member_id=$('#memberId').val();
-			 var project_name=$('#project_name').val();
-			$.ajax({
-				url:"searchmyproject.do",
-				dataType:"json",
-				data:{"size":size, "member_id":member_id,"project_name":project_name},
-				type:"post",
-				success:function(e){
-					var jsonStr=JSON.stringify(e);
-					var json=JSON.parse(jsonStr); 
-					var tag="";
-					for(var i=0;i<json.smproject.length;i++){
+			$('.tbl_type').html(tag);
+			} else{
+				$('#result').html("결과가 없습니다.");
+				$('#container').css("height","600px");
+			}
+		},
+		error: function(request, status, errorData) {
+			alert("에러코드: " + request.status + "\n" + "메세지: "
+					+ request.responseText + "\n" + "에러: "
+					+ errorData);
+		}
+	}); 
+	$('#project_name').keyup(function(){
+		 var size=4;
+		 var member_id=$('#memberId').val();
+		 var project_name=$('#project_name').val();
+		$.ajax({
+			url:"searchmyproject.do",
+			dataType:"json",
+			data:{"size":size, "member_id":member_id,"project_name":project_name},
+			type:"post",
+			success:function(e){
+				var jsonStr=JSON.stringify(e);
+				var json=JSON.parse(jsonStr); 
+				var tag="";
+				for(var i=0;i<json.smproject.length;i++){
+					if((json.smproject[i].project_request_flag=='N'&&json.smproject[i].project_onoff_flag=='Y')||(json.smproject[i].project_request_flag=='Y'&&json.smproject[i].project_onoff_flag=='N')){
 						if(json.smproject[i].image_rename==null){
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<c:url var="projectDetail" value="projectDetailView.do">'
-							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value=""/>'
-							+'</c:url>'
-							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
-							+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
-							+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date+'<br><br>마감일<br>'
+							+json.smproject[i].end_date+'</b></td>'
 							+'</tr>';
 						} else{
 							tag+='<tr class="list" name="tt">'
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<c:url var="projectDetail" value="projectDetailView.do">'
-								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value=""/>'
-								+'</c:url>'
-								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
 								+'</tr>';
 						}
-						 size++;
-					}
-					$('.tbl_type').html(tag);
-				},
-				error: function(request, status, errorData) {
-					alert("에러코드: " + request.status + "\n" + "메세지: "
-							+ request.responseText + "\n" + "에러: "
-							+ errorData);
-				}
-			}); 
-		 });
-	});
-	
-	 $(window).scroll(function() {
-		 var member_id=$('#memberId').val();
-		 var project_name=$('#project_name').val();
-		 console.log("구분자");
-		 console.log($(window).scrollTop());
-		 console.log($(document).height()-$(window).height());
-			
-		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
-			/* if(project_name==null){ */
-			 $.ajax({
-					url:"myProjectList.do",
-					data:{"size":Number(size), "member_id":member_id},
-					dataType:"json",
-					type:"post",
-					success:function(e){
-						var jsonStr=JSON.stringify(e);
-						var json=JSON.parse(jsonStr); 
-						var tag="";
-						for(var i=0;i<json.project.length;i++){
-							if(json.project[i].image_rename==null){
+					}  if(json.smproject[i].project_request_flag=='N'&&json.smproject[i].project_onoff_flag=='N'){
+						if(json.smproject[i].image_rename==null){
 							tag+='<tr class="list" name="tt">'
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
-								+'<c:url var="projectDetail" value="projectDetailView.do">'
-								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value=""/>'
-								+'</c:url>'
-								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
-								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
-								+'</tr>';
-							} else{
-								tag+='<tr class="list" name="tt">'
-									+'<td class="limg">'
-									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
-									+'</td>'
-									+'<c:url var="projectDetail" value="projectDetailView.do">'
-									+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-									+'<c:param name="project_id" value=""/>'
-									+'</c:url>'
-									+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-									+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
-									+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
-									+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
-									+'</tr>';
-							}
-							 size++;
-						}
-						$('.tbl_type').html(tag);
-					},
-					error: function(request, status, errorData) {
-						alert("에러코드: " + request.status + "\n" + "메세지: "
-								+ request.responseText + "\n" + "에러: "
-								+ errorData);
-					}
-				 });
-		 	}
-		 	/*} else{
-		 		$.ajax({
-					url:"searchmyproject.do",
-					dataType:"json",
-					data:{"size":size, "member_id":member_id,"project_name":project_name},
-					type:"post",
-					success:function(e){
-						var jsonStr=JSON.stringify(e);
-						var json=JSON.parse(jsonStr); 
-						var tag="";
-						for(var i=0;i<json.smproject.length;i++){
-							if(json.smproject[i].image_rename==null){
-							tag+='<tr class="list" name="tt">'
-								+'<td class="limg">'
-								+'<img name="img_rename" src="resources/images/logo.png"/>'
-								+'</td>'
-								+'<c:url var="projectDetail" value="projectDetailView.do">'
-								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value=""/>'
-								+'</c:url>'
-								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
+								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
@@ -253,29 +172,172 @@ var size=4;
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
 									+'</td>'
-									+'<c:url var="projectDetail" value="projectDetailView.do">'
-									+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-									+'<c:param name="project_id" value=""/>'
-									+'</c:url>'
-									+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
+									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 									+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
 									+'</tr>';
 							}
-							 size++;
-						}
-						$('.tbl_type').html(tag);	 
-					},
-					error: function(request, status, errorData) {
-						alert("에러코드: " + request.status + "\n" + "메세지: "
-								+ request.responseText + "\n" + "에러: "
-								+ errorData);
 					}
-				});  
-		 	}*/
-		
+					 size++;
+				}
+				$('.tbl_type').html(tag);
+			},
+			error: function(request, status, errorData) {
+				alert("에러코드: " + request.status + "\n" + "메세지: "
+						+ request.responseText + "\n" + "에러: "
+						+ errorData);
+			}
+	});
+});
+
+ $(window).scroll(function() {
+	 var member_id=$('#memberId').val();
+	 var project_name=$('#project_name').val();
+	 console.log("구분자");
+	 console.log($(window).scrollTop());
+	 console.log($(document).height()-$(window).height());
+	 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
+	 	if(project_name==null){
+		 $.ajax({
+			url:"myProjectList.do",
+			data:{"size":Number(size), "member_id":member_id},
+			dataType:"json",
+			type:"post",
+			success:function(e){
+				var jsonStr=JSON.stringify(e);
+				var json=JSON.parse(jsonStr); 
+				var tag="";
+				for(var i=0;i<json.project.length;i++){
+					if((json.project[i].project_request_flag=='N'&&json.project[i].project_onoff_flag=='Y')||(json.project[i].project_request_flag=='Y'&&json.project[i].project_onoff_flag=='N')){
+						if(json.project[i].image_rename==null){
+						tag+='<tr class="list" name="tt">'
+							+'<td class="limg">'
+							+'<img name="img_rename" src="resources/images/logo.png"/>'
+							+'</td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+							+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+							+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
+							+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
+							+'</tr>';
+						} else{
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
+								+'</td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
+								+'</tr>';
+						}
+					} if(json.project[i].project_request_flag=='N'&&json.project[i].project_onoff_flag=='N'){
+						if(json.project[i].image_rename==null){
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'</td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
+								+'</tr>';
+							} else{
+								tag+='<tr class="list" name="tt">'
+									+'<td class="limg">'
+									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
+									+'</td>'
+									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+									+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
+									+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
+									+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
+									+'</tr>';
+							}
+					}
+					 size++;
+				}
+					$('.tbl_type').html(tag);
+					$('#checksize').val(Number(size));
+					
+				},
+				error: function(request, status, errorData) {
+					alert("에러코드: " + request.status + "\n" + "메세지: "
+							+ request.responseText + "\n" + "에러: "
+							+ errorData);
+				}
+			 });
+	 	}
+	 	} else {
+	 		$.ajax({
+				url:"searchmyproject.do",
+				dataType:"json",
+				data:{"size":size, "member_id":member_id,"project_name":project_name},
+				type:"post",
+				success:function(e){
+					var jsonStr=JSON.stringify(e);
+					var json=JSON.parse(jsonStr); 
+					var tag="";
+					for(var i=0;i<json.smproject.length;i++){
+						if((json.smproject[i].project_request_flag=='N'&&json.smproject[i].project_onoff_flag=='Y')||(json.smproject[i].project_request_flag=='Y'&&json.smproject[i].project_onoff_flag=='N')){
+							if(json.smproject[i].image_rename==null){
+							tag+='<tr class="list" name="tt">'
+								+'<td class="limg">'
+								+'<img name="img_rename" src="resources/images/logo.png"/>'
+								+'</td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+								+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
+								+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
+								+'</tr>';
+							} else{
+								tag+='<tr class="list" name="tt">'
+									+'<td class="limg">'
+									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
+									+'</td>'
+									+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+									+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
+									+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
+									+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
+									+'</tr>';
+							}
+						} if(json.smproject[i].project_request_flag=='N'&&json.smproject[i].project_onoff_flag=='N'){
+							if(json.smproject[i].image_rename==null){
+								tag+='<tr class="list" name="tt">'
+									+'<td class="limg">'
+									+'<img name="img_rename" src="resources/images/logo.png"/>'
+									+'</td>'
+									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+									+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
+									+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
+									+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
+									+'</tr>';
+								} else{
+									tag+='<tr class="list" name="tt">'
+										+'<td class="limg">'
+										+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
+										+'</td>'
+										+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+										+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
+										+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
+										+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
+										+'</tr>';
+								}
+						}
+						 size++;
+					}
+					$('.tbl_type').html(tag);
+					$('#checksize').val(Number(size));
+					
+				},
+				error: function(request, status, errorData) {
+					alert("에러코드: " + request.status + "\n" + "메세지: "
+							+ request.responseText + "\n" + "에러: "
+							+ errorData);
+				}
+			}); 
+	 	}	
 	}); 
+}); 
 </script>
 	
 	<div id="container">

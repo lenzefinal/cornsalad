@@ -111,10 +111,22 @@ $(document).ready(function() {
 
 <div id="menunav">
 	<ul class="list-group menunav">
-		<li class="list-group-item menu"><a class="menua" href="myProject.do">등록한 프로젝트</a></li>
-		<li class="list-group-item menu"><a class="menua" href="fundingProject.do">펀딩한 프로젝트</a></li>
-		<li class="list-group-item menu"><a class="menua" href="myProduct.do">판매중인 공동구매</a></li>
-		<li class="list-group-item menu"><a class="menua" href="purchaseProduct.do">구매한 공동구매</a></li>
+		<c:url var="myProject" value="myProject.do">
+			<c:param name="member_id" value="${loginUser.member_id }"/>
+		</c:url>
+		<c:url var="myProduct" value="myProduct.do">
+			<c:param name="member_id" value="${loginUser.member_id }"/>
+		</c:url>
+		<c:url var="fundingProject" value="fundingProject.do">
+			<c:param name="member_id" value="${loginUser.member_id }"/>
+		</c:url>
+		<c:url var="purchaseProduct" value="purchaseProduct.do">
+			<c:param name="member_id" value="${loginUser.member_id }"/>
+		</c:url>
+		<li class="list-group-item menu"><a class="menua" href="${myProject }">등록한 프로젝트</a></li>
+		<li class="list-group-item menu"><a class="menua" href="${fundingProject }">펀딩한 프로젝트</a></li>
+		<li class="list-group-item menu"><a class="menua" href="${myProduct }">판매중인 공동구매</a></li>
+		<li class="list-group-item menu"><a class="menua" href="${purchaseProduct }">구매한 공동구매</a></li>
 	</ul>
 </div>
 
