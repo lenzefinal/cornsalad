@@ -29,7 +29,7 @@ import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
-import com.devone.finalp.pdetail.model.vo.ProductDetailView;
+//import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
@@ -258,7 +258,7 @@ public class DetailViewController {
 		
 		
 		//물품 리스트
-		List<ProductDetailView> productList = detailviewService.selectListProductView(project_id);
+//		List<ProductDetailView> productList = detailviewService.selectListProductView(project_id);
 		
 
 		boolean suppoterFlag = false;
@@ -282,7 +282,7 @@ public class DetailViewController {
 		model.addAttribute("LoginTimeView", logintime);
 		model.addAttribute("proview", proview);
 		model.addAttribute("hotlist", list);
-		model.addAttribute("productList", productList); 
+//		model.addAttribute("productList", productList); 
 		model.addAttribute("replylist", detailviewService.selectReplyList(project_id));
 		model.addAttribute("suppoterFlag", suppoterFlag);
 		model.addAttribute("like", like);
