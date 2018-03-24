@@ -59,6 +59,8 @@
 		<typeAlias type="com.devone.finalp.mypage.model.vo.PurchaseProduct" alias="PurchaseProduct"/>
 		<typeAlias type="com.devone.finalp.mypage.model.vo.MyQuestion" alias="MyQuestion"/>
 		<typeAlias type="com.devone.finalp.mypage.model.vo.FundingProject" alias="FundingProject"/>
+		<typeAlias type="com.devone.finalp.mypage.model.vo.MyProdPay" alias="MyProdPay"/>
+		<typeAlias type="com.devone.finalp.mypage.model.vo.MyFundPay" alias="MyFundPay"/>
 		
 		
 		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
