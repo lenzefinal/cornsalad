@@ -150,8 +150,6 @@ var size=4;
 						 size++;
 					}
 					$('.tbl_type').html(tag);
-					$('#checksize').val(Number(size));
-					
 				},
 				error: function(request, status, errorData) {
 					alert("에러코드: " + request.status + "\n" + "메세지: "

@@ -76,7 +76,7 @@
 						<dt>등록한 프로젝트</dt>
 						<dd>${projectCount} 건</dd>
 						<dt>펀딩한 프로젝트</dt>
-						<dd> 건</dd>
+						<dd>${fprojectCount } 건</dd>
 						<dt>등록한 공동구매</dt>
 						<dd>${productCount } 건</dd>
 						<dt>구매한 공동구매</dt>

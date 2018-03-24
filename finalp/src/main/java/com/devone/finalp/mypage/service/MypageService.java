@@ -5,8 +5,8 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
-import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.QuestionCategory;
+import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
@@ -29,6 +29,7 @@ public interface MypageService {
 	int lproductCount(String member_id);
 	List<PurchaseProduct> selectPurchaseProduct(PurchaseProduct product);
 	int pproductCount(String member_id);
+	int fprojectCount(String member_id);
 	List<Project> selectSearchMyProject(Project project);
 	List<Project> selectSearchMyProduct(Project product);
 	List<MyLikes> selectSearchProjectLikes(MyLikes projectLikes);
@@ -42,5 +43,7 @@ public interface MypageService {
 	List<MyQuestion> myRQuestionList(MyQuestion q);
 	MyQuestion rmyQdetail(int questionid);
 	int receiveQ(MyQuestion q);
+	List<FundingProject> selectFundingProject(FundingProject project);
+	List<FundingProject> searchFundingProject(FundingProject fundingProject);
 	
 }
