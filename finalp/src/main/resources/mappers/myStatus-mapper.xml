@@ -41,23 +41,6 @@
 		<result property="receive_creation_date" column="receive_creation_date"/>
 	</resultMap>
 	
-	<resultMap type="MyProdPay" id="MyProdPay">
-		<result property="project_name" column="project_name"></result>
-		<result property="payment_id" column="payment_id"></result>
-		<result property="member_id" column="member_id"></result>
-		<result property="product_name" column="product_name"></result>
-		<result property="product_id" column="product_id"></result>
-		<result property="count" column="count"></result>
-	</resultMap>
-	<resultMap type="MyFundPay" id="MyFundPay">
-		<result property="project_name" column="project_name"></result>
-		<result property="payment_id" column="payment_id"></result>
-		<result property="member_id" column="member_id"></result>
-		<result property="gift_id" column="gift_id"></result>
-		<result property="item_name" column="item_name"></result>
-		<result property="count" column="count"></result>
-	</resultMap>
-	
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
@@ -88,30 +71,6 @@
 					order by p.project_id desc
 		]]>
 	</select>
-	
-	
-	<select id="productPayment" resultMap="MyProdPay">
-		<![CDATA[
-			select pm.payment_id,  pc.product_id, pd.product_name, pc.count, pm.member_id, p.project_name from payment pm
-					join payment_count pc on(pm.payment_id=pc.payment_id)
-					join product pd on (pc.product_id=pd.product_id)
-					join project p on (p.project_id=pm.project_id)
-					where pc.product_id is not null and pm.member_id=#{member_id} and pm.payment_id=#{payment_id}
-		]]>
-	</select>
-	
-	<select id="fundingPayment" resultMap="MyFundPay">
-		<![CDATA[
-			select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name from payment pm
-					join payment_count pc on(pm.payment_id=pc.payment_id)
-					join gift g on (g.gift_id=pc.gift_id)
-					join gifT_in_items gii on(g.gift_id=gii.gift_id)
-					join item i on (gii.item_id=i.item_id)
-					join project p on (p.project_id=pm.project_id)
-					where pc.gift_id is not null and pm.member_id=#{member_id} and pm.payment_id=#{payment_id}
-		]]>
-	</select>
-	
 	
 	<select id="projectLikes" resultType="MyLikes" parameterType="MyLikes">
 		<![CDATA[
