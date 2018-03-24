@@ -53,6 +53,8 @@ public class DetailViewController {
 //      판매자 member_id 알아옴
 		Project project=detailviewService.selectMemberId(project_id);
 		
+		System.out.println(project);
+		
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
 		
@@ -66,14 +68,16 @@ public class DetailViewController {
 //      프로젝트 아이디에 있는 전체 아이템 리스트 받아옴
 		List<GiftView> giftlist=detailviewService.selectGiftList(project_id);
 		
-
+		System.out.println(suppoter);
 		
 		boolean suppoterFlag = false;
 		if(member_id.equals(project.getMember_id())) {
 			suppoterFlag=true;
 		}else {
 			for(int i=0; i<suppoter.size(); i++) {
-				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+				//getMember_id가 null일 때 문제가 발생함
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
 					suppoterFlag = true;
 					break;
 				}
@@ -105,9 +109,12 @@ public class DetailViewController {
 	
 		System.out.println("신고하기" + report);
 		int result=detailviewService.insertReport(report);
-		
+
 		if(result>0) {
 			System.out.println("성공");
+			Project project=detailviewService.selectMemberId(report.getProject_id());
+			System.out.println("이용환"+project);
+			detailviewService.addReportCount(project);
 			model.addAttribute("project_id", report.getProject_id());
 			model.addAttribute("member_id", report.getMember_id());
 			return "redirect:projectDetailView.do";
@@ -146,13 +153,14 @@ public class DetailViewController {
 		
 		int result=detailviewService.insertQuestion(question);
 		
+		String str = "";
 		if(result>0) {
 			System.out.println("성공");
 			model.addAttribute("project_id", project_id);
 			model.addAttribute("member_id", question.getSend_member_id());
-			return "redirect:projectDetailView.do";
+			str= "redirect:projectDetailView.do";
 		}
-		return null;
+		return str;
 	
 	}
 	
@@ -258,7 +266,8 @@ public class DetailViewController {
 			suppoterFlag=true;
 		}else {
 			for(int i=0; i<suppoter.size(); i++) {
-				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
 					suppoterFlag = true;
 					break;
 				}

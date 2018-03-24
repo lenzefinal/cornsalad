@@ -1403,6 +1403,14 @@ tinymce.init({
 				$("#project-title-input").val();
 	}
 	
+	//미리보기 버튼
+	function projectPreview(){
+		var projectId = $("#project-id-input").val();
+		var memberId = $("#sellerId-input").attr("value");
+		
+		location.href="projectDetailGPView.do?member_id="+ memberId +"&project_id="+ projectId;
+	}
+	
 	
 	//textarea 자동조절
 	function resize(obj) {
@@ -1427,6 +1435,7 @@ tinymce.init({
 		
 </script>
 
+<input type="hidden" id="sellerId-input" value="${ loginUser.member_id }">
 <!-- 임시 저장했을 때 저장하는 부분 -->
 <div id="temporarySave-div"></div>
 
@@ -1451,7 +1460,7 @@ tinymce.init({
 			페이지에서 벗어날 때 임시 저장한 내용이 자동으로 저장됩니다.</p>
 	</div>
 	<div class="project-outter-div-margin" align="center"  style="margin-top:20px;margin-bottom:20px;">
-		<button class="btn btn-primary" onclick=""><b>미리 보기</b></button>
+		<button class="btn btn-primary" onclick="projectPreview()"><b>미리 보기</b></button>
 		<button class="btn btn-greentea" style="width:150px;" onclick="sendRequest()">
 			<svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  			 <path fill="#26a499" id="svg_1444" d="m9.21033,6.39269a0.25125,0.25125 0 0 0 -0.36042,-0.34655l-4.50518,3.83286l-2.37908,-0.92009a0.57874,0.57874 0 0 1 -0.06758,-1.05005l9.87673,-5.5327a0.48691,0.48691 0 0 1 0.71563,0.47478l-0.86638,9.03114a0.5978,0.5978 0 0 1 -0.81786,0.49904l-2.89544,-1.1211l-1.81766,1.7033a0.46958,0.46958 0 0 1 -0.79014,-0.34655l0,-1.33769l3.90737,-4.88639l-0.00001,0l0.00001,0.00001z"/>
