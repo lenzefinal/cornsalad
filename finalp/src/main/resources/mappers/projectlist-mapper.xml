@@ -10,6 +10,12 @@
 		]]>
 	</select>
 	
+	<select id="selectProductList" resultType="ProductListView">
+		<![CDATA[
+			select * from v_productList
+		]]>
+	</select>
+	
 	<select id="selectProjectListKeyword" parameterType="String" resultType="ProjectListView">
 			select * from v_projectList where project_name like #{keyword}
 	</select>
@@ -23,6 +29,26 @@
 	
 	<select id="selectKeywordCategory" parameterType="hashmap" resultType="ProjectListView">
 			select * from v_projectList where project_name like #{project_name} and category_sub_id in
+				<foreach collection="category_sub_id" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+	</select>
+	
+	
+	
+	<select id="selectProductListKeyword" parameterType="String" resultType="ProductListView">
+			select * from v_productList where project_name like #{keyword}
+	</select>
+	
+	<select id="selectProductListCategory" parameterType="hashmap" resultType="ProductListView">
+			select * from v_productList where category_sub_id in 
+				<foreach collection="category_sub_id" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+	</select>
+	
+	<select id="selectProductKeywordCategory" parameterType="hashmap" resultType="ProductListView">
+			select * from v_productList where project_name like #{project_name} and category_sub_id in
 				<foreach collection="category_sub_id" item="item" open="(" close=")" separator=",">
 					#{item}
 				</foreach>

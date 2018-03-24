@@ -21,8 +21,14 @@
 		
 		<div class="con_menu_wrap">
 			<ul class="tour_menu">
-				<li class="on"><a href="#">펀딩프로젝트</a></li>
-				<li><a href="#">공동구매</a></li>		
+				<li class="on">
+					<a href="#" id="fund">펀딩프로젝트</a>
+					<input type="hidden" name="category_id" value="PC-FUND">
+				</li>
+				<li>
+					<a href="#" id="prod">공동구매</a>
+					<input type="hidden" name="category_id" value="PC-PROD">
+				</li>		
 			</ul>
 		</div>
 		
@@ -115,8 +121,9 @@
 		
 		
 		<div class="thumnailContainer">
-			<c:forEach var="projectList" items="${ list }">
-				<c:if test="${projectList.report_count<6}">
+				
+			<c:forEach var="projectList" items="${ projectlist }">
+			<c:if test="${projectList.report_count<6}">
 			<div class="thumnailContent">
 				<c:url var="projectDetail" value="projectDetailView.do">
 					<c:param name="member_id" value="${ loginUser.member_id }"/>
@@ -223,9 +230,25 @@
 				});
 			});
 			
-			//----------------------카테고리선택, 키워드 검색 바뀔때마다 ajax--------------------------//
-			$(document).on("click keyup",".go-button, .ov, .clear, .del, #keyword",function(){
+			/* $("#fund").on("click",function(){
+				
+			});
+			$("#prod".on("click"),function(){
+				
+			}); */
 			
+			$(document).on("click", "#fund, #prod", function(){
+				$(".on").removeClass("on");
+				$(this).parent().addClass("on");
+			});
+			
+			//----------------------카테고리선택, 키워드 검색 바뀔때마다 ajax--------------------------//
+			$(document).on("click keyup",".go-button, .ov, .clear, .del, #keyword, #fund, #prod",function(){
+				
+				var category_id=$(".on input[type='hidden']").val();
+				
+				console.log(category_id);
+				
 				var category=""; // ajax에서 최종으로 보낼 변수
 				var keyword = $('#keyword').val();
 				
@@ -245,6 +268,8 @@
 					});
 				}
 				
+				category+="&category_id="+category_id;
+				
 				$.ajax({
 					url:"keywordAndCategory.do",
 					data:category,
@@ -255,21 +280,29 @@
 						var json = JSON.parse(jsonStr);
 						var values="";
 						console.log(json.list);
+						console.log(json.category_id);
+						
 						for(var i in json.list){
-							
-							values+=
-								'<div class="thumnailContent">'+
-										'<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">'+
-											'<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
+							values+='<div class="thumnailContent">';
+								if(json.category_id === "PC-FUND"){
+									values+='<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
+								}else{
+									values+='<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
+								}
+									values+='<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
 												'<div class="thumnailTextWrap">'+
 													'<div class="fundingTitle">'+
 														'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
 														'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
 													'</div>'+
 													'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
-														'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>'+
-														'<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라-->'+
-													'</svg>'+
+														'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>';
+														if(json.category_id === "PC-FUND"){
+															values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라--></svg>';
+														}else{
+															values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F79F81"></rect><!--여기서의 width값에 따라--></svg>';
+														}
+												values+=
 													'<div class="fundingInfo">'+
 														'<span style="font-size: 0.8rem;">'+
 															'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
@@ -277,9 +310,13 @@
 															'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
 														'</span>'+
 														'<div>'+
-															'<span class="fundingMoney">'+
-																'<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text -->'+
-															'</span>'+
+															'<span class="fundingMoney">';
+															if(json.category_id === "PC-FUND"){
+																values+='<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text --></span>';
+															}else{
+																values+='<!-- react-text: 239 -->'+json.list[i].total_count+'<!-- /react-text --><!-- react-text: 240 -->개 판매<!-- /react-text --></span>';
+															}
+													values+=
 															'<span class="fundingRate">'+
 																'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
 															'</span>'+

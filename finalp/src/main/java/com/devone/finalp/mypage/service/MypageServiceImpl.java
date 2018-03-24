@@ -13,7 +13,9 @@ import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.dao.MypageDao;
 import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyFundPay;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyProdPay;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
@@ -194,6 +196,18 @@ public class MypageServiceImpl implements MypageService {
 	public List<FundingProject> searchFundingProject(FundingProject fundingProject) {
 		// TODO Auto-generated method stub
 		return mypageDao.searchFundingProejct(fundingProject);
+	}
+
+	@Override
+	public List<MyProdPay> myProdpay(MyProdPay prodpay) {
+		// TODO Auto-generated method stub
+		return mypageDao.myProdpay(prodpay);
+	}
+
+	@Override
+	public List<MyFundPay> myFundpay(MyFundPay fundpay) {
+		// TODO Auto-generated method stub
+		return mypageDao.myFundPay(fundpay);
 	}
 
 	

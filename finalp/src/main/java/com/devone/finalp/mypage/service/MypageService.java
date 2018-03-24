@@ -8,7 +8,9 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyFundPay;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyProdPay;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
@@ -45,5 +47,7 @@ public interface MypageService {
 	int receiveQ(MyQuestion q);
 	List<FundingProject> selectFundingProject(FundingProject project);
 	List<FundingProject> searchFundingProject(FundingProject fundingProject);
+	List<MyProdPay> myProdpay(MyProdPay prodpay);
+	List<MyFundPay> myFundpay(MyFundPay fundpay);
 	
 }
