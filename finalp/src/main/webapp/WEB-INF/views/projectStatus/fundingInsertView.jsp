@@ -1179,7 +1179,7 @@ function insertGiftInItemFunc(){
 			var value = '<div class="modal-item-adddetail-div">' +
 							'<div style="padding:1em;">' +
 								'<div style="color:rgba(0,0,0,0.6);"><b>아이템 이름</b></div>' +
-								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요." autofocus>/></div>' +
+								'<div style="padding: 10px 0px 10px 0px;"><input type="text" placeholder="새로 만들 아이템의 이름을 입력하세요." autofocus/></div>' +
 								'<div align="right">' +
 									'<button class="btn btn-default btn-greentea project-custom-btn" onclick="cancleItem()"><b>x&nbsp;취소하기</b></button>' +
 									'<button class="btn btn-primary btn-greentea project-custom-btn" onclick="saveItem()"><b>저장하기</b></button>' +
@@ -1784,6 +1784,14 @@ function insertGiftInItemFunc(){
 				$("#project-title-input").val();
 	}
 	
+	//미리보기 버튼
+	function projectPreview(){
+		var projectId = $("#project-id-input").val();
+		var memberId = $("#sellerId-input").attr("value");
+		
+		location.href="projectDetailView.do?member_id="+ memberId +"&project_id="+ projectId;
+	}
+	
 	
 	
 	//textarea 자동조절
@@ -1815,6 +1823,7 @@ function insertGiftInItemFunc(){
 </script>
 
 <input type="hidden" value=true>
+<input type="hidden" id="sellerId-input" value="${ loginUser.member_id }">
 <!-- 검토 요청 플래그 -->
 <input type="hidden" id="request_flag-input" value="N">
 
@@ -1826,7 +1835,7 @@ function insertGiftInItemFunc(){
 			페이지를 벗어나는 동시에 입력하신 정보를 자동으로 저장합니다.</p>
 	</div>
 	<div class="project-outter-div-margin" align="center"  style="margin-top:20px;margin-bottom:20px;">
-		<button class="btn btn-primary" onclick=""><b>미리 보기</b></button>
+		<button class="btn btn-primary" onclick="projectPreview()"><b>미리 보기</b></button>
 		<button class="btn btn-greentea" style="width:150px;" onclick="sendRequest()">
 			<svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  			 <path fill="#26a499" id="svg_1444" d="m9.21033,6.39269a0.25125,0.25125 0 0 0 -0.36042,-0.34655l-4.50518,3.83286l-2.37908,-0.92009a0.57874,0.57874 0 0 1 -0.06758,-1.05005l9.87673,-5.5327a0.48691,0.48691 0 0 1 0.71563,0.47478l-0.86638,9.03114a0.5978,0.5978 0 0 1 -0.81786,0.49904l-2.89544,-1.1211l-1.81766,1.7033a0.46958,0.46958 0 0 1 -0.79014,-0.34655l0,-1.33769l3.90737,-4.88639l-0.00001,0l0.00001,0.00001z"/>

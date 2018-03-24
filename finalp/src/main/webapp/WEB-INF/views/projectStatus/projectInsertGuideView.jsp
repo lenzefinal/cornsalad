@@ -52,13 +52,16 @@
 	}
 	
 	function funUpdate(){
-		location.href="fundingUpdateView.do?projectId=152145778182347";
+		location.href="fundingUpdateView.do?projectId=152189809208550";
 	}
 	
 	function grouUpdate(){
-		location.href="grouppurUpdateView.do?projectId=152154228825211";
+		location.href="grouppurUpdateView.do?projectId=152183749892742";
 	}
 	
+	function goPDtailView(){
+		location.href="projectDetailGPView.do?member_id=jieun&project_id=152183749892742";
+	}
 	
 </script>
 
@@ -100,6 +103,7 @@
 	 <div class="projectview-btnbox">
 		<button class="btn btn-primary" style="width:250px;height:60px;margin-right:10px;" onclick="goFundingView()"><b>펀딩 프로젝트 만들기</b></button>
 		<button class="btn btn-primary" style="width:250px;height:60px;" onclick="goParView()"><b>공동구매 프로젝트 만들기</b></button>
+		<button class="btn btn-primary" style="width:250px;height:60px;" onclick="goPDtailView()"><b>공동구매 상세페이지</b></button>
 	</div>
 </div>
 <div style="height:400px;">

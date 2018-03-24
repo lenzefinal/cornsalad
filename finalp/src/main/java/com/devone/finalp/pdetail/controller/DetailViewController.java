@@ -68,14 +68,16 @@ public class DetailViewController {
 //      프로젝트 아이디에 있는 전체 아이템 리스트 받아옴
 		List<GiftView> giftlist=detailviewService.selectGiftList(project_id);
 		
-
+		System.out.println(suppoter);
 		
 		boolean suppoterFlag = false;
 		if(member_id.equals(project.getMember_id())) {
 			suppoterFlag=true;
 		}else {
 			for(int i=0; i<suppoter.size(); i++) {
-				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+				//getMember_id가 null일 때 문제가 발생함
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
 					suppoterFlag = true;
 					break;
 				}
@@ -264,7 +266,8 @@ public class DetailViewController {
 			suppoterFlag=true;
 		}else {
 			for(int i=0; i<suppoter.size(); i++) {
-				if(suppoter.get(i).getMember_id().equals(member_id)) { 
+				String suppoterId = suppoter.get(i).getMember_id();
+				if(suppoterId != null && suppoterId.equals(member_id)) { 
 					suppoterFlag = true;
 					break;
 				}
