@@ -17,6 +17,7 @@ public class PurchaseProduct implements java.io.Serializable {
 	private String product_name;
 	private String member_id;
 	private Date end_date;
+	private String payment_id;
 	private int size;
 
 	public PurchaseProduct() {
@@ -24,7 +25,7 @@ public class PurchaseProduct implements java.io.Serializable {
 	}
 
 	public PurchaseProduct(String project_id, String image_rename, String project_name, String product_name,
-			String member_id, Date end_date, int size) {
+			String member_id, Date end_date, String payment_id, int size) {
 		super();
 		this.project_id = project_id;
 		this.image_rename = image_rename;
@@ -32,6 +33,7 @@ public class PurchaseProduct implements java.io.Serializable {
 		this.product_name = product_name;
 		this.member_id = member_id;
 		this.end_date = end_date;
+		this.payment_id = payment_id;
 		this.size = size;
 	}
 
@@ -81,6 +83,14 @@ public class PurchaseProduct implements java.io.Serializable {
 
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
+	}
+
+	public String getPayment_id() {
+		return payment_id;
+	}
+
+	public void setPayment_id(String payment_id) {
+		this.payment_id = payment_id;
 	}
 
 	public int getSize() {

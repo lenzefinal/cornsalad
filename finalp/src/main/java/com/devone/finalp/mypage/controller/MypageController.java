@@ -25,7 +25,9 @@ import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyFundPay;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyProdPay;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 import com.devone.finalp.mypage.service.MypageService;
@@ -253,6 +255,7 @@ public class MypageController {
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("payment_id", p.getPayment_id());
 			jarr.add(j);
 
 		}
@@ -529,6 +532,73 @@ public class MypageController {
 		out.close();
 
 	}
+	
+	//공동구매 결제내역
+	@RequestMapping(value = "prod_payment.do", method = RequestMethod.POST)
+	public void myProdpay(MyProdPay prodpay, HttpServletResponse response)
+			throws IOException {
+		System.out.println("공구 결제 list");
+		List<MyProdPay> list = mypageService.myProdpay(prodpay);
+		response.setContentType("application/json; charset=utf-8");
+		System.out.println(list);
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
+
+		for (MyProdPay mpp : list) {
+			JSONObject j = new JSONObject();
+			j.put("project_id", mpp.getProject_id());
+			j.put("payment_id", mpp.getPayment_id().toString());
+			j.put("product_id", mpp.getProduct_id());
+			j.put("product_name", mpp.getProduct_name());
+			j.put("member_id", mpp.getMember_id());
+			j.put("count", mpp.getCount());
+			j.put("project_name", mpp.getProject_name());
+			jarr.add(j);
+
+		}
+		json.put("mpproduct", jarr);
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+	
+	//펀딩 결제내역
+		@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
+		public void myFundpay(MyFundPay fundpay, HttpServletResponse response)
+				throws IOException {
+			System.out.println("펀딩 결제 list");
+			List<MyFundPay> list = mypageService.myFundpay(fundpay);
+			response.setContentType("application/json; charset=utf-8");
+			System.out.println(list);
+			JSONObject json = new JSONObject();
+			JSONArray jarr = new JSONArray();
+
+			for (MyFundPay mfp : list) {
+				JSONObject j = new JSONObject();
+				j.put("project_id", mfp.getProject_id());
+				j.put("payment_id", mfp.getPayment_id().toString());
+				j.put("gift_id", mfp.getGift_id());
+				j.put("item_name", mfp.getItem_name());
+				j.put("member_id", mfp.getMember_id());
+				j.put("count", mfp.getCount());
+				j.put("project_name", mfp.getProject_name());
+				jarr.add(j);
+
+			}
+			json.put("mfproject", jarr);
+			System.out.println(json.toJSONString());
+
+			PrintWriter out = response.getWriter();
+			out.println(json.toJSONString());
+			out.flush();
+			out.close();
+
+		}
+
 
 	// 문의함
 	// 리스트 폼

@@ -96,7 +96,11 @@ $(window).ready(function(){
 						+'<c:param name="project_id" value=""/>'
 						+'</c:url>'
 						+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
-						+decodeURIComponent(json.fproject[i].project_name)+'</b></a></td>'
+						+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
+						+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+						+'결제 내역 보기</a></td>'
+						+'</td>'
 						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
@@ -109,7 +113,11 @@ $(window).ready(function(){
 							+'<c:param name="project_id" value=""/>'
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.fproject[i].project_name)+'</b></a></td>'
+							+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
+							+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'결제 내역 보기</a></td>'
+							+'</td>'
 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
 							+'</tr>';
 					}
@@ -138,8 +146,8 @@ $(window).ready(function(){
 				var jsonStr=JSON.stringify(e);
 				var json=JSON.parse(jsonStr); 
 				var tag="";
-				for(var i=0;i<json.spproduct.length;i++){
-					if(json.spproduct[i].image_rename==null){
+				for(var i=0;i<json.sfproject.length;i++){
+					if(json.sfproject[i].image_rename==null){
 					tag+='<tr class="list" name="tt">'
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
@@ -149,21 +157,29 @@ $(window).ready(function(){
 						+'<c:param name="project_id" value=""/>'
 						+'</c:url>'
 						+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
-						+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-						+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+						+decodeURIComponent(json.sfproject[i].project_name)+'</b></a><br><br>'
+						+'<a href="" onclick="fModal('+json.sfproject[i].payment_id+')"'
+						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+						+'결제 내역 보기</a></td>'
+						+'</td>'
+						+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
-							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.spproduct[i].image_rename)+'"/>'
+							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.sfproject[i].image_rename)+'"/>'
 							+'</td>'
 							+'<c:url var="projectDetail" value="projectDetailView.do">'
 							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
 							+'<c:param name="project_id" value=""/>'
 							+'</c:url>'
 							+'<td><b><small>[공동구매]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.spproduct[i].project_name)+'</b></a></td>'
-							+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+							+decodeURIComponent(json.sfproject[i].project_name)+'</b></a><br><br>'
+							+'<a href="" onclick="fModal('+json.sfproject[i].payment_id+')"'
+							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'결제 내역 보기</a></td>'
+							+'</td>'
+							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
 							+'</tr>';
 					}
 					size++;
@@ -212,7 +228,11 @@ $(window).scroll(function() {
 	 							+'<c:param name="project_id" value=""/>'
 	 							+'</c:url>'
 	 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-	 							+decodeURIComponent(json.fproject[i].project_name)+'</b></a></td>'
+	 							+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
+	 							+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 							+'결제 내역 보기</a></td>'
+	 							+'</td>'
 	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
 	 							+'</tr>';
 	 						} else{
@@ -225,7 +245,11 @@ $(window).scroll(function() {
 	 								+'<c:param name="project_id" value=""/>'
 	 								+'</c:url>'
 	 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-	 								+decodeURIComponent(json.fproject[i].project_name)+'</b></a></td>'
+	 								+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
+	 								+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 								+'결제 내역 보기</a></td>'
+	 								+'</td>'
 	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
 	 								+'</tr>';
 	 						}
@@ -265,20 +289,28 @@ $(window).scroll(function() {
 	 							+'<c:param name="project_id" value=""/>'
 	 							+'</c:url>'
 	 							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-	 							+decodeURIComponent(json.sfproject[i].project_name)+'</b></a></td>'
+	 							+decodeURIComponent(json.sfproject[i].project_name)+'</b></a><br><br>'
+	 							+'<a href="" onclick="fModal('+json.sfproject[i].payment_id+')"'
+	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 							+'결제 내역 보기</a></td>'
+	 							+'</td>'
 	 							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
 	 								+'<td class="limg">'
-	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.spproduct[i].image_rename)+'"/>'
+	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.sfproject[i].image_rename)+'"/>'
 	 								+'</td>'
 	 								+'<c:url var="projectDetail" value="projectDetailView.do">'
 	 								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
 	 								+'<c:param name="project_id" value=""/>'
 	 								+'</c:url>'
 	 								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-	 								+decodeURIComponent(json.sfproject[i].project_name)+'</b></a></td>'
+	 								+decodeURIComponent(json.sfproject[i].project_name)+'</b></a><br><br>'
+	 								+'<a href="" onclick="fModal('+json.sfproject[i].payment_id+')"'
+	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 								+'결제 내역 보기</a></td>'
+	 								+'</td>'
 	 								+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
 	 								+'</tr>';
 	 						}
@@ -296,7 +328,59 @@ $(window).scroll(function() {
 	 	}
 	 }
 });
+function fModal(fmid){
+	var member_id=$('#memberId').val();
+	console.log("payment_id" +fmid);
+	console.log("typeof"+typeof fmid)
+	console.log(member_id);
+	$.ajax({
+		url:"fund_payment.do",
+		data: {"payment_id":"1.52149977409E12", "member_id":member_id},
+		dataType:"json",
+		type:"post",
+		success:function(e){
+			var jsonStr = JSON.stringify(e);
+			//변환된 문자열을 json 객체로 바꿈
+			var json = JSON.parse(jsonStr);
+			
+			$("#fpmodal").empty();
+			
+			var value=$("#fpmodal").html();
+			for(var i in json.mfproject){
+			value+=	'<br><div>&nbsp; 선택하신 선물 - '
+					+decodeURIComponent(json.mfproject[i].item_name)+' &nbsp;<b>총 '
+					+json.mfproject[i].count+'개</b><br>'
+					+'</div>'
+			}
+			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="#" style="color:white;">결제 취소</a></button>'
+			$("#fpmodal").html(value);
+		},
+		error:function(request, status, errorData){
+				alert("error code : " + request.status + "\n" 
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData );	
+		}
+	});
+}
 
 </script>
+<!-- 결제내역 modal -->
+<div class="modal fade" id="fppaymentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">회원님의 결제내역</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" id="fpmodal">
+       
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

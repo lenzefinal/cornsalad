@@ -11,7 +11,9 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
+import com.devone.finalp.mypage.model.vo.MyFundPay;
 import com.devone.finalp.mypage.model.vo.MyLikes;
+import com.devone.finalp.mypage.model.vo.MyProdPay;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
 import com.devone.finalp.mypage.model.vo.PurchaseProduct;
 
@@ -179,5 +181,15 @@ public class MypageDao {
 	public List<FundingProject> searchFundingProejct(FundingProject fundingProject) {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.searchfundingproject",fundingProject);
+	}
+
+	public List<MyProdPay> myProdpay(MyProdPay prodpay) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.productPayment", prodpay);
+	}
+
+	public List<MyFundPay> myFundPay(MyFundPay fundpay) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.fundingPayment", fundpay);
 	}
 }
