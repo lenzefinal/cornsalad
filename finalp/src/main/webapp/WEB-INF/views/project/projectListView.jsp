@@ -116,6 +116,7 @@
 		
 		<div class="thumnailContainer">
 			<c:forEach var="projectList" items="${ list }">
+				<c:if test="${projectList.report_count<6}">
 			<div class="thumnailContent">
 				<c:url var="projectDetail" value="projectDetailView.do">
 					<c:param name="member_id" value="${ loginUser.member_id }"/>
@@ -157,6 +158,7 @@
 					</div>
 				</a>
 			</div>
+			</c:if>
 			</c:forEach>
 
 			
