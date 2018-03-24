@@ -21,6 +21,7 @@ public class ProjectListView {
 	private int dday;
 	private String total_amount;
 	private String percent;
+	private int report_count;
 	
 	public ProjectListView() {
 		
@@ -29,7 +30,7 @@ public class ProjectListView {
 	public ProjectListView(String project_id, String image_rename, String project_name, String project_category_id,
 			String project_category_name, String category_sub_id, String category_sub_name, String category_id,
 			String category_name, Date start_date, Date end_date, String member_id, String member_name,
-			int target_amount, int dday, String total_amount, String percent) {
+			int target_amount, int dday, String total_amount, String percent,int report_count) {
 		super();
 		this.project_id = project_id;
 		this.image_rename = image_rename;
@@ -48,9 +49,19 @@ public class ProjectListView {
 		this.dday = dday;
 		this.total_amount = total_amount;
 		this.percent = percent;
+		this.report_count=report_count;
 	}
 
 	
+	
+
+	public int getReport_count() {
+		return report_count;
+	}
+
+	public void setReport_count(int report_count) {
+		this.report_count = report_count;
+	}
 
 	public int getDday() {
 		return dday;
@@ -193,7 +204,6 @@ public class ProjectListView {
 		this.percent = percent;
 	}
 
-
 	@Override
 	public String toString() {
 		return "ProjectListView [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
@@ -202,12 +212,10 @@ public class ProjectListView {
 				+ category_sub_name + ", category_id=" + category_id + ", category_name=" + category_name
 				+ ", start_date=" + start_date + ", end_date=" + end_date + ", member_id=" + member_id
 				+ ", member_name=" + member_name + ", target_amount=" + target_amount + ", dday=" + dday
-				+ ", total_amount=" + total_amount + ", percent=" + percent + "]";
+				+ ", total_amount=" + total_amount + ", percent=" + percent + ", report_count=" + report_count + "]";
 	}
-	
-	
 
-	
+
 	
 
 }

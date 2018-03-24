@@ -33,6 +33,7 @@
 			$(".project-store").show();
 			$(".supporter-tab").hide();
 			$(".comment-tab").hide();
+			$(".refound-story").hide();
 		});
 
 		$(".a2").click(function() {
@@ -44,6 +45,19 @@
 			$(".project-store").hide();
 			$(".supporter-tab").hide();
 			$(".comment-tab").show();
+			$(".refound-story").hide();
+
+		});
+		$(".a3").click(function() {
+			var pic = $(".active");
+			pic.removeClass("active");
+			
+			$(this).parent().addClass("active");
+			
+			$(".project-store").hide();
+			$(".supporter-tab").hide();
+			$(".comment-tab").hide();
+			$(".refound-story").show();
 		});
 
 		$(".a4").click(function() {
@@ -55,6 +69,7 @@
 			$(".project-store").hide();
 			$(".supporter-tab").show();
 			$(".comment-tab").hide();
+			$(".refound-story").hide();
 		});
 
 	});
@@ -121,7 +136,7 @@
 									<strong>${proview.total_amount }</strong>원 펀딩
 								</p>
 								<p class="total-supporter">
-									<strong>471</strong>명의 서포터
+									<strong>${fn:length(SuppoterView)}</strong>명의 서포터
 								</p>
 							</div>
 							
@@ -282,7 +297,11 @@
 										<div class="item">
 											<div class="number">${count}</div>
 											<div class="text">
-												<a>${hot.project_name }</a>
+												<c:url var="detail" value="projectDetailView.do">
+													<c:param name="project_id" value="${hot.project_id}"/>
+													<c:param name="member_id" value="${loginUser.member_id}"/>
+												</c:url>
+												<a href="${detail}" style="color: #F7D358;">${hot.project_name }</a>
 											</div>
 										</div>
 										<c:set var ="count" value="${count+1}"/>
@@ -470,7 +489,7 @@
 									$(document).ready(function(){
 										
 										$("#btnLike1").on("click",function(){
-											alert("로그인해주세요");
+											alertify.alert("로그인해주세요");
 										});				
 										var member_id=$("#member_id").val();
 										var project_id=${ proview.project_id};
@@ -620,6 +639,15 @@
 										
 									});
 								</script>
+								<!--환불정책 -->
+								
+								<div class="refound-story" style="display: block">
+									<div class="wz-message-box">
+									${proview.refund_role }
+									</div>
+								</div>
+								
+								
 								
 								
 								
@@ -647,12 +675,12 @@
 				<br>
 				<form action="reportProject.do" method="post">
 					<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
-						<input type="text" value="${ loginUser.member_name}">
+						<input type="text" value="신고자  :${ loginUser.member_name}" readonly>
 						 <input type="hidden" name="project_id" value="${ proview.project_id}"> 
-						 	<input type="text"	value="">
+						 	
 					<textarea name="report_reason" placeholder="신고사유"></textarea>
 					<input type="submit" class="blacklist blacklist-submit"
-						value="신고하기">
+						value="신고하기" style="background-color:  #F7D358;">
 				</form>
 			</div>
 		</div>
@@ -670,13 +698,13 @@
 				<br>
 				<form action="insertQuestion.do" method="post">
 						<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
-						<input type="text"  value="${ loginUser.member_name}"> 
-						<input type="hidden" name="project_id" value="${ likes.project_id} ">
-						<input type="text" name="title" value="">
+						<input type="text"  value="문의자:  ${ loginUser.member_name}" readonly> 
+						<input type="hidden" name="project_id" value="${ proview.project_id }">
+						<input type="text" name="title" value="" placeholder="문의 제목">
 						<textarea name="content" placeholder="문의 내용"></textarea>
 
 					<input type="submit" class="blacklist blacklist-submit"
-						value="문의하기">
+						value="문의하기" style="background-color:  #F7D358;">
 				</form>
 			</div>
 		</div>
