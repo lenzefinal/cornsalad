@@ -71,6 +71,9 @@
 	#adminmemde span.btnspan{
 		float:right;
   	}
+  	#adminmemde button.btn{
+		font-size:13px;
+	}
 </style>
 <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
  <script type="text/javascript">

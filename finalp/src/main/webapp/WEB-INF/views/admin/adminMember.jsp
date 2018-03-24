@@ -61,6 +61,9 @@
 		text-decoration:none;
 		color:black;
 	}
+	#adminMain button.btn{
+		font-size:13px;
+	}
 	
  } 
 </style>
@@ -178,30 +181,34 @@
 	<c:url var="first" value="adminMember.do">
 		<c:param name="currentPage" value="1" />
 	</c:url>
-	<a href="${first }">[<<]</a>
+	<%-- <a href="${first }">[<<]</a>
 	<c:url var="prev" value="adminMember.do">
 		<c:param name="currentPage" value="${startPage - limit }" />
 	</c:url>
-	<a href="${prev }">	[<]</a>
+	<a href="${prev }">	[<]</a> --%>
 	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
 	<c:url var="page" value="adminMember.do">
 		<c:param name="currentPage" value="${p }" />
 	</c:url>
+	<ul class="pagination" style="display:inline-block;">
 	<c:if test="${p ne currentPage }">
-		<a href="${page }">	| ${p } |&nbsp; </a> 
+		<li><a href="${page }">${p }</a></li>
+		<%-- <a href="${page }">	| ${p } |&nbsp; </a>  --%>
 	</c:if>
 	<c:if test="${p eq currentPage }">	
-	<a href="${page }">	| <b>${p }</b> |&nbsp; </a>
+		<li class="active"><a href="${page }">${p }</a></li>
+	<%-- <a href="${page }">	| <b>${p }</b> |&nbsp; </a> --%>
 	</c:if>
+	</ul>
 	</c:forEach>
 	<c:url var="next" value="adminMember.do">
 		<c:param name="currentPage" value="${endPage + limit }" />
 	</c:url>
-	<a href="${next }">	[>]</a>
+	<%-- <a href="${next }">	[>]</a>
 	<c:url var="last" value="adminMember.do">
 		<c:param name="currentPage" value="${maxPage }" />
 	</c:url>
-	<a href="${last }">[>>]</a>
+	<a href="${last }">[>>]</a> --%>
 	</div>
 
 </div>
