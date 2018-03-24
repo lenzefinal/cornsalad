@@ -2,15 +2,9 @@ package com.devone.finalp.mypage.model.vo;
 
 import java.sql.Date;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class PurchaseProduct implements java.io.Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9078320180141781478L;
+public class FundingProject implements java.io.Serializable {
+	
+	private static final long serialVersionUID = -9024103684421755401L;
 	private String project_id;
 	private String image_rename;
 	private String project_name;
@@ -19,11 +13,11 @@ public class PurchaseProduct implements java.io.Serializable {
 	private Date end_date;
 	private int size;
 
-	public PurchaseProduct() {
+	public FundingProject() {
 
 	}
 
-	public PurchaseProduct(String project_id, String image_rename, String project_name, String product_name,
+	public FundingProject(String project_id, String image_rename, String project_name, String product_name,
 			String member_id, Date end_date, int size) {
 		super();
 		this.project_id = project_id;
@@ -97,7 +91,7 @@ public class PurchaseProduct implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "PurchaseProduct [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
+		return "FundingProject [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
 				+ project_name + ", product_name=" + product_name + ", member_id=" + member_id + ", end_date="
 				+ end_date + ", size=" + size + "]";
 	}

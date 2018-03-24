@@ -172,7 +172,7 @@ var size=4;
 		 console.log($(document).height()-$(window).height());
 			
 		 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
-			if(project_name==null){
+			/* if(project_name==null){ */
 			 $.ajax({
 					url:"myProjectList.do",
 					data:{"size":Number(size), "member_id":member_id},
@@ -223,7 +223,7 @@ var size=4;
 					}
 				 });
 		 	}
-		 	}else{
+		 	/*} else{
 		 		$.ajax({
 					url:"searchmyproject.do",
 					dataType:"json",
@@ -265,20 +265,17 @@ var size=4;
 							}
 							 size++;
 						}
-						$('.tbl_type').html(tag);	
+						$('.tbl_type').html(tag);	 
 					},
 					error: function(request, status, errorData) {
 						alert("에러코드: " + request.status + "\n" + "메세지: "
 								+ request.responseText + "\n" + "에러: "
 								+ errorData);
 					}
-				}); 
-		 	}
+				});  
+		 	}*/
 		
 	}); 
-	  
-	
-	
 </script>
 	
 	<div id="container">

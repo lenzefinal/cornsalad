@@ -83,7 +83,9 @@
 		float:left;
 	}
 </style>
+<c:import url="../header.jsp"></c:import>
 <script>
+
 $(document).ready(function() {
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 	var side = parseInt($("#menunav").css('top'));
@@ -106,7 +108,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<c:import url="../header.jsp"></c:import>
+
 <div id="menunav">
 	<ul class="list-group menunav">
 		<li class="list-group-item menu"><a class="menua" href="myProject.do">등록한 프로젝트</a></li>

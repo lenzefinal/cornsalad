@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
-import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.QuestionCategory;
+import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyLikes;
 import com.devone.finalp.mypage.model.vo.MyQuestion;
@@ -90,9 +90,18 @@ public class MypageDao {
 
 	public List<PurchaseProduct> selectpurchaseProduct(PurchaseProduct product) {
 		// TODO Auto-generated method stub
+		System.out.println("구매공구 dao");
 		return mybatis.selectList("mystatusmapper.purchaseProduct", product);
 	}
-
+	public List<FundingProject> selectFundingProject(FundingProject project) {
+		// TODO Auto-generated method stub
+		System.out.println("구매공구 dao");
+		return mybatis.selectList("mystatusmapper.fundingProject", project);
+	}
+	public int fprojectCount(String member_id) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("mystatusmapper.fprojectCount", member_id);
+	}
 	public int pproductCount(String member_id) {
 		// TODO Auto-generated method stub
 		return mybatis.selectOne("mystatusmapper.pproductCount", member_id);
@@ -165,5 +174,10 @@ public class MypageDao {
 		// TODO Auto-generated method stub
 		System.out.println("dao "+q);
 		return mybatis.update("mystatusmapper.receiveQ", q);
+	}
+
+	public List<FundingProject> searchFundingProejct(FundingProject fundingProject) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("mystatusmapper.searchfundingproject",fundingProject);
 	}
 }
