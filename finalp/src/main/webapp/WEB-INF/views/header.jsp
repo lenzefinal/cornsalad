@@ -651,8 +651,8 @@
 		<div id="MowGnb" class="device-gnb">
 		  <label class="btn-gnb-open" for="globalNavOpener">
 			<h1>
-			  <img src=""> <!-- 태블릿 이하일 경우 로고 적용 부분 -->
-			  <i class="icon-expand-more"></i>
+			  <img src="/finalp/resources/uploadImages/20180309062736.png" style="width:60px;"> <!-- 태블릿 이하일 경우 로고 적용 부분 -->
+			  <!-- <i class="icon-expand-more"></i> -->
 			</h1>
 		  </label>
 		</div>

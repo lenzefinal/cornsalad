@@ -92,6 +92,7 @@ public class ProjectListController {
 				job.put("dday", Integer.valueOf(project.getDday()).toString());
 				job.put("total_amount", project.getTotal_amount());
 				job.put("percent", project.getPercent());
+				job.put("report_count", project.getReport_count());
 				
 				jarr.add(job);
 			}
@@ -143,6 +144,7 @@ public class ProjectListController {
 				job.put("dday", Integer.valueOf(project.getDday()).toString());
 				job.put("total_count", project.getTotal_count());
 				job.put("percent", project.getPercent());
+				job.put("report_count", project.getReport_count());
 				
 				jarr.add(job);
 			}

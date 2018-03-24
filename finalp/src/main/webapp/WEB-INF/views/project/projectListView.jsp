@@ -123,7 +123,7 @@
 		<div class="thumnailContainer">
 				
 			<c:forEach var="projectList" items="${ projectlist }">
-			<c:if test="${projectList.report_count<6}">
+			<c:if test="${projectList.report_count < 6}">
 			<div class="thumnailContent">
 				<c:url var="projectDetail" value="projectDetailView.do">
 					<c:param name="member_id" value="${ loginUser.member_id }"/>
@@ -283,44 +283,46 @@
 						console.log(json.category_id);
 						
 						for(var i in json.list){
-							values+='<div class="thumnailContent">';
-								if(json.category_id === "PC-FUND"){
-									values+='<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
-								}else{
-									values+='<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
-								}
-									values+='<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
-												'<div class="thumnailTextWrap">'+
-													'<div class="fundingTitle">'+
-														'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
-														'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
-													'</div>'+
-													'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
-														'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>';
-														if(json.category_id === "PC-FUND"){
-															values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라--></svg>';
-														}else{
-															values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F79F81"></rect><!--여기서의 width값에 따라--></svg>';
-														}
-												values+=
-													'<div class="fundingInfo">'+
-														'<span style="font-size: 0.8rem;">'+
-															'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
-															'<span style="font-weight: 700;">'+json.list[i].dday+'</span>'+
-															'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
-														'</span>'+
-														'<div>'+
-															'<span class="fundingMoney">';
+							if( json.list[i].report_count < 6){
+								values+='<div class="thumnailContent">';
+									if(json.category_id === "PC-FUND"){
+										values+='<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
+									}else{
+										values+='<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.list[i].project_id+'">';
+									}
+										values+='<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/'+decodeURIComponent(json.list[i].image_rename)+'" alt="'+decodeURIComponent(json.list[i].project_name)+'">'+
+													'<div class="thumnailTextWrap">'+
+														'<div class="fundingTitle">'+
+															'<h1 class="projectTitle">'+decodeURIComponent(json.list[i].project_name.replace(/\+/g," "))+'</h1>'+
+															'<p class="creatorName">'+decodeURIComponent(json.list[i].member_name.replace(/\+/g," "))+'</p>'+
+														'</div>'+
+														'<svg class="percentageLine" xmlns="http://www.w3.org/2000/svg">'+
+															'<rect x="0" y="0" fill="#efefef" height="2" width="100%"></rect>';
 															if(json.category_id === "PC-FUND"){
-																values+='<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text --></span>';
+																values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F7D358"></rect><!--여기서의 width값에 따라--></svg>';
 															}else{
-																values+='<!-- react-text: 239 -->'+json.list[i].total_count+'<!-- /react-text --><!-- react-text: 240 -->개 판매<!-- /react-text --></span>';
+																values+='<rect x="0" y="0" height="2" width="'+json.list[i].percent+'" fill="#F79F81"></rect><!--여기서의 width값에 따라--></svg>';
 															}
 													values+=
-															'<span class="fundingRate">'+
-																'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
+														'<div class="fundingInfo">'+
+															'<span style="font-size: 0.8rem;">'+
+																'<i class="_2CeNIUhLMEIh6Reaatfs8t _1DLNFgQRrQNEosKFB0zOK5 _3fJsfvAPykJzj2xoMnxzWW _1QY7TzdLHKX3-BKPDNNYKF"></i>'+
+																'<span style="font-weight: 700;">'+json.list[i].dday+'</span>'+
+																'<!-- react-text: 235 -->일<!-- /react-text --><!-- react-text: 236 -->&nbsp;남음<!-- /react-text -->'+
 															'</span>'+
-														'</div></div></div></a></div>'														;
+															'<div>'+
+																'<span class="fundingMoney">';
+																if(json.category_id === "PC-FUND"){
+																	values+='<!-- react-text: 239 -->'+json.list[i].total_amount+'<!-- /react-text --><!-- react-text: 240 -->원<!-- /react-text --></span>';
+																}else{
+																	values+='<!-- react-text: 239 -->'+json.list[i].total_count+'<!-- /react-text --><!-- react-text: 240 -->개 판매<!-- /react-text --></span>';
+																}
+														values+=
+																'<span class="fundingRate">'+
+																	'<!-- react-text: 242 -->'+json.list[i].percent+'<!-- /react-text --><!-- react-text: 243 --><!-- /react-text -->'+
+																'</span>'+
+															'</div></div></div></a></div>';
+							}
 						}
 						$(".thumnailContainer").html(values);
 					}

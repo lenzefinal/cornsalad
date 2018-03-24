@@ -281,6 +281,12 @@
 		background-size: 8px 12px;
 		outline: none;
 	}
+	.form{
+		display:none;
+	}
+	.selectlist{
+		display:none;
+	}
 	
 
 	@media (max-width: 320px){
@@ -325,6 +331,12 @@
 	}
 
 	@media (min-width: 1080px){
+		.form{
+			display:block;
+		}
+		.selectlist{
+			display:block;
+		}
 		.thumnailContainer {
 			/* -webkit-flex-direction: row;
 			-ms-flex-direction: row;

@@ -20,6 +20,7 @@ public class ProductListView {
 	private int dday;
 	private int total_count;
 	private String percent;
+	private int report_count;
 	
 	public ProductListView() {
 		
@@ -28,7 +29,7 @@ public class ProductListView {
 	public ProductListView(String project_id, String image_rename, String project_name, String project_category_id,
 			String project_category_name, String category_sub_id, String category_sub_name, String category_id,
 			String category_name, Date start_date, Date end_date, String member_id, String member_name,
-			int target_amount, int dday, int total_count, String percent) {
+			int target_amount, int dday, int total_count, String percent, int report_count) {
 		super();
 		this.project_id = project_id;
 		this.image_rename = image_rename;
@@ -47,6 +48,16 @@ public class ProductListView {
 		this.dday = dday;
 		this.total_count = total_count;
 		this.percent = percent;
+		this.report_count=report_count;
+	}
+
+	
+	public int getReport_count() {
+		return report_count;
+	}
+
+	public void setReport_count(int report_count) {
+		this.report_count = report_count;
 	}
 
 	public String getProject_id() {
