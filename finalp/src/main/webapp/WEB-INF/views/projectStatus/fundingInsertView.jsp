@@ -1067,7 +1067,8 @@ function insertGiftInItemFunc(){
 	    	var giftId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
-	    	value += '<div id="'+ giftIndex +'" class="project-box gift-head-div '+ giftId + '">' +
+	    	value += '<div id="'+ giftIndex +'"></div>' +
+	    			'<div value="'+ giftIndex +'" class="project-box gift-head-div '+ giftId + '">' +
 						'<div class="project-element-div project-bgcol-white">' +
 							'<div class="project-element-in-div">' +
 								'<div align="right">' +
@@ -1433,8 +1434,10 @@ function insertGiftInItemFunc(){
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 		
-    	var targetId = $(giftId_class).attr("id");
+    	var targetId = $("."+giftIdIndex).attr("value");
 		location.href="#"+targetId;
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//선물 삭제
@@ -1450,7 +1453,7 @@ function insertGiftInItemFunc(){
 		} 
 		else if(flag == 1){		
 			$("#gift-totalbox-div "+"."+giftId).fadeToggle(toggleSpeed,function(){
-				$("#gift-totalbox-div "+"."+giftIdx).remove();
+				$("#gift-totalbox-div "+"."+giftId).remove();
 				$("#gift-totalbox-div "+"#"+giftId).remove();
 			});
 		}
@@ -1458,6 +1461,9 @@ function insertGiftInItemFunc(){
 			$("#gift-totalbox-div "+"."+giftId).remove();
 			$("#gift-totalbox-div "+"#"+giftId).remove();
 		}
+		
+		var targetId = $("#gift-totalbox-div "+"."+giftId).attr("value");
+		$("#"+targetId).remove();
 	}
 	
 	//선물 저장
@@ -1510,8 +1516,10 @@ function insertGiftInItemFunc(){
 		//선물 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
 		
-    	var targetId = $(giftId_class).attr("id");
+    	var targetId = $(giftId_class).attr("value");
 		location.href="#"+targetId;
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//선물 수정

@@ -1487,6 +1487,8 @@ tinymce.init({
     	var targetId = $("."+giftIdIndex).attr("value");
     	console.log("targetId]"+targetId);
 		location.href="#"+targetId;
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//선물 삭제
@@ -1502,7 +1504,7 @@ tinymce.init({
 		} 
 		else if(flag == 1){		
 			$("#gift-totalbox-div "+"."+giftId).fadeToggle(toggleSpeed,function(){
-				$("#gift-totalbox-div "+"."+giftIdx).remove();
+				$("#gift-totalbox-div "+"."+giftId).remove();
 				$("#gift-totalbox-div "+"#"+giftId).remove();
 			});
 		}
@@ -1510,6 +1512,9 @@ tinymce.init({
 			$("#gift-totalbox-div "+"."+giftId).remove();
 			$("#gift-totalbox-div "+"#"+giftId).remove();
 		}
+		
+		var targetId = $("#gift-totalbox-div "+"."+giftId).attr("value");
+		$("#"+targetId).remove();
 	}
 	
 	//선물 저장
@@ -1564,6 +1569,8 @@ tinymce.init({
 		
 		var targetId = $(giftId_class).attr("value");
 		location.href="#"+targetId;
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//선물 수정

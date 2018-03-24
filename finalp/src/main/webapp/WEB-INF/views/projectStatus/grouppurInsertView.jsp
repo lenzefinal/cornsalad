@@ -879,7 +879,8 @@ function insertProductFunc(){
 	    	var productId = new Date().getTime();
 	    	
 	    	var value = $("#gift-totalbox-div").html();
-	    	value += '<div class="project-box gift-head-div '+ productId +'">' +
+	    	value +='<div id="'+ productIndex +'"></div>' + 
+	    			'<div value="'+ productIndex +'" class="project-box gift-head-div '+ productId +'">' +
 						'<div class="project-element-div project-bgcol-white">' +
 							'<div class="project-element-in-div">' +
 								'<div align="right">' +
@@ -909,15 +910,15 @@ function insertProductFunc(){
 							'</div>' +
 						'</div>' +
 						'<div class="project-element-div project-bgcol-white">' +
-							'<div class="project-element-in-div project-element-title-div project-element-in-title">최소 구매량 설정</div>' +
+							'<div class="project-element-in-div project-element-title-div project-element-in-title">물품 최소 구매량 설정</div>' +
 							'<div class="project-element-in-div project-description-button">설명</div>' +
 							'<div class="project-description-button-panel">' +
-								'<p>최소 구매량을 설정해주세요. 마감일까지 각 물품마다 하나라도 최소 구매량을 넘지 못하면 모금액 전액은 구매자에게 환불됩니다. <br>' +
-								'	최소 구매량을 따로 설정하지 않을 때는 기본값인 0을 입력하세요.</p>' +
+								'<p>사은품 지급의 기준으로 정할 물품의 최소 구매량을 설정해주세요.<br>' +
+								'	최소 구매량을 따로 설정하지 않으시면 따로 표시되지 않습니다.</p>' +
 							'</div>' +
 							'<div class="project-element-in-div project-element-content-div">' +
 								'선 구매가 <input type="text" class="gift-mincount-input" style="width:50px;height:30px;text-align:right;" ' +
-									'name="mincount" value="0"> 건 이상일 때 공동 구매를 진행합니다.' +
+									'name="mincount" value="0"> 건 이상일 때 사은품을 지급합니다.' +
 							'</div>' +
 						'</div>' +
 						'<div align="right" class="project-bgcol-white" style="padding:0px 30px 20px 0px;">' +
@@ -928,6 +929,8 @@ function insertProductFunc(){
 					'</div>';
 				
 	    	$("#gift-totalbox-div").html(value);
+	    	
+	    	productIndex++;
 	    	
 	   		$("."+productId).hide();
 	    	$("#"+productId).hide();
@@ -1040,6 +1043,7 @@ function insertProductFunc(){
 	
 	//물품 -----------------------------------------------------------------
 	//물품 토글 스피드
+	productIndex = 0;
 	toggleSpeed = 300;
 	
 	//물품 수정 취소
@@ -1049,6 +1053,13 @@ function insertProductFunc(){
 		
 		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+    	var targetId = $("."+giftIdIndex).attr("value");
+		location.href="#"+targetId;
+		
+		console.log(targetId);
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//물품 삭제
@@ -1072,6 +1083,9 @@ function insertProductFunc(){
 			$("#gift-totalbox-div "+"."+giftId).remove();
 			$("#gift-totalbox-div "+"#"+giftId).remove();
 		}
+		
+		var targetId = $("#gift-totalbox-div "+"."+giftId).attr("value");
+		$("#"+targetId).remove();
 	}
 	
 	//물품 저장
@@ -1090,8 +1104,10 @@ function insertProductFunc(){
 		
 		//가격
 		var productPrice = $(giftId_id + " .gift-price-input").val();
-		$(giftId_class+" .gift-price").attr("value", productPrice);
-		$(giftId_class+" .gift-price").text(productPrice);
+		var productPriceCom = comma(productPrice);
+		
+		$(giftId_class+" .gift-price").attr("value", productPriceCom);
+		$(giftId_class+" .gift-price").text(productPriceCom);
 		$(giftId_id+" .gift-price-input").attr("value", productPrice);
 		
 		//최소 구매량
@@ -1101,6 +1117,13 @@ function insertProductFunc(){
    
 		//물품 추가 버튼 박스 보이게
     	$(".gift-add-btn-box").show();
+		
+    	var targetId = $(giftId_class).attr("value");
+		location.href="#"+targetId;
+		
+		console.log(targetId);
+		
+		document.documentElement.scrollTop -= 57;
 	}
 	
 	//물품 수정
@@ -1217,6 +1240,13 @@ function insertProductFunc(){
 	function resize(obj) {
 		  obj.style.height = "1px";
 		  obj.style.height = (12+obj.scrollHeight)+"px";
+	}
+	
+	
+	// 콤마 찍기
+	function comma(str) {
+	  str = String(str);
+	  return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	}
 	
 	
@@ -1358,21 +1388,19 @@ function insertProductFunc(){
 
 <div id="session-2" class="session">
 <div id="" class="project-div project-outter-div-margin project-first">
-	<div class="project-title project-title-first">목표 금액과 마감일</div>
+	<div class="project-title project-title-first">최소 수량과 마감일</div>
 	<div class="project-box">
 		<div class="project-element-div project-bgcol-white">
-			<div class="project-element-in-div project-element-title-div project-element-in-title">목표 금액</div>
+			<div class="project-element-in-div project-element-title-div project-element-in-title">공동구매 최소 수량</div>
 			<div class="project-element-in-div project-description-button">설명</div>
 			<div class="project-description-button-panel">
-				<p>마감일 자정까지 목표 금액을 100% 이상 달성하셔야만 모인 모금액이 결제 됩니다.<br>
+				<p>공동구매를 진행할 최소 구매 수량을 정해주세요.<br>
+				마감일 자정까지 목표 수량을 100% 이상 달성하셔야만 모인 모금액이 결제 됩니다.<br>
 				막판에 구매를 취소하는 구매자들도 있는 점을 감안해 10% 이상 초과 달성을 목표로 하시는게 안전합니다.<br>
-				(목표 금액은 제작비, 물품 배송비, 진행자의 인건비, 예비 비용 등을 고려하시기 바랍니다.)<br>
-				<br>
-				만약, 각 물품의 최소 구매량만 적용하고 싶을 때는 목표 금액에 0을 입력해주세요.
 				</p>
 			</div>
 			<div class="project-element-in-div project-element-content-div">
-				<input id="goalprice-input" type="text" name="goalPrice" style="width:300px;" placeholder="목표 금액을 적용하지 않을 때는 0을 입력하세요."> 원
+				<input id="goalprice-input" type="text" name="goalPrice" style="width:300px;" placeholder="공동구매를 진행할 최소 구매 수량을 입력하세요."> 개
 			</div>
 		</div>
 		<div class="project-element-div project-bgcol-white">
