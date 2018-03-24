@@ -32,10 +32,11 @@ img.iconi{
     margin-bottom: 40px;
 }
 .hero {
-    background-color: #F3F781;
+    /* background-color: #F3F781; */
+    background-image:url('/finalp/resources/images/sliderimage/corn2.jpg');
     background-position: center;
-    background-size: cover;
-    height: 300px;
+    /* background-size: cover; */
+    height: 400px;
     padding: 0 20px;
     text-align: center;
     width: 100%;
@@ -222,7 +223,7 @@ span#cdate{
 
 
   <div class="hero-inner">
-    <h1 style="color:black;">무엇을 도와드릴까요?</h1>
+    <h1 style="color: white;font-size: 45px;margin-bottom: 10px;">무엇을 도와드릴까요?</h1>
     <div role="search" class="search search-full" data-instant="true" autocomplete="off">
     <input name="utf8" type="hidden" value="✓">
     <input type="search" name="query" id="query" placeholder="검색" autocomplete="off" aria-label="검색">
