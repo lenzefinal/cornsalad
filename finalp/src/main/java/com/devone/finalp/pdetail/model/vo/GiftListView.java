@@ -2,7 +2,7 @@ package com.devone.finalp.pdetail.model.vo;
 
 import java.sql.Date;
 
-public class GiftListView implements java.io.Serializable{
+public class GiftListView implements java.io.Serializable {
 
 	/**
 	 * 
@@ -13,16 +13,42 @@ public class GiftListView implements java.io.Serializable{
 	private int capacity;
 	private Date payment_date;
 	private int support_price;
-	
-	public GiftListView() {}
+	private int sellcount;
+	private int remain;
 
-	public GiftListView(String project_id, String gift_id, int capacity, Date payment_date,int support_price) {
+	public GiftListView() {
+	}
+
+	public GiftListView(String project_id, String gift_id, int capacity, Date payment_date, int support_price,
+			int sellcount, int remain) {
 		super();
 		this.project_id = project_id;
 		this.gift_id = gift_id;
 		this.capacity = capacity;
 		this.payment_date = payment_date;
 		this.support_price = support_price;
+		this.sellcount = sellcount;
+		this.remain = remain;
+	}
+
+	public int getSellcount() {
+		return sellcount;
+	}
+
+	public void setSellcount(int sellcount) {
+		this.sellcount = sellcount;
+	}
+
+	public int getRemain() {
+		return remain;
+	}
+
+	public void setRemain(int remain) {
+		this.remain = remain;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public int getSupport_price() {
@@ -53,16 +79,13 @@ public class GiftListView implements java.io.Serializable{
 		return project_id;
 	}
 
-
 	public void setProject_id(String project_id) {
 		this.project_id = project_id;
 	}
 
-
 	public String getGift_id() {
 		return gift_id;
 	}
-
 
 	public void setGift_id(String gift_id) {
 		this.gift_id = gift_id;
@@ -73,17 +96,5 @@ public class GiftListView implements java.io.Serializable{
 		return "GiftListView [project_id=" + project_id + ", gift_id=" + gift_id + ", capacity=" + capacity
 				+ ", payment_date=" + payment_date + ", support_price=" + support_price + "]";
 	}
-
-
-
-
-
-
-	
-	
-	
-
-
-
 
 }

@@ -35,14 +35,14 @@ AS
 
 
 
-CREATE OR REPLACE VIEW V_REPLY
-(PROJECT_ID, PROJECT_REPLY_ID, MEMBER_ID, REPLY_CONTENT, CREATION_DATE,
-REPLY_LEVEL, REPORT_COUNT)
-AS(SELECT P.PROJECT_ID,PR.PROJECT_REPLY_ID,PR.MEMBER_ID,PR.REPLY_CONTENT,
-PR.CREATION_DATE, PR.REPLY_LEVEL, PR.REPORT_COUNT
-FROM PROJECT P 
-LEFT JOIN PROJECT_REPLY PR ON(P.PROJECT_ID=PR.PROJECT_ID)
-LEFT JOIN MEMBER M ON(PR.MEMBER_ID=M.MEMBER_ID));
+create or replace view v_reply
+as select project_reply_id, project_id, member_id, member_name, profile_img_rename, reply_content, reply_level, proj_reply_id_ref, reply_seq, creation_date, report_count 
+      from (select * 
+            from project_reply
+            join member m using(member_id)
+            order by proj_reply_id_ref desc, reply_level asc, reply_seq asc
+            );
+
 
 
 ------------------SUPPOTER VIEW--------------
@@ -77,16 +77,21 @@ LEFT JOIN MEMBER M ON(P.MEMBER_ID=M.MEMBER_ID)
 LEFT JOIN MEMBER_TRUST T ON(P.PROJECT_ID=T.PROJECT_ID));
 
 
-=======================V_GIFTLIST  (프로젝트에 대한 GIFT_ID 리스트 가져오기) ===================== 
-    CREATE OR REPLACE VIEW V_GIFTLIST
-    (PROJECT_ID,GIFT_ID,CAPACITY,PAYMENT_DATE,SUPPORT_PRICE)
-    AS
-    SELECT P.PROJECT_ID,G.GIFT_ID,G.CAPACITY,P.PAYMENT_DATE+7,G.SUPPORT_PRICE
-    FROM PROJECT P 
-    JOIN GIFT G ON(P.PROJECT_ID=G.PROJECT_ID);
+------------V_GIFTLIST  (프로젝트에 대한 GIFT_ID 리스트 가져오기, 남은 개수)--------------------
+    create or replace view v_giftlist
+(project_id, gift_id, capacity, payment_date, support_price, sellcount, remain)
+as
+select s.project_id, s.gift_id, g.capacity, p.payment_date+7 as payment_date, g.support_price, s.sellcount, g.capacity-sellcount as remain
+from (select pa.project_id as project_id, pc.gift_id as gift_id, sum(pc.count) as sellcount
+      from payment_count pc
+      join payment pa on(pa.payment_id = pc.payment_id)
+      group by pa.project_id, pc.gift_id) s
+join gift g on(s.gift_id=g.gift_id)
+join project p on(s.project_id=p.project_id);
 
 
-=================V_SELLCOUNT(선물ID에 대한 판매된 개수)===============
+
+----------------V_SELLCOUNT(선물ID에 대한 판매된 개수)-------------------
 
 CREATE OR REPLACE VIEW V_SELLCOUNT
 (PROJECT_ID,GIFT_ID,SUM_COUNT)
@@ -96,3 +101,14 @@ SELECT  P.PROJECT_ID,PC.GIFT_ID,
 FROM PAYMENT_COUNT PC
 JOIN PAYMENT P ON(P.PAYMENT_ID = PC.PAYMENT_ID)
 GROUP BY PC.GIFT_ID,P.PROJECT_ID;
+
+------------------v_hotlist----------------
+
+  CREATE OR REPLACE FORCE VIEW "CORNSALAD"."V_HOTLIST" ("PROJECT_NAME", "PROJECT_ID", "LIKECOUNT") AS 
+  SELECT "PROJECT_NAME","PROJECT_ID","LIKECOUNT" FROM (SELECT * 
+FROM (SELECT PROJECT_NAME,P.PROJECT_ID,COUNT(L.MEMBER_ID) as likecount
+        FROM LIKES L
+        JOIN PROJECT P ON(P.PROJECT_ID=L.PROJECT_ID)
+        GROUP BY PROJECT_NAME,P.PROJECT_ID
+        ORDER BY 2 DESC)
+WHERE ROWNUM<=10);

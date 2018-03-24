@@ -115,21 +115,12 @@
 	]]>
 	</select>
 	
-	<resultMap id="glist" type="GiftListView">
-		<result property="project_id" column="project_id"></result>
-		<result property="gift_id" column="gift_id"></result>
-		<result property="capacity" column="capacity"></result>
-		<result property="payment_date" column="payment_date"></result>
-		<result property="support_price" column="support_price"></result>
-	</resultMap>
 	
+	<select id="selectGlist" parameterType="String" resultType="GiftListView">
 	
-	
-	<select id="selectGlist" parameterType="String" resultMap="glist">
-	
-	<![CDATA[
-		select * from v_giftlist where project_id=#{project_id}
-	]]>
+		<![CDATA[
+			select * from v_giftlist where project_id=#{project_id}
+		]]>
 	</select>
 
 	<resultMap id="giftlist" type="GiftView">
@@ -149,18 +140,7 @@
 	
 	
 	
-	<resultMap id="SellCount" type="SellCountView">
-		<result property="project_id" column="project_id"></result>
-		<result property="gift_id" column="gift_id"></result>
-		<result property="sum_count" column="sum_count"></result>
-	</resultMap>
 	
-	<select id="selectSellCount" parameterType="String" resultMap="SellCount">
-	
-	<![CDATA[
-		select * from v_sellCount where project_id=#{project_id}
-	]]>
-	</select>
 
 	<select id="selectReplyList" parameterType="String" resultType="ReplyView">
 		<![CDATA[

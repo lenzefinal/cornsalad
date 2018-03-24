@@ -11,7 +11,6 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
-import com.devone.finalp.pdetail.model.vo.SellCountView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
 
@@ -41,7 +40,6 @@ public interface DetailViewService {
 	
 	List<GiftListView> selectGlist(String project_id);
 	
-	List<SellCountView> selectSellCount(String project_id);
 	
 	List<ReplyView> selectReplyList(String project_id);
 	
