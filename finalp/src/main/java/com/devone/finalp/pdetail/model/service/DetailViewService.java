@@ -10,6 +10,7 @@ import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
+import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 //import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
@@ -48,5 +49,5 @@ public interface DetailViewService {
 	int insertReplyOne(ProjectReply projectreply);
 	
 	ProjectView selectGPView(String project_id);
-//	List<ProductDetailView> selectListProductView(String project_id);
+	List<ProductDetailView> selectListProductView(String project_id);
 }

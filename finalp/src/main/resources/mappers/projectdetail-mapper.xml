@@ -182,9 +182,7 @@
 			select * from V_PROJECTDETAIL_GROUPPAR where project_id=#{project_id}
 		]]>
 	</select>
-	
-	
-<!-- 	<resultMap id="ProductViewListResult" type="ProductDetailView">
+	<resultMap id="ProductViewListResult" type="ProductDetailView">
 		<result property="project_id" column="project_id"></result>
 		<result property="product_id" column="product_id"></result>
 		<result property="product_name" column="product_name"></result>
@@ -197,7 +195,7 @@
 		<![CDATA[
 			select * from V_PRODUCT_DETAIL where project_id=#{project_id}
 		]]>
-	</select> -->
+	</select> 
 	
 	
 	<update id="addReportCount" parameterType="Project">
