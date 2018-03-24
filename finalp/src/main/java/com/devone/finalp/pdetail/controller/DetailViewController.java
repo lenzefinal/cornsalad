@@ -29,7 +29,7 @@ import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
-import com.devone.finalp.pdetail.model.vo.ProductDetailView;
+//import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
@@ -52,6 +52,8 @@ public class DetailViewController {
 		
 //      판매자 member_id 알아옴
 		Project project=detailviewService.selectMemberId(project_id);
+		
+		System.out.println(project);
 		
 //		프로젝트에 대한 후원자들 리스트 
 		List<SuppoterView> suppoter=detailviewService.selectSuppoterList(project_id);
@@ -105,9 +107,12 @@ public class DetailViewController {
 	
 		System.out.println("신고하기" + report);
 		int result=detailviewService.insertReport(report);
-		
+
 		if(result>0) {
 			System.out.println("성공");
+			Project project=detailviewService.selectMemberId(report.getProject_id());
+			System.out.println("이용환"+project);
+			detailviewService.addReportCount(project);
 			model.addAttribute("project_id", report.getProject_id());
 			model.addAttribute("member_id", report.getMember_id());
 			return "redirect:projectDetailView.do";
@@ -146,13 +151,14 @@ public class DetailViewController {
 		
 		int result=detailviewService.insertQuestion(question);
 		
+		String str = "";
 		if(result>0) {
 			System.out.println("성공");
 			model.addAttribute("project_id", project_id);
 			model.addAttribute("member_id", question.getSend_member_id());
-			return "redirect:projectDetailView.do";
+			str= "redirect:projectDetailView.do";
 		}
-		return null;
+		return str;
 	
 	}
 	
@@ -250,7 +256,7 @@ public class DetailViewController {
 		
 		
 		//물품 리스트
-		List<ProductDetailView> productList = detailviewService.selectListProductView(project_id);
+//		List<ProductDetailView> productList = detailviewService.selectListProductView(project_id);
 		
 
 		boolean suppoterFlag = false;
@@ -273,7 +279,7 @@ public class DetailViewController {
 		model.addAttribute("LoginTimeView", logintime);
 		model.addAttribute("proview", proview);
 		model.addAttribute("hotlist", list);
-		model.addAttribute("productList", productList); 
+//		model.addAttribute("productList", productList); 
 		model.addAttribute("replylist", detailviewService.selectReplyList(project_id));
 		model.addAttribute("suppoterFlag", suppoterFlag);
 		model.addAttribute("like", like);
