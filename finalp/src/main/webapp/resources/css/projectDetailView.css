@@ -163,7 +163,7 @@ a {
 .reward-not-story .reward-nav, .reward .reward-nav {
 	position: sticky;
 	top: 0;
-	z-index: 99;
+	/* z-index: 99; */
 	margin-bottom: 0;
 	box-shadow: inset 0 -1px 0 0 #ddd;
 	height: 52px;

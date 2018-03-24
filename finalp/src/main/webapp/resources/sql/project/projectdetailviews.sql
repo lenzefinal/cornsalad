@@ -12,7 +12,8 @@ LEFT JOIN PROJECT_CONTENT CT ON(P.PROJECT_ID = CT.PROJECT_ID)
 JOIN PROJECT_CATEGORY PC ON(P.PROJECT_CATEGORY_ID = PC.PROJECT_CATEGORY_ID)
 JOIN CATEGORY_SUB CS ON(P.CATEGORY_SUB_ID = CS.CATEGORY_SUB_ID)
 JOIN CATEGORY C ON(CS.CATEGORY_ID = C.CATEGORY_ID)
-JOIN MEMBER M ON(P.MEMBER_ID=M.MEMBER_ID));
+JOIN MEMBER M ON(P.MEMBER_ID=M.MEMBER_ID)
+where P.PROJECT_CATEGORY_ID='PC-FUND');
 
 
 
@@ -89,18 +90,6 @@ from (select pa.project_id as project_id, pc.gift_id as gift_id, sum(pc.count) a
 join gift g on(s.gift_id=g.gift_id)
 join project p on(s.project_id=p.project_id);
 
-
-
-----------------V_SELLCOUNT(선물ID에 대한 판매된 개수)-------------------
-
-CREATE OR REPLACE VIEW V_SELLCOUNT
-(PROJECT_ID,GIFT_ID,SUM_COUNT)
-AS
-SELECT  P.PROJECT_ID,PC.GIFT_ID,
-        SUM(PC.COUNT) AS SUM_COUNT
-FROM PAYMENT_COUNT PC
-JOIN PAYMENT P ON(P.PAYMENT_ID = PC.PAYMENT_ID)
-GROUP BY PC.GIFT_ID,P.PROJECT_ID;
 
 ------------------v_hotlist----------------
 

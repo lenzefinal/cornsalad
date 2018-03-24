@@ -63,6 +63,7 @@
 		
 		
 		<typeAlias type="com.devone.finalp.project_list.model.vo.ProjectListView" alias="ProjectListView"/>
+		<typeAlias type="com.devone.finalp.project_list.model.vo.ProductListView" alias="ProductListView"/>
 		
 		<typeAlias type="com.devone.finalp.realtime_top_rank.model.vo.RealTimeRankTopView" alias="RealTimeRankTopView"/>
 	</typeAliases>
