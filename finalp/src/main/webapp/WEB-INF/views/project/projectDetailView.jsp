@@ -313,7 +313,7 @@
 										
 										<c:forEach var="glist" items="${ glist }">
 											<c:if test="${ glist.remain > 0 || glist.capacity eq 0 }">
-	 											<button class="rightinfo-reward-list ing">
+	 											<button class="rightinfo-reward-list ing" onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ glist.gift_id }'">
 	 											
  											</c:if>
  											<c:if test="${ glist.remain eq 0 && glist.capacity ne 0 }">
