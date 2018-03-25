@@ -7,12 +7,24 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+<style>
+.gnbsub-menu>h1{
+	margin-top:0px;
+}
+</style>
+</head>
+<body>
+
+<c:import url="../header.jsp"></c:import>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="/finalp/resources/js/paymentScript.js" charset="UTF-8"></script>
-
 
 <script>
 
@@ -61,21 +73,13 @@ $(function() {
 		
 		$(".d_month").text(year+"년 "+month+"월 ");
 		$(".d_date").text(dd);
+		
+		jQuery("#myModal").modal({backdrop: 'static', keyboard: false});
 });
 
-$(window).on("load", function(){
-	$("#myModal").modal({backdrop: 'static', keyboard: false});
-});
 
 
 </script>
-
-</head>
-<body>
-
-<c:import url="../header.jsp"></c:import>
-
-<link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
 
 
 <div class="container">
@@ -141,7 +145,7 @@ $(window).on("load", function(){
     		<div class="wpurchase-wrap" >
     			<div class="wpurchase-step">
     				<ol>
-    					<li class="active"><em>리워드<br />선택</em></li>
+    					<li class="active"><em>리워드<br/>선택</em></li>
     					<li><em>결제 하기</em></li>
     					<li><em>소문내기</em></li>    					
     				</ol>
@@ -227,7 +231,7 @@ $(window).on("load", function(){
 					<input type="hidden" id="total_price" value="0"/>
     				<p class="confirm">${ p.project_name }에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
     				
-    				<button class="btn-rd-violet" onclick="secondPage('${ p.project_name }','${ p_id }','${ loginUser.member_name }')">다음 단계로 &gt;</button>
+    				<button class="btn-rd-violet" onclick="secondPage('${ p_id }','${ m_id }')">다음 단계로 &gt;</button>
     			</div>
 
 </div>

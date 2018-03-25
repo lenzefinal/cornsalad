@@ -44,6 +44,14 @@
       <result property="refund_flag" column="refund_flag" />
       <result property="pay_option" column="pay_option" />
    </resultMap>
+   
+   <resultMap id="productMap" type="Product">
+   	  <result property="product_id" column="product_id" />
+      <result property="project_id" column="project_id" />
+      <result property="product_name" column="product_name" />
+      <result property="product_price" column="product_price" />
+      <result property="mincount" column="mincount" />
+   </resultMap>
 	
 	<insert id="insertPayment" parameterType="Payment">
 		<![CDATA[
@@ -100,11 +108,29 @@
 	</select>
 
 	<insert id="insertPaymentCount" parameterType="PaymentCount">
-	
-		<![CDATA[
+		<if test="product_id == null">
+			<![CDATA[
 			INSERT INTO PAYMENT_COUNT VALUES(#{payment_id}, #{project_id},#{gift_id},null,#{count})
-		]]>
+			]]>
+		</if>
+		<if test="product_id != null">
+			<![CDATA[
+			INSERT INTO PAYMENT_COUNT VALUES(#{payment_id}, #{project_id},null,${product_id},#{count})
+			]]>
+		</if>
+		
 	</insert>
-
+	
+	<select id="selectProduct" resultMap="productMap" parameterType="string" resultType="list">
+		<![CDATA[
+			SELECT * FROM PRODUCT WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	
+	<select id="selectProjectCategory" parameterType="string" resultType="string">
+		<![CDATA[
+			SELECT PROJECT_CATEGORY_ID FROM PROJECT WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</select>
 
 </mapper>

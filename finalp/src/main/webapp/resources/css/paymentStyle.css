@@ -1014,6 +1014,10 @@ button#closemodal.act{
 	border-radius:100%;
 	width:40px;
 }
+
+.inner-rdbox > ul{
+	margin-left:20px;
+}
 /* 모바일 용   */
 @media screen and (min-width: 960px){
 	.wpurchase-wrap{

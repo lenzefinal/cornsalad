@@ -1,18 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
  <head>
   <meta charset="UTF-8">
-<title>first</title>
+<title>pay-kakao</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
 </head>
  <body>
 <input type="hidden" id="p_id" value="${ p_id }">
-<input type="hidden" id="g_ids" value="${ g_ids }">
-<input type="hidden" id="g_amounts" value="${ g_amounts }">
+<input type="hidden" id="p_category" value="${ p_category }">
+
+<c:if test="${ p_category eq 'PC-FUND' }">
+	<input type="hidden" id="g_ids" value="${ g_ids }">
+	<input type="hidden" id="g_amounts" value="${ g_amounts }">
+
+</c:if>
+<c:if test="${ p_category eq 'PC-PROD' }">
+	<input type="hidden" id="p_ids" value="${ p_ids }">
+	<input type="hidden" id="p_amounts" value="${ p_amounts }">
+</c:if>
  <script>
 var IMP = window.IMP; // 생략가능
 IMP.init('imp06886046');  // 가맹점 식별 코드
@@ -30,8 +40,19 @@ IMP.request_pay({
     if ( rsp.success ) {
     	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
     	var p_id = $('#p_id').val();
-    	var g_ids = $('#g_ids').val();
-    	var g_amounts = $('#g_amounts').val();
+    	var p_category = $('#p_category').val();
+    	
+    	if(p_category == 'PC-FUND'){
+	    	var g_ids = $('#g_ids').val();
+	    	var g_amounts = $('#g_amounts').val();
+	    	var p_ids = '';
+	    	var p_amounts ='';
+    	}else{
+    		var g_ids = '';
+	    	var g_amounts ='';
+    		var p_ids = $('#p_ids').val();
+    		var p_amounts = $('#p_amounts').val();
+    	}
     	
     	$.ajax({
     		url: "insertPay.do", //cross-domain error가 발생하지 않도록 주의해주세요
@@ -42,19 +63,23 @@ IMP.request_pay({
 	    		project_id : p_id,
 	    		g_ids : g_ids,
 	    		g_amounts : g_amounts,
+	    		p_ids : p_ids,
+	    		p_amounts : p_amounts,
 	    		total_amount : rsp.paid_amount,
-	    		pay_option : 'K'
+	    		pay_option : 'K',
+	    		p_category : p_category
     		}
     	}).done(function(data) {
     		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-    		if ( everythings_fine ) {
+    		
     			alert('결제에 성공했습니다!');
-    			window.opener.location.replace("payment3.do?p_id="+p_id+"&payment_id="+rsp.imp_uid+"&m_id="+rsp.buyer_name);
+    			if(p_category == 'PC-FUND'){
+        			window.opener.location.replace("payment3.do?p_id="+p_id+"&payment_id="+rsp.imp_uid+"&m_id="+rsp.buyer_name); 
+        		}else{
+        			window.opener.location.replace("p_payment3.do?p_id="+p_id+"&payment_id="+rsp.imp_uid+"&m_id="+rsp.buyer_name);
+        		}
     			window.close();
-    		} else {
-    			//[3] 아직 제대로 결제가 되지 않았습니다.
-    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-    		}
+    		
     	});
     } else {
         var msg = '결제에 실패하였습니다.';

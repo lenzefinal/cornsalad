@@ -21,9 +21,13 @@
 	<c:param name="p_id" value="152145778182347"/>
 	<c:param name="g_id" value="1521503358293"/>
 </c:url>
+<c:url var ="openp_pay" value="p_payment.do">
+	<c:param name="p_id" value="152159737628112"/>
+	<c:param name="product_id" value="1521597494713"/>
+</c:url>
 <button onclick="location.href='${ openpay }'">결제하기 테스트</button>
 <button onclick="test()">첫번째 상품 구매</button>
-<button onclick="">두번째 상품 구매</button>
+<button onclick="location.href='${ openp_pay}'">공동 구매 테스트</button>
 
 
 </body>
