@@ -24,6 +24,7 @@ public interface DetailViewService {
 	List<HotListView> selectHotList();
 	
 	int insertReport(Report report);
+	int insertReplyReport(Report report);
 	
 	int selectLikes(String project_id);
 	

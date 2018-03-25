@@ -111,7 +111,7 @@
 		<!-- S : 리워드 헤더 -->
 		<div class="reward-header">
 			<div class="bg"
-				style="background-image: url(https://cdn.wadiz.kr/wwwwadiz/green001/2018/0222/20180222115943523_14048.png/wadiz/quality/95/optimize)"></div>
+				style="background-image: url('/finalp/resources/uploadProPreImages/${ proview.image_rename }')"></div>
 			<p class="title-info">
 				<em>테크</em> <strong>${proview.project_name }</strong> 프로젝트
 			</p>
@@ -480,7 +480,7 @@
 									</div>
 									
 									<div class="comment-box">
-										<c:forEach var="reply" items="${ replylist }">
+										<c:forEach var="reply" items="${ replylist }" varStatus="status">
 											<c:if test="${ reply.reply_level eq 0 }">
 												<div class="comment-wrap">
 													<div class="comment-info">
@@ -488,7 +488,8 @@
 															<div class="user-picture"
 																style="background-image: url('/finalp/resources/images/mypageProfiles/${ reply.profile_img_rename }');"></div>
 															<p class="user-name">
-																<a href="#"><strong>${ reply.member_name }</strong></a>
+																	<a href="#"><strong>${ reply.member_name }</strong></a>
+																	<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>
 															</p>
 															<p class="date">${ reply.creation_date }</p>
 														</div>
@@ -545,6 +546,7 @@
 																				<em class="maker">메이커</em>
 																			</c:if>
 																		</a>
+																		<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>
 																	</p>
 																	<p class="date">${ reply.creation_date }</p>
 																</div>
@@ -657,6 +659,7 @@
 																		'<div class="user-picture" style="background-image: url(/finalp/resources/images/mypageProfiles/'+decodeURIComponent(json.replylist[i].profile_img_rename)+');"></div>'+
 																		'<p class="user-name">'+
 																			'<a href="#"><strong>'+decodeURIComponent(json.replylist[i].member_name.replace(/\+/g," "))+'</strong></a></p>'+
+																			'<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>'+
 																		'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>';
 													
@@ -700,7 +703,7 @@
 																						values+='<em class="maker">메이커</em>';
 																					}
 																						
-																		values+='</a></p>'+
+																		values+='</a><a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a></p>'+
 																			'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																	'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>'+
 																	'<div class="comment-bottom"></div></div></div></div>';
@@ -715,7 +718,7 @@
 											$(".comment-total").html(commentCount);
 										}
 										
-									});
+									})
 								</script>
 								<!--환불정책 -->
 								
@@ -724,12 +727,6 @@
 									${proview.refund_role }
 									</div>
 								</div>
-								
-								
-								
-								
-								
-								
 								
 						</div>
 					</div>
@@ -763,6 +760,32 @@
 			</div>
 		</div>
 	</div>
+	
+	<c:forEach var="reply" items="${ replylist }" varStatus="status">
+		<div class="modal fade" id="blacklist-modal${ status.count }" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none; z-index: 9999;">
+			<div class="modal-dialog">
+				<div class="blacklist-container">
+					<a data-dismiss="modal"
+						style="margin-left: 90%; max-width: 500px;"><i
+						class="xi-close-thin xi-2x"></i></a>
+					<h1>프로젝트 댓글 신고하기</h1>
+					<br>
+					<form action="reportReply.do" method="post">
+						<input type="hidden" name="member_id" value="${ loginUser.member_id}"> 
+							<input type="text" value="신고자  : ${ loginUser.member_name}" readonly>
+							<input type="hidden" name="project_reply_id" value="${ reply.project_reply_id}"> 
+							<input type="hidden" name="project_id" value="${ reply.project_id }">
+							 	
+							<textarea name="report_reason" placeholder="신고사유"></textarea>
+							<input type="submit" class="blacklist blacklist-submit"
+								value="신고하기" style="background-color:  #F7D358;">
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
 	
 	<div class="modal fade" id="contact" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true"

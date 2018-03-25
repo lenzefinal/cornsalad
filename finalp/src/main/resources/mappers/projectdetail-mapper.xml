@@ -17,6 +17,12 @@
 	]]>
 	</insert>
 	
+	<insert id="insertReplyReport" parameterType="Report">
+		<![CDATA[
+			insert into Report values(seq_report.nextval,'R-PROJR',null,#{project_reply_id},null,null,#{report_reason},#{member_id},sysdate,'N')
+		]]>
+	</insert>
+	
 	<select id="selectLikes" parameterType="String" resultType="int">
 	<![CDATA[
 		select count(project_id) from likes where project_id= #{project_id}
@@ -52,6 +58,7 @@
 			<result property="project_id" column="project_id"/>
 			<result property="project_name" column="project_name"/>
 			<result property="member_name" column="member_name"/>
+			<result property="image_rename" column="image_rename"/>
 			<result property="rep_content" column="rep_content"/>
 			<result property="target_amount" column="target_amount"/>
 			<result property="start_date" column="start_date"/>
@@ -215,10 +222,16 @@
 		<result property="member_id" column="member_id"></result>
 		<result property="corngrade_avg" column="corngrade_avg"></result>
 	</resultMap>
+	
 	<select id="selectOneCornGradeView" parameterType="String" resultMap="CornGradeViewOneResult">
 		<![CDATA[
 			select * from V_CORNGRADE where member_id=#{member_id}
 		]]>
 	</select> 
 	
+	<update id="addReplyReportCount" parameterType="Report">
+		<![CDATA[
+			update Project_Reply set report_count = report_count+1 where project_reply_id=#{project_reply_id}
+		]]>
+	</update>
 </mapper>

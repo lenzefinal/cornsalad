@@ -43,6 +43,10 @@ public class DetailViewServiceImpl implements DetailViewService{
 		return detailviewDao.insertReport(report);
 		
 	}
+	
+	public int insertReplyReport(Report report) {
+		return detailviewDao.insertReplyReport(report);
+	}
 	public int selectLikes(String project_id) {
 		
 		return detailviewDao.selectLikes(project_id);
