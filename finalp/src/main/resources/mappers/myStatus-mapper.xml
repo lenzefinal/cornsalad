@@ -95,7 +95,9 @@
 
 	<select id="productPayment" resultMap="MyProdPay">
         <![CDATA[
-            select pm.payment_id,  pc.product_id, pd.product_name, pc.count, pm.member_id, p.project_name from payment pm
+            select pm.payment_id,  pc.product_id, pd.product_name, pc.count, pm.member_id, p.project_name,
+            		pm.pay_option
+            		from payment pm
                     join payment_count pc on(pm.payment_id=pc.payment_id)
                     join product pd on (pc.product_id=pd.product_id)
                     join project p on (p.project_id=pm.project_id)
@@ -105,7 +107,7 @@
 
 	<select id="fundingPayment" resultMap="MyFundPay">
         <![CDATA[
-            select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name from payment pm
+            select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name, pm.pay_option from payment pm
                     join payment_count pc on(pm.payment_id=pc.payment_id)
                     join gift g on (g.gift_id=pc.gift_id)
                     join gifT_in_items gii on(g.gift_id=gii.gift_id)
