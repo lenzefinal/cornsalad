@@ -15,33 +15,18 @@ public class MyProdPay implements java.io.Serializable {
 	private String member_id;
 	private String product_name;
 	private String product_id;
+	private String pay_option;
 	private int count;
 	
 	public MyProdPay() {}
-
-	
-	public MyProdPay(String project_id, String project_name, String payment_id, String member_id, String product_name,
-			String product_id, int count) {
-		super();
-		this.project_id = project_id;
-		this.project_name = project_name;
-		this.payment_id = payment_id;
-		this.member_id = member_id;
-		this.product_name = product_name;
-		this.product_id = product_id;
-		this.count = count;
-	}
-
 
 	public String getProject_id() {
 		return project_id;
 	}
 
-
 	public void setProject_id(String project_id) {
 		this.project_id = project_id;
 	}
-
 
 	public String getProject_name() {
 		return project_name;
@@ -83,6 +68,14 @@ public class MyProdPay implements java.io.Serializable {
 		this.product_id = product_id;
 	}
 
+	public String getPay_option() {
+		return pay_option;
+	}
+
+	public void setPay_option(String pay_option) {
+		this.pay_option = pay_option;
+	}
+
 	public int getCount() {
 		return count;
 	}
@@ -95,11 +88,26 @@ public class MyProdPay implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
-	
+	public MyProdPay(String project_id, String project_name, String payment_id, String member_id, String product_name,
+			String product_id, String pay_option, int count) {
+		super();
+		this.project_id = project_id;
+		this.project_name = project_name;
+		this.payment_id = payment_id;
+		this.member_id = member_id;
+		this.product_name = product_name;
+		this.product_id = product_id;
+		this.pay_option = pay_option;
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
-		return "MyPay [project_name=" + project_name + ", payment_id=" + payment_id + ", member_id=" + member_id
-				+ ", product_name=" + product_name + ", product_id=" + product_id + ", count=" + count + " project_id" +project_id +"]";
+		return "MyProdPay [project_id=" + project_id + ", project_name=" + project_name + ", payment_id=" + payment_id
+				+ ", member_id=" + member_id + ", product_name=" + product_name + ", product_id=" + product_id
+				+ ", pay_option=" + pay_option + ", count=" + count + "]";
 	}
+
+	
 	
 }

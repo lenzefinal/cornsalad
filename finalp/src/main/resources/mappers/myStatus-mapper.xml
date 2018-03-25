@@ -40,7 +40,28 @@
 		<result property="send_creation_date" column="send_creation_date" />
 		<result property="receive_creation_date" column="receive_creation_date" />
 	</resultMap>
-
+	
+	<resultMap type="MyFundPay" id="MyFundPay">
+		<result property="project_id" column="project_id"/>
+		<result property="project_name" column="project_name"/>
+		<result property="payment_id" column="payment_id"/>
+		<result property="member_id" column="member_id"/>
+		<result property="gift_id" column="gift_id"/>
+		<result property="item_name" column="item_name"/>
+		<result property="pay_option" column="pay_option"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+	<resultMap type="MyProdPay" id="MyFundPay">
+		<result property="project_id" column="project_id"/>
+		<result property="project_name" column="project_name"/>
+		<result property="payment_id" column="payment_id"/>
+		<result property="member_id" column="member_id"/>
+		<result property="product_name" column="product_name"/>
+		<result property="product_id" column="product_id"/>
+		<result property="pay_option" column="pay_option"/>
+		<result property="count" column="count"/>
+	</resultMap>
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
