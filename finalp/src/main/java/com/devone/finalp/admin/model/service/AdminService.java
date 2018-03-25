@@ -20,6 +20,7 @@ public interface AdminService {
 	List<AReport> selectReportList();
 	AReport reportDetail(int report_id);
 	int reportAUpdate(int report_id);
+	int reportBUpdate(int board_id);
 	List<AQuestion> selectQuestionList();
 	AQuestion aquestionDetail(int question_id);
 	int updateQuestion(AQuestion question);
@@ -28,6 +29,7 @@ public interface AdminService {
 	List<AProject> selectOffProject();
 	int updateProjectOn(String project_id);
 	int updateProjectOff(String project_id);
+	int updateProjectWait(String project_id);
 	int memListCount();
 	List<AMember> selectMemberList(HashMap<String,Object> map);
 	AMember memberDetail(String member_name);

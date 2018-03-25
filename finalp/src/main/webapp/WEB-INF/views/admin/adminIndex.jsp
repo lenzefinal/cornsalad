@@ -67,7 +67,7 @@
                <dl class="sh_lst2">
                <dt>&nbsp;</dt>
                <dd>&nbsp;</dd>
-			   <dt>신고된 게시글</dt>
+			   <dt>처리하지 않은 신고</dt>
                <dd>${ aalarm.reportcount } 건</dd>
                </dl>
             </div>

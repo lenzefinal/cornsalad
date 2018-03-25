@@ -206,6 +206,15 @@ public class AdminController {
 			System.out.println("프로젝트 비활성화 처리 완료");
 		return "redirect:adminProject.do";
 	}
+	
+	//관리자 프로젝트 승인거부
+	@RequestMapping("adminProjectWait.do")
+	public String updateProjectWait(@RequestParam(value="project_id") String project_id) {
+		int result=adminService.updateProjectWait(project_id);
+		if(result > 0)
+			System.out.println("프로젝트 승인거부 처리 완료");
+		return "redirect:adminProject.do";
+	}
 
 	//관리자 공지사항리스트
 	@RequestMapping("adminNotice.do")
@@ -382,13 +391,16 @@ public class AdminController {
 	@RequestMapping(value="adminReportDetail.do", method=RequestMethod.POST)
 	public String adminReportDetail(HttpServletResponse response,
 			@RequestParam(value = "reportid") int report_id) throws IOException {
-		
+		int result = adminService.reportAUpdate(report_id);
+		if(result>0)
+			System.out.println("신고글 확인 완료!");
 		response.setContentType("application/json; charset=utf-8");
 		AReport report=adminService.reportDetail(report_id);
 		JSONObject job=new JSONObject();
 		job.put("rnum", report.getRnum());
 		job.put("report_id", report.getReport_id() );
 		job.put("report_category_name", URLEncoder.encode(report.getReport_category_name(),"utf-8"));
+		job.put("project_category_id", report.getProject_category_id());
 		job.put("project_id", report.getProject_id() );
 		job.put("project_reply_id", report.getProject_reply_id() );
 		job.put("board_id", report.getBoard_id() );
@@ -406,6 +418,8 @@ public class AdminController {
 		job.put("report_count", report.getReport_count() );
 		job.put("report_read_flag", report.getReport_read_flag() );
 		
+		System.out.println(report.getProject_category_id());
+		
 		return job.toJSONString();
 	}
 	
@@ -413,17 +427,38 @@ public class AdminController {
 	@RequestMapping("adminReplyDelete.do")
 	public String replyDelete(@RequestParam(value="reply_id") int reply_id, 
 			@RequestParam(value="report_category_name") String report_category_name) {
+		System.out.println("reply_id"+ reply_id +"report_category_name" + report_category_name);
 		AReport report = new AReport();
 		if(report_category_name.equals("프로젝트 댓글 신고")) {
 			report.setReport_category_name(report_category_name);
 			report.setProject_reply_id(reply_id);
-		}else {
+		}else if(report_category_name.equals("게시글 댓글 신고")) {
 			report.setReport_category_name(report_category_name);
 			report.setBoard_reply_id(reply_id);
 		}
 		int result = adminService.replyDelete(report);
 		if(result > 0)
 			System.out.println("신고 댓글 삭제 성공");
+		return "redirect:adminReport.do";
+	}
+	
+	//관리자 프로젝트 비활성화
+	@RequestMapping("adminRProjectOff.do")
+	public String updateRProjectOff(@RequestParam(value="project_id") String project_id) {
+		int result=adminService.updateProjectOff(project_id);
+		if(result > 0)
+			System.out.println("프로젝트 비활성화 처리 완료");
+		return "redirect:adminReport.do";
+	}
+	
+	//관리자 신고된 게시글 신고 카운트 올리기
+	@RequestMapping("adminBoardReportUp.do")
+	public String boardReportUp(@RequestParam(value="board_id") int board_id) {
+		int result = adminService.reportBUpdate(board_id);
+		System.out.println("BOARD_ID = "+ board_id);
+		if(result > 0) {
+			System.out.println("신고된 게시글 블라인드 처리 완료");
+		}
 		return "redirect:adminReport.do";
 	}
 

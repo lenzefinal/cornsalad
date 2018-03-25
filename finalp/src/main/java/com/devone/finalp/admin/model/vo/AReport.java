@@ -12,6 +12,7 @@ public class AReport implements java.io.Serializable {
 	private int rnum;
 	private int report_id;
 	private String report_category_name;
+	private String project_category_id;
 	private String project_id;
 	private int project_reply_id;
 	private int board_id;
@@ -27,13 +28,14 @@ public class AReport implements java.io.Serializable {
 	
 	public AReport() {}
 
-	public AReport(int rnum, int report_id, String report_category_name, String project_id, int project_reply_id,
+	public AReport(int rnum, int report_id, String report_category_name,String project_category_id, String project_id, int project_reply_id,
 			int board_id, int board_reply_id, String black_name, String report_reason, String member_name, Date report_date,
 			String report_project_name, String reply_content, int report_count, String report_read_flag) {
 		super();
 		this.rnum = rnum;
 		this.report_id = report_id;
 		this.report_category_name = report_category_name;
+		this.project_category_id = project_category_id;
 		this.project_id = project_id;
 		this.project_reply_id = project_reply_id;
 		this.board_id = board_id;
@@ -70,6 +72,14 @@ public class AReport implements java.io.Serializable {
 
 	public void setReport_category_name(String report_category_name) {
 		this.report_category_name = report_category_name;
+	}
+
+	public String getProject_category_id() {
+		return project_category_id;
+	}
+
+	public void setProject_category_id(String project_category_id) {
+		this.project_category_id = project_category_id;
 	}
 
 	public String getProject_id() {
@@ -171,11 +181,11 @@ public class AReport implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "AReport [rnum=" + rnum + ", report_id=" + report_id + ", report_category_name=" + report_category_name
-				+ ", project_id=" + project_id + ", project_reply_id=" + project_reply_id + ", board_id=" + board_id
-				+ ", board_reply_id=" + board_reply_id + ", black_name=" + black_name + ", report_reason=" + report_reason
-				+ ", member_name=" + member_name + ", report_date=" + report_date + ", report_project_name="
-				+ report_project_name + ", reply_content=" + reply_content + ", report_count=" + report_count
-				+ ", report_read_flag=" + report_read_flag + "]";
-	};
+				+ ", project_category_id=" + project_category_id + ", project_id=" + project_id + ", project_reply_id="
+				+ project_reply_id + ", board_id=" + board_id + ", board_reply_id=" + board_reply_id + ", black_name="
+				+ black_name + ", report_reason=" + report_reason + ", member_name=" + member_name + ", report_date="
+				+ report_date + ", report_project_name=" + report_project_name + ", reply_content=" + reply_content
+				+ ", report_count=" + report_count + ", report_read_flag=" + report_read_flag + "]";
+	}
 
 }

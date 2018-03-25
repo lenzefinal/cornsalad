@@ -93,7 +93,23 @@
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
-  	//공지사항 수정 ajax
+  //등록 폼 값 있는지 체크!	
+  	function check(){
+  		if(noinform.title.value == ''){
+  			alert("제목을 입력해주세요!");
+  			noinform.title.focus();
+  			return false;
+  		}else if(noinform.content.value == ''){
+  			alert("내용을 입력해주세요!");
+  			noinform.content.focus();
+  			return false;
+  		}else {
+  			return true;
+  		}
+  		
+  	}
+  
+  //공지사항 수정 ajax
   	function noupbtn(noticeid){
   		$.ajax({
   	  		url:"adminNoticeDet.do",
@@ -216,7 +232,7 @@
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
         <div class="modal-body">
-        <form action="adminNoticeIn.do" method="post">
+        <form name="noinform" action="adminNoticeIn.do" onsubmit="return check()" method="post">
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="ntitle"> 제목 : &nbsp;</label>
@@ -225,7 +241,7 @@
 			<br><br><br>
 			<div class="form-group">
 				<label for="nwriter">작성자 : &nbsp;</label>
-				<input type="text" class="form-control" id="nwriter" value="admin" readonly >
+				<input type="text" class="form-control" id="nwriter" name="writer" value="admin" readonly >
 			</div>
 			</div>
 			<br>
@@ -233,7 +249,8 @@
 				<label for="ncontent">내용 : </label>
 				<textarea class="form-control" id="ncontent" placeholder="내용" name="content" cols="90" rows="10"></textarea>
 				<br>
-				<span class="btnspan"><button class="btn btn-defult" type="submit">등록</button>&nbsp;
+				<span class="btnspan">
+				<button class="btn btn-defult" type="submit">등록</button>&nbsp;
 				<button class="btn" data-dismiss="modal">취소</button></span>
 				<br>
 			</div>
@@ -257,27 +274,22 @@
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="ntitle"> 제목 : &nbsp;</label>
-				<input type="text" class="form-control" id="ntitle" placeholder="제목 입력">
+				<input type="text" class="form-control" id="ntitlee" placeholder="제목 입력">
 			</div>
 			<br><br>
 			<div class="form-group">
 				<label for="nwriter">작성자 : &nbsp;</label>
-				<input type="text" class="form-control" id="nwriter" value="id" readonly >
+				<input type="text" class="form-control" id="nwriterr" value="admin" readonly >
 			</div>
 			<div class="form-group">
 				<label for="ndate">작성날짜 : &nbsp;</label>
-				<input type="date" class="form-control" id="ndate" readonly>
+				<input type="date" class="form-control" id="ndatee" readonly>
 			</div>
-<!-- 			<br><br><br>
-			<div class="form-group">
-				<label for="ntitle"> 첨부파일 </label>
-				<input type="file" id="nfile">
-			</div> -->
 			</div>
 			<br>
 			<div class="form-group">
 				<label for="qcontent">내용 : </label>
-				<textarea class="form-control" id="qcontent" placeholder="문의내용" cols="90" rows="10"></textarea>
+				<textarea class="form-control" id="ncontentt" placeholder="문의내용" cols="90" rows="10"></textarea>
 				<br>
 				<span class="btnspan"><button class="btn btn-defult" data-dismiss="modal">수정</button>&nbsp;<button class="btn" data-dismiss="modal">취소</button></span>
 				<br>
