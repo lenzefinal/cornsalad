@@ -11,22 +11,11 @@ public class FundingProject implements java.io.Serializable {
 	private String product_name;
 	private String member_id;
 	private Date end_date;
+	private String pay_option;
 	private int size;
 
 	public FundingProject() {
 
-	}
-
-	public FundingProject(String project_id, String image_rename, String project_name, String product_name,
-			String member_id, Date end_date, int size) {
-		super();
-		this.project_id = project_id;
-		this.image_rename = image_rename;
-		this.project_name = project_name;
-		this.product_name = product_name;
-		this.member_id = member_id;
-		this.end_date = end_date;
-		this.size = size;
 	}
 
 	public String getProject_id() {
@@ -77,6 +66,14 @@ public class FundingProject implements java.io.Serializable {
 		this.end_date = end_date;
 	}
 
+	public String getPay_option() {
+		return pay_option;
+	}
+
+	public void setPay_option(String pay_option) {
+		this.pay_option = pay_option;
+	}
+
 	public int getSize() {
 		return size;
 	}
@@ -89,11 +86,19 @@ public class FundingProject implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
-	@Override
-	public String toString() {
-		return "FundingProject [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
-				+ project_name + ", product_name=" + product_name + ", member_id=" + member_id + ", end_date="
-				+ end_date + ", size=" + size + "]";
+	public FundingProject(String project_id, String image_rename, String project_name, String product_name,
+			String member_id, Date end_date, String pay_option, int size) {
+		super();
+		this.project_id = project_id;
+		this.image_rename = image_rename;
+		this.project_name = project_name;
+		this.product_name = product_name;
+		this.member_id = member_id;
+		this.end_date = end_date;
+		this.pay_option = pay_option;
+		this.size = size;
 	}
+
+
 
 }

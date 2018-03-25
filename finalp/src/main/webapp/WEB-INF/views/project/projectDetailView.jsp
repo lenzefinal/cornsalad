@@ -18,8 +18,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
+		$(".refound-story").hide();
 		$("#flip").click(function() {
 			$("#panel").slideToggle("slow");
+			
 		});
 		
 		
@@ -256,6 +258,7 @@
 											<b>0</b>
 										</div>
 										<div class="khYIRi">
+										<c:if test="${not empty loginUser }">
 											<button class="dxWcyc" data-toggle="modal"
 												data-target="#contact">
 												<img src="resources/images/icon/메일이메일.png" width="15px"
@@ -266,6 +269,19 @@
 												창작자에게 문의하기
 												<!-- /react-text -->
 											</button>
+										</c:if>	
+										<c:if test="${empty loginUser }">
+											<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+												<img src="resources/images/icon/메일이메일.png" width="15px"
+													width="10px"
+													style="margin-right: 2px; margin-bottom: -4px;"> <i
+													class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												창작자에게 문의하기
+												<!-- /react-text -->
+											</button>
+										</c:if>	
+											
 										</div>
 									</div>
 								</div> 
@@ -277,9 +293,16 @@
 									<p>
 										해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
 									</p>
+									<c:if test="${not empty loginUser }">
 									<button type="button" class="btn btn-primary"
 											data-toggle="modal" data-target="#blacklist-modal"
 											style="width: 100%;">프로젝트 신고하기</button>
+									</c:if>
+									<c:if test="${empty loginUser }">
+									<button type="button" class="btn btn-primary"
+											onclick="alertify.alert('로그인해주세요')"
+											style="width: 100%;">프로젝트 신고하기</button>
+									</c:if>
 								</div> 
 								<!-- E : 프로젝트 신고하기 -->
 								 

@@ -268,6 +268,7 @@ public class MypageController {
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
 			j.put("payment_id", p.getPayment_id());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -299,6 +300,7 @@ public class MypageController {
 			j.put("product_name", f.getProduct_name());
 			j.put("member_id", f.getMember_id());
 			j.put("end_date", f.getEnd_date().toString());
+			j.put("pay_option", f.getPay_option());
 			jarr.add(j);
 
 		}

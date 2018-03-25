@@ -303,7 +303,7 @@ function fModal(fmid){
 	console.log(member_id);
 	$.ajax({
 		url:"fund_payment.do",
-		data: {"payment_id":"1.52149977409E12", "member_id":member_id},
+		data: {"payment_id":fmid, "member_id":member_id},
 		dataType:"json",
 		type:"post",
 		success:function(e){
@@ -320,7 +320,7 @@ function fModal(fmid){
 					+json.mfproject[i].count+'개</b><br>'
 					+'</div>'
 			}
-			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="#" style="color:white;">결제 취소</a></button>'
+			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mfproject[i].payment_id+'&pay_option='+json.mfproject[i].pay_option+'" style="color:white;">결제 취소</a></button>'
 			$("#fpmodal").html(value);
 		},
 		error:function(request, status, errorData){

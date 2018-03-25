@@ -18,23 +18,11 @@ public class PurchaseProduct implements java.io.Serializable {
 	private String member_id;
 	private Date end_date;
 	private String payment_id;
+	private String pay_option;
 	private int size;
 
 	public PurchaseProduct() {
 
-	}
-
-	public PurchaseProduct(String project_id, String image_rename, String project_name, String product_name,
-			String member_id, Date end_date, String payment_id, int size) {
-		super();
-		this.project_id = project_id;
-		this.image_rename = image_rename;
-		this.project_name = project_name;
-		this.product_name = product_name;
-		this.member_id = member_id;
-		this.end_date = end_date;
-		this.payment_id = payment_id;
-		this.size = size;
 	}
 
 	public String getProject_id() {
@@ -93,6 +81,14 @@ public class PurchaseProduct implements java.io.Serializable {
 		this.payment_id = payment_id;
 	}
 
+	public String getPay_option() {
+		return pay_option;
+	}
+
+	public void setPay_option(String pay_option) {
+		this.pay_option = pay_option;
+	}
+
 	public int getSize() {
 		return size;
 	}
@@ -105,11 +101,26 @@ public class PurchaseProduct implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
+	public PurchaseProduct(String project_id, String image_rename, String project_name, String product_name,
+			String member_id, Date end_date, String payment_id, String pay_option, int size) {
+		super();
+		this.project_id = project_id;
+		this.image_rename = image_rename;
+		this.project_name = project_name;
+		this.product_name = product_name;
+		this.member_id = member_id;
+		this.end_date = end_date;
+		this.payment_id = payment_id;
+		this.pay_option = pay_option;
+		this.size = size;
+	}
+
 	@Override
 	public String toString() {
 		return "PurchaseProduct [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
 				+ project_name + ", product_name=" + product_name + ", member_id=" + member_id + ", end_date="
-				+ end_date + ", size=" + size + "]";
+				+ end_date + ", payment_id=" + payment_id + ", pay_option=" + pay_option + ", size=" + size + "]";
 	}
 
+	
 }
