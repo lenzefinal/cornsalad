@@ -147,7 +147,7 @@ DROP TABLE PROJECT CASCADE CONSTRAINTS;
     END_DATE DATE,
     PAYMENT_DATE DATE,
     REFUND_ROLE VARCHAR2(4000),
-    PROJECT_REQUEST_FLAG VARCHAR2(1) CHECK(PROJECT_REQUEST_FLAG IN ('Y', 'N')),
+    PROJECT_REQUEST_FLAG VARCHAR2(1) CHECK(PROJECT_REQUEST_FLAG IN ('Y', 'N','W')),
     PROJECT_ONOFF_FLAG VARCHAR2(1) CHECK(PROJECT_ONOFF_FLAG IN ('Y', 'N')),
     REPORT_COUNT NUMBER DEFAULT 0,
     CERTIF_FLAG VARCHAR2(1) CHECK(CERTIF_FLAG IN ('Y', 'N')),
@@ -410,6 +410,7 @@ DROP TABLE PAYMENT_COUNT CASCADE CONSTRAINTS;
     PRODUCT_ID VARCHAR2(50), 
     COUNT NUMBER DEFAULT 1,
     
+    CONSTRAINT FK_PAYMENTC_PAYMENT_ID FOREIGN KEY (PAYMENT_ID) REFERENCES PAYMENT (PAYMENT_ID) ON DELETE CASCADE,
     CONSTRAINT FK_PAYMENTC_PROJECT_ID FOREIGN KEY (PROJECT_ID) REFERENCES PROJECT (PROJECT_ID) ON DELETE CASCADE,
     CONSTRAINT FK_PAYMENTC_GIFT_ID FOREIGN KEY (GIFT_ID) REFERENCES GIFT (GIFT_ID) ON DELETE SET NULL,
     CONSTRAINT FK_PAYMENTC_PRODUCT_ID FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT (PRODUCT_ID) ON DELETE SET NULL
@@ -659,7 +660,29 @@ DROP TABLE ALARM CASCADE CONSTRAINTS;
     
 --SELECT * FROM ALARM;
 ----------------------------------------------------------------------------------------------------------------
-
+DROP TABLE board_recommend CASCADE CONSTRAINTS;
+create table board_recommend(
+    member_id varchar2(30),
+    board_id number,
+    CONSTRAINT FK_brecommend_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE,
+    CONSTRAINT FK_brecommend_board_ID FOREIGN KEY (board_ID) REFERENCES board (board_ID) ON DELETE CASCADE
+ );
+select * from board_recommend;
+----------------------------------------------------------------------------------------------------------------
+DROP TABLE webchat CASCADE CONSTRAINTS;
+create table webchat(
+    room_id number constraint pk_webchat primary key,
+    room_name varchar2(100 byte),
+    member_id varchar2(30 byte),
+    room_reply_id number,
+     CONSTRAINT FK_webchat_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE,
+     CONSTRAINT FK_webchat_reply_ID FOREIGN KEY (room_reply_id) REFERENCES webchat (room_ID) ON DELETE CASCADE
+);
+ COMMENT ON COLUMN webchat.room_ID IS '방 고유번호';
+ COMMENT ON COLUMN webchat.room_name IS '방 이름';
+ COMMENT ON COLUMN webchat.member_ID IS '접속 인원';
+ COMMENT ON COLUMN webchat.room_reply_ID IS '접속한 방 번호';
+--select * from webchat;
 
 
 
