@@ -73,6 +73,10 @@
 		height: 140px;
 
 	}
+	#question select#recont{
+		height:30px;
+		font-size: 14px;
+	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
@@ -199,7 +203,6 @@
 		<option value="nore">답변 미완료</option>
 		<option value="okre">답변 완료</option>
 	  </select>
-	<!--  <button class="btn btn-danger" id="find">검색</button> -->
     </div>
 </div>
 <br>

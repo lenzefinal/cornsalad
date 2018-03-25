@@ -31,6 +31,11 @@
 		<result property="board_reply_id_ref" column="board_reply_id_ref" />
 	</resultMap>
 	
+	<resultMap id="boardRCMap" type="Board_recommend">
+		<result property="member_id" column="member_id" />
+		<result property="board_id" column="board_id" />
+	</resultMap>
+	
 	<select id="blistCount" resultType="int" parameterType="String">
 		<if test="_parameter == 'stu'">
 			SELECT count(*) from board where board_category_id = 'BCA-STU'
@@ -38,12 +43,16 @@
 		<if test="_parameter == 'pro'">
 			SELECT count(*) from board where board_category_id = 'BCA-PRO'
 		</if>
-		<if test="_parameter == null">
+		<if test='_parameter == null'>
 		 <![CDATA[
 			SELECT count(*) from board
 		]]> 
 		</if>
-		
+		<if test='_parameter == ""'>
+		 <![CDATA[
+			SELECT count(*) from board
+		]]> 
+		</if>
 	</select>
 	<select id="selectbList" resultMap="boardMap" parameterType="Board_Pagectr">
 		<if test="c_id == 'stu'">
@@ -52,7 +61,12 @@
 		<if test="c_id == 'pro'">
 		select board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from(select rownum rnum,board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from (SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) and b.board_category_id = 'BCA-PRO' ORDER BY BOARD_id DESC )) where rnum between #{startnum} and #{endnum}
 		</if>
-		<if test="c_id == null">
+		<if test='c_id == ""'>
+		<![CDATA[
+			select board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from(select rownum rnum,board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from (SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) ORDER BY BOARD_id DESC )) where rnum between #{startnum} and #{endnum} 
+		]]>
+		</if>
+		<if test='c_id == null'>
 		<![CDATA[
 			select board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from(select rownum rnum,board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from (SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) ORDER BY BOARD_id DESC )) where rnum between #{startnum} and #{endnum} 
 		]]>
@@ -62,6 +76,16 @@
 	<select id="selectbrList" resultMap="boardRMap" >
 		 <![CDATA[
 			SELECT board_reply_id,b.member_id,m.member_name,board_id,board_content,creation_date,board_level,report_count,board_reply_id_ref FROM BOARD_reply b,member m where (b.member_id=m.member_id) ORDER BY BOARD_reply_id asc
+		]]> 
+	</select>
+	<select id="selectView" resultMap="boardMap" >
+		 <![CDATA[
+			select board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from(select rownum rnum,board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from (SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) ORDER BY readcount DESC )) where rnum between 1 and 5
+		]]> 
+	</select>
+	<select id="selectRec" resultMap="boardMap" >
+		 <![CDATA[
+			select board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from(select rownum rnum,board_id,board_category_id,board_category_name,member_id,member_name,title,content,creation_date,readcount,recommend_count,report_count,ori_filename,re_filename from (SELECT board_id,b.board_category_id,c.board_category_name,b.member_id,m.member_name,title,content,creation_date,readcount,recommend_count,ori_filename,re_filename,report_count FROM BOARD b,member m,board_category c where (b.member_id=m.member_id) and (b.board_category_id = c.board_category_id) ORDER BY recommend_count DESC )) where rnum between 1 and 5
 		]]> 
 	</select>
 	
@@ -92,10 +116,25 @@
 		</if>
 	</insert>
 	<update id="updateBoard" parameterType="Board">
+		<if test="title == null">
+			<![CDATA[
+				update board set recommend_count=#{recommend_count} where board_id=#{board_id}
+			]]>	
+		</if>
+		<if test="title != null">
+			<![CDATA[
+				update board set board_category_id=#{board_category_id}, title=#{title}, content=#{content}, creation_date=sysdate, readcount=#{readcount},recommend_count=#{recommend_count}, report_count=#{report_count}, ori_filename=#{ori_filename}, re_filename=#{re_filename} where board_id=#{board_id}
+			]]>
+		</if>
+		
+	</update>
+	
+	<update id="updateBRC" parameterType="Board">
 		<![CDATA[
-			update board set board_category_id=#{board_category_id}, title=#{title}, content=#{content}, creation_date=sysdate, readcount=#{readcount},recommend_count=#{recommend_count}, report_count=#{report_count}, ori_filename=#{ori_filename}, re_filename=#{re_filename} where board_id=#{board_id}
+			update board set readcount=#{readcount} where board_id=#{board_id}
 		]]>
 	</update>
+	
 	<delete id="deleteBoard" parameterType="int">
 		<![CDATA[
 			delete from board where board_id=#{board_id}
@@ -109,8 +148,26 @@
 	</delete>
 	
 	<update id="updateBoardR" parameterType="Board_Reply">
+		
 		<![CDATA[
 			update board_reply set board_content=#{board_content},creation_date=sysdate where board_reply_id=#{board_reply_id}
 		]]>
 	</update>
+	
+	<update id="upBReport" parameterType="int">
+		<![CDATA[
+			update board set report_count=(report_count+1) where board_id=#{board_id}
+		]]>
+	</update>
+	
+	<select id="checkRec" parameterType="Board_recommend" resultType="int">
+		select count(*) from board_recommend where board_id = #{board_id} and member_id = #{member_id}
+	</select>
+	
+	<insert id="insertBoard_Rec" parameterType="Board_recommend">
+		<![CDATA[
+			insert into Board_recommend values(#{member_id},#{board_id})
+		]]>
+	</insert>
+	
 </mapper>

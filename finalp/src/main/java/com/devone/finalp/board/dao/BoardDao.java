@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.devone.finalp.board.model.vo.Board;
 import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
+import com.devone.finalp.board.model.vo.Board_recommend;
 
 @Repository("bDao")
 public class BoardDao {
@@ -49,23 +50,37 @@ public class BoardDao {
 	public int updateBoard(Board b) {
 		return mDB.update("boardMapper.updateBoard", b);
 	}
+	public int updateBRC(Board b) {
+		return mDB.update("boardMapper.updateBRC", b);
+	}
 
 	public int updateBoard_Reply(Board_Reply br) {
 		System.out.println(br);
 		return mDB.update("boardMapper.updateBoardR", br);
 	}
 
-	public int countbReport(Board b) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int countbReport(int board_id) {
+		return mDB.update("boardMapper.upBReport",board_id);
 	}
 
-	public int countbrReport(Board_Reply br) {
+	public int countbrReport(int board_reply_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	public int getlistCount(String c_id) {
 		return mDB.selectOne("boardMapper.blistCount",c_id);
 		 
+	}
+	public List<Board> selectView() {
+		return mDB.selectList("boardMapper.selectView");
+	}
+	public List<Board> selectRec() {
+		return mDB.selectList("boardMapper.selectRec");
+	}
+	public int checkRec(Board_recommend brec) {
+		return mDB.selectOne("boardMapper.checkRec",brec);
+	}
+	public int insertBoard_Rec(Board_recommend brec) {
+		 return mDB.insert("boardMapper.insertBoard_Rec", brec);
 	}
 }

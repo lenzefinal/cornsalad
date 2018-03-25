@@ -59,8 +59,12 @@ public class AdminDao {
 		return mybatis.update("adminmapper.updatequestion", question);
 	}
 
-	public List<AProject> selectProjectList() {
-		return mybatis.selectList("adminmapper.selectprojectlist");
+	public int aproListCount() {
+		return mybatis.selectOne("adminmapper.aproListCount");
+	}
+	
+	public List<AProject> selectProjectList(HashMap<String, Object> map) {
+		return mybatis.selectList("adminmapper.selectprojectlist",map);
 	}
 
 	public List<AProject> selectOffProject() {
@@ -165,9 +169,21 @@ public class AdminDao {
 		return mybatis.selectList("adminmapper.searchNotice", searchN);
 	}
 
-	public List<AProject> searchCProject(String project_category_name) {
-		return mybatis.selectList("adminmapper.searchCProject", project_category_name);
+	public List<AProject> searchCProject(String cname) {
+		return mybatis.selectList("adminmapper.searchCProject", cname);
 	}
+
+	public List<AProject> serchRProejct() {
+		return mybatis.selectList("adminmapper.searchRProject");
+	}
+
+	public List<AProject> searchTProject(String title) {
+		title = "%"+ title +"%";
+		return mybatis.selectList("adminmapper.searchTProject", title);
+	}
+
+	
+	
 	
 
 }

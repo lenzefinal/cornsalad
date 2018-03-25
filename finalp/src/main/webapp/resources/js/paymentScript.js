@@ -1,6 +1,3 @@
-$(document).ready(function(){
-	$("#myModal").modal({backdrop: 'static', keyboard: false});
-});
 
 function buttonEvent1(){
 	var cbox = document.getElementsByName("check-b");
@@ -40,35 +37,43 @@ function checkboxEvent1(val){
 	}else{
 		console.log(id+"체크안됨");
 		$("."+idata).addClass("hidden");
+		$("#qty"+val).val("0");
 	}
 
 }
 
 function changeQty(flag, id){
 	var qty = $("#qty"+id);
-	var qValue = qty.val();
+	var qValue = Number(qty.val());
 	
 	if(flag=="minus"){
 		if(qValue > 0){
-			console.log(qValue-1);
+			
 			$(qty).val(qValue-1);
+			$(qty).trigger("change");
 		}else{
-			alert("수량을 선택하세요");
+			alertify.alert("수량을 선택하세요");
 		}
 	}else if(flag=="plus"){
-		$(qty).val(qValue-0+1);
+		$(qty).val(qValue+1);
+		$(qty).trigger("change");
 	}
 }
 
-function openPay(){
-	var radio = $('input:radio[name=ra01]:checked').val();
+function openPay(p_name,m_id,p_id,g_ids,g_amounts,p_price){
 	
-	if(radio == "card"){
-		window.open("payoption.do?popup=card",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=700, height=500, left=300, top=200");
-	}else if(radio == "kakao"){
-		window.open("payoption.do?popup=kakao",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=1000, height=800, left=300, top=200");
+	if($('#cktm04').is(':checked') == false){
+		alertify.alert("필수사항을 확인하세요!");
+	}else{
+		var radio = $('input:radio[name=ra01]:checked').val();
+	
+	
+		if(radio == "card"){
+			window.open("payoption.do?popup=card&p_name="+p_name+"&m_id="+m_id+"&p_id="+p_id+"&g_ids="+g_ids+"&g_amounts="+g_amounts+"&p_price="+p_price+"&pay_option='card'",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=700, height=600, left=300, top=100");
+		}else if(radio == "kakao"){
+			window.open("payoption.do?popup=kakao&p_name="+p_name+"&m_id="+m_id+"&p_id="+p_id+"&g_ids="+g_ids+"&g_amounts="+g_amounts+"&p_price="+p_price+"&pay_option='kakao'",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=1000, height=800, left=300, top=100");
+		}
 	}
-	
 }
 
 function refund(){
@@ -92,19 +97,89 @@ function refund(){
 	});
 }
 
-//선물 아이디로 그 선물 아이디 체크박스 체크
-function check_gift(g_id){
+function change_val(){
+
+	var arr = document.getElementsByName('qty');
+	var totalprice = new Array(arr.length);
+	
+	
+	for(var i=0; i<arr.length;i++){
+		totalprice[i]=0;
+	}
+	
+	$(':text').on("change",function(){
+		var finalprice = 0;
+		var id = $(this).attr('id');
+		
+		var price = $("#"+id).attr('price');
+		var qty = Number($("#"+id).val());
+		var index = $("#"+id).attr('index');
+		var maxP = Number($("#"+id).attr('maxP'));
+		var capacity = Number($("#"+id).attr('capacity'));
+		console.log(maxP);
+		if(capacity != 0){
+			if(qty > maxP){
+				alertify.alert("최대 수량을 초과하였습니다.");
+				$("#"+id).val(0);	
+			}
+		}else{
+		
+		totalprice[index] = price*qty;
+		
+		for(var i=0; i<arr.length;i++){
+			finalprice += totalprice[i];
+		}
+		
+		console.log(finalprice);
+		
+		$('#sumTotalNum').text(finalprice);
+		$('#total_price').val(finalprice);
+		console.log($('#total_price').val());
+		}
+	});
 	
 }
 
-//결제 창 열리는 함수
-function open_pay(){
+function secondPage(p_name,p_id,m_name){
 	
+	if(m_name == ''){
+		alertify.alert("로그인이 필요한 서비스 입니다");
+	}else{
+		var t_price = $("#total_price").val();
+	
+		var arr = document.getElementsByName('qty');
+		var g_ids = "";
+		var g_amounts = "";
+		
+		for(var i =0; i<arr.length; i++){
+			if($(arr[i]).val() != 0){
+				var id = $(arr[i]).attr('id').replace('qty','');
+				var amount = $(arr[i]).val();
+				
+				if(i == arr.length-1){
+					g_ids += id;
+					g_amounts += amount;
+				}else{
+					g_ids += id+",";
+					g_amounts += amount+",";
+				}
+			}
+		}
+		console.log(g_ids);
+		console.log(g_amounts);
+	
+		
+		location.href="payment2.do?project_name="+p_name+"&p_id="+p_id+"&member_name="+m_name+"&total_account="+t_price
+						+"&g_ids="+g_ids+"&g_amounts="+g_amounts;
+	}
 	
 }
+
+
 
 
 $(function(){
 	buttonEvent1();
+	change_val();
 });
 

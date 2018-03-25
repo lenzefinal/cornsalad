@@ -8,6 +8,7 @@
 		<result property="project_id" column="project_id" />
 		<result property="project_name" column="project_name" />
 		<result property="memer_name" column="member_name" />
+		<result property="profile_img_rename" column="profile_img_rename"/>
 		<result property="end_date" column="end_date" />
 	</resultMap>
 	
@@ -15,6 +16,7 @@
 		<result property="project_id" column="project_id" />
 		<result property="gift_id" column="gift_id" />
 		<result property="support_price" column="support_price" />
+		<result property="capacity" column="capacity" />
 		<result property="remain" column="remain" />
 	</resultMap>
 	
@@ -24,18 +26,36 @@
 		<result property="count" column="count" />
 	</resultMap>
 	
+	<resultMap id="memberMap" type="Member">
+		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="address" column="address" />
+	</resultMap>
+	
+	<resultMap id="paymentMap" type="Payment">
+      <result property="payment_id" column="payment_id" />
+      <result property="member_id" column="member_id" />
+      <result property="project_id" column="project_id" />
+      <result property="total_amount" column="total_amount" />
+      <result property="payment_date" column="payment_date" />
+      <result property="refund_date" column="refund_date" />
+      <result property="refund_flag" column="refund_flag" />
+      <result property="pay_option" column="pay_option" />
+   </resultMap>
 	
 	<insert id="insertPayment" parameterType="Payment">
 		<![CDATA[
-			insert into payment values(payment_id, member_id, project_id, gift_id, null, total_amount , total_count,sysdate, null, 'N')
+			insert into payment values(#{payment_id}, #{member_id}, #{project_id}, #{total_amount} ,sysdate, null, 'N', #{ pay_option })
 		]]>
 	</insert>
 	
-	<insert id="updatePayment" parameterType="String">
+	<update id="updatePayment" parameterType="String">
 		<![CDATA[
 			update payment set refund_date = sysdate, refund_flag = 'Y' where payment_id = #{payment_id}
 		]]>
-	</insert>
+	</update>
 	
 	<select id="selctProjectInfo" parameterType="string" resultType="SellerInfo">
 		<![CDATA[
@@ -54,6 +74,37 @@
 			SELECT * FROM P_ITEMS
 		]]>
 	</select>
+	
+	<select id="selectMemberInfo" resultMap="memberMap" parameterType="string">
+		<![CDATA[
+			SELECT * FROM MEMBER WHERE MEMBER_ID = #{ m_id }
+		]]>
+	</select>
+	
+	<select id="selectChoiceGift" resultMap="itemMap" parameterType="string" resultType="list">
+		<![CDATA[
+			SELECT * FROM P_ITEMS WHERE GIFT_ID = #{ g_id }
+		]]>
+	</select>
+	
+	<update id="adminRefund" parameterType="string">
+		<![CDATA[
+			update project set refund_flag = 'Y' where project_id = #{project_id}
+		]]>
+	</update>
+	
+	<select id="selectPayment" resultMap="paymentMap" parameterType="string">
+		<![CDATA[
+			SELECT PAYMENT_ID, PAY_OPTION FROM PAYMENT WHERE PROJECT_ID = #{project_id} AND REFUND_FLAG='N'
+		]]>
+	</select>
+
+	<insert id="insertPaymentCount" parameterType="PaymentCount">
+	
+		<![CDATA[
+			INSERT INTO PAYMENT_COUNT VALUES(#{payment_id}, #{project_id},#{gift_id},null,#{count})
+		]]>
+	</insert>
 
 
 </mapper>

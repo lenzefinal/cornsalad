@@ -99,10 +99,10 @@ img{
 						<tr>
 							<th>첨부 파일</th>
 							<td><input type="file" name="uploadFile">
-							<c:if test="${board.ori_filename != '파일 없음' }"> 
-							원래 파일 : ${board.ori_filename}
 							<input type="hidden" name ="ori_filename" value="${board.ori_filename}">
 							<input type="hidden" name ="re_filename" value="${board.re_filename}">
+							<c:if test="${board.ori_filename != '파일 없음' }"> 
+							원래 파일 : ${board.ori_filename}
 							</c:if>
 							</td>
 						</tr>

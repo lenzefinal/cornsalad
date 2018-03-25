@@ -53,23 +53,100 @@
 		text-align:center;
 	}
 	#projec div.searchdiv{
-		float:right;
-		margin-right: 30px;
+		float: right;
+		text-align: right;
+		width: 100%;
+		margin-bottom:20px;
 	}
 	#projec select.searchse{
 		margin-top:5px;
-		width: 60px;
+		font-size:14px;
+		width: 200px;
+		height: 30px;
+		float: right;
 	}
-	#projec div.searchin{
-		width: 140px;
+	#projec input.searchinput{
+		width: 200px;
+		font-size:14px;
+		float: right;
+		margin-top:5px;
+	}
+	#projec button.btn-primary{
+		width: 200px;
+		font-size:14px;
+		margin-top:5px;
+	}
+	#projec a#sta{
+		text-decoration: none;
+		color: #353535;
+	}
+	#projec a#sta:hover{
+		background-color:#F6FFCC;
+	}
+	#projec ul.stli{
+		background-color:#F6FFCC;
+	}
+	#projec ul.tab {
+		float:center;
+	}
+	#projec .tab{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		border-top:2px solid #FAF4C0;
+		border-bottom:2px solid #FAF4C0;
+	}
+	#projec .tab li{
+		float: right;
+	}
+	#projec .tab li a {
+		display: inline-block;
+		color: #000;
+		text-align: center;
+		text-decoration: none;
+		padding: 8px 8px;
+		font-size: 14px;
+		transition:0.3s;
+	}
+	#projec .tabcontent {
+		display: none;
+		padding: 6px 12px;
+		height:60px;
+		color:black;
+	}
+	#projec ul.tab li.current{
+		background-color:#FAF4C0;
+		float: center;
+		color: black;
+	}
+	#projec .tabcontent.current {
+		display: block;
+		background-color: #FAF4C0;
+	}
+	#projec span.fontspan{
+		color: #355400;
+		font-size: 15px;
+		font-weight: bold;
 	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
+  $(function() {
+		$('ul.tab li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$('ul.tab li').removeClass('current');
+			$('.tabcontent').removeClass('current');
+			$(this).addClass('current');
+			$('#' + activeTab).addClass('current');
+		})
+	});
+  
+  //카테고리별 검색
   	function pcateChange(){
   		var pcate = document.getElementById("pcate");
 		var cname = pcate.options[pcate.selectedIndex].value;
-			console.log("cname : "+cname)
+			console.log("cname : "+ cname)
 			$.ajax({
 				url: "searchCProject.do",
 				data:{
@@ -87,7 +164,7 @@
 					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
 						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
-						decodeURIComponent(json.sqlist[i].title.replace(/\+/g," "))
+					
 					if(json.cplist.length > 0){
 						for(var i in json.cplist){
 							value += "<tr><td>"+ decodeURIComponent(json.cplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
@@ -113,13 +190,13 @@
 									"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
 							}else if(json.cplist[i].project_onoff_flag == 'N'){
 								value += "<td><a href='adminProjectOn.do?project_id="+ json.cplist[i].project_id +"'>"+
-									"<button class='btn btn-success'>비활성화</button></a></td></tr>";
+									"<button class='btn btn-success'>활성화</button></a></td></tr>";
 							}
 						}
 					}else {
 						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
 					}
-					
+					$('#pagediv').empty();
 					$('#aptable').html(value);
 					
 				},
@@ -130,6 +207,137 @@
 			}
 			});
   	};
+  	
+  //환불 프로젝트만 
+  	function refundsbtn(){
+  		$.ajax({
+			url: "searchRProject.do",
+			type: "post",
+			dataType: "json",
+			success: function(data){
+			var jsonStr = JSON.stringify(data);
+				
+				var json = JSON.parse(jsonStr);
+				
+				$('#aptable').empty();
+				
+				var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
+					"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
+					"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+				
+				if(json.rplist.length > 0){
+					for(var i in json.rplist){
+						value += "<tr><td>"+ decodeURIComponent(json.rplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
+								decodeURIComponent(json.rplist[i].category_sub_name.replace(/\+/g," ")) +
+								"</td><td>" + decodeURIComponent(json.rplist[i].project_name.replace(/\+/g," ")) + "</td><td>" + 
+								decodeURIComponent(json.rplist[i].member_name.replace(/\+/g," ")) + 
+								"</td><td>" + json.rplist[i].spon + "% </td><td>" + json.rplist[i].end_date +"</td>";
+						if(json.rplist[i].ing_flag == 'Y'){
+							value += "<td>진행중</td>";
+						}else if( (json.rplist[i].ing_flag == 'N') && ( json.rplist[i].spon < 100 ) ){
+							if( json.rplist[i].refund_flag == 'Y' ){
+								value += "<td>실패 / 환불완료 </td>";
+							}else{
+								value += "<td>실패 <button class='btn btn-danger'>환불</button></td>";
+							}
+							
+						}else if( (json.rplist[i].ing_flag == 'N') && ( json.rplist[i].spon >= 100 ) ){
+							value += "<td>성공</td>";
+						}
+						
+						if( json.rplist[i].project_onoff_flag == 'Y' ){
+							value += "<td><a href='adminProjectOff.do?project_id="+ json.rplist[i].project_id +"'>"+
+								"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
+						}else if(json.rplist[i].project_onoff_flag == 'N'){
+							value += "<td><a href='adminProjectOn.do?project_id="+ json.rplist[i].project_id +"'>"+
+								"<button class='btn btn-success'>활성화</button></a></td></tr>";
+						}
+					}
+				}else {
+					value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
+				}
+				$('#pagediv').empty();
+				$('#aptable').html(value);
+				
+			},
+			error: function(request, status, errorData){
+			alert("error code : " + request.status + "\n" 
+				+ "message : " + request.responseText + "\n"
+				+ "error : " + errorData );	
+		}
+		});
+  		
+  	}
+  
+  //제목으로 검색
+  $(function(){
+	 $('#title').keypress(function(e){
+	  if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
+	     var title=document.getElementById("title").value;
+	     console.log(title);
+	     $.ajax({
+				url: "searchTProject.do",
+				data:{
+					title :  title
+				},
+				type: "post",
+				dataType: "json",
+				success: function(data){
+				var jsonStr = JSON.stringify(data);
+					
+					var json = JSON.parse(jsonStr);
+					
+					$('#aptable').empty();
+					
+					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
+						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
+						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+					
+					if(json.tplist.length > 0){
+						for(var i in json.tplist){
+							value += "<tr><td>"+ decodeURIComponent(json.tplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
+									decodeURIComponent(json.tplist[i].category_sub_name.replace(/\+/g," ")) +
+									"</td><td>" + decodeURIComponent(json.tplist[i].project_name.replace(/\+/g," ")) + "</td><td>" + 
+									decodeURIComponent(json.tplist[i].member_name.replace(/\+/g," ")) + 
+									"</td><td>" + json.tplist[i].spon + "% </td><td>" + json.tplist[i].end_date +"</td>";
+							if(json.tplist[i].ing_flag == 'Y'){
+								value += "<td>진행중</td>";
+							}else if( (json.tplist[i].ing_flag == 'N') && ( json.tplist[i].spon < 100 ) ){
+								if( json.tplist[i].refund_flag == 'Y' ){
+									value += "<td>실패 / 환불완료 </td>";
+								}else{
+									value += "<td>실패 <button class='btn btn-danger'>환불</button></td>";
+								}
+								
+							}else if( (json.tplist[i].ing_flag == 'N') && ( json.tplist[i].spon >= 100 ) ){
+								value += "<td>성공</td>";
+							}
+							
+							if( json.tplist[i].project_onoff_flag == 'Y' ){
+								value += "<td><a href='adminProjectOff.do?project_id="+ json.tplist[i].project_id +"'>"+
+									"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
+							}else if(json.tplist[i].project_onoff_flag == 'N'){
+								value += "<td><a href='adminProjectOn.do?project_id="+ json.tplist[i].project_id +"'>"+
+									"<button class='btn btn-success'>활성화</button></a></td></tr>";
+							}
+						}
+					}else {
+						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
+					}
+					$('#pagediv').empty();
+					$('#aptable').html(value);
+					
+				},
+				error: function(request, status, errorData){
+				alert("error code : " + request.status + "\n" 
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData );	
+			}
+			});
+	    
+	  }
+	});
+});
   </script>
  </head>
  <body class="skin_main">
@@ -169,9 +377,22 @@
         				<td>${ oprow.project_name }</td>
         				<td>${ oprow.end_date }</td>
 						<td>${ oprow.member_name }</td>
-						<td><button class="btn btn-default" data-toggle="modal" data-target="#myModal">승인</button></td>
+						<td>
+						<c:choose>
+							<c:when test="${ oprow.project_category_name eq '펀딩' }">
+								<a><button class="btn btn-default">승인</button></a>
+							</c:when>
+							<c:when test="${ oprow.project_category_name eq '공동구매' }">
+								<a href="projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=${ oprow.project_id }">
+								<button class="btn btn-default">승인</button></a>
+							</c:when>
+						</c:choose>
+						</td>
       				</tr>
       			</c:forEach>
+      		</c:when>
+      		<c:when test = "${ fn:length(oplist) <= 0 }">
+      			<tr><td colspan = "6">승인요청된 프로젝트가 없습니다.</td></tr>
       		</c:when>
       	</c:choose>
     </tbody>
@@ -183,21 +404,29 @@
   <h3>모든 PROJECT</h3>
   <hr class="hrst">
   
+  <ul class="tab">
+    <li data-tab="tab1"><a href="#" id="sta"><span class="fontspan">카테고리별</span> 검색</a></li>
+    <li data-tab="tab2"><a href="#" id="sta"><span class="fontspan">제목</span> 검색</a></li>
+    <li data-tab="tab3"><a href="#" id="sta"><span class="fontspan">환불</span> PROJECT</a></li>
+  </ul>  
+  
 <div class="searchdiv">
-    <div class="input-group">
+    <div id="tab1" class="tabcontent">
       <select class="form-control searchse" name="pcate" id="pcate" onchange="pcateChange()">
 		<option value="all">전체</option>
-		<option value="PC-FUND">프로젝트</option>
-		<option value="PC-PROD">공동구매</option>
+		<option value="펀딩">프로젝트</option>
+		<option value="공동구매">공동구매</option>
 	  </select>&nbsp;
-	  <!-- <div class="input-group searchin">
-      <input type="text" class="form-control" placeholder="Search" name="search">
-      <div class="input-group-btn">
-        <button id="bid" class="btn btn-default" type="submit">
-        <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
-      </div>
-    </div> -->
-   </div> 
+	</div> 
+	
+	<div id="tab2" class="tabcontent">
+      <input type="text" class="form-control searchinput" id="title" placeholder="제목검색" />
+    </div>
+    
+    <div id="tab3" class="tabcontent">
+    	<button class="btn btn-primary" onclick="refundsbtn()">환불 프로젝트만 조회</button>
+    </div>
+    
 </div>
 
 <br><br><br>
@@ -260,17 +489,26 @@
     </tbody>
   </table>
   
-  <div class="pagediv">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
   </div>
   
-  </div>
+   <!-- 페이지 번호 처리 -->
+	<div id="pagediv" style="text-align:center;">
+	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
+	<c:url var="page" value="adminProject.do">
+		<c:param name="currentPage" value="${p }" />
+	</c:url>
+	<ul class="pagination" style="display:inline-block;">
+	<c:if test="${p ne currentPage }">
+		<li><a href="${page }">${p }</a></li>
+		<%-- <a href="${page }">	| ${p } |&nbsp; </a>  --%>
+	</c:if>
+	<c:if test="${p eq currentPage }">	
+		<li class="active"><a href="${page }">${p }</a></li>
+	<%-- <a href="${page }">	| <b>${p }</b> |&nbsp; </a> --%>
+	</c:if>
+	</ul>
+	</c:forEach>
+	</div> 
 
 </div>
 

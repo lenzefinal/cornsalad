@@ -303,7 +303,7 @@ $(window).scroll(function() {
 		console.log(member_id);
 		$.ajax({
 			url:"prod_payment.do",
-			data: {"payment_id":"1.52149977576E12", "member_id":member_id},
+			data: {"payment_id":pmid, "member_id":member_id},
 			dataType:"json",
 			type:"post",
 			success:function(e){
@@ -321,7 +321,7 @@ $(window).scroll(function() {
 						+json.mpproduct[i].count+'개</b><br>'
 						+'</div>'
 				}
-				value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="#" style="color:white;">결제 취소</a></button>'
+				value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mpproduct[i].payment_id+'&pay_option='+json.mpproduct[i].pay_option+'" style="color:white;">결제 취소</a></button>'
 				$("#ppmodal").html(value);
 			},
 			error:function(request, status, errorData){
