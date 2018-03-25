@@ -87,9 +87,22 @@
 		<div id="noticeList">
 			<dl>
 				<dt>공지사항</dt>
-				<dd><a href="/web/wboard/newsBoardDetail/6049?_refer_section_st=NTB_0">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요!</a></dd>
+				<dd><a href="noticeMain.do">홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요!</a></dd>
 			</dl>
 			<a class="more" href="notictMain.do">전체보기 <i class="icon-chevron-right"></i></a>
+		</div>
+		
+		<div id="noticeList" style="margin-top:20px;">
+			
+			<ul>
+				<li style="padding:5px;"><p style="font-size:17px;float:left;">채팅방</p> <a style="float:right;font-size:13px;">전체보기</a><br><br>
+				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+			</ul>
+			
 		</div>
     </div>
 	
@@ -100,11 +113,11 @@
   	<link rel="stylesheet" type="text/css" href="/finalp/resources/slick/slick-theme.css">
   	<link rel="stylesheet" type="text/css" href="/finalp/resources/css/home.css">
   	<div class="wrap">
-	  <p style="margin: 40px 20px 10px;    font-size: 1.2rem;"><strong>마감 임박 펀딩 프로젝트</strong></p>
+	  <p style="margin-left: 25px;margin-bottom: 20px;font-size: 1.2rem;"><strong>마감 임박 펀딩 프로젝트</strong></p>
 	  <section class="responsive slider">
 	 	 <c:forEach var="project" items="${ comingEndProject }">
 		      <div class="thumnailContent">
-					<a class="thumnailAtag" href="#">
+					<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id }&project_id=${project.project_id}">
 						<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/${ project.image_rename }" alt="${ project.project_name }">
 						<div class="thumnailTextWrap">
 							<div class="fundingTitle">
@@ -139,11 +152,11 @@
 			</c:forEach>
 	  </section>
 	  
-	  <p style="margin: 0 20px 10px;margin-top: 90px;    font-size: 1.2rem;"><strong>마감 임박 공동구매</strong></p>
+	  <p style="margin-left: 25px;margin-bottom: 20px;font-size: 1.2rem;"><strong>마감 임박 공동구매</strong></p>
 		<section class="responsive slider">
 		      <c:forEach var="product" items="${ comingEndProduct }">
 		      <div class="thumnailContent">
-					<a class="thumnailAtag" href="#">
+					<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=${ product.project_id }">
 						<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/${ product.image_rename }" alt="${ product.project_name }">
 						<div class="thumnailTextWrap">
 							<div class="fundingTitle">
@@ -336,13 +349,14 @@
 					var rank = i + 1;
 					if(rank == json.list[i].rankNum){
 						
+						projectId = json.list[i].projectId;
 						renameImg = json.list[i].imageRename;
 						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
 						break;
 					}
 				}
 				
-				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+				var values = '<a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+projectId+'" title="'+ proName +'">' +
 								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
 							 '</a>';
 				
@@ -359,7 +373,7 @@
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
 							values += '<li>' +
 										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 										 '</div>' +
 									  '</li>';
@@ -401,13 +415,14 @@
 					var rank = i + 1;
 					if(rank == json.list[i].rankNum){
 						
+						projectId = json.list[i].projectId;
 						renameImg = json.list[i].imageRename;
 						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
 						break;
 					}
 				}
 				
-				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+				var values = '<a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+projectId+'" title="'+ proName +'">' +
 								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
 							 '</a>';
 				
@@ -424,7 +439,7 @@
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
 							values += '<li>' +
 										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 										 '</div>' +
 									  '</li>';
@@ -466,13 +481,14 @@
 					var rank = i + 1;
 					if(rank == json.list[i].rankNum){
 						
+						projectId = json.list[i].projectId;
 						renameImg = json.list[i].imageRename;
 						proName = (decodeURIComponent(json.list[i].projectName)).replaceAll("+", " ");
 						break;
 					}
 				}
 				
-				var values = '<a href="/web/campaign/detail/18115" title="'+ proName +'">' +
+				var values = '<a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+projectId+'" title="'+ proName +'">' +
 								'<em class="ranking-img" style="background-image:url('+ "/finalp/resources/uploadProPreImages/" +  renameImg +')"></em>' +
 							 '</a>';
 				
@@ -489,7 +505,7 @@
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
 							values += '<li>' +
 										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
 										 '</div>' +
 									  '</li>';
