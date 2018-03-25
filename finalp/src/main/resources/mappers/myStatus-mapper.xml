@@ -52,7 +52,7 @@
 		<result property="count" column="count"/>
 	</resultMap>
 	
-	<resultMap type="MyProdPay" id="MyFundPay">
+	<resultMap type="MyProdPay" id="MyProdPay">
 		<result property="project_id" column="project_id"/>
 		<result property="project_name" column="project_name"/>
 		<result property="payment_id" column="payment_id"/>
