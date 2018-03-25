@@ -17,7 +17,7 @@ DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
  CREATE TABLE MEMBER (	
     MEMBER_ID VARCHAR2(30) CONSTRAINT PK_MEMBER PRIMARY KEY, 
-	MEMBER_PWD VARCHAR2(30) NOT NULL, 
+	MEMBER_PWD VARCHAR2(60) NOT NULL, 
     MEMBER_NAME VARCHAR2(50) NOT NULL, 
 	EMAIL VARCHAR2(40), 
     PHONE VARCHAR2(30), 
@@ -659,6 +659,29 @@ DROP TABLE ALARM CASCADE CONSTRAINTS;
     
 --SELECT * FROM ALARM;
 ----------------------------------------------------------------------------------------------------------------
+DROP TABLE board_recommend CASCADE CONSTRAINTS;
+create table board_recommend(
+    member_id varchar2(30),
+    board_id number,
+    CONSTRAINT FK_brecommend_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE,
+    CONSTRAINT FK_brecommend_board_ID FOREIGN KEY (board_ID) REFERENCES board (board_ID) ON DELETE CASCADE
+ );
+select * from board_recommend;
+----------------------------------------------------------------------------------------------------------------
+DROP TABLE webchat CASCADE CONSTRAINTS;
+create table webchat(
+    room_id number constraint pk_webchat primary key,
+    room_name varchar2(100 byte),
+    member_id varchar2(30 byte),
+    room_reply_id number,
+     CONSTRAINT FK_webchat_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID) ON DELETE CASCADE,
+     CONSTRAINT FK_webchat_reply_ID FOREIGN KEY (room_reply_id) REFERENCES webchat (room_ID) ON DELETE CASCADE
+);
+ COMMENT ON COLUMN webchat.room_ID IS '방 고유번호';
+ COMMENT ON COLUMN webchat.room_name IS '방 이름';
+ COMMENT ON COLUMN webchat.member_ID IS '접속 인원';
+ COMMENT ON COLUMN webchat.room_reply_ID IS '접속한 방 번호';
+select * from webchat;
 
 
 

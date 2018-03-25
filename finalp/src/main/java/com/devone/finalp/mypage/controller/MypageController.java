@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.devone.finalp.common.model.vo.Encryption;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.mypage.model.vo.FundingProject;
@@ -172,6 +173,11 @@ public class MypageController {
 				member.setProfile_img_rename(null);
 			}
 		}
+		String userpwd = member.getMember_pwd();
+	    Encryption encryption = new Encryption("MD5", userpwd);
+	    String newpassword = String.valueOf(encryption.getEncryptData());
+	    member.setMember_pwd(newpassword);
+		
 		mypageService.memberModify(member);
 		/* mypageService.accountModify(account); */
 		System.out.println("수정: " + member);
