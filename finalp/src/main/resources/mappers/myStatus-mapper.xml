@@ -23,24 +23,24 @@
 		<result property="report_count" column="report_count" />
 		<result property="certif_flag" column="certif_flag" />
 	</resultMap>
-	
+
 	<resultMap type="QuestionCategory" id="CategoryList">
 		<result property="question_category_id" column="question_category_id"></result>
 		<result property="question_category_name" column="question_category_name"></result>
 	</resultMap>
-	
+
 	<resultMap type="MyQuestion" id="MyQuestion">
 		<result property="question_id" column="question_id"></result>
 		<result property="question_category_id" column="question_category_id"></result>
-		<result property="receive_member_id" column="receive_member_id"/>
-		<result property="send_member_id" column="send_member_id"/>
-		<result property="title" column="title"/>
-		<result property="content" column="content"/>
-		<result property="re_content" column="re_content"/>
-		<result property="send_creation_date" column="send_creation_date"/>
-		<result property="receive_creation_date" column="receive_creation_date"/>
+		<result property="receive_member_id" column="receive_member_id" />
+		<result property="send_member_id" column="send_member_id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="re_content" column="re_content" />
+		<result property="send_creation_date" column="send_creation_date" />
+		<result property="receive_creation_date" column="receive_creation_date" />
 	</resultMap>
-	
+
 
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
@@ -55,7 +55,8 @@
 										and project_category_id='PC-PROD' order by project_id desc
 		]]>
 	</select>
-	<select id="purchaseProduct" resultType="PurchaseProduct" parameterType="PurchaseProduct">
+	<select id="purchaseProduct" resultType="PurchaseProduct"
+		parameterType="PurchaseProduct">
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
@@ -63,7 +64,8 @@
 					order by p.project_id desc
 		]]>
 	</select>
-	<select id="fundingProject" resultType="FundingProject" parameterType="FundingProject">
+	<select id="fundingProject" resultType="FundingProject"
+		parameterType="FundingProject">
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
@@ -71,7 +73,7 @@
 					order by p.project_id desc
 		]]>
 	</select>
-	
+
 	<select id="projectLikes" resultType="MyLikes" parameterType="MyLikes">
 		<![CDATA[
 			select p.project_id, p.image_rename ,p.project_name, p.creation_date, p.end_date
@@ -90,6 +92,30 @@
 			 order by p.project_id desc
 		]]>
 	</select>
+
+	<select id="productPayment" resultMap="MyProdPay">
+        <![CDATA[
+            select pm.payment_id,  pc.product_id, pd.product_name, pc.count, pm.member_id, p.project_name from payment pm
+                    join payment_count pc on(pm.payment_id=pc.payment_id)
+                    join product pd on (pc.product_id=pd.product_id)
+                    join project p on (p.project_id=pm.project_id)
+                    where pc.product_id is not null and pm.member_id=#{member_id} and pm.payment_id=#{payment_id}
+        ]]>
+	</select>
+
+	<select id="fundingPayment" resultMap="MyFundPay">
+        <![CDATA[
+            select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name from payment pm
+                    join payment_count pc on(pm.payment_id=pc.payment_id)
+                    join gift g on (g.gift_id=pc.gift_id)
+                    join gifT_in_items gii on(g.gift_id=gii.gift_id)
+                    join item i on (gii.item_id=i.item_id)
+                    join project p on (p.project_id=pm.project_id)
+                    where pc.gift_id is not null and pm.member_id=#{member_id} and pm.payment_id=#{payment_id}
+        ]]>
+	</select>
+
+
 	<select id="projectCount" resultType="int" parameterType="String">
 		<![CDATA[
 			select count(project_category_id) from project where project_category_id='PC-FUND' and member_id=#{member_id}
@@ -146,8 +172,9 @@
 		 	order by project_id desc
 		]]>
 	</select>
-	
-	<select id="searchProjectLikes" resultType="MyLikes" parameterType="MyLikes">
+
+	<select id="searchProjectLikes" resultType="MyLikes"
+		parameterType="MyLikes">
 		<![CDATA[
 			select p.project_id, p.image_rename ,p.project_name, p.creation_date, p.end_date
 			from project p
@@ -156,7 +183,8 @@
 			 order by p.project_id desc
 		]]>
 	</select>
-	<select id="searchProductLikes" resultType="MyLikes" parameterType="MyLikes">
+	<select id="searchProductLikes" resultType="MyLikes"
+		parameterType="MyLikes">
 		<![CDATA[
 			select p.project_id, p.image_rename ,p.project_name, p.creation_date, p.end_date
 			from project p
@@ -165,7 +193,8 @@
 			 order by p.project_id desc
 		]]>
 	</select>
-	<select id="searchPurchaseProduct" resultType="PurchaseProduct" parameterType="PurchaseProduct">
+	<select id="searchPurchaseProduct" resultType="PurchaseProduct"
+		parameterType="PurchaseProduct">
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
 					from project p
@@ -173,7 +202,8 @@
 					order by p.project_id desc
 		]]>
 	</select>
-	<select id="searchfundingproject" resultType="FundingProject" parameterType="FundingProject">
+	<select id="searchfundingproject" resultType="FundingProject"
+		parameterType="FundingProject">
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
 					from project p
@@ -181,39 +211,44 @@
 					order by p.project_id desc
 		]]>
 	</select>
-	
+
 	<select id="myquestionlist" resultMap="MyQuestion">
-		select * from question where send_member_id=#{send_member_id}  order by send_creation_date desc
+		select * from question
+		where send_member_id=#{send_member_id} order by send_creation_date
+		desc
 	</select>
-	
+
 	<select id="myRQuestion" resultMap="MyQuestion">
-		select * from question where receive_member_id=#{receive_member_id} order by send_creation_date desc
+		select * from question where
+		receive_member_id=#{receive_member_id} order by send_creation_date
+		desc
 	</select>
-	
+
 	<select id="questionCategory" resultMap="CategoryList">
 		<![CDATA[
 			SELECT * FROM QUESTION_CATEGORY
 		]]>
 	</select>
-	
+
 	<select id="myQdetail" resultType="MyQuestion" parameterType="int">
 		<![CDATA[
 			select * from question where question_id=#{question_id}
 		]]>
 	</select>
-	
+
 	<select id="rmyQdetail" resultType="MyQuestion" parameterType="int">
 		<![CDATA[
 			select * from question where question_id=#{question_id}
 		]]>
 	</select>
-	
-	<select id="receiveQdetail" resultType="MyQuestion" parameterType="int">
+
+	<select id="receiveQdetail" resultType="MyQuestion"
+		parameterType="int">
 		<![CDATA[
 			select * from question where question_id=#{question_id}
 		]]>
 	</select>
-	
+
 	<insert id="insertQuestion" parameterType="MyQuestion">
 		<![CDATA[
 			insert into question values((select nvl(max(question_id+1), 1) from question), 
@@ -221,7 +256,7 @@
 										#{title}, #{content}, null, sysdate, null)
 		]]>
 	</insert>
-	
+
 	<update id="receiveQ" parameterType="MyQuestion">
 		<![CDATA[
 			update question set receive_creation_date=sysdate, receive_member_id=#{receive_member_id}, re_content=#{re_content}
