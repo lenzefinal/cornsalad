@@ -26,6 +26,7 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.Question" alias="Question" />
 		<typeAlias type="com.devone.finalp.common.model.vo.ProjectReply" alias="ProjectReply"/>
 		<typeAlias type="com.devone.finalp.common.model.vo.QuestionCategory" alias="QuestionCategory" />
+		<typeAlias type="com.devone.finalp.common.model.vo.PaymentCount" alias="PaymentCount" />
 
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>

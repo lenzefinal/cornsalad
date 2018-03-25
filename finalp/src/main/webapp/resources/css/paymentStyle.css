@@ -995,6 +995,25 @@ button#closemodal.act{
 	background-color:#00CCA3;
 	color:white;
 }
+
+.gname{
+	font-size:18px;
+	font-weight:normal;
+	margin-bottom:5px;
+}
+
+.p_op{
+	font-size:15px;
+}
+
+.n-list{
+	list-style-type:none;
+}
+
+.img_round{
+	border-radius:100%;
+	width:40px;
+}
 /* 모바일 용   */
 @media screen and (min-width: 960px){
 	.wpurchase-wrap{
@@ -1112,6 +1131,6 @@ button#closemodal.act{
 	    text-align: left;
 	}
 	
-
+	
 }
 

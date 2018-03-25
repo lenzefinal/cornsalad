@@ -63,9 +63,7 @@ $(function() {
 		$(".d_date").text(dd);
 });
 
-$(window).on("load", function(){
-	$("#myModal").modal({backdrop: 'static', keyboard: false});
-});
+
 
 
 </script>
@@ -77,54 +75,7 @@ $(window).on("load", function(){
 
 <link rel="stylesheet" href="/finalp/resources/css/paymentStyle.css" />
 
-
-<div class="container">
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <!-- <div class="modal-header"> -->
-          <!-- <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-          <!-- <!-- <h4 class="modal-title">Modal Header</h4> --> 
-        <!-- </div> -->
-        <div class="modal-body">
-          <a href="javascript:history.back();" class="btn less back"><img src="/finalp/resources/images/paymentimages/left arrow.png" height="20" width="20"> &nbsp; <span class="mid">스토리로 돌아가기</span></a>
-		  <p class="title"><strong>잠깐!</strong> 펀딩과 쇼핑이 어떻게 다른지 확인 후 펀딩을 진행하세요</p>
-		
-		<div class="wz-form large" id="reward-notice-form">
-          <dl>
-            <dt><input type="checkbox" id="check1" name="check-b"><label for="check1"> &nbsp; 바로 결제되지 않아요</label></dt>
-            <dd>
-              <p>지금 펀딩하시면 <strong>결제 예약</strong>되며, 목표금액 달성 시, <strong>2018.03.26</strong>에 모두 함께 결제됩니다.</p>
-              <p><em>수수료 타입에 따라 목표 금액과 상관없이 진행되는 경우도 있습니다.</em></p>
-            </dd>
-			<dt><input type="checkbox" id="check2" name="check-b"><label for="check2"> &nbsp; 펀딩 종료 후에는 취소할 수 없어요</label></dt>
-            <dd>
-              <p>리워드 결제 예약 취소와 변경은 <strong>프로젝트 펀딩기간 중</strong>에만 가능합니다.<br>펀딩 취소는 <strong>2018.03.25</strong>까지 가능합니다. 이후로는 취소가 불가합니다.
-            </p></dd>
-            <dt><input type="checkbox" id="check3" name="check-b"><label for="check3"> &nbsp; 바로 리워드가 발송되지 않아요</label></dt>
-            <dd>
-              <p>리워드는 메이커가 <strong>약속한 날짜</strong>에 발송됩니다.<br>선택한 리워드의 발송 예정일을 확인한 후에 펀딩해 주세요.</p>
-              <p><em>리워드 펀딩 특성상 발송이 지연되거나 불가할 수 있습니다.<br>스토리 하단의 리워드 발송 예상 변동 기간 및 교환, 환불, AS 정책을 참고해주세요.</em></p>
-            </dd>
-          </dl>
-        </div>
-
-        </div>
-        <div class="modal-footer" id="reward-footer">
-         <button type="button" class="btn" id="closemodal" data-dismiss="modal" disabled="true">계속해서 펀딩하기</button>
-        </div> 
-      </div>
-      
-    </div>
-  </div>
   
-</div>
-<!-- 와디즈 카피 -->
-
 <div class="reward-body">
 
 <div class="wpurchase-title">
@@ -141,16 +92,16 @@ $(window).on("load", function(){
     		<div class="wpurchase-wrap" >
     			<div class="wpurchase-step">
     				<ol>
-    					<li class="active"><em>리워드<br />선택</em></li>
+    					<li class="active"><em>물품<br/>선택</em></li>
     					<li><em>결제 하기</em></li>
     					<li><em>소문내기</em></li>    					
     				</ol>
     			</div>
 
 				<div class="top-area">
-	    					<h3><em>리워드 선택</em></h3>
-	    					<p class="sub-text">펀딩해주시는 금액에 따라 감사의 의미로 리워드를 제공해 드립니다.</p>
-	    					<a class="help-text" href="#"><label>펀딩하기는 쇼핑하기가 아닙니다! 자세히 알아보세요.</label></a>
+	    					<h3><em>물품 선택</em></h3>
+
+
 	    		</div>
 
 				<form name="purchaseForm" id="purchaseForm" method="post">
