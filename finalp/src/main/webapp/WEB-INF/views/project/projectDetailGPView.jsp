@@ -17,47 +17,62 @@
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
-		$("#flip").click(function() {
-			$("#panel").slideToggle("slow");
-		});
+$(document).ready(function() {
+	$("#flip").click(function() {
+		$("#panel").slideToggle("slow");
+	});
+	
+	
+	
+	$(".a1").click(function() {
+		var pic = $(".active");
+		pic.removeClass("active");
 		
+		$(this).parent().addClass("active");
 		
-		
-		$(".a1").click(function() {
-			var pic = $(".active");
-			pic.removeClass("active");
-			
-			$(this).parent().addClass("active");
-			
-			$(".project-store").show();
-			$(".supporter-tab").hide();
-			$(".comment-tab").hide();
-		});
+		$(".project-store").show();
+		$(".supporter-tab").hide();
+		$(".comment-tab").hide();
+		$(".refound-story").hide();
+	});
 
-		$(".a2").click(function() {
-			var pic = $(".active");
-			pic.removeClass("active");
-			
-			$(this).parent().addClass("active");
-			
-			$(".project-store").hide();
-			$(".supporter-tab").hide();
-			$(".comment-tab").show();
-		});
-
-		$(".a4").click(function() {
-			var pic = $(".active");
-			pic.removeClass("active");
-			
-			$(this).parent().addClass("active");
-			
-			$(".project-store").hide();
-			$(".supporter-tab").show();
-			$(".comment-tab").hide();
-		});
+	$(".a2").click(function() {
+		var pic = $(".active");
+		pic.removeClass("active");
+		
+		$(this).parent().addClass("active");
+		
+		$(".project-store").hide();
+		$(".supporter-tab").hide();
+		$(".comment-tab").show();
+		$(".refound-story").hide();
 
 	});
+	$(".a3").click(function() {
+		var pic = $(".active");
+		pic.removeClass("active");
+		
+		$(this).parent().addClass("active");
+		
+		$(".project-store").hide();
+		$(".supporter-tab").hide();
+		$(".comment-tab").hide();
+		$(".refound-story").show();
+	});
+
+	$(".a4").click(function() {
+		var pic = $(".active");
+		pic.removeClass("active");
+		
+		$(this).parent().addClass("active");
+		
+		$(".project-store").hide();
+		$(".supporter-tab").show();
+		$(".comment-tab").hide();
+		$(".refound-story").hide();
+	});
+
+});
 </script>
 
 
@@ -325,7 +340,14 @@
 												<div class="item">
 													<div class="number">${count}</div>
 													<div class="text">
-														<a>${hot.project_name }</a>
+												
+												<c:url var="detail" value="projectDetailView.do">
+													<c:param name="project_id" value="${hot.project_id}"/>
+													<c:param name="member_id" value="${loginUser.member_id}"/>
+												</c:url>
+												
+												<a href="${detail}" style="color: #F7D358;">${hot.project_name }</a>
+														
 													</div>
 												</div>
 												<c:set var ="count" value="${count+1}"/>
@@ -665,6 +687,13 @@
 										
 									});
 								</script>
+								<!--환불정책 -->
+								
+								<div class="refound-story" style="display: block">
+									<div class="wz-message-box">
+									${proview.refund_role }
+									</div>
+								</div>
 								
 								
 								
