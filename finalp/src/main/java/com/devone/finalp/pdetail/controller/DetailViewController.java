@@ -113,13 +113,29 @@ public class DetailViewController {
 		if(result>0) {
 			System.out.println("성공");
 			Project project=detailviewService.selectMemberId(report.getProject_id());
-			System.out.println("이용환"+project);
 			detailviewService.addReportCount(project);
 			model.addAttribute("project_id", report.getProject_id());
 			model.addAttribute("member_id", report.getMember_id());
 			return "redirect:projectDetailView.do";
 		}
 		return null;
+	}
+	
+	@RequestMapping(value="reportReply.do", method=RequestMethod.POST)
+	public String reportReplyProject(Report report, Model model) {
+		System.out.println("신고하기" + report);
+		int result = detailviewService.insertReplyReport(report);
+		
+		String str="";
+		
+		if(result>0) {
+			System.out.println("성공");
+			model.addAttribute("project_id", report.getProject_id());
+			model.addAttribute("member_id", report.getMember_id());
+			
+			str="redirect:projectDetailView.do";
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="Like.do", method=RequestMethod.POST)

@@ -44,6 +44,11 @@ public class DetailViewDao {
 		return  mybatis.insert("projectdetailMapper.insertReport", report);
 		
 	}
+	
+	public int insertReplyReport(Report report) {
+		mybatis.update("projectdetailMapper.addReplyReportCount", report);
+		return mybatis.insert("projectdetailMapper.insertReplyReport", report);
+	}
 
 	public int selectLikes(String project_id) {
 	
