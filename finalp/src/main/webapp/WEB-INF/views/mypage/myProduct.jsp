@@ -90,7 +90,7 @@ var size=4;
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
-								+'<td><b><small>[공동구매]</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.product[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[공동구매] - 임시저장</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.product[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 								+'</tr>';
@@ -99,7 +99,7 @@ var size=4;
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.product[i].image_rename)+'"/>'
 									+'</td>'
-									+'<td><b><small>[공동구매]</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.product[i].project_id+'" style="color:black;">'
+									+'<td><b><small>[공동구매] - 임시저장</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.product[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.product[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.product[i].creation_date+'<br><br>마감일<br>'+json.product[i].end_date+'</b></td>'
 									+'</tr>';
@@ -158,7 +158,7 @@ var size=4;
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/images/logo.png"/>'
 									+'</td>'
-									+'<td><b><small>[공동구매]</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.smproduct[i].project_id+'" style="color:black;">'
+									+'<td><b><small>[공동구매] - 임시저장</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.smproduct[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
 									+'</tr>';
@@ -167,7 +167,7 @@ var size=4;
 										+'<td class="limg">'
 										+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproduct[i].image_rename)+'"/>'
 										+'</td>'
-										+'<td><b><small>[공동구매]</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.smproduct[i].project_id+'" style="color:black;">'
+										+'<td><b><small>[공동구매] - 임시저장</small><br><a href="grouppurUpdateView.do?member_id=${loginUser.member_id}&projectId='+json.smproduct[i].project_id+'" style="color:black;">'
 										+decodeURIComponent(json.smproduct[i].project_name)+'</b></a></td>'
 										+'<td><b><small>등록일</small><br>'+json.smproduct[i].creation_date+'<br><br>마감일<br>'+json.smproduct[i].end_date+'</b></td>'
 										+'</tr>';

@@ -91,7 +91,7 @@ $(window).ready(function(){
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+							+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
@@ -101,7 +101,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
@@ -162,7 +162,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
-								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
@@ -172,7 +172,7 @@ $(window).ready(function(){
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
 									+'</td>'
-									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+									+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 									+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
@@ -237,7 +237,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/images/logo.png"/>'
 								+'</td>'
-								+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
@@ -247,7 +247,7 @@ $(window).ready(function(){
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.project[i].image_rename)+'"/>'
 									+'</td>'
-									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
+									+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.project[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.project[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.project[i].creation_date
 									+'<br><br><small>마감일</small><br>'+json.project[i].end_date+'</b></td>'
@@ -306,7 +306,7 @@ $(window).ready(function(){
 									+'<td class="limg">'
 									+'<img name="img_rename" src="resources/images/logo.png"/>'
 									+'</td>'
-									+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+									+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 									+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 									+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 									+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'
@@ -316,7 +316,7 @@ $(window).ready(function(){
 										+'<td class="limg">'
 										+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.smproject[i].image_rename)+'"/>'
 										+'</td>'
-										+'<td><b><small>[프로젝트]</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
+										+'<td><b><small>[프로젝트] - 임시저장</small><br><a href="fundingUpdateView.do?member_id=${loginUser.member_id}&project_id='+json.smproject[i].project_id+'" style="color:black;">'
 										+decodeURIComponent(json.smproject[i].project_name)+'</b></a></td>'
 										+'<td><b><small>등록일</small><br>'+json.smproject[i].creation_date
 										+'<br><br><small>마감일</small><br>'+json.smproject[i].end_date+'</b></td>'

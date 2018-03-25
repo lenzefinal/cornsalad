@@ -131,11 +131,20 @@ public class MypageController {
 	// 회원 탈퇴 기능
 	@RequestMapping("mDelete.do")
 	public String memberDelete(Member member, Model model) {
-		System.out.println("탈퇴: " + member);
-		model.addAttribute("member", mypageService.memberDelete(member));
+		String userpwd = member.getMember_pwd();
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
+		String viewname = "";
+		int result = mypageService.memberDelete(member);
+
+		if (result > 0)
+			viewname = "redirect:logout.do";
+		else
+			viewname = "mypage/mypageWithdrawal";
 
 		System.out.println("회원 탈퇴 완료");
-		return "redirect:logout.do";
+		return viewname;
 	}
 
 	// 회원 정보 수정 기능
