@@ -11,6 +11,7 @@ import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
+import com.devone.finalp.pdetail.model.vo.CornGradeView;
 import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -125,5 +126,9 @@ public class DetailViewDao {
 	public int addReportCount(Project project) {
 		
 		return mybatis.update("projectdetailMapper.addReportCount", project);
+	}
+
+	public CornGradeView selectOneCornGradeView(String member_id) {
+		return mybatis.selectOne("projectdetailMapper.selectOneCornGradeView", member_id);
 	}
 }

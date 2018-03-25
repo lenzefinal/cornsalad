@@ -12,6 +12,7 @@ import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
 import com.devone.finalp.pdetail.model.dao.DetailViewDao;
+import com.devone.finalp.pdetail.model.vo.CornGradeView;
 import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -109,5 +110,11 @@ public class DetailViewServiceImpl implements DetailViewService{
 		return detailviewDao.addReportCount(project);
 		
 	}
+	
+	@Override
+	public CornGradeView selectOneCornGradeView(String member_id) {
+		return detailviewDao.selectOneCornGradeView(member_id);
+	}
+	
 	
 }

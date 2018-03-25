@@ -64,8 +64,33 @@ AS
     ORDER BY PROD.PRODUCT_ID
 ;
 
-
-
+--콘지수 불러오기
+CREATE OR REPLACE VIEW V_CORNGRADE(
+MEMBER_ID, CORNGRADE_AVG
+)
+AS 
+    SELECT MEMBER_ID,
+       (CASE
+            WHEN NOTNUMCOUNT > 0 THEN SUM_AVGCG / NOTNUMCOUNT
+            WHEN NOTNUMCOUNT = 0 THEN 0 END) AS FINAL_AVG
+    FROM( SELECT MEMBER_ID,
+                 SUM(CORNGRADE_AVG) AS SUM_AVGCG,
+                 SUM(CASE 
+                      WHEN CORNGRADE_AVG > 0 THEN 1 
+                      WHEN CORNGRADE_AVG = 0 THEN 0 END) AS NOTNUMCOUNT
+          FROM( SELECT M.MEMBER_ID,
+                       P.PROJECT_ID,
+                       NVL(CORNGRADE_AVG, 0) AS CORNGRADE_AVG
+                FROM MEMBER M
+                JOIN PROJECT P ON(P.MEMBER_ID = M.MEMBER_ID)
+                LEFT JOIN (SELECT PROJECT_ID,
+                                  ROUND(SUM(CORN_GRADE) / COUNT(CORN_GRADE), 1) AS CORNGRADE_AVG
+                           FROM MEMBER_TRUST
+                           GROUP BY PROJECT_ID) MTV ON(MTV.PROJECT_ID = P.PROJECT_ID)
+              )
+          GROUP BY MEMBER_ID
+        )
+;
 ---------------------------------------------------------------------------------
 --프로젝트 업데이트 페이지에서 사용하는 view
 CREATE OR REPLACE VIEW V_PROJECTSTATUSUPDATE(

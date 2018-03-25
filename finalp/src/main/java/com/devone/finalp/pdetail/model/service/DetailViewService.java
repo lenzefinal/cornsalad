@@ -6,6 +6,7 @@ import com.devone.finalp.common.model.vo.Likes;
 import com.devone.finalp.common.model.vo.ProjectReply;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.Report;
+import com.devone.finalp.pdetail.model.vo.CornGradeView;
 import com.devone.finalp.pdetail.model.vo.GiftListView;
 import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
@@ -50,4 +51,6 @@ public interface DetailViewService {
 	
 	ProjectView selectGPView(String project_id);
 	List<ProductDetailView> selectListProductView(String project_id);
+	CornGradeView selectOneCornGradeView(String member_id);
+	
 }
