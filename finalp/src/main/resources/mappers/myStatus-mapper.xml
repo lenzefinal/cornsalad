@@ -274,7 +274,7 @@
 
 	<insert id="insertQuestion" parameterType="MyQuestion">
 		<![CDATA[
-			insert into question values((select nvl(max(question_id+1), 1) from question), 
+			insert into question values(seq_question.nextval, 
 										#{question_category_id} , #{receive_member_id}, #{send_member_id}, 
 										#{title}, #{content}, null, sysdate, null)
 		]]>
