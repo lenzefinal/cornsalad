@@ -199,13 +199,13 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<MyProdPay> myProdpay(MyProdPay prodpay) {
+	public MyProdPay myProdpay(MyProdPay prodpay) {
 		// TODO Auto-generated method stub
 		return mypageDao.myProdpay(prodpay);
 	}
 
 	@Override
-	public List<MyFundPay> myFundpay(MyFundPay fundpay) {
+	public MyFundPay myFundpay(MyFundPay fundpay) {
 		// TODO Auto-generated method stub
 		return mypageDao.myFundPay(fundpay);
 	}

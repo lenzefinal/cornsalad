@@ -270,7 +270,6 @@ public class MypageController {
 			j.put("payment_id", p.getPayment_id());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
-
 		}
 		json.put("pproduct", jarr);
 		System.out.println(json.toJSONString());
@@ -564,25 +563,17 @@ public class MypageController {
 	public void myProdpay(MyProdPay prodpay, HttpServletResponse response)
 			throws IOException {
 		System.out.println("공구 결제 list");
-		List<MyProdPay> list = mypageService.myProdpay(prodpay);
+		prodpay = mypageService.myProdpay(prodpay);
 		response.setContentType("application/json; charset=utf-8");
-		System.out.println(list);
 		JSONObject json = new JSONObject();
-		JSONArray jarr = new JSONArray();
 
-		for (MyProdPay mpp : list) {
-			JSONObject j = new JSONObject();
-			j.put("project_id", mpp.getProject_id());
-			j.put("payment_id", mpp.getPayment_id().toString());
-			j.put("product_id", mpp.getProduct_id());
-			j.put("product_name", mpp.getProduct_name());
-			j.put("member_id", mpp.getMember_id());
-			j.put("count", mpp.getCount());
-			j.put("project_name", mpp.getProject_name());
-			jarr.add(j);
+		json.put("project_id", prodpay.getProject_id());
+		json.put("payment_id", prodpay.getPayment_id().toString());
+		json.put("product_id", prodpay.getProduct_id());
+		json.put("product_name", prodpay.getProduct_name());
+		json.put("member_id", prodpay.getMember_id());
+		json.put("count", prodpay.getCount());
 
-		}
-		json.put("mpproduct", jarr);
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
@@ -597,25 +588,19 @@ public class MypageController {
 		public void myFundpay(MyFundPay fundpay, HttpServletResponse response)
 				throws IOException {
 			System.out.println("펀딩 결제 list");
-			List<MyFundPay> list = mypageService.myFundpay(fundpay);
+			fundpay = mypageService.myFundpay(fundpay);
 			response.setContentType("application/json; charset=utf-8");
-			System.out.println(list);
 			JSONObject json = new JSONObject();
-			JSONArray jarr = new JSONArray();
 
-			for (MyFundPay mfp : list) {
-				JSONObject j = new JSONObject();
-				j.put("project_id", mfp.getProject_id());
-				j.put("payment_id", mfp.getPayment_id().toString());
-				j.put("gift_id", mfp.getGift_id());
-				j.put("item_name", mfp.getItem_name());
-				j.put("member_id", mfp.getMember_id());
-				j.put("count", mfp.getCount());
-				j.put("project_name", mfp.getProject_name());
-				jarr.add(j);
+				json.put("project_id", fundpay.getProject_id());
+				json.put("payment_id", fundpay.getPayment_id().toString());
+				json.put("gift_id", fundpay.getGift_id());
+				json.put("item_name", fundpay.getItem_name());
+				json.put("member_id", fundpay.getMember_id());
+				json.put("count", fundpay.getCount());
+				json.put("project_name", fundpay.getProject_name());
+			
 
-			}
-			json.put("mfproject", jarr);
 			System.out.println(json.toJSONString());
 
 			PrintWriter out = response.getWriter();
