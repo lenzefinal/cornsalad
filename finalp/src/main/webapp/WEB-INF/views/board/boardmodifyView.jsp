@@ -16,12 +16,15 @@ img{
 	weight : 100%;
 	height : auto;
 }
+.mce-notification-warning{
+ 	display:none;
+ }
 </style>
   <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	tinymce.init({
-		  selector: 'textarea',
+		  selector: '#tarea',
 	      height: 500,
 	  	  plugins: [
 	    	    "advlist autolink lists link image charmap print preview anchor",

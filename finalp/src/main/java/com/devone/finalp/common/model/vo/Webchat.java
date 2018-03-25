@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 public class Webchat implements Serializable{
+	public Webchat() {}
 	public final static long serialVersionUID = 5L;
 	private String room_id;
 	private String room_name;

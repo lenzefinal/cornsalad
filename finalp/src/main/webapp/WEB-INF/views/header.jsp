@@ -666,6 +666,7 @@
 			  <ul>
 				<li><a href="projectlist.do">펀딩 및 공동구매 보러가기</a></li>
 				<li><a href="noticeMain.do">공지사항</a></li>
+				<li><a href="blist.do?page=1">게시판</a></li>
 			  </ul>
 			</div>
 		  </div>

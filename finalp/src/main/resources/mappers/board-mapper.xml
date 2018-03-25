@@ -91,7 +91,7 @@
 	
 	<insert id="insertBoard" parameterType="Board">
 		<![CDATA[
-			insert into board (board_id,board_category_id,member_id, title, content, creation_date, readcount, recommend_count, report_count,ori_filename,re_filename) values((select max(board_id)+1 from board),#{board_category_id},#{member_id},#{title},#{content},sysdate,0,0,0,#{ori_filename},#{re_filename})
+			insert into board (board_id,board_category_id,member_id, title, content, creation_date, readcount, recommend_count, report_count,ori_filename,re_filename) values((select nvl(max(board_id)+1,1) from board),#{board_category_id},#{member_id},#{title},#{content},sysdate,0,0,0,#{ori_filename},#{re_filename})
 		]]>
 	</insert>
 	
@@ -105,13 +105,13 @@
 		<if test="board_reply_id_ref == 0">
 		<![CDATA[
 			insert into board_reply(board_reply_id, member_id, board_id, BOARD_CONTENT, creation_date, board_level ,report_count)
-			 values((select max(board_reply_id)+1 from board_reply),#{member_id},#{board_id},#{board_content},sysdate,0,0)
+			 values((select nvl(max(board_reply_id)+1,1) from board_reply),#{member_id},#{board_id},#{board_content},sysdate,0,0)
 		]]>
 		</if>
 		<if test="board_reply_id_ref != 0">
 		<![CDATA[
 			insert into board_reply(board_reply_id,member_id,board_id,BOARD_CONTENT,creation_date,board_level,report_count,board_reply_id_ref)
-			 values((select max(board_reply_id)+1 from board_reply),#{member_id},#{board_id},#{board_content},sysdate,#{board_level},0,#{board_reply_id_ref})
+			 values((select nvl(max(board_reply_id)+1,1) from board_reply),#{member_id},#{board_id},#{board_content},sysdate,#{board_level},0,#{board_reply_id_ref})
 		]]>
 		</if>
 	</insert>

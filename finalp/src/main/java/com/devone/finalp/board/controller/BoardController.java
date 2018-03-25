@@ -82,7 +82,7 @@ public class BoardController {
 			b.setOri_filename(ofileName);
 			b.setRe_filename(rfileName);
 		}
-
+		
 		bService.insertBoard(b);
 
 		return "redirect:blist.do?page=1";
