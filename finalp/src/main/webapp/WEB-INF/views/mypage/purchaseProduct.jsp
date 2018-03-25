@@ -314,13 +314,17 @@ $(window).scroll(function() {
 				$("#ppmodal").empty();
 				
 				var value=$("#ppmodal").html();
+				value='<hr style="border:0.5px solid black;">'
 				for(var i in json.mpproduct){
-				value+=	'<br><div>&nbsp; 상품 ID - '
+				value+=	'<div><br><div>&nbsp; 상품 ID - '
 						+decodeURIComponent(json.mpproduct[i].product_id)+'<br> &nbsp; 상품명 - '
-						+decodeURIComponent(json.mpproduct[i].product_name)+'&nbsp; <b>총 '
-						+json.mpproduct[i].count+'개</b><br>'
-						+'</div>'
+						+'<b>'+decodeURIComponent(json.mpproduct[i].product_name)+'&nbsp;&nbsp;(총 '
+						+json.mpproduct[i].count+'개)</b></div><br>'
+						
 				}
+				value+='<hr style="border:0.5px solid black;"><b><i>&nbsp;총 결제금액 - '+json.mpproduct[i].total_amount+' 원<br>&nbsp;결제하신 날 - '
+						+json.mpproduct[i].payment_date+'<i></b>'
+						+'</div>'
 				value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mpproduct[i].payment_id+'&pay_option='+json.mpproduct[i].pay_option+'" style="color:white;">결제 취소</a></button>'
 				$("#ppmodal").html(value);
 			},
@@ -345,6 +349,7 @@ $(window).scroll(function() {
 
       <!-- Modal body -->
       <div class="modal-body" id="ppmodal">
+     
        
       </div>
     </div>

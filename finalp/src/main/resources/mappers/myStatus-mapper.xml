@@ -66,14 +66,13 @@
 	<select id="myProject" resultMap="projectList">
 		<![CDATA[
 			select * from project where member_id=#{member_id} and rownum<#{size} 
-										and project_category_id='PC-FUND' 
-										order by project_id desc
+										and project_category_id='PC-FUND' order by creation_date, project_id
 		]]>
 	</select>
 	<select id="myProduct" resultMap="projectList">
 		<![CDATA[
 			select * from project where member_id=#{member_id} and rownum<#{size} 
-										and project_category_id='PC-PROD' order by project_id desc
+										and project_category_id='PC-PROD' order by creation_date, project_id
 		]]>
 	</select>
 	<select id="purchaseProduct" resultType="PurchaseProduct"
@@ -82,7 +81,7 @@
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-PROD'
-					order by p.project_id desc
+					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
 	<select id="fundingProject" resultType="FundingProject"
@@ -91,7 +90,7 @@
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-FUND'
-					order by p.project_id desc
+					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
 
@@ -101,7 +100,7 @@
 			from project p
 			join likes l on(l.project_id=p.project_id) 
 			where p.project_category_id='PC-FUND' and l.member_id=#{member_id} and rownum<#{size}
-			order by p.project_id desc
+			order by p.creation_date, p.project_id
 		]]>
 	</select>
 	<select id="productLikes" resultType="MyLikes" parameterType="MyLikes">
@@ -110,14 +109,14 @@
 			from project p 
 			join likes l on(l.project_id=p.project_id) 
 			where p.project_category_id='PC-PROD' and l.member_id=#{member_id} and rownum<#{size}
-			 order by p.project_id desc
+			 order by p.creation_date, p.project_id
 		]]>
 	</select>
 
 	<select id="productPayment" resultMap="MyProdPay">
         <![CDATA[
             select pm.payment_id,  pc.product_id, pd.product_name, pc.count, pm.member_id, p.project_name,
-            		pm.pay_option
+            		pm.pay_option, pm.payment_date, pm.total_amount
             		from payment pm
                     join payment_count pc on(pm.payment_id=pc.payment_id)
                     join product pd on (pc.product_id=pd.product_id)
@@ -128,7 +127,9 @@
 
 	<select id="fundingPayment" resultMap="MyFundPay">
         <![CDATA[
-            select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name, pm.pay_option from payment pm
+            select pm.payment_id, pc.count, pm.member_id, p.project_name, pc.gift_id, i.item_name, pm.pay_option, 
+            		pm.payment_date, pm.total_amount
+            		from payment pm
                     join payment_count pc on(pm.payment_id=pc.payment_id)
                     join gift g on (g.gift_id=pc.gift_id)
                     join gifT_in_items gii on(g.gift_id=gii.gift_id)
@@ -183,7 +184,7 @@
 			where member_id=#{member_id} and rownum<#{size} 
 					and project_category_id='PC-FUND' 
 					and project_name like #{project_name}
-			order by project_id desc
+			order by creation_date, project_id
 		]]>
 	</select>
 	<select id="searchMyproduct" resultType="Project" parameterType="Project">
@@ -192,7 +193,7 @@
 			where member_id=#{member_id} and rownum<#{size} 
 					and project_category_id='PC-PROD' 
 					and project_name like #{project_name}
-		 	order by project_id desc
+		 	order by creation_date, project_id
 		]]>
 	</select>
 
@@ -203,7 +204,7 @@
 			from project p
 			join likes l on(l.project_id=p.project_id) 
 			where p.project_category_id='PC-FUND' and l.member_id=#{member_id} and rownum<#{size} and p.project_name like #{project_name}
-			 order by p.project_id desc
+			 order by p.creation_date, p.project_id
 		]]>
 	</select>
 	<select id="searchProductLikes" resultType="MyLikes"
@@ -213,7 +214,7 @@
 			from project p
 			join likes l on(l.project_id=p.project_id) 
 			where p.project_category_id='PC-PROD' and l.member_id=#{member_id} and rownum<#{size} and p.project_name like #{project_name}
-			 order by p.project_id desc
+			 order by p.creation_date, p.project_id
 		]]>
 	</select>
 	<select id="searchPurchaseProduct" resultType="PurchaseProduct"
@@ -222,7 +223,7 @@
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_name like #{project_name}
-					order by p.project_id desc
+					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
 	<select id="searchfundingproject" resultType="FundingProject"
@@ -231,7 +232,7 @@
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_name like #{project_name}
-					order by p.project_id desc
+					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
 
@@ -243,8 +244,7 @@
 
 	<select id="myRQuestion" resultMap="MyQuestion">
 		select * from question where
-		receive_member_id=#{receive_member_id} order by send_creation_date
-		desc
+		receive_member_id=#{receive_member_id} order by send_creation_date desc
 	</select>
 
 	<select id="questionCategory" resultMap="CategoryList">

@@ -102,7 +102,7 @@ var size=4;
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.lproduct[i].project_id+'" style="color:black;">'
+							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.slproduct[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
@@ -112,7 +112,7 @@ var size=4;
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproduct[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.lproduct[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.slproduct[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
@@ -199,7 +199,7 @@ var size=4;
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.lproduct[i].project_id+'" style="color:black;">'
+							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.slproduct[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'
@@ -209,7 +209,7 @@ var size=4;
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproduct[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.lproduct[i].project_id+'" style="color:black;">'
+								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.slproduct[i].project_id+'" style="color:black;">'
 								+decodeURIComponent(json.slproduct[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.slproduct[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.slproduct[i].end_date+'</b></td>'

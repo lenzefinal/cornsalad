@@ -66,7 +66,7 @@
 		<div id="result" style="text-align:center;"></div>
 	</div>
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 var size=4;
 
 $(window).ready(function(){
@@ -314,12 +314,15 @@ function fModal(fmid){
 			$("#fpmodal").empty();
 			
 			var value=$("#fpmodal").html();
+			value='<hr style="border:0.5px solid black;">'
 			for(var i in json.mfproject){
-			value+=	'<br><div>&nbsp; 선택하신 선물 - '
-					+decodeURIComponent(json.mfproject[i].item_name)+' &nbsp;<b>총 '
-					+json.mfproject[i].count+'개</b><br>'
-					+'</div>'
+			value+=	'<div><br><div>&nbsp; 선택하신 선물 - '
+					+'<b>'+decodeURIComponent(json.mfproject[i].item_name)+' &nbsp;총 '
+					+json.mfproject[i].count+'개 </b></div><br>'
 			}
+			value+='<hr style="border:0.5px solid black"><br><b><i>&nbsp;총 결제금액 : '+json.mfproject[i].total_amount+' 원<br>&nbsp;결제하신 날 : '
+			+json.mfproject[i].payment_date+'<i></b>'
+			+'</div>'
 			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mfproject[i].payment_id+'&pay_option='+json.mfproject[i].pay_option+'" style="color:white;">결제 취소</a></button>'
 			$("#fpmodal").html(value);
 		},
@@ -345,6 +348,7 @@ function fModal(fmid){
 
       <!-- Modal body -->
       <div class="modal-body" id="fpmodal">
+      <hr>
        
       </div>
     </div>
