@@ -18,7 +18,7 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProductDetailView;
-//import com.devone.finalp.pdetail.model.vo.ProductDetailView;
+import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
@@ -42,6 +42,10 @@ public class DetailViewServiceImpl implements DetailViewService{
 	public int insertReport(Report report) {
 		return detailviewDao.insertReport(report);
 		
+	}
+	
+	public int insertReplyReport(Report report) {
+		return detailviewDao.insertReplyReport(report);
 	}
 	public int selectLikes(String project_id) {
 		

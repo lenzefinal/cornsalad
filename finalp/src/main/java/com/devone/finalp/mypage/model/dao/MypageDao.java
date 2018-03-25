@@ -183,13 +183,13 @@ public class MypageDao {
 		return mybatis.selectList("mystatusmapper.searchfundingproject",fundingProject);
 	}
 
-	public List<MyProdPay> myProdpay(MyProdPay prodpay) {
+	public MyProdPay myProdpay(MyProdPay prodpay) {
 		// TODO Auto-generated method stub
-		return mybatis.selectList("mystatusmapper.productPayment", prodpay);
+		return mybatis.selectOne("mystatusmapper.productPayment", prodpay);
 	}
 
-	public List<MyFundPay> myFundPay(MyFundPay fundpay) {
+	public MyFundPay myFundPay(MyFundPay fundpay) {
 		// TODO Auto-generated method stub
-		return mybatis.selectList("mystatusmapper.fundingPayment", fundpay);
+		return mybatis.selectOne("mystatusmapper.fundingPayment", fundpay);
 	}
 }

@@ -15,6 +15,7 @@ public class MyFundPay implements java.io.Serializable {
 	private String member_id;
 	private String gift_id;
 	private String item_name;
+	private String pay_option;
 	private int count;
 	
 	public MyFundPay() {
@@ -69,6 +70,14 @@ public class MyFundPay implements java.io.Serializable {
 		this.item_name = item_name;
 	}
 
+	public String getPay_option() {
+		return pay_option;
+	}
+
+	public void setPay_option(String pay_option) {
+		this.pay_option = pay_option;
+	}
+
 	public int getCount() {
 		return count;
 	}
@@ -82,7 +91,7 @@ public class MyFundPay implements java.io.Serializable {
 	}
 
 	public MyFundPay(String project_id, String project_name, String payment_id, String member_id, String gift_id,
-			String item_name, int count) {
+			String item_name, String pay_option, int count) {
 		super();
 		this.project_id = project_id;
 		this.project_name = project_name;
@@ -90,7 +99,16 @@ public class MyFundPay implements java.io.Serializable {
 		this.member_id = member_id;
 		this.gift_id = gift_id;
 		this.item_name = item_name;
+		this.pay_option = pay_option;
 		this.count = count;
 	}
+
+	@Override
+	public String toString() {
+		return "MyFundPay [project_id=" + project_id + ", project_name=" + project_name + ", payment_id=" + payment_id
+				+ ", member_id=" + member_id + ", gift_id=" + gift_id + ", item_name=" + item_name + ", pay_option="
+				+ pay_option + ", count=" + count + "]";
+	}
+
 	
 }

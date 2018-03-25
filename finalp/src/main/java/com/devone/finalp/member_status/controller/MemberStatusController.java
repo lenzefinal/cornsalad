@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.devone.finalp.common.model.vo.Encryption;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.member_status.model.service.MemberStatusService;
 
@@ -47,6 +47,11 @@ public class MemberStatusController {
 		member.setSys_date(str);
 		
 		memberStatusService.updateTime(member);
+		String userpwd = member.getMember_pwd();
+	      Encryption encryption = new Encryption("MD5", userpwd);
+	      String newpassword = String.valueOf(encryption.getEncryptData());
+	      member.setMember_pwd(newpassword);
+		
 		session.setAttribute("loginUser", memberStatusService.login(member));
 		System.out.println(memberStatusService.login(member));
 		return "home";
@@ -184,6 +189,10 @@ public class MemberStatusController {
 							 HttpSession session) throws IOException {
 		System.out.println("잘들어왔나");
 		System.out.println(member);
+		String userpwd = member.getMember_pwd();
+	      Encryption encryption = new Encryption("MD5", userpwd);
+	      String newpassword = String.valueOf(encryption.getEncryptData());
+	      member.setMember_pwd(newpassword);
 		
 		int result = memberStatusService.insertMember(member);
 		

@@ -11,6 +11,7 @@ public class ProjectView implements java.io.Serializable{
 	private String project_id;
 	private String project_name;
 	private String member_name;
+	private String image_rename;
 	private String rep_content;
 	private int target_amount;
 	private Date start_date;
@@ -32,7 +33,7 @@ public class ProjectView implements java.io.Serializable{
 	
 	public ProjectView() {}
 	
-	public ProjectView(String project_id, String project_name,String member_name, String rep_content, int target_amount, Date start_date,
+	public ProjectView(String project_id, String project_name,String member_name, String image_rename, String rep_content, int target_amount, Date start_date,
 			Date end_date,int dday, Date payment_date, String refund_role, String video_url, String content,
 			String project_category_id, String project_category_name, String category_sub_id, String category_sub_name,
 			String category_id, String category_name, String total_amount,int percent) {
@@ -40,6 +41,7 @@ public class ProjectView implements java.io.Serializable{
 		this.project_id = project_id;
 		this.project_name = project_name;
 		this.member_name=member_name;
+		this.image_rename = image_rename;
 		this.rep_content = rep_content;
 		this.target_amount = target_amount;
 		this.start_date = start_date;
@@ -61,6 +63,18 @@ public class ProjectView implements java.io.Serializable{
 	}
 	
 	
+
+	public String getImage_rename() {
+		return image_rename;
+	}
+
+	public void setImage_rename(String image_rename) {
+		this.image_rename = image_rename;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public int getDday() {
 		return dday;

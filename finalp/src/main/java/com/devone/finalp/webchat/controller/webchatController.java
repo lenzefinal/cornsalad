@@ -33,7 +33,6 @@ public class webchatController {
 		wc.setRoom_reply_id(room_id);
 		wService.insertWC(wc);
 		model.addAttribute("webchat",wc);
-		model.addAttribute("wcList",wService.selectWCList());
 		return "webchat/webchat";
 	}
 	
@@ -54,7 +53,6 @@ public class webchatController {
 		wc.setRoom_id(room_id);
 		wService.insertWC(wc);
 		model.addAttribute("webchat", wc);
-		model.addAttribute("wcList",wService.selectWCList());
 		return "webchat/webchat";
 		}
 	}

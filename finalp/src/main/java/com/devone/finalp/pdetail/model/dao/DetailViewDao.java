@@ -17,7 +17,7 @@ import com.devone.finalp.pdetail.model.vo.GiftView;
 import com.devone.finalp.pdetail.model.vo.HotListView;
 import com.devone.finalp.pdetail.model.vo.LoginTimeView;
 import com.devone.finalp.pdetail.model.vo.ProductDetailView;
-//import com.devone.finalp.pdetail.model.vo.ProductDetailView;
+import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
@@ -45,6 +45,11 @@ public class DetailViewDao {
 	public int insertReport(Report report) {
 		return  mybatis.insert("projectdetailMapper.insertReport", report);
 		
+	}
+	
+	public int insertReplyReport(Report report) {
+		mybatis.update("projectdetailMapper.addReplyReportCount", report);
+		return mybatis.insert("projectdetailMapper.insertReplyReport", report);
 	}
 
 	public int selectLikes(String project_id) {

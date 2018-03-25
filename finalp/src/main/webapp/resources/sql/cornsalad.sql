@@ -17,7 +17,7 @@ DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
  CREATE TABLE MEMBER (	
     MEMBER_ID VARCHAR2(30) CONSTRAINT PK_MEMBER PRIMARY KEY, 
-	MEMBER_PWD VARCHAR2(30) NOT NULL, 
+	MEMBER_PWD VARCHAR2(60) NOT NULL, 
     MEMBER_NAME VARCHAR2(50) NOT NULL, 
 	EMAIL VARCHAR2(40), 
     PHONE VARCHAR2(30), 
@@ -682,6 +682,8 @@ create table webchat(
  COMMENT ON COLUMN webchat.room_name IS '방 이름';
  COMMENT ON COLUMN webchat.member_ID IS '접속 인원';
  COMMENT ON COLUMN webchat.room_reply_ID IS '접속한 방 번호';
+select * from webchat;
+
 --select * from webchat;
 
 
