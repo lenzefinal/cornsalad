@@ -70,7 +70,8 @@
 	#report div.modal-body #rmember,#rmember2{
 		font-size: 14px;
 		width:690px;
-		background-color:#CE3636;
+		background-color:#DE4F4F;
+		font-weight: bold;
 	}
 	#report div.modal-body #rwriter,#rwriter2{
 		font-size: 14px;
@@ -98,6 +99,10 @@
   	#report div.modal-body table.atable{
   		margin-top:20px;
   		width: 750px;
+  	}
+  	#report select#caselect{
+  		font-size:14px;
+  		height:30px;
   	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>

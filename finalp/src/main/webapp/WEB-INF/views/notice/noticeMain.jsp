@@ -32,10 +32,15 @@ img.iconi{
     margin-bottom: 40px;
 }
 .hero {
-    background-color: #F3F781;
+    /* background-color: #F3F781; */
+    background-image:url('/finalp/resources/images/sliderimage/corn2.jpg');
     background-position: center;
-    background-size: cover;
-    height: 300px;
+    /* background-size: cover; */
+    /* background-image:url("resources/images/logo.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat:no-repeat; */
+    height: 400px;
     padding: 0 20px;
     text-align: center;
     width: 100%;
@@ -222,7 +227,7 @@ span#cdate{
 
 
   <div class="hero-inner">
-    <h1 style="color:black;">무엇을 도와드릴까요?</h1>
+    <h1 style="color: white;font-size: 45px;margin-bottom: 10px;">무엇을 도와드릴까요?</h1>
     <div role="search" class="search search-full" data-instant="true" autocomplete="off">
     <input name="utf8" type="hidden" value="✓">
     <input type="search" name="query" id="query" placeholder="검색" autocomplete="off" aria-label="검색">
@@ -253,36 +258,24 @@ span#cdate{
     </c:forEach>
   </div> 
   
-<%--   <!-- 페이지 번호 처리 -->
-	<div style="text-align:center;">
-	<c:url var="first" value="noticeMain.do">
-		<c:param name="currentPage" value="1" />
-	</c:url>
-	<a href="${first }">[<<]</a>
-	<c:url var="prev" value="noticeMain.do">
-		<c:param name="currentPage" value="${startPage - limit }" />
-	</c:url>
-	<a href="${prev }">	[<]</a>
+   <!-- 페이지 번호 처리 -->
+	<div id="pagediv" style="text-align:center;">
 	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
 	<c:url var="page" value="noticeMain.do">
 		<c:param name="currentPage" value="${p }" />
 	</c:url>
+	<ul class="pagination" style="display:inline-block;">
 	<c:if test="${p ne currentPage }">
-		<a href="${page }">	| ${p } |&nbsp; </a> 
+		<li><a href="${page }">${p }</a></li>
+		<%-- <a href="${page }">	| ${p } |&nbsp; </a>  --%>
 	</c:if>
 	<c:if test="${p eq currentPage }">	
-	<a href="${page }">	| <b>${p }</b> |&nbsp; </a>
+		<li class="active"><a href="${page }">${p }</a></li>
+	<%-- <a href="${page }">	| <b>${p }</b> |&nbsp; </a> --%>
 	</c:if>
+	</ul>
 	</c:forEach>
-	<c:url var="next" value="noticeMain.do">
-		<c:param name="currentPage" value="${endPage + limit }" />
-	</c:url>
-	<a href="${next }">	[>]</a>
-	<c:url var="last" value="noticeMain.do">
-		<c:param name="currentPage" value="${maxPage }" />
-	</c:url>
-	<a href="${last }">[>>]</a>
-	</div> --%>
+	</div>
 
 </div>
  

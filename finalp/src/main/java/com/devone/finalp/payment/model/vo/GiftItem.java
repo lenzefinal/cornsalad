@@ -13,10 +13,11 @@ public class GiftItem implements Serializable {
 	public GiftItem() {}
 
 	public GiftItem(String gift_id, String item_name, int count) {
-		super();
+		
 		this.gift_id = gift_id;
 		this.item_name = item_name;
 		this.count = count;
+		
 	}
 
 	public String getGift_id() {
@@ -43,5 +44,10 @@ public class GiftItem implements Serializable {
 		this.count = count;
 	}
 	
+
+	@Override
+	public String toString() {
+		return "gift_id : "+gift_id+"/ item_name : "+item_name+"/ count : "+count;
+	}
 	
 }

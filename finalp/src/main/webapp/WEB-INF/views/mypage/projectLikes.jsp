@@ -56,11 +56,7 @@ $(window).ready(function(){
 					+'<td class="limg">'
 					+'<img name="img_rename" src="resources/images/logo.png"/>'
 					+'</td>'
-					+'<c:url var="projectDetail" value="projectDetailView.do">'
-					+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-					+'<c:param name="project_id" value="${lproduct.project_id }"/>'
-					+'</c:url>'
-					+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+					+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 					+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 					+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 					+'</tr>';
@@ -69,11 +65,7 @@ $(window).ready(function(){
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.lproject[i].image_rename)+'"/>'
 						+'</td>'
-						+'<c:url var="projectDetail" value="projectDetailView.do">'
-						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-						+'<c:param name="project_id" value="${lproduct.project_id }"/>'
-						+'</c:url>'
-						+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 						+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 						+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 						+'</tr>';
@@ -110,12 +102,7 @@ $(window).ready(function(){
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
-						+'<c:url var="projectDetail" value="projectDetailView.do">'
-						+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-						+'<c:param name="project_id" value=""/>'
-						+'</c:url>'
-						+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-						+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
+						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 						+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 						+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 						+'</tr>';
@@ -124,12 +111,8 @@ $(window).ready(function(){
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 							+'</td>'
-							+'<c:url var="projectDetail" value="projectDetailView.do">'
-							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value=""/>'
-							+'</c:url>'
-							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
+							+'</td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -170,12 +153,8 @@ $(window).ready(function(){
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<c:url var="projectDetail" value="projectDetailView.do">'
-							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value="${lproduct.project_id }"/>'
-							+'</c:url>'
-							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'</td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -184,12 +163,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<c:url var="projectDetail" value="projectDetailView.do">'
-								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value="${project.project_id}"/>'
-								+'</c:url>'
-								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-								+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 								+'</tr>';
@@ -221,12 +195,7 @@ $(window).ready(function(){
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<c:url var="projectDetail" value="projectDetailView.do">'
-							+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-							+'<c:param name="project_id" value=""/>'
-							+'</c:url>'
-							+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-							+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -235,12 +204,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<c:url var="projectDetail" value="projectDetailView.do">'
-								+'<c:param name="member_id" value="${loginUser.member_id }"/>'
-								+'<c:param name="project_id" value=""/>'
-								+'</c:url>'
-								+'<td><b><small>[프로젝트]</small><br><a href="${projectDetail}" style="color:black;">'
-								+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 								+'</tr>';

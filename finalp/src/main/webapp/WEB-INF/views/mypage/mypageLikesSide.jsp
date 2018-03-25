@@ -109,8 +109,14 @@ $(document).ready(function() {
 <c:import url="../header.jsp"></c:import>
 <div id="menunav">
 	<ul class="list-group menunav">
-		<li class="list-group-item menu"><a class="menua" href="projectLikes.do">프로젝트</a></li>
-		<li class="list-group-item menu"><a class="menua" href="productLikes.do">공동구매</a></li>
+			<c:url var="projectLikes" value="projectLikes.do">
+	  			<c:param name="member_id" value="${loginUser.member_id }"/>
+	  		</c:url>
+	  		<c:url var="productLikes" value="productLikes.do">
+  				<c:param name="member_id" value="${loginUser.member_id }"/>
+  			</c:url>
+		<li class="list-group-item menu"><a class="menua" href="${projectLikes}">프로젝트</a></li>
+		<li class="list-group-item menu"><a class="menua" href="${productLikes}">공동구매</a></li>
 	</ul>
 </div>
 

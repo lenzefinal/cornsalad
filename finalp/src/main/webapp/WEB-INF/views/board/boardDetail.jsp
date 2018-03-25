@@ -180,8 +180,9 @@ var detailform0 = function(num,cont){
 						</button>
 					</c:if>
 					<c:if test="${board.member_id != loginUser.member_id}">
+						
 						<button>
-							<a href="#">추 천</a>
+							<a href="#" data-toggle="modal" data-target="#myRec">추 천</a>
 						</button>
 						<button>
 							<a href="#" data-toggle="modal" data-target="#myModal">신 고</a>
@@ -203,7 +204,15 @@ var detailform0 = function(num,cont){
 							<c:if test="${boardR.board_level == 0}">
 								<tr>
 									<th>${boardR.member_name }</th>
-									<td>${boardR.board_content}<aa style="float:right"> <c:if
+									<td>
+									<c:if test="${boardR.report_count > 5 }">
+										[신고된 댓글입니다.]
+									</c:if>
+									<c:if test="${boardR.report_count <= 5 }">
+										${boardR.board_content}
+									</c:if>
+									
+									<aa style="float:right"> <c:if
 											test="${boardR.member_id == loginUser.member_id}">
 											<c:url var="brdelete" value="brdelete.do">
 												<c:param name = "board_id" value="${board.board_id}"/>
@@ -215,7 +224,7 @@ var detailform0 = function(num,cont){
 										</c:if> <c:if test="${boardR.member_id != loginUser.member_id}">
 											<a href="#" onclick="aropen(${num}); return false"> [답글]</a>
 										 <small> ${boardR.creation_date}</small> 
-										<a href="#">[신고]</a>
+										<a href="#" data-toggle="modal" data-target="#brReport">[신고]</a>
 										</c:if>
 										</aa>
 									</td>
@@ -250,9 +259,17 @@ var detailform0 = function(num,cont){
 										test="${boardR.board_reply_id == boardRR.board_reply_id_ref}">
 										<tr>
 											<th>└ Re${boardRR.member_name }</th>
-											<td>${boardRR.board_content}<aa style="float:right">
+											<td>
+											<c:if test="${boardRR.report_count > 5 }">
+												[신고된 댓글입니다.]
+											</c:if>
+											<c:if test="${boardRR.report_count <= 5 }">
+												${boardRR.board_content}
+											</c:if>
+											<aa style="float:right">
 												<c:if test="${boardRR.member_id != loginUser.member_id}">
-													<small> ${boardRR.creation_date}</small> <a href="#">[신고]</a>
+													<small> ${boardRR.creation_date}</small>
+													<a href="#" data-toggle="modal" data-target="#brrReport">[신고]</a> 
 												</c:if> <c:if test="${boardRR.member_id == loginUser.member_id}">
 												<c:url var="brdelete" value="brdelete.do">
 												<c:param name = "board_id" value="${board.board_id}"/>
@@ -269,10 +286,21 @@ var detailform0 = function(num,cont){
 										<td><textarea rows="4" cols="90" name="board_contentt"></textarea> 
 											<button	onclick="detailform0(${boardRR.board_reply_id},contt(${num1}))"
 												style="height: 100px; float: right; width: 90px;">수정하기</button>
+												
 										<c:set var="num1" value="${num1+1}" />
 									    </td>
 								</tr>
 									</c:if>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
 								</c:forEach>
 							</c:if>
 						</c:if>
@@ -298,12 +326,13 @@ var detailform0 = function(num,cont){
 			</div>
 		</div>
 	</div>
-	 <!-- Modal -->
+	 <!-- 신고 Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <form action="breport.do" method="post">
+      <input type="hidden" name = "board_id" value="${board.board_id}">
       <div class="modal-content" style="font-size : 1.5em" >
         <div class="modal-header">
           <h4 class="modal-title">신고하기</h4>
@@ -316,20 +345,78 @@ var detailform0 = function(num,cont){
                       		<td><input type = "text" name="member_id" value="${loginUser.member_id }" readonly></td>
                       	</tr>
                       	<tr>
-                      		<th>신고 사유</th>
-                      		<td><input type ="text" name="report_reson">
-                      	</td>
-                      	</tr>
-                      	<tr>
                       		<th>신고 내용</th>
-                      		<td><textarea name ="report_content" style="width : 100%" rows='5'></textarea></td>
+                      		<td><textarea name ="report_reason" style="width : 100%" rows='5'></textarea></td>
                       	</tr>
                       </table>
                     
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-          <button type="submit" class="btn btn-default" data-dismiss="modal">신고하기</button>
+          <button type="submit" class="btn btn-default">신고하기</button>
+        </div>
+      </div>
+      </form>
+      
+    </div>
+  </div>
+  
+   <!-- 댓글 Modal -->
+  <div class="modal fade" id="brReport" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <form action="brReport.do" method="post">
+      <input type="hidden" name = "board_id" value="${board.board_id}">
+      <div class="modal-content" style="font-size : 1.5em" >
+        <div class="modal-header">
+          <h4 class="modal-title">신고하기</h4>
+        </div>
+        <div class="modal-body">
+                   
+                      <table class ="table table-striped table-bordered" >
+                      	<tr>
+                      		<th>신고자</th> 
+                      		<td><input type = "text" name="member_id" value="${loginUser.member_id }" readonly></td>
+                      	</tr>
+                      	<tr>
+                      		<th>신고 내용</th>
+                      		<td><textarea name ="report_reason" style="width : 100%" rows='5'></textarea></td>
+                      	</tr>
+                      </table>
+                    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="submit" class="btn btn-default">신고하기</button>
+        </div>
+      </div>
+      </form>
+      
+    </div>
+  </div>
+  
+  
+  
+  	 <!-- 추천 Modal -->
+  <div class="modal fade" id="myRec" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <form action="brecom.do" method="post">
+      <input type="hidden" name = "member_id" value="${board.member_id}">
+      <input type="hidden" name = "board_id" value="${board.board_id}">
+      <input type="hidden" name = "board_id" value="${board.recommend_count}">
+      <div class="modal-content" style="font-size : 1.5em" >
+        <div class="modal-header">
+          <h4 class="modal-titl">추천하기</h4>
+        </div>
+        <div class="modal-body">
+					'${board.title}' 이 게시글을 추천하시겠습니까 ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="submit" class="btn btn-default">추천하기</button>
         </div>
       </div>
       </form>

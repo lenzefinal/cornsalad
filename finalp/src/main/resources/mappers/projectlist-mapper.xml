@@ -6,13 +6,26 @@
 
 	<select id="selectProjectList" resultType="ProjectListView">
 		<![CDATA[
-			select * from v_projectList
+			select * from v_projectList 
 		]]>
 	</select>
 	
 	<select id="selectProductList" resultType="ProductListView">
 		<![CDATA[
 			select * from v_productList
+		]]>
+	</select>
+	
+	<select id="selectEndProjectList" resultType="ProjectListView">
+		<![CDATA[
+			
+			select * from (select * from v_projectList order by dday) where rownum < 7
+		]]>
+	</select>
+	
+	<select id="selectEndProductList" resultType="ProductListView">
+		<![CDATA[
+			select * from  (select * from v_productList order by dday) where rownum <7
 		]]>
 	</select>
 	

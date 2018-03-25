@@ -74,7 +74,27 @@
 			$(".refound-story").hide();
 		});
 
+		initComparisons();
 	});
+	
+	//jieun
+	function initComparisons() {
+		if($("#cornGrade-avg-input") != 'undefined'){
+			var avg = $("#cornGrade-avg-input").attr("value");
+			
+			var x, i;
+		   /*find all elements with an "overlay" class:*/
+		    x = document.getElementsByClassName("img-comp-overlay");
+		  
+		    var w, h;
+		    w = x[0].offsetWidth;
+		    h = x[0].offsetHeight;
+		    
+		    var valuePer = (avg * 20 * h) / 100;
+		    /*set the width of the img element to 50%:*/
+		    x[0].style.height = valuePer + "px";
+		}
+	}
 </script>
 <link href="/finalp/resources/css/projectDetailView.css" rel="stylesheet">
 </head>
@@ -184,6 +204,41 @@
 										<div class="eYscdN">
 											<span class="ilGdVJ"></span> 
 											<a href="#"><span class="fVfxlF">${proview.member_name }</span></a>
+										<c:if test="${ empty cornGrade  || 
+														(!empty cornGrade && cornGrade.corngrade_avg == 0) }">
+											<span style="color:gray;margin-left:10px;"><b>아직 평가가 없습니다.</b></span>	
+										</c:if>
+										<style>
+											.cornImg-container {
+											  position: relative;
+											  height: 50px;
+											}
+											.img-comp-img {
+											  position: absolute;
+											  width: auto;
+											  height: auto;
+											  overflow:hidden;
+											}
+											.img-comp-img img {
+											  display:block;
+											  vertical-align:middle;
+											}
+										</style>
+										<c:if test="${ !empty cornGrade && cornGrade.corngrade_avg > 0 }">
+											<input type="hidden" id="cornGrade-avg-input" value="${ cornGrade.corngrade_avg }"/>
+											<span style="color:gray;margin-left:10px;">
+												<div class="cornImg-container">
+												  <div class="img-comp-img">
+												    <img src="/finalp/resources/images/icon/cornpoint.png" width="40" height="50">
+												  </div>
+												  <div class="img-comp-img img-comp-overlay">
+												    <img src="/finalp/resources/images/icon/cornpoint2.png" width="40" height="50">
+												  </div>
+												</div>
+												<div style="margin-left:12px;"><b>${ cornGrade.corngrade_avg }</b></div>
+											</span>
+										</c:if>
+											
 										</div>
 		 								<div class="dHxdxH"></div>
 										<div class="iiBGoJt">

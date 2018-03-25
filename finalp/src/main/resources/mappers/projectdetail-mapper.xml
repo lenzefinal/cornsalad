@@ -176,6 +176,19 @@
 		]]>
 	</insert>
 	
+	<update id="addReportCount" parameterType="Project">
+		<![CDATA[
+			update Project set  report_count= #{report_count}+1 where project_id=#{project_id}
+		]]>
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- JIEUN -->
 	<select id="selectProGPView" parameterType="String" resultMap="proview">
 		<![CDATA[
@@ -183,8 +196,7 @@
 		]]>
 	</select>
 	
-	
-<!-- 	<resultMap id="ProductViewListResult" type="ProductDetailView">
+	<resultMap id="ProductViewListResult" type="ProductDetailView">
 		<result property="project_id" column="project_id"></result>
 		<result property="product_id" column="product_id"></result>
 		<result property="product_name" column="product_name"></result>
@@ -197,12 +209,16 @@
 		<![CDATA[
 			select * from V_PRODUCT_DETAIL where project_id=#{project_id}
 		]]>
-	</select> -->
+	</select> 
 	
-	
-	<update id="addReportCount" parameterType="Project">
+	<resultMap id="CornGradeViewOneResult" type="CornGradeView">
+		<result property="member_id" column="member_id"></result>
+		<result property="corngrade_avg" column="corngrade_avg"></result>
+	</resultMap>
+	<select id="selectOneCornGradeView" parameterType="String" resultMap="CornGradeViewOneResult">
 		<![CDATA[
-			update Project set  report_count= #{report_count}+1 where project_id=#{project_id}
+			select * from V_CORNGRADE where member_id=#{member_id}
 		]]>
-	</update>
+	</select> 
+	
 </mapper>

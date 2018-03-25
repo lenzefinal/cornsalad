@@ -81,7 +81,6 @@ public class MypageController {
 	@RequestMapping("myProject.do")
 	public String myProject(Model model, Project project) {
 		System.out.println("등록 프로젝트 Form");
-		System.out.println(model);
 
 		return "mypage/myProject";
 	}
@@ -98,7 +97,7 @@ public class MypageController {
 	@RequestMapping("fundingProject.do")
 	public String fundingProject() {
 		System.out.println("펀딩 프로젝트 Form");
-
+		
 		return "mypage/fundingProject";
 	}
 
@@ -193,11 +192,14 @@ public class MypageController {
 
 		for (Project p : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("project_request_flag", p.getProject_request_flag());
+			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
 		}
 		json.put("project", jarr);
@@ -221,11 +223,14 @@ public class MypageController {
 
 		for (Project p : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("project_request_flag", p.getProject_request_flag());
+			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
 
 		}
@@ -250,12 +255,14 @@ public class MypageController {
 
 		for (PurchaseProduct p : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
 			j.put("payment_id", p.getPayment_id());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -281,11 +288,13 @@ public class MypageController {
 
 		for (FundingProject f : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", f.getProject_id().toString());
 			j.put("image_rename", f.getImage_rename());
 			j.put("project_name", f.getProject_name());
 			j.put("product_name", f.getProduct_name());
 			j.put("member_id", f.getMember_id());
 			j.put("end_date", f.getEnd_date().toString());
+			j.put("pay_option", f.getPay_option());
 			jarr.add(j);
 
 		}
@@ -311,6 +320,7 @@ public class MypageController {
 
 		for (MyLikes lpj : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", lpj.getProject_id());
 			j.put("image_rename", lpj.getImage_rename());
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
@@ -340,6 +350,7 @@ public class MypageController {
 
 		for (MyLikes lpd : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", lpd.getProject_id());
 			j.put("image_rename", lpd.getImage_rename());
 			j.put("project_name", lpd.getProject_name());
 			j.put("member_id", lpd.getMember_id());
@@ -370,11 +381,14 @@ public class MypageController {
 
 		for (Project p : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("project_request_flag", p.getProject_request_flag());
+			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
 		}
 		json.put("smproject", jarr);
@@ -398,11 +412,14 @@ public class MypageController {
 
 		for (Project p : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("project_request_flag", p.getProject_request_flag());
+			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
 		}
 		json.put("smproduct", jarr);
@@ -426,6 +443,7 @@ public class MypageController {
 
 		for (MyLikes lpj : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", lpj.getProject_id());
 			j.put("image_rename", lpj.getImage_rename());
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
@@ -454,6 +472,7 @@ public class MypageController {
 
 		for (MyLikes lpd : list) {
 			JSONObject j = new JSONObject();
+			j.put("project_id", lpd.getProject_id());
 			j.put("image_rename", lpd.getImage_rename());
 			j.put("project_name", lpd.getProject_name());
 			j.put("member_id", lpd.getMember_id());
@@ -483,6 +502,7 @@ public class MypageController {
 
 		for (PurchaseProduct p : list) {
 			JSONObject j = new JSONObject();
+			
 			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());

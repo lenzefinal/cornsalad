@@ -16,4 +16,7 @@ public interface ProjectListService {
 	List<ProductListView> selectProductListKeyword(String project_name);
 	List<ProductListView> selectProductListCategory(List<String> category);
 	List<ProductListView> selectProductKeywordCategory(List<String> category, String project_name);
+	
+	List<ProjectListView> selectEndProjectList();
+	List<ProductListView> selectEndProductList();
 }

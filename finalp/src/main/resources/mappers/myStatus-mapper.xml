@@ -57,7 +57,7 @@
 	</select>
 	<select id="purchaseProduct" resultType="PurchaseProduct" parameterType="PurchaseProduct">
 		<![CDATA[
-			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
+			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-PROD'
 					order by p.project_id desc
@@ -65,7 +65,7 @@
 	</select>
 	<select id="fundingProject" resultType="FundingProject" parameterType="FundingProject">
 		<![CDATA[
-			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id
+			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
 					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-FUND'
 					order by p.project_id desc

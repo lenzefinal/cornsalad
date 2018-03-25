@@ -664,9 +664,8 @@
 			</h1>
 			<div class="menu-list">
 			  <ul>
-				<li><a href="projectlist.do">프로젝트</a></li>
-				<li><a href="projectdetail.do">공동구매</a></li>
-				<li><a href="blist.do">오픈예정</a></li>
+				<li><a href="projectlist.do">펀딩 및 공동구매 보러가기</a></li>
+				<li><a href="noticeMain.do">공지사항</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -678,7 +677,7 @@
 		<c:if test="${ !empty loginUser }">
 			<li><a href="projectInsertGuideView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">물품 등록하기</a></li>
 		</c:if>
-			<li><a href="/web/fthelpCenter" target="_blank">이용가이드</a></li>
+			<li><a href="#" target="_blank">이용가이드</a></li>
 		</ul>
 		
 		  <ul class="util-menu">
@@ -687,16 +686,16 @@
 			<li class="point"><a href="enroll.do">회원가입</a></li>
 		  </c:if>
 		  <c:if test="${ !empty loginUser }">
-		  	<li class="point"><a href="#">${ loginUser.member_name }</a></li>
+		  		<c:url var="mypageIndex" value="mypageIndex.do">
+		  			<c:param name="member_id" value="${loginUser.member_id }"/>
+		  		</c:url>
+		  	<li class="point"><a href="${ mypageIndex }">${ loginUser.member_name }</a></li>
 		  	<li class="point"><a id="logoutBtn" href="logout.do">로그아웃</a></li>
 		  		<c:if test="${ loginUser.member_id eq 'admin' }">
 		  			<li class="point"><img id="bimg" src="/finalp/resources/images/adminimage/bell1.png" /></li>	
 		  			<li class="point"><a href="adminMain.do" >관리자페이지</a></li>
 		  		</c:if>
 		  		<c:if test="${ loginUser.member_id ne 'admin' }">
-		  			<c:url var="mypageIndex" value="mypageIndex.do">
-		  				<c:param name="member_id" value="${loginUser.member_id }"/>
-		  			</c:url>
 		  			<li class="point"><a href="${mypageIndex }" onclick="">마이페이지</a></li>
 		  		</c:if>
 		  </c:if>
@@ -725,24 +724,20 @@
 		<nav id="globalNav">
 			<div class="menu-list">
 				<ul>
-					<li><a href="#">홈</a></li>
+					<li><a href="home.do">홈</a></li>
 					<li><a href="projectlist.do">프로젝트</a></li>
-					<li><a href="#">공동구매</a></li>
-					<li><a href="#">물품등록하기</a></li>
+					<li><a href="projectlist.do">공동구매</a></li>
+					<c:if test="${ !empty loginUser }">
+						<li><a href="projectInsertGuideView.do">물품등록하기</a></li>
+					</c:if>
 				</ul>
 				<ul>
-					<li><a href="#">공지사항</a></li>
+					<li><a href="noticeMain.do">공지사항</a></li>
 					<li><a href="#">나눔게시판</a></li>
-					<li><a href="#">문의하기</a></li><!-- 
-					<li><a href="#">와디즈 파트너</a></li>
-					<li><a href="#">성공 프로젝트</a></li> -->
-				</ul>
-				<ul>
-					<li><a href="#" onclick="">앱 다운로드</a></li>
-           			<li><a href="#">이벤트</a></li>
-					<li><a href="fundingInsertView.do" onclick="gaEvt.send('webgnb', 'btn_page_makeproject', '펀딩오픈 신청하기', '');">펀딩오픈 신청하기</a></li>
+					<li><a data-toggle="modal" data-target="#insertQ" >문의하기</a></li>
 				</ul>
 				<ul class="end">
+					<li><a href="#" onclick="">앱 다운로드</a></li>
 					<li><a href="#" target="_blank">이용가이드</a></li>
 				</ul>
 			</div>

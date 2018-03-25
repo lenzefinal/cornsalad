@@ -152,9 +152,15 @@
 		<result property="refund_flag" column="refund_flag" />
 	</resultMap>
 	
-	<select id="selectprojectlist" resultMap="AProjectmap" >
+	<select id="aproListCount" resultType="int" >
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
+			SELECT COUNT(*) FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
+		]]>	
+	</select>
+	
+	<select id="selectprojectlist" resultMap="AProjectmap" resultType="list" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
 		]]>
 	</select>
 	
@@ -184,16 +190,21 @@
 	</select>
 	
 	<select id="searchCProject" parameterType="String" resultMap="AProjectmap">
-		<if test="project_category_name != 'refund'">
-			<![CDATA[
-				SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ project_category_name }
-			]]>
-		</if>
-		<if test="project_category_name == 'refund'">
-			<![CDATA[
-				SELECT * FROM A_PROJECT WHERE ING_FLAG = 'N' AND SPON < 100
-			]]>
-		</if>
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ cname }
+		]]>
+	</select>
+	
+	<select id="searchRProject" resultMap="AProjectmap">
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE ING_FLAG = 'N' AND SPON < 100 ORDER BY END_DATE DESC
+		]]>
+	</select>
+	
+	<select id="searchTProject" parameterType="String" resultMap="AProjectmap">
+		<![CDATA[
+			SELECT * FROM A_PROJECT WHERE PROJECT_NAME LIKE #{ title }
+		]]>
 	</select>
 	
 	<resultMap id="AMembermap" type="AMember">
@@ -263,10 +274,9 @@
 	
 	<select id="noticeList" resultMap="NoticeMap" resultType="list" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT ROWNUM,NOTICE_ID,TITLE,CREATION_DATE, CONTENT 
+			SELECT NOTICE_ID,TITLE,CREATION_DATE, CONTENT 
 			FROM NOTICE
-			WHERE ROWNUM >= #{ startRow  } AND ROWNUM <= #{ endRow }
-			ORDER BY CREATION_DATE DESC
+			WHERE NOTICE_ID >= #{ startRow  } AND NOTICE_ID <= #{ endRow }
 		]]>	
 	</select>
 	

@@ -48,6 +48,12 @@
   }
   #notice textarea#ncont{
   		height:auto;
+  		font-size:14px;
+  }
+  #notice input#ntit{
+  		width:800px;
+  		font-size:14px;
+  		height: 30px;
   }
   #notice #nomodal div.modal-body , #notice #nomodal2 div.modal-body{
 		height: auto;
@@ -87,7 +93,7 @@
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
-  	//공지사항 등록 MODAL
+  	//공지사항 수정 ajax
   	function noupbtn(noticeid){
   		$.ajax({
   	  		url:"adminNoticeDet.do",
@@ -107,8 +113,8 @@
 					
 					values += "<form action='adminNoticeUp.do' method='post'><div class='panel-heading'><h4 class='panel-title'>"+
 					"<input type='hidden' name='notice_id' value='"+json.notice_id+"'>"+
-					"<a data-toggle='collapse' data-parent='#accordion' href='#notice"+ json.notice_id +"'><input type='text' name='title' value='"+
-					decodeURIComponent(json.title.replace(/\+/g," "))+"'></a></h4></div><div id='notice"+json.notice_id+
+					"<input type='text' id='ntit' class='form-control' name='title' value='"+
+					decodeURIComponent(json.title.replace(/\+/g," "))+"'></h4></div><div id='notice"+json.notice_id+
 					"' class='panel-collapse collapse in'>"+
 					"<div class='panel-body'><textarea id='ncont' class='form-control' name='content'>"+
 					decodeURIComponent(json.content.replace(/\+/g," ")) +"</textarea>"+
@@ -179,15 +185,24 @@
     </c:forEach>
   </div> 
  
-<!--  <div class="pagediv">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
- </div> -->
+   <!-- 페이지 번호 처리 -->
+	<div id="pagediv" style="text-align:center;">
+	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
+	<c:url var="page" value="adminNotice.do">
+		<c:param name="currentPage" value="${p }" />
+	</c:url>
+	<ul class="pagination" style="display:inline-block;">
+	<c:if test="${p ne currentPage }">
+		<li><a href="${page }">${p }</a></li>
+		<%-- <a href="${page }">	| ${p } |&nbsp; </a>  --%>
+	</c:if>
+	<c:if test="${p eq currentPage }">	
+		<li class="active"><a href="${page }">${p }</a></li>
+	<%-- <a href="${page }">	| <b>${p }</b> |&nbsp; </a> --%>
+	</c:if>
+	</ul>
+	</c:forEach>
+	</div> 
 
 
 <!-- Modal -->

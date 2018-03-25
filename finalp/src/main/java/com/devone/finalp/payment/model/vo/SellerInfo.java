@@ -9,16 +9,18 @@ public class SellerInfo implements Serializable {
 	
 	private String project_id;
 	private String project_name;
-	private String memeber_name;
+	private String member_name;
+	private String profile_img_rename;
 	private Date end_date;
 
 	public SellerInfo() {}
 
-	public SellerInfo(String project_id, String project_name, String memeber_name,Date end_date) {
+	public SellerInfo(String project_id, String project_name, String member_name,String profile_img_rename ,Date end_date) {
 		super();
 		this.project_id = project_id;
 		this.project_name = project_name;
-		this.memeber_name = memeber_name;
+		this.member_name = member_name;
+		this.profile_img_rename = profile_img_rename;
 		this.end_date = end_date;
 	}
 
@@ -38,12 +40,12 @@ public class SellerInfo implements Serializable {
 		this.project_name = project_name;
 	}
 
-	public String getMemeber_name() {
-		return memeber_name;
+	public String getMember_name() {
+		return member_name;
 	}
 
-	public void setMemeber_name(String memeber_name) {
-		this.memeber_name = memeber_name;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 	public Date getEnd_date() {
@@ -53,6 +55,21 @@ public class SellerInfo implements Serializable {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
+
+	public String getProfile_img_rename() {
+		return profile_img_rename;
+	}
+
+	public void setProfile_img_rename(String profile_img_rename) {
+		this.profile_img_rename = profile_img_rename;
+	}
+
+	@Override
+	public String toString() {
+		return "SellerInfo [project_id=" + project_id + ", project_name=" + project_name + ", member_name="
+				+ member_name + ", profile_img_rename=" + profile_img_rename + ", end_date=" + end_date + "]";
+	}
+	
 	
 	
 }

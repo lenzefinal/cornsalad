@@ -24,7 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.devone.finalp.board.model.vo.Board;
 import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
+import com.devone.finalp.board.model.vo.Board_recommend;
 import com.devone.finalp.board.service.BoardService;
+import com.devone.finalp.common.model.vo.Report;
 
 @Controller
 public class BoardController {
@@ -46,7 +48,8 @@ public class BoardController {
 		Board_Pagectr bp = new Board_Pagectr(startnum, endnum,startpage,endpage,maxpage,page,c_id);
 		model.addAttribute("blist", bService.selectbList(bp));
 		model.addAttribute("pagectr", bp);
-		
+		model.addAttribute("bestViewList",bService.selectView());
+		model.addAttribute("bestRecList",bService.selectRec());
 		return "board/boardList";
 	}
 
@@ -86,14 +89,29 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "bdetail.do")
-	public String BoardDetail(Model model, Board b, HttpServletRequest rq) {
+	public String BoardDetail(Model model, Board b, HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+		rs.setCharacterEncoding("utf-8");
+		rs.setContentType("text/html; charset=UTF-8");
 		if (b.getBoard_id() == 0) {
 			b.setBoard_id(Integer.parseInt(rq.getParameter("b_id")));
 		}
-		model.addAttribute("board", bService.selectb(b.getBoard_id()));
+		b = bService.selectb(b.getBoard_id());
+		if(b.getReport_count()>5) {
+			PrintWriter output = rs.getWriter();
+			output.println("<script language='javascript'>");
+			output.println("alert('신고된 게시글입니다.')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+			return "redirect:blist.do?page=1";
+		}else { 
+		b.setReadcount(b.getReadcount()+1);
+		bService.updateBRC(b);
+		model.addAttribute("board",b );
 		model.addAttribute("brlist", bService.selectbrList());
 		return "board/boardDetail";
-	}
+		}
+}
 
 	@RequestMapping("/bdownfile.do")
 	public void fileDownload(@RequestParam(value = "rfile") String rfileName,
@@ -130,15 +148,24 @@ public class BoardController {
 
 	@RequestMapping(value = "brwrite.do")
 	public String insertBoardR(Board_Reply br, RedirectAttributes ra, HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter output = response.getWriter();
 		if(br.getMember_id() == ""){
-			PrintWriter output = response.getWriter();
 			output.println("<script language='javascript'>");
-			output.println("alert('Please log in again')");
+			output.println("alert('세션이 만료되엇습니다. 다시 로그인 해 주세요')");
 			output.println("history.back();");
 			output.println("</script>");
 			output.close();
-		}else {
-		ra.addFlashAttribute("board_id", br.getBoard_id());
+		}else if(br.getBoard_content() == null){
+			output.println("<script language='javascript'>");
+			output.println("alert('내용을 입력해 주세요')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+		}
+		else {
+		//ra.addFlashAttribute("board_id", br.getBoard_id());
 		bService.insertBoard_Reply(br);
 		}
 		return "redirect:bdetail.do?b_id=" + br.getBoard_id();
@@ -218,5 +245,43 @@ public class BoardController {
 	public String BoardRDelete(Board_Reply br) {
 		bService.deleteBoard_Reply(br.getBoard_reply_id());
 		return "redirect:bdetail.do?b_id=" + br.getBoard_id();
+	}
+	@RequestMapping(value="breport.do")
+	public String breport(Report report, HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+		int board_id = Integer.parseInt(rq.getParameter("board_id"));
+		rs.setCharacterEncoding("UTF-8");
+		rs.setContentType("text/html; charset=UTF-8");
+		bService.countbReport(board_id);
+		PrintWriter output = rs.getWriter();
+		output.println("<script language='javascript'>");
+		output.println("alert('신고가 완료되었습니다')");
+		output.println("history.back();");
+		output.println("</script>");
+		output.close();
+		return "redirect:bdetail.do?b_id="+board_id;
+	}
+	
+	@RequestMapping(value="brecom.do")
+	public String brecom(Board_recommend brec, Board b,HttpServletResponse rs ) throws IOException {
+		rs.setCharacterEncoding("UTF-8");
+		rs.setContentType("text/html; charset=UTF-8");
+		PrintWriter output = rs.getWriter();
+		if(bService.checkRec(brec)==0) {
+			bService.insertBoard_Rec(brec);
+			b.setRecommend_count(b.getRecommend_count()+1);
+			bService.updateBoard(b);
+			output.println("<script language='javascript'>");
+			output.println("alert('추천이 완료되었습니다.')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+		}else {
+			output.println("<script language='javascript'>");
+			output.println("alert('이미 추천한 게시글 입니다.')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+		}
+		return "redirect:bdetail.do?b_id="+b.getBoard_id();
 	}
 }

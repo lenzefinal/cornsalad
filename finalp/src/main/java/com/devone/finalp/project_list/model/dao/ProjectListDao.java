@@ -74,4 +74,12 @@ public class ProjectListDao {
 		return mybatis.selectList("projectListMapper.selectProductKeywordCategory", hm);
 	}
 
+	public List<ProjectListView> selectEndProjectList() {
+		return mybatis.selectList("projectListMapper.selectEndProjectList");
+	}
+
+	public List<ProductListView> selectEndProductList() {
+		return mybatis.selectList("projectListMapper.selectEndProductList");
+	}
+
 }

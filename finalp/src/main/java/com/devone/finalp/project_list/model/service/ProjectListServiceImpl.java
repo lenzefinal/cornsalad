@@ -58,4 +58,14 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDao.selectKeywordCategory(category, project_name);
 	}
 
+	@Override
+	public List<ProjectListView> selectEndProjectList() {
+		return projectListDao.selectEndProjectList();
+	}
+
+	@Override
+	public List<ProductListView> selectEndProductList() {
+		return projectListDao.selectEndProductList();
+	}
+
 }

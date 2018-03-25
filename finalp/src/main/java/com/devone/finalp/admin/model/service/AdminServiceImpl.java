@@ -76,10 +76,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.updateQuestion(question);
 	}
 
+	//관리자 프로젝트 수(페이징 처리용)
+	@Override
+	public int aproListCount() {
+		return adminDao.aproListCount();
+	}
+	
 	//관리자 프로젝트 리스트 조회
 	@Override
-	public List<AProject> selectProjectList() {
-		return adminDao.selectProjectList();
+	public List<AProject> selectProjectList(HashMap<String,Object> map) {
+		return adminDao.selectProjectList(map);
 	}
 
 	//관리자 승인요청 프로젝트 리스트 조회
@@ -235,8 +241,20 @@ public class AdminServiceImpl implements AdminService {
 
 	//프로젝트 카테고리별 검색
 	@Override
-	public List<AProject> searchCProejct(String project_category_name) {
-		return adminDao.searchCProject(project_category_name);
+	public List<AProject> searchCProejct(String cname) {
+		return adminDao.searchCProject(cname);
+	}
+
+	//환불 프로젝트 검색
+	@Override
+	public List<AProject> searchRProejct() {
+		return adminDao.serchRProejct();
+	}
+	
+	//프로젝트 이름 검색
+	@Override
+	public List<AProject> searchTProejct(String title) {
+		return adminDao.searchTProject(title);
 	}
 	
 	

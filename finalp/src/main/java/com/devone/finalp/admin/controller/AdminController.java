@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.devone.finalp.admin.model.service.AdminService;
 import com.devone.finalp.admin.model.vo.AAlarm;
@@ -120,7 +121,8 @@ public class AdminController {
 	
 	//관리자 회원 정지(블랙리스트)
 	@RequestMapping("adminMemberBlack.do")
-	public String memberBlack(@RequestParam(value="member_name") String member_name, @RequestParam(value="num") int num) {
+	public String memberBlack(@RequestParam(value="member_name") String member_name, 
+			@RequestParam(value="num") int num, RedirectAttributes redirectAttributes) {
 		
 		int result=adminService.memberBlack(member_name);
 		String viewname=null;
@@ -129,7 +131,8 @@ public class AdminController {
 			viewname="redirect:adminMember.do";
 		}else if(num==1 && result > 0) {
 			System.out.println("상세보기에서 회원블랙 오께이");
-			viewname="redirect:adminMemberDetail.do?member_name="+member_name;
+			redirectAttributes.addAttribute("member_name",member_name);
+			viewname="redirect:adminMemberDetail.do";
 		}else {
 			System.out.println("회원블랙 실패");
 			viewname="redirect:adminMember.do";
@@ -152,9 +155,37 @@ public class AdminController {
 
 	//관리자 프로젝트리스트
 	@RequestMapping("adminProject.do")
-	public String adminProject(Model model) {
+	public String adminProject(Model model,HttpServletRequest request) {
+		
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int limit = 10; //한 페이지에 출력할 목록 갯수
+		int listCount = adminService.aproListCount();
+		int maxPage = (int)((double)listCount / limit + 0.9);
+		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
+		int endPage = startPage + limit - 1;
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		
+		List<AProject> list = adminService.selectProjectList(map);
+		
+		if(maxPage < endPage)
+			endPage = maxPage;
 		model.addAttribute("oplist",adminService.selectOffProject());
-		model.addAttribute("aplist",adminService.selectProjectList());
+		model.addAttribute("aplist",list);
+		model.addAttribute("limit", limit);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
 		return "admin/adminProject";
 	}
 	
@@ -573,15 +604,14 @@ public class AdminController {
 	//프로젝트 카테고리별 검색
 	@RequestMapping(value="searchCProject.do", method=RequestMethod.POST)
 	public void searchCProject(HttpServletResponse response,
-			@RequestParam(value="cname") String project_category_name) throws IOException {
+			@RequestParam(value="cname") String cname) throws IOException {
+		System.out.print(cname);
 		List<AProject> splist = null;
-		if(project_category_name.equals("all")) {
-			splist=adminService.selectProjectList();
+		if(cname.equals("all")) {
+			return;
 		}else {
-			splist=adminService.searchCProejct(project_category_name);
+			splist=adminService.searchCProejct(cname);
 		}
-		
-		System.out.print(project_category_name);
 		JSONObject sendjson=new JSONObject();
 		JSONArray jarr=new JSONArray();
 		
@@ -598,7 +628,11 @@ public class AdminController {
 			jproj.put("project_onoff_flag",aproj.getProject_onoff_flag());
 			jproj.put("target_amount",aproj.getTarget_amount());
 			jproj.put("report_count",aproj.getReport_count());
-			jproj.put("start_date",aproj.getStart_date().toString().trim());
+			if(aproj.getStart_date() == null) {
+				jproj.put("start_date",aproj.getStart_date());
+			}else {
+				jproj.put("start_date",aproj.getStart_date().toString().trim());
+			}
 			jproj.put("end_date",aproj.getEnd_date().toString().trim());
 			jproj.put("spon",aproj.getSpon());
 			jproj.put("ing_flag",aproj.getIng_flag());
@@ -608,6 +642,97 @@ public class AdminController {
 		}
 		
 		sendjson.put("cplist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	//환불프로젝트만 검색
+	@RequestMapping(value="searchRProject.do", method=RequestMethod.POST)
+	public void searchRProject(HttpServletResponse response) throws IOException {
+		
+		List<AProject> splist=adminService.searchRProejct();
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AProject aproj : splist ) {
+			JSONObject jproj =new JSONObject();
+			jproj.put("rnum", aproj.getRnum());
+			jproj.put("project_category_name", URLEncoder.encode(aproj.getProject_category_name(),"utf-8"));
+			jproj.put("category_sub_name", URLEncoder.encode(aproj.getCategory_sub_name(),"utf-8"));
+			jproj.put("project_id", aproj.getProject_id());
+			jproj.put("project_name",URLEncoder.encode(aproj.getProject_name(),"utf-8"));
+			jproj.put("member_name",URLEncoder.encode(aproj.getMember_name(),"utf-8"));
+			jproj.put("creation_date",aproj.getCreation_date().toString().trim());
+			jproj.put("project_request_flag",aproj.getProject_request_flag());
+			jproj.put("project_onoff_flag",aproj.getProject_onoff_flag());
+			jproj.put("target_amount",aproj.getTarget_amount());
+			jproj.put("report_count",aproj.getReport_count());
+			if(aproj.getStart_date() == null) {
+				jproj.put("start_date",aproj.getStart_date());
+			}else {
+				jproj.put("start_date",aproj.getStart_date().toString().trim());
+			}
+			jproj.put("end_date",aproj.getEnd_date().toString().trim());
+			jproj.put("spon",aproj.getSpon());
+			jproj.put("ing_flag",aproj.getIng_flag());
+			jproj.put("refund_flag",aproj.getRefund_flag());
+			
+			jarr.add(jproj);
+		}
+		
+		sendjson.put("rplist", jarr);
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendjson.toJSONString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	//프로젝트 제목으로 검색
+	@RequestMapping(value="searchTProject.do", method=RequestMethod.POST)
+	public void searchTProject(HttpServletResponse response,
+			@RequestParam(value="title") String title) throws IOException {
+		
+		List<AProject> splist=adminService.searchTProejct(title);
+		
+		JSONObject sendjson=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		
+		for(AProject aproj : splist ) {
+			JSONObject jproj =new JSONObject();
+			jproj.put("rnum", aproj.getRnum());
+			jproj.put("project_category_name", URLEncoder.encode(aproj.getProject_category_name(),"utf-8"));
+			jproj.put("category_sub_name", URLEncoder.encode(aproj.getCategory_sub_name(),"utf-8"));
+			jproj.put("project_id", aproj.getProject_id());
+			jproj.put("project_name",URLEncoder.encode(aproj.getProject_name(),"utf-8"));
+			jproj.put("member_name",URLEncoder.encode(aproj.getMember_name(),"utf-8"));
+			jproj.put("creation_date",aproj.getCreation_date().toString().trim());
+			jproj.put("project_request_flag",aproj.getProject_request_flag());
+			jproj.put("project_onoff_flag",aproj.getProject_onoff_flag());
+			jproj.put("target_amount",aproj.getTarget_amount());
+			jproj.put("report_count",aproj.getReport_count());
+			if(aproj.getStart_date() == null) {
+				jproj.put("start_date",aproj.getStart_date());
+			}else {
+				jproj.put("start_date",aproj.getStart_date().toString().trim());
+			}
+			jproj.put("end_date",aproj.getEnd_date().toString().trim());
+			jproj.put("spon",aproj.getSpon());
+			jproj.put("ing_flag",aproj.getIng_flag());
+			jproj.put("refund_flag",aproj.getRefund_flag());
+			
+			jarr.add(jproj);
+		}
+		
+		sendjson.put("tplist", jarr);
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -650,6 +775,7 @@ public class AdminController {
 		model.addAttribute("endPage", endPage);
 		
 		return "notice/noticeMain";
+		
 	}
 
 }

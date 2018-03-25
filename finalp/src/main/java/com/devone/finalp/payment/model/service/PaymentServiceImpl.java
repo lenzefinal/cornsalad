@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.Payment;
+import com.devone.finalp.common.model.vo.PaymentCount;
 import com.devone.finalp.payment.model.dao.PaymentDao;
 import com.devone.finalp.payment.model.vo.GiftItem;
 import com.devone.finalp.payment.model.vo.PayGiftView;
@@ -17,8 +20,8 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentDao payDao;
 
 	@Override
-	public SellerInfo selectProject(String project_id) {
-		return payDao.selectProject(project_id);
+	public SellerInfo selectProjectInfo(String project_id) {
+		return payDao.selectProjectInfo(project_id);
 	}
 
 	@Override
@@ -29,6 +32,48 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public List<GiftItem> selectItem() {
 		return payDao.selectItems();
+	}
+
+	@Override
+	public int insertPayment(Payment p) {
+		
+		return payDao.insertPayment(p);
+	}
+
+	@Override
+	public int updatePayment(String payment_id) {
+		
+		return payDao.updatePayment(payment_id);
+	}
+
+	@Override
+	public Member selectMember(String m_id) {
+		
+		return payDao.selectMember(m_id);
+	}
+
+	@Override
+	public List<GiftItem> selectChoiceGift(String g_id) {
+		
+		return payDao.selectChoiceGift(g_id);
+	}
+
+	@Override
+	public int adminRefund(String project_id) {
+		
+		return payDao.adminRefund(project_id);
+	}
+
+	@Override
+	public List<Payment> selectPayment(String project_id) {
+		
+		return payDao.selectPayment(project_id);
+	}
+
+	@Override
+	public int insertPaymentCount(PaymentCount pc) {
+		
+		return payDao.insertPaymentCount(pc);
 	}
 
 }

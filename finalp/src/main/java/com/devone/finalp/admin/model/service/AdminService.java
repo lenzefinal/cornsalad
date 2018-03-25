@@ -23,7 +23,8 @@ public interface AdminService {
 	List<AQuestion> selectQuestionList();
 	AQuestion aquestionDetail(int question_id);
 	int updateQuestion(AQuestion question);
-	List<AProject> selectProjectList();
+	int aproListCount();
+	List<AProject> selectProjectList(HashMap<String,Object> map);
 	List<AProject> selectOffProject();
 	int updateProjectOn(String project_id);
 	int updateProjectOff(String project_id);
@@ -50,6 +51,8 @@ public interface AdminService {
 	List<AReport> searchReport(String report_category_name);
 	List<AMember> searchMember(String searchM);
 	List<Notice> searchNotice(String searchN);
-	List<AProject> searchCProejct(String project_category_name);
+	List<AProject> searchCProejct(String cname);
+	List<AProject> searchRProejct();
+	List<AProject> searchTProejct(String title);
 	
 }
