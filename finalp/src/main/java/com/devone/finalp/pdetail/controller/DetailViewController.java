@@ -170,11 +170,10 @@ public class DetailViewController {
 		return job.toJSONString();
 	}
 	@RequestMapping(value="insertQuestion", method=RequestMethod.POST)
-	public String insertQuestion(Question question,@RequestParam("project_id") String project_id,Model model) {
+	public String insertQuestion(Question question,@RequestParam("project_id") String project_id,
+								@RequestParam("category") String category, Model model) {
 		System.out.println(question);
 		
-		Project project=detailviewService.selectMemberId(project_id);
-		question.setReceive_member_id(project.getMember_id());
 		int result=detailviewService.insertQuestion(question);
 		
 		String str = "";
@@ -182,6 +181,11 @@ public class DetailViewController {
 			System.out.println("성공");
 			model.addAttribute("project_id", project_id);
 			model.addAttribute("member_id", question.getSend_member_id());
+		}
+		
+		if(category.equals("PC-PROD")) {
+			str= "redirect:projectDetailGPView.do";
+		}else {
 			str= "redirect:projectDetailView.do";
 		}
 		return str;

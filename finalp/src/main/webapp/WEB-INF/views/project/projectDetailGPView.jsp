@@ -778,8 +778,10 @@ $(document).ready(function() {
 				<br>
 				<form action="insertQuestion.do" method="post">
 						<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
+						<input type="hidden" name="receive_member_id" value="${ LoginTimeView.member_id }">
+						<input type="hidden" name="category" value="PC-PROD">
 						<input type="text"  value="${ loginUser.member_name}"> 
-						<input type="hidden" name="project_id" value="${ likes.project_id} ">
+						<input type="hidden" name="project_id" value="${ proview.project_id}">
 						<input type="text" name="title" value="">
 						<textarea name="content" placeholder="문의 내용"></textarea>
 

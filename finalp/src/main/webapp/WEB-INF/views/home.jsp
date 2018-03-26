@@ -89,7 +89,7 @@
 				<dt>공지사항</dt>
 				<dd><a href="noticeMain.do">홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요!</a></dd>
 			</dl>
-			<a class="more" href="notictMain.do">전체보기 <i class="icon-chevron-right"></i></a>
+			<a class="more" href="noticeMain.do">전체보기 <i class="icon-chevron-right"></i></a>
 		</div>
 		
 		<div id="noticeList" style="margin-top:20px;">

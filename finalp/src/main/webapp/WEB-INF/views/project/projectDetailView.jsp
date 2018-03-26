@@ -710,7 +710,7 @@
 																			'<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>'+
 																		'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																'<div class="comment-content"><p>';
-																if(json.replylist[i].reply_count<=5)
+																if(json.replylist[i].report_count<=5)
 															 values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
 																else{
 														 	values+='신고된 댓글입니다.';
@@ -760,7 +760,7 @@
 																		values+='</a><a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a></p>'+
 																			'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																	'<div class="comment-content"><p>';
-																	if(json.replylist[i].reply_count<=5)
+																	if(json.replylist[i].report_count<=5)
 																values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
 																	else{
 																values+="신고된 댓글입니다.";
@@ -857,9 +857,11 @@
 				<br>
 				<form action="insertQuestion.do" method="post">
 						<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
+						<input type="hidden" name="receive_member_id" value="${ LoginTimeView.member_id }">
+						<input type="hidden" name="category" value="PC-FUND">
 						<input type="text"  value="문의자:  ${ loginUser.member_name}" readonly> 
 						<input type="hidden" name="project_id" value="${ proview.project_id }">
-						<input type="text" name="title" value="" placeholder="문의 제목">
+						<input type="text" name="title" placeholder="문의 제목">
 						<textarea name="content" placeholder="문의 내용"></textarea>
 
 					<input type="submit" class="blacklist blacklist-submit"
