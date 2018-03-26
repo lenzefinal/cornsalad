@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Payment;
 import com.devone.finalp.common.model.vo.PaymentCount;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.payment.model.dao.PaymentDao;
 import com.devone.finalp.payment.model.vo.GiftItem;
 import com.devone.finalp.payment.model.vo.PayGiftView;
@@ -74,6 +75,18 @@ public class PaymentServiceImpl implements PaymentService {
 	public int insertPaymentCount(PaymentCount pc) {
 		
 		return payDao.insertPaymentCount(pc);
+	}
+
+	@Override
+	public List<Product> selectProduct(String project_id) {
+		
+		return payDao.selectProduct(project_id);
+	}
+
+	@Override
+	public String selectProjectCategory(String p_id) {
+		
+		return payDao.selectProjectCategory(p_id);
 	}
 
 }

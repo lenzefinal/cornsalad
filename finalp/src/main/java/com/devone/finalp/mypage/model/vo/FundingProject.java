@@ -10,6 +10,7 @@ public class FundingProject implements java.io.Serializable {
 	private String project_name;
 	private String product_name;
 	private String member_id;
+	private String payment_id;
 	private Date end_date;
 	private String pay_option;
 	private int size;
@@ -87,7 +88,7 @@ public class FundingProject implements java.io.Serializable {
 	}
 
 	public FundingProject(String project_id, String image_rename, String project_name, String product_name,
-			String member_id, Date end_date, String pay_option, int size) {
+			String member_id, Date end_date, String pay_option, int size, String payment_id) {
 		super();
 		this.project_id = project_id;
 		this.image_rename = image_rename;
@@ -97,6 +98,22 @@ public class FundingProject implements java.io.Serializable {
 		this.end_date = end_date;
 		this.pay_option = pay_option;
 		this.size = size;
+		this.payment_id=payment_id;
+	}
+
+	public String getPayment_id() {
+		return payment_id;
+	}
+
+	public void setPayment_id(String payment_id) {
+		this.payment_id = payment_id;
+	}
+
+	@Override
+	public String toString() {
+		return "FundingProject [project_id=" + project_id + ", image_rename=" + image_rename + ", project_name="
+				+ project_name + ", product_name=" + product_name + ", member_id=" + member_id + ", payment_id="
+				+ payment_id + ", end_date=" + end_date + ", pay_option=" + pay_option + ", size=" + size + "]";
 	}
 
 

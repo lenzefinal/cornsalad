@@ -129,6 +129,12 @@
 		font-size: 15px;
 		font-weight: bold;
 	}
+	#projec p#pfont{
+		margin-top: 6px;
+		font-size: 15px;
+		font-family : '맑은 고딕';
+		font-weight: bold;
+	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
@@ -147,6 +153,10 @@
   		var pcate = document.getElementById("pcate");
 		var cname = pcate.options[pcate.selectedIndex].value;
 			console.log("cname : "+ cname)
+			if(cname == 'all'){
+				location.reload();
+				return false;
+			}
 			$.ajax({
 				url: "searchCProject.do",
 				data:{
@@ -163,15 +173,26 @@
 					
 					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+						"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 					
 					if(json.cplist.length > 0){
 						for(var i in json.cplist){
 							value += "<tr><td>"+ decodeURIComponent(json.cplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
-									decodeURIComponent(json.cplist[i].category_sub_name.replace(/\+/g," ")) +
-									"</td><td>" + decodeURIComponent(json.cplist[i].project_name.replace(/\+/g," ")) + "</td><td>" + 
-									decodeURIComponent(json.cplist[i].member_name.replace(/\+/g," ")) + 
-									"</td><td>" + json.cplist[i].spon + "% </td><td>" + json.cplist[i].end_date +"</td>";
+									decodeURIComponent(json.cplist[i].category_sub_name.replace(/\+/g," ")) +"</td>";
+									
+								if(cname == '펀딩'){
+									value += "<td><a href='projectDetailView.do?member_id=${ loginUser.member_id }&project_id=" + json.cplist[i].project_id +
+											"'>" + decodeURIComponent(json.cplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+								}else if(cname == '공동구매'){
+									value += "<td><a href='projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=" + json.cplist[i].project_id +
+											"'>" + decodeURIComponent(json.cplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+								}
+									
+									
+								value += "<td>" + decodeURIComponent(json.cplist[i].member_name.replace(/\+/g," ")) + 
+										"</td><td>" + json.cplist[i].spon + "% </td><td>"+ json.cplist[i].start_date +
+										"</td><td>" + json.cplist[i].end_date +"</td>";
+										
 							if(json.cplist[i].ing_flag == 'Y'){
 								value += "<td>진행중</td>";
 							}else if( (json.cplist[i].ing_flag == 'N') && ( json.cplist[i].spon < 100 ) ){
@@ -194,7 +215,7 @@
 							}
 						}
 					}else {
-						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
+						value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
 					}
 					$('#pagediv').empty();
 					$('#aptable').html(value);
@@ -223,15 +244,25 @@
 				
 				var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 					"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-					"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+					"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 				
 				if(json.rplist.length > 0){
 					for(var i in json.rplist){
 						value += "<tr><td>"+ decodeURIComponent(json.rplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
-								decodeURIComponent(json.rplist[i].category_sub_name.replace(/\+/g," ")) +
-								"</td><td>" + decodeURIComponent(json.rplist[i].project_name.replace(/\+/g," ")) + "</td><td>" + 
-								decodeURIComponent(json.rplist[i].member_name.replace(/\+/g," ")) + 
-								"</td><td>" + json.rplist[i].spon + "% </td><td>" + json.rplist[i].end_date +"</td>";
+								decodeURIComponent(json.rplist[i].category_sub_name.replace(/\+/g," ")) +"</td>"; 
+								
+						if( decodeURIComponent(json.rplist[i].project_category_name.replace(/\+/g," ")) == '펀딩'){
+							value += "<td><a href='projectDetailView.do?member_id=${ loginUser.member_id }&project_id=" + json.rplist[i].project_id +
+									"'>" + decodeURIComponent(json.rplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+						}else if(decodeURIComponent(json.rplist[i].project_category_name.replace(/\+/g," ")) == '공동구매'){
+							value += "<td><a href='projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=" + json.rplist[i].project_id +
+									"'>" + decodeURIComponent(json.rplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+						}	
+							
+						value += "<td>" + decodeURIComponent(json.rplist[i].member_name.replace(/\+/g," ")) + 
+								"</td><td>" + json.rplist[i].spon + "% </td><td>"+ json.rplist[i].start_date +
+								"</td><td>" + json.rplist[i].end_date +"</td>";
+
 						if(json.rplist[i].ing_flag == 'Y'){
 							value += "<td>진행중</td>";
 						}else if( (json.rplist[i].ing_flag == 'N') && ( json.rplist[i].spon < 100 ) ){
@@ -254,7 +285,7 @@
 						}
 					}
 				}else {
-					value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
+					value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
 				}
 				$('#pagediv').empty();
 				$('#aptable').html(value);
@@ -291,15 +322,25 @@
 					
 					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+						"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 					
 					if(json.tplist.length > 0){
 						for(var i in json.tplist){
 							value += "<tr><td>"+ decodeURIComponent(json.tplist[i].project_category_name.replace(/\+/g," ")) + "</td><td>" + 
-									decodeURIComponent(json.tplist[i].category_sub_name.replace(/\+/g," ")) +
-									"</td><td>" + decodeURIComponent(json.tplist[i].project_name.replace(/\+/g," ")) + "</td><td>" + 
-									decodeURIComponent(json.tplist[i].member_name.replace(/\+/g," ")) + 
-									"</td><td>" + json.tplist[i].spon + "% </td><td>" + json.tplist[i].end_date +"</td>";
+									decodeURIComponent(json.tplist[i].category_sub_name.replace(/\+/g," ")) + "</td>";
+									
+							if( decodeURIComponent(json.tplist[i].project_category_name.replace(/\+/g," ")) == '펀딩'){
+								value += "<td><a href='projectDetailView.do?member_id=${ loginUser.member_id }&project_id=" + json.tplist[i].project_id +
+										"'>" + decodeURIComponent(json.tplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+							}else if(decodeURIComponent(json.tplist[i].project_category_name.replace(/\+/g," ")) == '공동구매'){
+								value += "<td><a href='projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=" + json.tplist[i].project_id +
+										"'>" + decodeURIComponent(json.tplist[i].project_name.replace(/\+/g," ")) + "</a></td>";
+							}	
+								
+							value += "<td>" + decodeURIComponent(json.tplist[i].member_name.replace(/\+/g," ")) + 
+									"</td><td>" + json.tplist[i].spon + "% </td><td>"+ json.tplist[i].start_date +
+									"</td><td>" + json.tplist[i].end_date +"</td>";
+
 							if(json.tplist[i].ing_flag == 'Y'){
 								value += "<td>진행중</td>";
 							}else if( (json.tplist[i].ing_flag == 'N') && ( json.tplist[i].spon < 100 ) ){
@@ -322,7 +363,7 @@
 							}
 						}
 					}else {
-						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
+						value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
 					}
 					$('#pagediv').empty();
 					$('#aptable').html(value);
@@ -364,6 +405,7 @@
         <th>제목</th>
         <th>종료일</th>
 		<th>작성자</th>
+		<th>검토하기</th>
 		<th>승인</th>
       </tr>
     </thead>
@@ -380,11 +422,25 @@
 						<td>
 						<c:choose>
 							<c:when test="${ oprow.project_category_name eq '펀딩' }">
-								<a><button class="btn btn-default">승인</button></a>
+								<a href="projectDetailView.do?member_id=${ loginUser.member_id }&project_id=${ oprow.project_id }">
+								<button class="btn btn-default">검토하기</button></a>
 							</c:when>
 							<c:when test="${ oprow.project_category_name eq '공동구매' }">
 								<a href="projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=${ oprow.project_id }">
-								<button class="btn btn-default">승인</button></a>
+								<button class="btn btn-default">검토하기</button></a>
+							</c:when>
+						</c:choose>
+						</td>
+						<td>
+						<c:choose>
+							<c:when test="${ oprow.project_request_flag eq 'Y' }">
+								<a href="adminProjectOn.do?project_id=${ oprow.project_id }">
+								<button class="btn btn-success">승인</button></a>	&nbsp;
+								<a href="adminProjectWait.do?project_id=${ oprow.project_id }">
+								<button class="btn btn-danger">거부</button></a>
+							</c:when>
+							<c:when test="${ oprow.project_request_flag eq 'W' }">
+								<p id="pfont">대기중</p>
 							</c:when>
 						</c:choose>
 						</td>
@@ -440,6 +496,7 @@
         <th>제목</th>
 		<th>작성자</th>
 		<th>후원현황</th>
+		<th>시작일</th>
 		<th>종료일</th>
 		<th>목표 달성</th>
 		<th>활성화 / 비활성화</th>
@@ -452,9 +509,21 @@
     				<tr>
        					<td>${ aprow.project_category_name }</td>
        					<td>${ aprow.category_sub_name }</td>
-        				<td>${ aprow.project_name }</td>
+        				<td>
+        				<c:choose>
+							<c:when test="${ aprow.project_category_name eq '펀딩' }">
+								<a href="projectDetailView.do?member_id=${ loginUser.member_id }&project_id=${ aprow.project_id }">
+								${ aprow.project_name }</a>
+							</c:when>
+							<c:when test="${ aprow.project_category_name eq '공동구매' }">
+								<a href="projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=${ aprow.project_id }">
+								${ aprow.project_name }</a>
+							</c:when>
+						</c:choose>
+        				</td>
 						<td>${ aprow.member_name }</td>
 						<td>${ aprow.spon } % </td>
+						<td>${ aprow.start_date }</td>
 						<td>${ aprow.end_date }</td>
 						<td>
 						<c:choose>
@@ -466,7 +535,9 @@
 									실패 / 환불완료
 								</c:if>
 								<c:if test="${ aprow.refund_flag eq 'N' }">
-									실패 <button class="btn btn-danger">환불</button>
+									실패 
+									<a href="refundAll.do?project_id=${ aprow.project_id }">
+									<button class="btn btn-danger">전체 환불</button></a>
 								</c:if>
 							</c:when>
 							<c:when test="${ (aprow.ing_flag eq 'N') and (aprow.spon >= 100) }">

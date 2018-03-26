@@ -103,7 +103,7 @@ public class MemberStatusController {
 	public String sendEmail(@RequestParam(value="Email") String email,
 						  HttpServletResponse response)  throws ServletException, IOException {
 		
-		int num = (int)(Math.random()*9999)+1001;
+		int num = (int)(Math.random()*9998)+1001;
 		char ch = (char)((Math.random() * 26) + 65);
 		char ch2 = (char)((Math.random() * 26) + 65);
 		
@@ -189,12 +189,17 @@ public class MemberStatusController {
 							 HttpSession session) throws IOException {
 		System.out.println("잘들어왔나");
 		System.out.println(member);
+		
 		String userpwd = member.getMember_pwd();
-	      Encryption encryption = new Encryption("MD5", userpwd);
-	      String newpassword = String.valueOf(encryption.getEncryptData());
-	      member.setMember_pwd(newpassword);
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
 		
 		int result = memberStatusService.insertMember(member);
+		
+		//jieun
+		//회원가입할 때 멤버신고테이블에도 row 추가
+		memberStatusService.insertMemberReportCount(member.getMember_id());
 		
 		PrintWriter out = response.getWriter();
 		if(result>0) {

@@ -47,7 +47,7 @@ public interface MypageService {
 	int receiveQ(MyQuestion q);
 	List<FundingProject> selectFundingProject(FundingProject project);
 	List<FundingProject> searchFundingProject(FundingProject fundingProject);
-	MyProdPay myProdpay(MyProdPay prodpay);
-	MyFundPay myFundpay(MyFundPay fundpay);
+	List<MyProdPay> myProdpay(MyProdPay prodpay);
+	List<MyFundPay> myFundpay(MyFundPay fundpay);
 	
 }

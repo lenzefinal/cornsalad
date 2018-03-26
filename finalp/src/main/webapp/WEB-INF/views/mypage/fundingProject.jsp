@@ -43,6 +43,19 @@
 	div.display-none{
 		display:none;
 	}
+	
+	/* jieun */
+	.btn-primary{
+		border: 1px solid #3e4b53;
+		background-color: white;
+		color: #3e4b53;
+		
+	}
+	.btn-primary:hover{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
 </style>
 
 </head>
@@ -66,7 +79,12 @@
 		<div id="result" style="text-align:center;"></div>
 	</div>
 	
-	<script type="text/javascript">
+<script type="text/javascript">
+//jieun
+//프로젝트 아이디 배열
+projectIds = [];
+projectIdsIndex = 0;
+
 var size=4;
 
 $(window).ready(function(){
@@ -84,6 +102,22 @@ $(window).ready(function(){
 			if(json.fproject[0]!=null){
 				console.log("1");
 				for(var i=0;i<json.fproject.length;i++){
+					//jieun
+					var projectIdFlag = true;
+					for(var j=0; j<projectIds.length; ++j){
+						if(projectIds[j] === json.fproject[i].project_id){
+							projectIdFlag = false;
+							break;
+						}
+					}
+					
+					//프로젝트 아이디 중복 안되게
+					if(projectIdFlag){
+						projectIds[projectIdsIndex] = json.fproject[i].project_id;
+						projectIdsIndex++;
+					}
+					//jieun
+					
 					console.log("3");
 					if(json.fproject[i].image_rename==null){
 						console.log("4");
@@ -97,7 +131,10 @@ $(window).ready(function(){
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
+						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+						//jieun
+						//버튼추가
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -110,7 +147,8 @@ $(window).ready(function(){
 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
+							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
 					}
 				}
@@ -150,7 +188,8 @@ $(window).ready(function(){
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
+						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -163,7 +202,8 @@ $(window).ready(function(){
 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
+							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
 					}
 					size++;
@@ -177,6 +217,11 @@ $(window).ready(function(){
 			}
 		});
 	});
+	
+	
+	//jieun
+	//프로젝트 아이디마다 모달창 만들기
+	
 });
 
 $(window).scroll(function() {
@@ -213,7 +258,8 @@ $(window).scroll(function() {
 	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
+	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
@@ -226,7 +272,8 @@ $(window).scroll(function() {
 	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b></td>'
+	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 					}
@@ -266,7 +313,8 @@ $(window).scroll(function() {
 	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
+	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
@@ -279,7 +327,8 @@ $(window).scroll(function() {
 	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b></td>'
+	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 						size++;
@@ -314,12 +363,15 @@ function fModal(fmid){
 			$("#fpmodal").empty();
 			
 			var value=$("#fpmodal").html();
+			value='<hr style="border:0.5px solid black;">'
 			for(var i in json.mfproject){
-			value+=	'<br><div>&nbsp; 선택하신 선물 - '
-					+decodeURIComponent(json.mfproject[i].item_name)+' &nbsp;<b>총 '
-					+json.mfproject[i].count+'개</b><br>'
-					+'</div>'
+			value+=	'<div><br><div>&nbsp; 선택하신 선물 - '
+					+'<b>'+decodeURIComponent(json.mfproject[i].item_name)+' &nbsp;총 '
+					+json.mfproject[i].count+'개 </b></div><br>'
 			}
+			value+='<hr style="border:0.5px solid black"><br><b><i>&nbsp;총 결제금액 : '+json.mfproject[i].total_amount+' 원<br>&nbsp;결제하신 날 : '
+			+json.mfproject[i].payment_date+'<i></b>'
+			+'</div>'
 			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mfproject[i].payment_id+'&pay_option='+json.mfproject[i].pay_option+'" style="color:white;">결제 취소</a></button>'
 			$("#fpmodal").html(value);
 		},
@@ -345,10 +397,15 @@ function fModal(fmid){
 
       <!-- Modal body -->
       <div class="modal-body" id="fpmodal">
+      <hr>
        
       </div>
     </div>
   </div>
 </div>
+
+<!-- 별점 모달창 만들 곳 -->
+<div id="starpoint-div"></div>
+
 </body>
 </html>

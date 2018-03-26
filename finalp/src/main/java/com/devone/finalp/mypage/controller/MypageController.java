@@ -46,6 +46,7 @@ public class MypageController {
 
 		System.out.println("마이페이지 인덱스 Form");
 		System.out.println(System.currentTimeMillis());
+		model.addAttribute("member", mypageService.selectMember(member));
 		model.addAttribute("projectCount", mypageService.projectCount(member_id));
 		model.addAttribute("productCount", mypageService.productCount(member_id));
 		model.addAttribute("lprojectCount", mypageService.lprojectCount(member_id));
@@ -98,7 +99,7 @@ public class MypageController {
 	@RequestMapping("fundingProject.do")
 	public String fundingProject() {
 		System.out.println("펀딩 프로젝트 Form");
-		
+
 		return "mypage/fundingProject";
 	}
 
@@ -130,11 +131,20 @@ public class MypageController {
 	// 회원 탈퇴 기능
 	@RequestMapping("mDelete.do")
 	public String memberDelete(Member member, Model model) {
-		System.out.println("탈퇴: " + member);
-		model.addAttribute("member", mypageService.memberDelete(member));
+		String userpwd = member.getMember_pwd();
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
+		String viewname = "";
+		int result = mypageService.memberDelete(member);
+
+		if (result > 0)
+			viewname = "redirect:logout.do";
+		else
+			viewname = "mypage/mypageWithdrawal";
 
 		System.out.println("회원 탈퇴 완료");
-		return "redirect:logout.do";
+		return viewname;
 	}
 
 	// 회원 정보 수정 기능
@@ -174,10 +184,10 @@ public class MypageController {
 			}
 		}
 		String userpwd = member.getMember_pwd();
-	    Encryption encryption = new Encryption("MD5", userpwd);
-	    String newpassword = String.valueOf(encryption.getEncryptData());
-	    member.setMember_pwd(newpassword);
-		
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
+
 		mypageService.memberModify(member);
 		/* mypageService.accountModify(account); */
 		System.out.println("수정: " + member);
@@ -300,6 +310,7 @@ public class MypageController {
 			j.put("member_id", f.getMember_id());
 			j.put("end_date", f.getEnd_date().toString());
 			j.put("pay_option", f.getPay_option());
+			j.put("payment_id", f.getPayment_id());
 			jarr.add(j);
 
 		}
@@ -507,13 +518,14 @@ public class MypageController {
 
 		for (PurchaseProduct p : list) {
 			JSONObject j = new JSONObject();
-			
+
 			j.put("project_id", p.getProject_id());
 			j.put("image_rename", p.getImage_rename());
 			j.put("project_name", p.getProject_name());
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
+			j.put("payment_id", p.getPayment_id());
 			jarr.add(j);
 
 		}
@@ -544,6 +556,7 @@ public class MypageController {
 			j.put("project_name", sfp.getProject_name());
 			j.put("product_name", sfp.getProduct_name());
 			j.put("member_id", sfp.getMember_id());
+			j.put("payment_id", sfp.getPayment_id());
 			j.put("end_date", sfp.getEnd_date().toString());
 			jarr.add(j);
 
@@ -557,22 +570,31 @@ public class MypageController {
 		out.close();
 
 	}
-	
-	//공동구매 결제내역
+
+	// 공동구매 결제내역
 	@RequestMapping(value = "prod_payment.do", method = RequestMethod.POST)
-	public void myProdpay(MyProdPay prodpay, HttpServletResponse response)
-			throws IOException {
+	public void myProdpay(MyProdPay prodpay, HttpServletResponse response) throws IOException {
 		System.out.println("공구 결제 list");
-		prodpay = mypageService.myProdpay(prodpay);
+		List<MyProdPay> list = mypageService.myProdpay(prodpay);
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-		json.put("project_id", prodpay.getProject_id());
-		json.put("payment_id", prodpay.getPayment_id().toString());
-		json.put("product_id", prodpay.getProduct_id());
-		json.put("product_name", prodpay.getProduct_name());
-		json.put("member_id", prodpay.getMember_id());
-		json.put("count", prodpay.getCount());
+		for (MyProdPay mpp : list) {
+			JSONObject j = new JSONObject();
+			j.put("project_id", mpp.getProject_id());
+			j.put("payment_id", mpp.getPayment_id().toString());
+			j.put("product_id", mpp.getProduct_id());
+			j.put("product_name", mpp.getProduct_name());
+			j.put("member_id", mpp.getMember_id());
+			j.put("count", mpp.getCount());
+			j.put("pay_option", mpp.getPay_option());
+			j.put("payment_date", mpp.getPayment_date().toString());
+			j.put("total_amount", mpp.getTotal_amount());
+			jarr.add(j);
+		}
+
+		json.put("mpproduct", jarr);
 
 		System.out.println(json.toJSONString());
 
@@ -582,34 +604,40 @@ public class MypageController {
 		out.close();
 
 	}
-	
-	//펀딩 결제내역
-		@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
-		public void myFundpay(MyFundPay fundpay, HttpServletResponse response)
-				throws IOException {
-			System.out.println("펀딩 결제 list");
-			fundpay = mypageService.myFundpay(fundpay);
-			response.setContentType("application/json; charset=utf-8");
-			JSONObject json = new JSONObject();
 
-				json.put("project_id", fundpay.getProject_id());
-				json.put("payment_id", fundpay.getPayment_id().toString());
-				json.put("gift_id", fundpay.getGift_id());
-				json.put("item_name", fundpay.getItem_name());
-				json.put("member_id", fundpay.getMember_id());
-				json.put("count", fundpay.getCount());
-				json.put("project_name", fundpay.getProject_name());
-			
+	// 펀딩 결제내역
+	@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
+	public void myFundpay(MyFundPay fundpay, HttpServletResponse response) throws IOException {
+		System.out.println("펀딩 결제 list");
+		List<MyFundPay> list = mypageService.myFundpay(fundpay);
+		response.setContentType("application/json; charset=utf-8");
+		JSONObject json = new JSONObject();
+		JSONArray jarr = new JSONArray();
 
-			System.out.println(json.toJSONString());
+		for (MyFundPay mfp : list) {
+			JSONObject j = new JSONObject();
 
-			PrintWriter out = response.getWriter();
-			out.println(json.toJSONString());
-			out.flush();
-			out.close();
-
+			j.put("project_id", mfp.getProject_id());
+			j.put("payment_id", mfp.getPayment_id().toString());
+			j.put("gift_id", mfp.getGift_id());
+			j.put("item_name", mfp.getItem_name());
+			j.put("member_id", mfp.getMember_id());
+			j.put("count", mfp.getCount());
+			j.put("pay_option", mfp.getPay_option());
+			j.put("payment_date", mfp.getPayment_date().toString());
+			j.put("total_amount", mfp.getTotal_amount());
+			jarr.add(j);
 		}
+		json.put("mfproject", jarr);
 
+		System.out.println(json.toJSONString());
+
+		PrintWriter out = response.getWriter();
+		out.println(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
 
 	// 문의함
 	// 리스트 폼

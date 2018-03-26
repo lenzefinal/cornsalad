@@ -82,7 +82,7 @@ $(document).ready(function() {
 <c:import url="../header.jsp"/>
 
 <input type="hidden" id="member_id" value="${loginUser.member_id }">
-<input type="hidden" id="seller_id" valule="${ LoginTimeView.member_id }">
+<input type="hidden" id="seller_id" value="${ LoginTimeView.member_id }">
 
 	<div id="container" class="wd-layout-sub-content reward actionbar-hide">
 		<!-- S : 캠페인 액션바 -->
@@ -93,10 +93,10 @@ $(document).ready(function() {
 			<div class="bg"
 				style="background-image: url('/finalp/resources/uploadProPreImages/${ proview.image_rename}')"></div>
 			<p class="title-info">
-				<em>테크</em> <strong>${proview.project_name }</strong> 프로젝트
+				<em>${ proview.category_sub_name }</em> <strong>${proview.project_name }</strong> 프로젝트
 			</p>
 			<h2 class="title">
-				<p href="/web/campaign/detail/14048">${proview.rep_content }</p>
+				<p>${proview.rep_content }</p>
 			</h2>
 		</div>
 		<!-- E : 리워드 헤더 -->
@@ -612,7 +612,9 @@ $(document).ready(function() {
 											});
 										});
 										
-										function listHtml(data){
+									});
+									
+									function listHtml(data){
 											var jsonStr = JSON.stringify(data);
 											var json = JSON.parse(jsonStr);
 											
@@ -659,6 +661,7 @@ $(document).ready(function() {
 														}
 													}
 													values+='</div>';
+													
 												}else if(json.replylist[i].reply_level == 1){
 													values+='<div class="comment-reply">'+
 															'<div class="comment-item reply">'+
@@ -687,8 +690,6 @@ $(document).ready(function() {
 											
 											$(".comment-total").html(commentCount);
 										}
-										
-									})
 								</script>
 								<!--환불정책 -->
 								

@@ -44,7 +44,11 @@ public class AdminDao {
 	}
 	
 	public int reportAUpdate(int report_id) {
-		return mybatis.update("adminmapper.reportUpdate", report_id);
+		return mybatis.update("adminmapper.reportAUpdate", report_id);
+	}
+	
+	public int reportBUpdate(int board_id) {
+		return mybatis.update("adminmapper.reportBupdate",board_id);
 	}
 
 	public List<AQuestion> selectQuestionList() {
@@ -77,6 +81,10 @@ public class AdminDao {
 	
 	public int updateProjectOff(String project_id) {
 		return mybatis.update("adminmapper.poffupdate", project_id);
+	}
+	
+	public int updateProjectWait(String project_id) {
+		return mybatis.update("adminmapper.pwaitupdate",project_id);
 	}
 
 	public int memListCount() {
@@ -181,9 +189,6 @@ public class AdminDao {
 		title = "%"+ title +"%";
 		return mybatis.selectList("adminmapper.searchTProject", title);
 	}
-
-	
-	
-	
+		
 
 }

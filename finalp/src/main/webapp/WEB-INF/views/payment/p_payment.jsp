@@ -18,7 +18,7 @@
 
 $(function() {
 
-		var id = "#ckrw"+${ gift_id };
+		var id = "#ckrw"+${ product_id };
 		var idata = $(id).attr("i-data");
 		
 		console.log(idata);
@@ -109,38 +109,24 @@ $(function() {
 	    					<ul>
 	    					<input type="hidden" id="end_date" value="${ p.end_date }"/>
 	    					
-	    					<c:forEach items="${ glist }" var="glist" varStatus="gstatus">
+	    					<c:forEach items="${ prlist }" var="prlist" varStatus="prstatus">
 	    						
 	    						<li>
 									<div class="reward-background">
 	    							<dl class="reward-box">
-	    								<dt><input type="checkbox" id="ckrw${ glist.gift_id }" class="reward-check" name="rewardId" value="${ glist.gift_id }" onclick="checkboxEvent1(this.value)" i-data="${ gstatus.index }"/><label for="ckrw${ glist.gift_id }"> </label></dt>
+	    								<dt><input type="checkbox" id="ckrw${ prlist.product_id }" class="reward-check" name="rewardId" value="${ prlist.product_id }" onclick="checkboxEvent1(this.value)" i-data="${ prstatus.index }"/><label for="ckrw${ prlist.product_id }"> </label></dt>
 	    								<dd>
 	    									
-	    									<label for="ckrw${ glist.gift_id }">
-	    									<p class="sum">${ glist.support_price }원 펀딩합니다. 
-		    									<c:if test="${ glist.capacity > 0 }">
-		    										<span class="remains">(${ glist.remain }개 남음)</span></p>
-		    									</c:if>
-	    									<p class="number">
+	    									<label for="ckrw${ prlist.product_id }">
+	    									<p class="sum">${ prlist.product_price }원 <br>
+		    									${ prlist.product_name }
 	    										
-		    									<c:forEach items="${ ilist }" var="ilist">
-		    										<c:if test="${ glist.gift_id == ilist.gift_id }">
-		    										 	${ ilist.item_name } (${ ilist.count } EA)<br>
-		    										</c:if>   
-		    									</c:forEach>
-	    									
-		    									
-		    										
-		    										
-		    										
-		    									
 		    								</p>
 	    									
 	    									<p class="date"> 
 	    										<br>
 	    										
-	    										리워드 제공 예상일 : 
+	    										공동구매 배송 예상일 : 
 	    										 
 	    										 	
 	    												
@@ -153,13 +139,13 @@ $(function() {
 	    										 
 											</p>
 	    									</label>
-	    									<div class="checked-area hidden ${ gstatus.index }">
+	    									<div class="checked-area hidden ${ prstatus.index }">
 	    										<div class="amount">
 	    											<p class="title">수량</p>
 	    											<p class="input-area">
-	    												<button type="button" onclick="changeQty('minus', ${ glist.gift_id })" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
-	    													<input type="text" name="qty" id="qty${ glist.gift_id }" class="reward-qty" value="0" price="${ glist.support_price }" index="${ gstatus.index }" maxP="${ glist.remain }" capacity="${ glist.capacity }"/>
-	    												<button type="button" onclick="changeQty('plus', ${ glist.gift_id })" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
+	    												<button type="button" onclick="changeQty('minus', ${ prlist.product_id })" class="icon-remove-box-o"><img src="/finalp/resources/images/paymentimages/minus.png" alt="" width="15px" height="15px"></button>
+	    													<input type="text" name="qty" id="qty${ prlist.product_id }" class="reward-qty" value="0" price="${ prlist.product_price }" index="${ prstatus.index }" maxP="0" capacity="0"/>
+	    												<button type="button" onclick="changeQty('plus', ${ prlist.product_id })" class="icon-add-box-o"><img src="/finalp/resources/images/paymentimages/plus.png" alt="" width="15px" height="15px"></button>
 	    											</p>
 	    										</div>
 	    										 
@@ -178,7 +164,7 @@ $(function() {
 					<input type="hidden" id="total_price" value="0"/>
     				<p class="confirm">${ p.project_name }에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
     				
-    				<button class="btn-rd-violet" onclick="secondPage('${ p.project_name }','${ p_id }','${ loginUser.member_name }')">다음 단계로 &gt;</button>
+    				<button class="btn-rd-violet" onclick="secondpPage('${ p.project_name }','${ p_id }','${ loginUser.member_name }')">다음 단계로 &gt;</button>
     			</div>
 
 </div>

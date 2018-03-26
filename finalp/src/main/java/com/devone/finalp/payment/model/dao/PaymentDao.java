@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Payment;
 import com.devone.finalp.common.model.vo.PaymentCount;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.payment.model.vo.GiftItem;
 import com.devone.finalp.payment.model.vo.PayGiftView;
 import com.devone.finalp.payment.model.vo.SellerInfo;
@@ -73,6 +74,18 @@ public class PaymentDao {
 	public int insertPaymentCount(PaymentCount pc) {
 		
 		return mybatis.insert("paymentMapper.insertPaymentCount",pc);
+	}
+
+
+	public List<Product> selectProduct(String project_id) {
+		
+		return mybatis.selectList("paymentMapper.selectProduct", project_id);
+	}
+
+
+	public String selectProjectCategory(String p_id) {
+		
+		return mybatis.selectOne("paymentMapper.selectProjectCategory", p_id);
 	}
 	
 }

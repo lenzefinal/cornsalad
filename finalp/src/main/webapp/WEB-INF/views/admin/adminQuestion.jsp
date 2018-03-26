@@ -80,7 +80,19 @@
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
-  	//문의글 답변MODAL
+//등록 폼 값 있는지 체크!	
+	function check(){
+		if(qupform.re_content.value == ''){
+			alert("답변을 입력해주세요!");
+			qupform.re_content.focus();
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+  
+  //문의글 답변MODAL
   	function qubtn(questionid){
   		$.ajax({
   	  		url:"adminQuDetail.do",
@@ -107,12 +119,12 @@
 							decodeURIComponent(json.content.replace(/\+/g," "))+"</textarea></div>";
 							if( json.re_content == null){
 								values += "<div class='form-group'><label for='qacontent'>답변내용  </label>"+
-								"<form action='adminQuUpdate.do' method='post' ><div class='form-inline'> "+
+								"<form name='qupform' onsubmit='return check()' action='adminQuUpdate.do' method='post' ><div class='form-inline'> "+
 								"<textarea class='form-control' id='qacontent' placeholder='답변을 써주세요' name='re_content' cols='90' rows='8'></textarea>"+
 								"<input type='hidden' name='question_id' value='"+json.question_id+"'>"+
 								"&nbsp;<button type='submit' class='btn subt'>보내기</button></form> </div> </div>";
 							}else{
-								values += "<div class='form-group'><label for='qcontent2'>답변내용  </label><textarea class='form-control' id='qancontent' cols='90' rows='10'>"+
+								values += "<div class='form-group'><label for='qcontent2'>답변내용  </label><textarea class='form-control' id='qancontent' cols='90' rows='10' readonly>"+
 										decodeURIComponent(json.re_content.replace(/\+/g," ")) + "</textarea></div>";
 							}
 					

@@ -48,6 +48,10 @@
 		    -webkit-transition-duration: 0.4s;
    	  transition-duration: 0.4s;
 	}
+	#mdelete:hover{
+		background-color:red;
+	    cursor:pointer;
+	}
 </style>
 <script type="text/javascript">
 	function agreeCheck(chk){
@@ -104,33 +108,15 @@
 				<h1>정말 탈퇴하시나요?</h1><br>
 			 	<form action="mDelete.do" method="post" id="deleteMember">
 			 		<input type="hidden" name="member_id" value='${loginUser.member_id }'/>
-			 		<input type="hidden" id="memberpwd" value="${loginUser.member_pwd }">
 					<input type="password" id="member_pwd" name="member_pwd" placeholder="비밀번호를 입력해주세요." onchange="checkpwd()">
-					<input type="submit" name="mdelete" id="mdelete" class="login loginmodal-submit" value="탈퇴" disabled>
+					<input type="submit" name="mdelete" id="mdelete" class="login loginmodal-submit" value="탈퇴">
 			  	</form>
-			  	<p>'탈퇴' 버튼을 누르면 되돌릴 수 없습니다.<br>
-					신중히 생각 후 결정하세요!</p>
+			  	<p>탈퇴가 완료되면 메인으로 돌아가게 됩니다.<br>
+				탈퇴가 진행되지 않았다면 비밀번호를 다시 확인해주세요.</p>
 				<p id="checkpwd"></p>
 			</div>
 		</div>
 	</div>
-	<script>
-	$('#member_pwd').keyup(function(){
-	     var pw = document.getElementById("member_pwd").value;
-	     var pwck = document.getElementById("memberpwd").value;
-	 
-	     if (pw != pwck) {
-	    	 $('#checkpwd').html("비밀번호가 일치하지 않습니다. 확인 후 다시 시도해주세요.");
-	         $('#checkpwd').css('color', 'red');
-	         $('#mdelete').attr('disabled', true);
-	         $('#mdelete').css('background-color', 'gray');
-	     } else {
-	       	 $('#checkpwd').html("")
-	       	 $('#mdelete').attr('disabled', false);
-	         $('#mdelete').css('background-color', 'red');
-	         $('#mdelete').css('cursor','pointer')
-		 }
-	});
-	</script>
+	
 </body>
 </html>

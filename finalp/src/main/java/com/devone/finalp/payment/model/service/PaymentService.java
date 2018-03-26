@@ -5,6 +5,7 @@ import java.util.List;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Payment;
 import com.devone.finalp.common.model.vo.PaymentCount;
+import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.payment.model.vo.GiftItem;
 import com.devone.finalp.payment.model.vo.PayGiftView;
 import com.devone.finalp.payment.model.vo.SellerInfo;
@@ -21,4 +22,6 @@ public interface PaymentService {
 	int adminRefund(String project_id);
 	List<Payment> selectPayment(String project_id);
 	int insertPaymentCount(PaymentCount pc);
+	List<Product> selectProduct(String project_id);
+	String selectProjectCategory(String p_id);
 }

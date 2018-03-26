@@ -29,4 +29,8 @@ public class MemberStatusDao {
 		return mybatis.update("memberMapper.updateTime1",member);
 	}
 
+	public int insertMemberReportCount(String member_id) {
+		return mybatis.insert("memberMapper.insertMemberReportCount", member_id);
+	}
+
 }

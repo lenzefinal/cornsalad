@@ -57,6 +57,12 @@ public class AdminServiceImpl implements AdminService {
 	public int reportAUpdate(int report_id) {
 		return adminDao.reportAUpdate(report_id);
 	}
+	
+	//관리자 게시글 신고카운트 올려주기
+	@Override
+	public int reportBUpdate(int board_id) {
+		return adminDao.reportBUpdate(board_id);
+	}
 
 	//관리자 문의글 리스트
 	@Override
@@ -104,6 +110,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int updateProjectOff(String project_id) {
 		return adminDao.updateProjectOff(project_id);
+	}
+	
+	//관리가 프로젝트 승인거부
+	@Override
+	public int updateProjectWait(String project_id) {
+		return adminDao.updateProjectWait(project_id);
 	}
 	
 	//관리자 회원 수(페이징 처리용)

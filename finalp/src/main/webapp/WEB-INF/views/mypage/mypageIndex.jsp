@@ -21,11 +21,11 @@
 					<dl class="sh_lst">
 					<dt class="blind">프로필 사진</dt>
 					<dd class="pic_desc">
-						<c:if test="${empty loginUser.profile_img_oriname }">
+						<c:if test="${empty member.profile_img_oriname }">
 							<img src="resources/images/mypageProfiles/defaultProfile.jpg" style="width:80px; height:80px; border-radius:100%" /><br>
 						</c:if>
-						<c:if test="${not empty loginUser.profile_img_oriname }">
-							<img src="resources/images/mypageProfiles/${loginUser.profile_img_rename }" style="width:80px; height:80px; border-radius:100%"/><br>
+						<c:if test="${not empty member.profile_img_oriname }">
+							<img src="resources/images/mypageProfiles/${member.profile_img_rename }" style="width:80px; height:80px; border-radius:100%"/><br>
 						</c:if>
 						<span class="spimg img_frame"></span>
 					</dd>

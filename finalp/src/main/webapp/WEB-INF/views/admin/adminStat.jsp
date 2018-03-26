@@ -16,6 +16,7 @@
 		margin-top:2%;
 		margin-left:25%;
 		margin-right:10%;
+		margin-bottom:20%;
 		display:inline-block;
 		width: 60%;
 		float:center;

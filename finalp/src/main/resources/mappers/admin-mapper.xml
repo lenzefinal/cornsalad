@@ -40,6 +40,7 @@
 		<result property="rnum" column="rnum" />
 		<result property="report_id" column="report_id" />
 		<result property="report_category_name" column="report_category_name" />
+		<result property="project_category_id" column="project_category_id" />
 		<result property="project_id" column="project_id" />
 		<result property="project_reply_id" column="project_reply_id" />
 		<result property="board_id" column="board_id" />
@@ -62,17 +63,18 @@
 	
 	<select id="reportdetail" resultType="AReport" parameterType="int">
 		<![CDATA[
-			SELECT * FROM A_REPORT WHERE REPORT_ID = #{ report_id }
+			SELECT * FROM A_REPORT WHERE 
+			REPORT_ID = #{ report_id }
 		]]>
 	</select>
 	
 	<delete id="replyDelete" parameterType="AReport">
-		<if test="report_category_name == '프로젝트 댓글 신고'">
+		<if test='report_category_name == "프로젝트 댓글 신고"'>
 			<![CDATA[
 				DELETE FROM PROJECT_REPLY WHERE PROJECT_REPLY_ID = #{ project_reply_id }
 			]]>
 		</if>
-		<if test="report_category_name == '게시글 댓글 신고'">
+		<if test='report_category_name == "게시글 댓글 신고"'>
 			<![CDATA[
 				DELETE FROM BOARD_REPLY WHERE BOARD_REPLY_ID = #{ board_reply_id }
 			]]>
@@ -81,7 +83,13 @@
 	
 	<update id="reportAUpdate" parameterType="int">
 		<![CDATA[
-			UPDATE SET REPORT_READ_FLAG='Y' WHERE REPORT_ID=#{ report_id }
+			UPDATE REPORT SET REPORT_READ_FLAG='Y' WHERE REPORT_ID=#{ report_id }
+		]]>
+	</update>
+	
+	<update id="reportBupdate" parameterType="int">
+		<![CDATA[
+			UPDATE BOARD SET REPORT_COUNT = 100 WHERE BOARD_ID = #{ board_id }
 		]]>
 	</update>
 	
@@ -154,19 +162,21 @@
 	
 	<select id="aproListCount" resultType="int" >
 		<![CDATA[
-			SELECT COUNT(*) FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N'
+			SELECT COUNT(*) FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND START_DATE IS NOT NULL
 		]]>	
 	</select>
 	
+	
 	<select id="selectprojectlist" resultMap="AProjectmap" resultType="list" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND START_DATE IS NOT NULL 
+			AND RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
 		]]>
 	</select>
 	
 	<select id="selectoffproject" resultMap="AProjectmap" >
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='Y'
+			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='Y' OR PROJECT_REQUEST_FLAG='W'
 		]]>
 	</select>
 	
@@ -183,21 +193,28 @@
 		]]>
 	</update>
 	
+	<update id="pwaitupdate" parameterType="String">
+		<![CDATA[
+			UPDATE PROJECT SET PROJECT_REQUEST_FLAG='W' 
+			WHERE PROJECT_ID = #{ project_id }
+		]]>
+	</update>
+	
 	<select id="memberProject" parameterType="String" resultMap="AProjectmap">
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE MEMBER_NAME= #{ member_name }
+			SELECT * FROM A_PROJECT WHERE START_DATE IS NOT NULL AND MEMBER_NAME= #{ member_name }
 		]]>
 	</select>
 	
 	<select id="searchCProject" parameterType="String" resultMap="AProjectmap">
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_CATEGORY_NAME = #{ cname }
+			SELECT * FROM A_PROJECT WHERE START_DATE IS NOT NULL AND PROJECT_CATEGORY_NAME = #{ cname }
 		]]>
 	</select>
 	
 	<select id="searchRProject" resultMap="AProjectmap">
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE ING_FLAG = 'N' AND SPON < 100 ORDER BY END_DATE DESC
+			SELECT * FROM A_PROJECT WHERE START_DATE IS NOT NULL AND ING_FLAG = 'N' AND SPON < 100 ORDER BY END_DATE DESC
 		]]>
 	</select>
 	
@@ -274,9 +291,12 @@
 	
 	<select id="noticeList" resultMap="NoticeMap" resultType="list" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT NOTICE_ID,TITLE,CREATION_DATE, CONTENT 
-			FROM NOTICE
-			WHERE NOTICE_ID >= #{ startRow  } AND NOTICE_ID <= #{ endRow }
+			SELECT * 
+			FROM (SELECT ROWNUM RNUM, NOTICE_ID, TITLE, CREATION_DATE, CONTENT
+        			FROM (SELECT NOTICE_ID, TITLE, CREATION_DATE, CONTENT
+            				FROM NOTICE
+            				ORDER BY CREATION_DATE DESC))
+			WHERE RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
 		]]>	
 	</select>
 	

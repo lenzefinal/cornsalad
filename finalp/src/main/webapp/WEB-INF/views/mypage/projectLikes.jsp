@@ -102,7 +102,7 @@ $(window).ready(function(){
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
-						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 						+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 						+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 						+'</tr>';
@@ -112,7 +112,7 @@ $(window).ready(function(){
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 							+'</td>'
 							+'</td>'
-							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -154,7 +154,7 @@ $(window).ready(function(){
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
 							+'</td>'
-							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -163,7 +163,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.lproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.lproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.lproject[i].end_date+'</b></td>'
 								+'</tr>';
@@ -195,7 +195,7 @@ $(window).ready(function(){
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 							+'</td>'
-							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 							+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 							+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 							+'</tr>';
@@ -204,7 +204,7 @@ $(window).ready(function(){
 								+'<td class="limg">'
 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.slproject[i].image_rename)+'"/>'
 								+'</td>'
-								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.lproject[i].project_name)+'</b></a></td>'
+								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.slproject[i].project_id+'" style="color:black;">'+decodeURIComponent(json.slproject[i].project_name)+'</b></a></td>'
 								+'<td><b><small>등록일</small><br>'+json.slproject[i].creation_date
 								+'<br><br><small>마감일</small><br>'+json.slproject[i].end_date+'</b></td>'
 								+'</tr>';

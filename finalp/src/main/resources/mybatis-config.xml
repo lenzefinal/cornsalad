@@ -30,6 +30,8 @@
 		<typeAlias type="com.devone.finalp.common.model.vo.PaymentCount" alias="PaymentCount" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Webchat" alias="Webchat" />
 		<typeAlias type="com.devone.finalp.common.model.vo.Encryption" alias="Encryption" />
+		<typeAlias type="com.devone.finalp.common.model.vo.MemberReportCount" alias="MemberReportCount" />
+		<typeAlias type="com.devone.finalp.common.model.vo.MemberTrust" alias="MemberTrust" />
 
 		
 		<typeAlias type="com.devone.finalp.pdetail.model.vo.GiftView" alias="GiftView"/>

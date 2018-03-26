@@ -8,7 +8,6 @@
 <title>내 정보 수정</title>
 </head>
 <body class="skin_main">
-<c:import url="../header.jsp"/>
 <c:import url="mypageIndexHeader.jsp"/>
 
 <style type="text/css">

@@ -10,4 +10,5 @@ public interface MemberStatusService {
 	int insertMember(Member member);
 	
 	int updateTime(Member member);
+	int insertMemberReportCount(String member_id);
 }

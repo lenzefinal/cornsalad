@@ -76,6 +76,22 @@ function openPay(p_name,m_id,p_id,g_ids,g_amounts,p_price){
 	}
 }
 
+function openpPay(p_name,m_id,p_id,p_ids,p_amounts,p_price){
+	
+	if($('#cktm04').is(':checked') == false){
+		alertify.alert("필수사항을 확인하세요!");
+	}else{
+		var radio = $('input:radio[name=ra01]:checked').val();
+	
+	
+		if(radio == "card"){
+			window.open("paypoption.do?popup=card&p_name="+p_name+"&m_id="+m_id+"&p_id="+p_id+"&p_ids="+p_ids+"&p_amounts="+p_amounts+"&p_price="+p_price+"&pay_option='card'",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=700, height=600, left=300, top=100");
+		}else if(radio == "kakao"){
+			window.open("paypoption.do?popup=kakao&p_name="+p_name+"&m_id="+m_id+"&p_id="+p_id+"&p_ids="+p_ids+"&p_amounts="+p_amounts+"&p_price="+p_price+"&pay_option='kakao'",  "popupNo2", "status=no,toolbar=no,scrollbars=no,location=noS,width=1000, height=800, left=300, top=100");
+		}
+	}
+}
+
 function refund(){
 	var imp_id="4112304821735697";
 	var imp_secret="Pa6KLq7gwfsSiXGw6pVG3Ttg42u7U3jKdpuZPBfmRIf9FWGMlCtpwWFAYaITd1Drr7qhIGEAoTJ4PqRa";
@@ -140,9 +156,9 @@ function change_val(){
 	
 }
 
-function secondPage(p_name,p_id,m_name){
+function secondPage(p_id,m_id){
 	
-	if(m_name == ''){
+	if(m_id == ''){
 		alertify.alert("로그인이 필요한 서비스 입니다");
 	}else{
 		var t_price = $("#total_price").val();
@@ -169,8 +185,43 @@ function secondPage(p_name,p_id,m_name){
 		console.log(g_amounts);
 	
 		
-		location.href="payment2.do?project_name="+p_name+"&p_id="+p_id+"&member_name="+m_name+"&total_account="+t_price
+		location.href="payment2.do?p_id="+p_id+"&total_account="+t_price
 						+"&g_ids="+g_ids+"&g_amounts="+g_amounts;
+	}
+	
+}
+
+function secondpPage(p_name,p_id,m_name){
+	
+	if(m_name == ''){
+		alertify.alert("로그인이 필요한 서비스 입니다");
+	}else{
+		var t_price = $("#total_price").val();
+	
+		var arr = document.getElementsByName('qty');
+		var p_ids = "";
+		var p_amounts = "";
+		
+		for(var i =0; i<arr.length; i++){
+			if($(arr[i]).val() != 0){
+				var id = $(arr[i]).attr('id').replace('qty','');
+				var amount = $(arr[i]).val();
+				
+				if(i == arr.length-1){
+					p_ids += id;
+					p_amounts += amount;
+				}else{
+					p_ids += id+",";
+					p_amounts += amount+",";
+				}
+			}
+		}
+		console.log(p_ids);
+		console.log(p_amounts);
+	
+		
+		location.href="p_payment2.do?p_id="+p_id+"&total_account="+t_price
+						+"&p_ids="+p_ids+"&p_amounts="+p_amounts;
 	}
 	
 }
