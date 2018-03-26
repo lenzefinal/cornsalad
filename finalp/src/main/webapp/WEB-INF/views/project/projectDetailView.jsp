@@ -163,7 +163,8 @@
 							</div>
 							
 							<div class="btn-wrap funding">
-								<button onclick="location.href='account.do'"
+								<c:set var="n" value="null"/>
+								<button onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${n}'"
 									class="wz-btn primary large block">펀딩하기</button>
 							</div>
 									
