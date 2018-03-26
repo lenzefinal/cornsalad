@@ -142,7 +142,8 @@ $(document).ready(function() {
 								</p>
 							</div>
 							<div class="btn-wrap funding">
-								<button onclick="location.href='account.do'"
+								<c:set var="n" value="null"/>
+								<button onclick="location.href='payment.do?p_id=${proview.project_id}&p_id=n'"
 									class="wz-btn primary large block">구매하기</button>
 							</div>
 									
@@ -278,7 +279,7 @@ $(document).ready(function() {
  												
 											
 														<button class="rightinfo-reward-list  ing"
-															onclick="backMoney('26841', 'false')">
+															onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ productList.product_id }'">
 															<div class="top-info">
 																<dl class="reward-info">
 																	<dt>${ product.product_name }</dt>
