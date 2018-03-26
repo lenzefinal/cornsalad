@@ -25,7 +25,6 @@
 		});
 		
 		
-		
 		$(".a1").click(function() {
 			var pic = $(".active");
 			pic.removeClass("active");
@@ -79,7 +78,9 @@
 	
 	//jieun
 	function initComparisons() {
-		if($("#cornGrade-avg-input") != 'undefined'){
+		var arr = $("#cornGrade-avg-input");
+		
+		if(arr.length != 0){
 			var avg = $("#cornGrade-avg-input").attr("value");
 			
 			var x, i;
