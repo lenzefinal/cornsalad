@@ -173,6 +173,8 @@ public class DetailViewController {
 	public String insertQuestion(Question question,@RequestParam("project_id") String project_id,Model model) {
 		System.out.println(question);
 		
+		Project project=detailviewService.selectMemberId(project_id);
+		question.setReceive_member_id(project.getMember_id());
 		int result=detailviewService.insertQuestion(question);
 		
 		String str = "";
@@ -197,8 +199,10 @@ public class DetailViewController {
 			list = detailviewService.selectReplyList(projectreply.getProject_id());
 		}
 		
+		
 		JSONObject sendJson = new JSONObject();
 		sendJson.put("replylist", returnReplyList(list));
+		
 		
 		PrintWriter out = response.getWriter();
 		out.println(sendJson.toJSONString());

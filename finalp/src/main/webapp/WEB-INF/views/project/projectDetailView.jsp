@@ -256,19 +256,39 @@
 											<!-- /react-text -->
 											<b>0</b>
 										</div>
-										<div class="khYIRi">
+									<div class="khYIRi">
 										<c:if test="${not empty loginUser }">
-											<button class="dxWcyc" data-toggle="modal"
-												data-target="#contact">
-												<img src="resources/images/icon/메일이메일.png" width="15px"
-													width="10px"
-													style="margin-right: 2px; margin-bottom: -4px;"> <i
-													class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-												<!-- react-text: 607 -->
-												창작자에게 문의하기
-												<!-- /react-text -->
-											</button>
-										</c:if>	
+											<c:if
+												test="${loginUser.member_id eq LoginTimeView.member_id }">
+												<button class="dxWcyc">
+													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+													<!-- react-text: 607 -->
+													채팅방 만들기
+													<!-- /react-text -->
+												</button>
+											</c:if>
+											<c:if
+												test="${loginUser.member_id ne LoginTimeView.member_id }">
+												<button class="dxWcyc" data-toggle="modal"
+													data-target="#contact">
+													<img src="resources/images/icon/메일이메일.png" width="15px"
+														width="10px"
+														style="margin-right: 2px; margin-bottom: -4px;"> <i
+														class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+													<!-- react-text: 607 -->
+													창작자에게 문의하기
+													<!-- /react-text -->
+												</button>
+												<br><br>
+												<button class="dxWcyc">
+													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+													<!-- react-text: 607 -->
+													채팅방참여하기
+													<!-- /react-text -->
+												</button>
+											</c:if>
+
+										</c:if>
 										<c:if test="${empty loginUser }">
 											<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
 												<img src="resources/images/icon/메일이메일.png" width="15px"
@@ -279,10 +299,10 @@
 												창작자에게 문의하기
 												<!-- /react-text -->
 											</button>
-										</c:if>	
-											
-										</div>
+										</c:if>
+
 									</div>
+								</div>
 								</div> 
 								
 								<!-- S : 프로젝트 신고하기 모바일 -->
@@ -466,6 +486,10 @@
 													<div class="btn-wrap">
 														<button type="button" class="wz-btn primary btnZero">댓글 등록</button>
 													</div>
+													
+													<div class="btn-wrap">
+														
+													</div>
 												</c:if>
 												<c:if test="${ !suppoterFlag  }">
 													<textarea name="reply_content" maxlength="2000" placeholder="후원자만 댓글을 입력할수있습니다." readonly class="wz-textarea" 
@@ -474,6 +498,7 @@
 														<button type="button" class="wz-btn primary" disabled>댓글 등록</button>
 													</div>
 												</c:if>
+												
 											</div>
 										</div>
 									</div>
@@ -493,9 +518,17 @@
 															<p class="date">${ reply.creation_date }</p>
 														</div>
 													</div>
-													<div class="comment-content">
-														<p>${ reply.reply_content }</p>
-													</div>
+													
+													<c:if test="${ reply.report_count>=5 }">
+														<div class="comment-content">
+															<p> 신고된 댓글입니다. </p>
+														</div>
+													</c:if>
+													<c:if test="${ reply.report_count<5 }">
+														<div class="comment-content">
+															<p> ${reply.reply_content }</p>
+														</div>
+													</c:if>
 													
 													<c:if test="${ empty loginUser }">
 														<textarea name="reply_content" readonly rows="1" maxlength="2000"
@@ -551,7 +584,12 @@
 																</div>
 															</div>
 															<div class="comment-content">
+															<c:if test="${ reply.report_count < 5 }">
 																<p>${ reply.reply_content }</p>
+															</c:if>
+															<c:if test="${ reply.report_count >= 5 }">
+																<p> 신고가 된 댓글입니다.</p>
+															</c:if>
 															</div>
 															<div class="comment-bottom">
 																<!---->
