@@ -242,6 +242,7 @@ $(document).ready(function() {
 										<!-- /react-text -->
 										<b>0</b>
 									</div>
+									
 									<div class="khYIRi">
 										<c:if test="${not empty loginUser }">
 										<c:if
@@ -289,6 +290,59 @@ $(document).ready(function() {
 									</div>
 								</div>
 							</div> <!-- E : 프로젝트 위험 요인과 해결 방안  --> <!-- S : 프로젝트 신고하기 모바일 -->
+
+									<div class="wz-message-box project-report-mobile">
+										<p class="title">신고하기란?</p>
+										<p>
+											해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
+										</p>
+
+										<button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#blacklist-modal"
+											style="width: 100%;">프로젝트 신고하기</button>
+									</div> <!-- E : 프로젝트 신고하기 --> <!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
+									<div id="campaign-rewards"
+										style="position: relative; top: -50px"></div>
+									<div class="moveRewards">
+										<div class="wd-ui-gift">
+											<h3 class="project-right-title">물품 선택</h3>
+											<c:forEach var="product" items="${ productList }">
+												<button class="rightinfo-reward-list  ing"
+													onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ product.product_id }'">
+													<div class="top-info">
+														<dl class="reward-info">
+															<dt>${ product.product_name }</dt>
+															<dd>
+															</dd>
+														</dl>
+														<ul class="data-info">
+															<li class="shipping"
+																style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
+															<li class="date" style="width: 100%;">물품 발송 시작일 <em>${ product.payment_date } 예정</em>
+															</li>
+														</ul>
+													<c:if test="${ product.rest_count <= 0 }">
+														<p class="reward-qty">
+															<em>최소 구매 수량 이상으로 판매 완료!</em>
+														</p>
+														<p class="reward-soldcount">
+															총 <strong>${ product.pay_count }</strong>개 판매완료
+														</p>
+													</c:if>
+													<c:if test="${ product.rest_count > 0 }">
+														<p class="reward-qty">
+															최소 구매 개수 <strong>${ product.mincount }</strong>개 &nbsp; <br>
+															<em>앞으로 ${ product.rest_count }개 이상 판매되면 특별 상품이!</em>
+														</p>
+														<p class="reward-soldcount">
+															총 <strong>${ product.pay_count }</strong>개 판매완료
+														</p>
+													</c:if>
+													</div>
+													<p class="hover-text ingtext">이 물품 구매하기</p>
+												
+												</button>
+											</c:forEach> 	
 
 							<div class="wz-message-box project-report-mobile">
 								<p class="title">신고하기란?</p>
