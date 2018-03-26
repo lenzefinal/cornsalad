@@ -49,7 +49,7 @@
 	
 	<insert id="insertQuestion"  parameterType="Question">
 	<![CDATA[
-			insert into Question values(seq_question.nextval,'Q-SEL','jieun',#{send_member_id},
+			insert into Question values(seq_question.nextval,'Q-SEL',#{receive_member_id},#{send_member_id},
 				#{title},#{content},null,sysdate,null)
 	]]>
 	</insert>
