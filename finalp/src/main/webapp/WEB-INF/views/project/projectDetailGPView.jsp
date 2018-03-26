@@ -279,7 +279,7 @@ $(document).ready(function() {
  												
 											
 														<button class="rightinfo-reward-list  ing"
-															onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ productList.product_id }'">
+															onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ product.product_id }'">
 															<div class="top-info">
 																<dl class="reward-info">
 																	<dt>${ product.product_name }</dt>
