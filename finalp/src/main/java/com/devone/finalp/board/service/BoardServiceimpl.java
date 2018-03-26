@@ -10,6 +10,7 @@ import com.devone.finalp.board.model.vo.Board;
 import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
 import com.devone.finalp.board.model.vo.Board_recommend;
+import com.devone.finalp.common.model.vo.Report;
 
 @Service("bService")
 public class BoardServiceimpl implements BoardService{
@@ -75,8 +76,7 @@ public class BoardServiceimpl implements BoardService{
 
 	@Override
 	public int countbrReport(int board_reply_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDao.countbrReport(board_reply_id);
 	}
 
 	@Override
@@ -107,5 +107,25 @@ public class BoardServiceimpl implements BoardService{
 	@Override
 	public int insertBoard_Rec(Board_recommend brec) {
 		return bDao.insertBoard_Rec(brec);
+	}
+
+	@Override
+	public int insertbReport(Report report) {
+		return bDao.insertReport(report);
+	}
+
+	@Override
+	public int checkRep(Report report) {
+		return bDao.checkRep(report);
+	}
+
+	@Override
+	public int insertbrReport(Report report) {
+		return bDao.insertbrReport(report);
+	}
+
+	@Override
+	public int checkbrRep(Report report) {
+		return bDao.checkbrRep(report);
 	}
 }

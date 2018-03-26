@@ -10,6 +10,7 @@ import com.devone.finalp.board.model.vo.Board;
 import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
 import com.devone.finalp.board.model.vo.Board_recommend;
+import com.devone.finalp.common.model.vo.Report;
 
 @Repository("bDao")
 public class BoardDao {
@@ -64,8 +65,7 @@ public class BoardDao {
 	}
 
 	public int countbrReport(int board_reply_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDB.update("boardMapper.upBrReport",board_reply_id);
 	}
 	public int getlistCount(String c_id) {
 		return mDB.selectOne("boardMapper.blistCount",c_id);
@@ -82,5 +82,17 @@ public class BoardDao {
 	}
 	public int insertBoard_Rec(Board_recommend brec) {
 		 return mDB.insert("boardMapper.insertBoard_Rec", brec);
+	}
+	public int insertReport(Report report) {
+		return mDB.insert("boardMapper.insertReport", report);
+	}
+	public int checkRep(Report report) {
+		return mDB.selectOne("boardMapper.checkRep",report);
+	}
+	public int insertbrReport(Report report) {
+		return mDB.insert("boardMapper.insertbrReport", report);
+	}
+	public int checkbrRep(Report report) {
+		return mDB.selectOne("boardMapper.checkbrRep",report);
 	}
 }

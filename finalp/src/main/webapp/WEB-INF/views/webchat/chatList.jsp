@@ -100,9 +100,9 @@
 			<div style="margin-top: 10px;">
 				<table id="dt_basic" class="table table-striped table-bordered table-hover" width="80%" style="background: white;">
 					<thead>
-						<tr>
-							<th>방이름</th>
-							<th>만든이</th>
+						<tr >
+							<th width = "50%">방이름</th>
+							<th width = "50%">만든이</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -152,7 +152,7 @@
 						</c:if>
 						<c:forEach var ="i" begin="${pagectr.startpage }" end="${pagectr.endpage}">
 						<c:if test="${pagectr.currentpage == i}">
-						<li ><a href="wcList.do?page=${i}&c_id=${pagectr.c_id}" style="background : pink">${i}</a></li>
+						<li ><a href="wcList.do?page=${i}&c_id=${pagectr.c_id}" style="background : #FCFCEF">${i}</a></li>
 						</c:if>
 						<c:if test="${pagectr.currentpage != i}">
 						<li><a href="wcList.do?page=${i}&c_id=${pagectr.c_id}">${i}</a></li>

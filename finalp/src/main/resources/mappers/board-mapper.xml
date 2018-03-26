@@ -159,15 +159,34 @@
 			update board set report_count=(report_count+1) where board_id=#{board_id}
 		]]>
 	</update>
+	<update id="upBrReport" parameterType="int">
+		<![CDATA[
+			update board_reply set report_count=(report_count+1) where board_reply_id=#{board_reply_id}
+		]]>
+	</update>
 	
 	<select id="checkRec" parameterType="Board_recommend" resultType="int">
 		select count(*) from board_recommend where board_id = #{board_id} and member_id = #{member_id}
 	</select>
-	
+	<select id="checkRep" parameterType="Report" resultType="int">
+		select count(*) from report where board_id = #{board_id} and member_id = #{member_id}
+	</select>
+	<select id="checkbrRep" parameterType="Report" resultType="int">
+		select count(*) from report where board_reply_id = #{board_reply_id} and member_id = #{member_id}
+	</select>
 	<insert id="insertBoard_Rec" parameterType="Board_recommend">
 		<![CDATA[
 			insert into Board_recommend values(#{member_id},#{board_id})
 		]]>
 	</insert>
-	
+	<insert id="insertReport" parameterType="Report">
+		<![CDATA[
+			insert into report (report_id,report_category_id, board_id, report_reason, member_id, report_date) values ((select nvl(max(report_id)+1,1) from report), #{report_category_id}, #{board_id}, #{report_reason}, #{member_id}, sysdate)
+		]]>
+	</insert>
+	<insert id="insertbrReport" parameterType="Report">
+		<![CDATA[
+			insert into report (report_id,report_category_id, board_reply_id, report_reason, member_id, report_date) values ((select nvl(max(report_id)+1,1) from report), #{report_category_id}, #{board_reply_id}, #{report_reason}, #{member_id}, sysdate)
+		]]>
+	</insert>
 </mapper>
