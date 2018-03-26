@@ -266,7 +266,12 @@
 											<button class="dxWcyc">
 												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
 												<!-- react-text: 607 -->
-												채팅방 만들기
+												<c:url var="chat" value="chat.do">
+															<c:param name="room_category" value="pj"/>
+															<c:param name="room_name" value="${proview.project_name}"/>
+															<c:param name="member_id" value="${loginUser.member_id}"/>
+												</c:url>
+												<a href="#" onclick="window.open('${chat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false">채팅방 만들기</a>
 												<!-- /react-text -->
 											</button>
 										</c:if>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.common.model.vo.Webchat;
 import com.devone.finalp.webchat.model.dao.webchatDao;
 
@@ -14,8 +15,8 @@ public class webchatServiceImpl implements webchatService{
 	private webchatDao wDao;
 
 	@Override
-	public List<Webchat> selectWCList() {
-		return wDao.selectWCList();
+	public List<Webchat> selectWCList(Board_Pagectr bp) {
+		return wDao.selectWCList(bp);
 	}
 
 	@Override
@@ -37,6 +38,16 @@ public class webchatServiceImpl implements webchatService{
 	@Override
 	public Webchat searchWC(String room_id) {
 		return wDao.searchWC(room_id);
+	}
+
+	@Override
+	public int getlistCount(String c_id) {
+		return wDao.getlistCount(c_id);
+	}
+
+	@Override
+	public List<Webchat> selecthomeList() {
+		return wDao.selecthomeList();
 	}
 
 	

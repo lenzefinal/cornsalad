@@ -95,12 +95,22 @@
 		<div id="noticeList" style="margin-top:20px;">
 			
 			<ul>
-				<li style="padding:5px;"><p style="font-size:17px;float:left;">채팅방</p> <a style="float:right;font-size:13px;">전체보기</a><br><br>
-				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
-				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
-				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
-				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
-				<li style="border-bottom:1px solid lightgray;padding: 5px;">[이벤트] [리워드 메이커 프로모션] 홈리빙 제품/서비스 펀딩 오픈하고 다양한 혜택 받으세요! <a style="float:right">입장하기</a></li>
+				<li style="padding:5px;"><p style="font-size:17px;float:left;">채팅방</p> <a href = "wcList.do?page=1" style="float:right;font-size:13px;">전체보기</a><br><hr></li>
+				<c:forEach var="webchat" items="${wclist}" >
+									<c:url var ="inchat" value="inchat.do">
+									<c:param name="room_reply_id" value="${webchat.room_id}"/>
+									<c:param name="room_name" value="${webchat.room_name}"/>
+									<c:param name="member_id" value="${loginUser.member_id }"/>
+									</c:url>
+							<li style="border-bottom:1px solid lightgray;padding: 5px;">${webchat.room_name}
+								<c:if test="${!empty loginUser.member_id }">
+								<a href="#" onclick="window.open('${inchat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false" class="pointer noticeClick" style="float:right">[입장 하기]	</a>
+								</c:if>
+								<c:if test="${empty loginUser.member_id }">
+								<a style="float:right">[입장 하기] ${loginUser.member_id }</a>
+								</c:if>
+							</li>
+				</c:forEach>
 			</ul>
 			
 		</div>

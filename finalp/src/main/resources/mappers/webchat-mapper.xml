@@ -8,17 +8,41 @@
 		<result property="room_name" column="room_name" />
 		<result property="member_id" column="member_id" />
 		<result property="room_reply_id" column="room_reply_id" />
+		<result property="room_category" column="room_category" />
 	</resultMap>
 	
 	<insert id="insertWC" parameterType="Webchat">
+	<if test="room_category != null">
 		<![CDATA[
-			insert into webchat values(#{room_id},#{room_name},#{member_id},#{room_reply_id})
+			insert into webchat values(#{room_id},#{room_name},#{member_id},#{room_reply_id},#{room_category})
 		]]>
+	</if>
+	<if test="room_category == null">
+		<![CDATA[
+			insert into webchat (room_id,room_name,member_id,room_reply_id) values(#{room_id},#{room_name},#{member_id},#{room_reply_id})
+		]]>
+	</if>
+		
 	</insert>
-	<select id="selectWC" resultMap="webchatMap">
+	
+	
+	<select id="selectWC" resultMap="webchatMap" parameterType="Board_Pagectr">
+		<if test="c_id == 'pj'">
+			select * from (select rownum rnum, room_id, room_name, member_id, room_reply_id, room_category from  webchat where room_category = #{c_id} order by room_id desc) where rnum between #{startnum} and #{endnum}
+		</if>
+		<if test="c_id == 'pr'">
+			select * from (select rownum rnum, room_id, room_name, member_id, room_reply_id, room_category from  webchat where room_category = #{c_id} order by room_id desc) where rnum between #{startnum} and #{endnum}
+		</if>
+		<if test='c_id == ""'>
 		<![CDATA[
-			select * from webchat order by 1
+			select * from (select rownum rnum, room_id, room_name, member_id, room_reply_id, room_category from  webchat where room_category is null order by room_id desc) where rnum between #{startnum} and #{endnum}
 		]]>
+		</if>
+		<if test='c_id == null'>
+		<![CDATA[
+			select * from (select rownum rnum, room_id, room_name, member_id, room_reply_id, room_category from  webchat where room_category is null order by room_id desc) where rnum between #{startnum} and #{endnum} 
+		]]>
+		</if>
 	</select>
 	<delete id="deleteWC" parameterType="String">
 		delete from webchat where room_id = #{room_id}
@@ -30,5 +54,29 @@
 		]]>
 	</select>
 	
+	
+	<select id="wclistCount" resultType="int" parameterType="String">
+		<if test="_parameter == 'pj'">
+			SELECT count(*) from board where board_category_id = 'PJ'
+		</if>
+		<if test="_parameter == 'pr'">
+			SELECT count(*) from board where board_category_id = 'PR'
+		</if>
+		<if test='_parameter == null'>
+		 <![CDATA[
+			SELECT count(*) from webchat where room_category is null
+		]]> 
+		</if>
+		<if test='_parameter == ""'>
+		 <![CDATA[
+			SELECT count(*) from webchat where room_category is null
+		]]> 
+		</if>
+	</select>
+	<select id="selecthomeList" resultMap="webchatMap">
+		<![CDATA[
+			select * from webchat where room_id = room_reply_id and room_category is not null order by 1
+		]]>
+	</select>
 	
 </mapper>

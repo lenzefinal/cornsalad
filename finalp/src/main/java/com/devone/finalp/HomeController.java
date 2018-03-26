@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.devone.finalp.project_list.model.service.ProjectListService;
+import com.devone.finalp.webchat.model.service.webchatService;
 
 /**
  * Handles requests for the application home page.
@@ -20,12 +21,15 @@ public class HomeController {
 	
 	@Autowired
 	private ProjectListService projectListService;
+	@Autowired
+	private webchatService wService;
 	
 	@RequestMapping(value = "home.do", method = RequestMethod.GET)
 	public String home(Model model) {
 		
 		model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
 		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
+		model.addAttribute("wclist", wService.selecthomeList());
 		
 		return "home";
 	}

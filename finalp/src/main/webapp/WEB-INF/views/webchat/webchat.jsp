@@ -66,11 +66,9 @@ document.getElementById("inputMessage").addEventListener("keydown", Enter_Check)
 <body onbeforeunload="deleteroom()" onunload = "deleteroom()" beforeunload="deleteroom()">
 	
     <fieldset>
-
+		<h2>${webchat.room_name}</h2>
         <textarea id="messageWindow" rows="10" cols="50" readonly="true"></textarea>
-
         <br/>
-
         <input id="inputMessage" type="text" onkeydown="Enter_Check()"/>
 
         <input type="submit"  value="보내기" onclick="send()" />
