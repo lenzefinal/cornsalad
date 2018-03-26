@@ -63,9 +63,9 @@
 	</update> 
 
 
-	<insert id="insertMemberReportCount" parameterType="MemberReportCount">
+	<insert id="insertMemberReportCount" parameterType="string">
 		<![CDATA[
-			INSERT INTO T_MEM_RPT_COUNT VALUES( #{ member_id }, #{ total_report_count }
+			INSERT INTO T_MEM_RPT_COUNT VALUES( #{ member_id }, 0
 			)
 		]]>
 	</insert> 

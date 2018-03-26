@@ -97,7 +97,6 @@
 	        // 변수 정의
 	        // ------------------
 	        var $form       = $('#frm_join');                   // 회원가입 폼
-	        //var $formAgree  = $('agree-form', $form);           // 동의 폼
 	        var idType      = $('#loginIdType', $form).val();   // 회원가입 유형
 	        var $btnSubmit  = $('#btnJoin');                    // 가입완료 버튼
 	        var $btnCheckEmail        = $('#btnCheckEmail', $form);
@@ -106,40 +105,14 @@
 	        // 주요 필드
 	        var $Email             = $('#Email', $form);                   // 이메일(아이디) 필드
 	        var $member_name             = $('#member_name', $form);                   // 닉네임(이름) 필드
-	        //var $agreeContainer       = $('.agree-statement');                   // 동의영역 컨테이너
-	        //var $inputAgreeAll        = $('#agreeAllCheckBox', $agreeContainer); // 전체 동의 인풋
-	        //var $inputAgreeGroup      = $('#agreeCheckGroup', $agreeContainer);  // 와디즈 서비스 이용약관(필수) 인풋
-	        //var $inputAgreeCheckTab1  = $('#agreeCheckTab1', $agreeContainer);   //   ㄴ 회원가입 약관 인풋
-	        //var $inputAgreeCheckTab2  = $('#agreeCheckTab2', $agreeContainer);   //   ㄴ 서비스 이용 약관 인풋
-	        //var $inputAgreeCheckTab3  = $('#agreeCheckTab3', $agreeContainer);   //   ㄴ 개인정보 처리방침 인풋
-	        //var $inputAgreeCheckTabs  = $('#agreeCheckTab1, #agreeCheckTab2, #agreeCheckTab3', $agreeContainer);
-	        //var $inputAllowDM         = $('#allowDM', $agreeContainer);          // 쿠폰/포인트, 오픈알림, 뉴스레서 수신(선택) 인풋
 	
 	        // ------------------
 	        // 초기화
 	        // ------------------
 	        function initPage() {
-	          // GA 이벤트 처리
-	          //gaEvt.send("conversion_rate", "tryjoin", idType, 1);
-	
-	          /* if ($('#isExist').val() === 'false') {
-	            var $isExistCode = $('#isExistCode');
-	            resultIsJoinedEmail($isExistCode.val());
-	          } else {
-	            $Email.val($('#getEmail').val());
-	          } */
-	
-	          // 타입에 따라 이메일 필드 처리
-	          /* if (idType === 'facebook' || idType === 'kakao' || idType === 'google' || idType === 'naver') {
-	            activeEmailField(true); // 이메일 인증 필드 활성화
-	          } else {
-	            activeEmailField(false); // 이메일 인증 필드 비활성화
-	          }  */
-	
 	          // 유효성 검사
 	          $form.validate({
 	            rules: {
-	              //agreeCheckGroup: { required: true},
 	              tokenValue: { required: true, maxlength: 6 },
 	              Email:   { required: true, email: true},
 	              member_name:   { required: true, minlength: 2, maxlength: 20 },
@@ -147,7 +120,6 @@
 	              password2:  { required: true, equalTo: '#pwd1'},
 	            },
 	            messages: {
-	              //agreeCheckGroup: { required: '이용약관에 동의하셔야 가입이 가능합니다.' },
 	              tokenValue: { required: '이메일 인증번호를 입력해주세요.', maxlength: '인증번호 6자리를 확인해주세요.' },
 	              Email:   { required: '아이디(이메일 계정)를 입력해주세요.', email: '이메일을 정확히 입력해주세요.'},
 	              member_name:   { required: '이름을 입력해주세요.', minlength: '최소 2자 이상입니다.', maxlength: '닉네임 최대 길이는 20자 입니다. 확인해 주세요.' },
@@ -178,8 +150,6 @@
 	            }
 	          });
 	          
-	          //$btnSubmit.on('click', join());
-	
 	          // 에러처리 jQuery Validate.
 	          function checkField(element, evt) {
 	            $(element).valid();
@@ -193,118 +163,25 @@
 	          });
 	        }
 	
-	        // ------------------
-	        // 회원가입 약관 내용 보기 
-	        // ------------------
-	        /**
-	         * 그룹인풋 활성화 제어
-	         * @params {boolean} setActive
-	         */
-	        //function activeInputGroup (setActive) {
-	          //var checked = setActive;
-	          //$inputAgreeGroup.isCheckedAll = checked;
-	          //$inputAgreeGroup.prop('checked', checked);
-	          //$inputAgreeCheckTabs.prop('checked', checked);
-	        //}
-	
-	        /**
-	         * 인증하기 버튼 활성화 제어
-	         * @params {boolean} setActive
-	         */
-	        /* function activeEmailField (setActive) {
-	          var disabled = setActive ? false : true;
-	          //$Email.prop('readonly', disabled);
-	          $btnChangeEmailModal.prop('disabled', disabled);
-	          if(disabled == true)
-	            $('#btnCheckEmail').prop('disabled', true);
-	        } */
-	
-	        /**
-	         * 전체 체크된 경우, 전체동의 활성화
-	         */
-	        //function isAllChecked() {
-	          //var checked = $inputAgreeGroup.isCheckedAll && $inputAllowDM.is(':checked') ? true:false;
-	          //$inputAgreeAll.prop('checked', checked);
-	          //$form.valid(); // 유효성검사
-	        //}
-	
-	        // 1. 전체동의
-	        //$inputAgreeAll.on('change', function(){
-	          //var status = $inputAgreeAll.is(':checked') ? true : false;
-	          //activeEmailField(status);
-	          //$inputAgreeGroup.is(':disabled') ? activeEmailField(false) : activeInputGroup(status); // 인증완료 후 해제되지 않도록 처리
-	          //$inputAllowDM.prop('checked', status);
-	        //});
-	
-	        // 2. 와디즈 서비스 이용약관
-	        // 2-1. 와디즈 서비스 이용약관 인풋에 이벤트 바인딩
-	        //$inputAgreeGroup.on('change', function(){
-	          //var status = ($inputAgreeGroup.is(':checked'));
-	          //activeInputGroup(status);
-	          //activeEmailField(status);
-	          //isAllChecked(); //(필수)와 (선택)이 모두 활성화되었는지 확인
-	        //});
-	
-	        // 2-2. 와디즈 서비스 이용약관 하위 인풋에 이벤트 바인딩
-	        //$inputAgreeCheckTabs.on('change', function(e){
-	          //var checkedLength = $agreeContainer.find('.agreeCheckBox:checked').length;
-	          //var status = false;
-	          //if (checkedLength === 3) {
-	          //  status = true;
-	          //  activeInputGroup(status);
-	          //} else if (checkedLength === 0) {
-	          //  activeInputGroup(status);
-	          //} else {
-	          //  $inputAgreeGroup.prop('checked', status);
-	          //}
-	          //$inputAgreeGroup.isCheckedAll = status;
-	          //isAllChecked();
-	          //activeEmailField(status);
-	        //});
-	
-	        // 3. (필수)와 (선택)이 모두 활성화되었는지 확인
-	        //$inputAllowDM.on('change', isAllChecked);
-	
 	        // 4. Email 값 작성 후 유효성에 따른 버튼 활성화 처리 및 가입된 이메일 여부 확인
 	        $Email.on('keyup blur', function(){
-	          //if($('#agreeCheckGroup').is(':checked')){
 		          var $this = $(this);
 		          var isInvalid = !$this.hasClass('valid');
 		          $btnCheckEmail.prop('disabled', isInvalid);
-	          //}
 	        });
 	        $Email.on('blur', isJoinedEmail);
 	
-	        // ------------------
-	        // 인증 절차
-	        // ------------------
-	        // 1. 이메일 변경시 모달 showLyPop();
-	        /*$btnChangeEmailModal.on('click', function(){
-	          showLyPop('confirmChangeEmail'); // 이메일 변경 모달
-	
-	          // 모달 내 변경버튼 클릭시 이메일 필드에 값 반영 후 인증절차 진행
-	          $('#btnChangeEmail').on('click', function(){
-	            var newEmail = $('#changedEmail').val();
-	            $Email.val(newEmail);
-	
-	            // 이메일 인증절차 시작(인증메일 발송)
-	            sendEmail();
-	            closeLyPop('confirmChangeEmail');
-	            $('#check-email').hide(); // 사용중인 이메일이 맞으신가요? 가리기
-	          })
-	        });*/
+	        
 	
 	        // 2. 이메일 계정 인증하기 시 타이머, 인증번호 입력창.show()
 	        // 인증메일 발송
 	       	function sendEmail() {
 	       	  var Email = $Email.val();
-	       	  enablePasswordInput(false);
+	       	  //enablePasswordInput(false);
+       	  	  alertify.alert('인증메일이 발송되었습니다. <br/>메일 안에 있는 인증번호를 확인해주세요.');
+       	  	  $Email.addClass('disable');
+	       	  $("#emailToken").show();
 	       	  
-	       	  /* if($('#agreeCheckGroup').is(':checked') == false){
-	       	   alertify.alert('이용약관에 동의하셔야 가입이 가능합니다.');
-	       	    return;
-	       	  } */
-	       	
 	       	  // 인증코드 이메일 발송 요청
 	       	  var param = {"Email": Email}
 	       	  
@@ -323,9 +200,6 @@
 	    	              $Email.val('').focus();
 	    	       	  }else {
 	    	       	  	  console.log(json.code+" 인증메일 발송");
-	    	       	  	  alertify.alert('인증메일이 발송되었습니다. <br/>메일 안에 있는 인증번호를 확인해주세요.');
-	    	       	  	  $Email.addClass('disable');
-		    	       	  $("#emailToken").show();
 		    	      	  enableTokenInput(true);
 		    	      	  setTimer();
 	    	       	  	
@@ -461,9 +335,6 @@
 	        
 	        function join() {
 	        	console.log("join실행");
-	          // 마케팅 수신동의 확인/처리
-	          //var allowDM = $('input:checkbox[id = allowDM]').is(':checked') ? 1 : 0;
-	          //$('#hiddenAllowDM').val(allowDM);
 	          var param = $form.serialize();
 	
 	          // 등록처리
