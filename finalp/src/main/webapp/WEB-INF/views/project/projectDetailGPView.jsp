@@ -213,182 +213,188 @@ $(document).ready(function() {
 								</div>
 							</div>
 
-							<div class="banner-section-RB2">
-								<a
-									href="https://www.wadiz.kr/web/wboard/newsBoardDetail/4600?headWordId=2&amp;cPage=1&amp;_refer_section_st=RB2_0"
-									class="banner-coupon">
-									<div class="bJXRvz">
-										<div class="cBbkfc">
-											<div class="fuCNpE">창작자 소개</div>
-											<div class="eYscdN">
-												<span class="ilGdVJ"></span> <a
-													href="/u/donipisepozodachi/projects"> <span
-													class="fVfxlF">${proview.member_name }</span>
-												</a>
-											</div>
-		 			
-											<div class="dHxdxH"></div>
-											<div class="iiBGoJt">
-												<div>
-													<!-- react-text: 598 -->
-													마지막 로그인&nbsp;&nbsp;
-													<!-- /react-text -->
-													<b id="Min1">${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
-												</div>
-												<!-- react-text: 600 -->
-												진행한 프로젝트&nbsp;&nbsp;
-												<!-- /react-text -->
-												<b>${count}</b>
-												<!-- react-text: 602 -->
-												&nbsp;&nbsp;&nbsp;&nbsp; 밀어준 프로젝트&nbsp;&nbsp;
-												<!-- /react-text -->
-												<b>0</b>
-											</div>
-											<div class="khYIRi">
-												<button class="dxWcyc" data-toggle="modal"
-													data-target="#contact">
-													<img src="resources/images/icon/메일이메일.png" width="15px"
-														width="10px"
-														style="margin-right: 2px; margin-bottom: -4px;"> <i
-														class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													창작자에게 문의하기
-													<!-- /react-text -->
-												</button>
-											</div>
-										</div>
-									</div> <!-- E : 프로젝트 위험 요인과 해결 방안  --> <!-- S : 프로젝트 신고하기 모바일 -->
-
-									<div class="wz-message-box project-report-mobile">
-										<p class="title">신고하기란?</p>
-										<p>
-											해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
-										</p>
-
-										<button type="button" class="btn btn-primary"
-											data-toggle="modal" data-target="#blacklist-modal"
-											style="width: 100%;">프로젝트 신고하기</button>
-									</div> <!-- E : 프로젝트 신고하기 --> <!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
-									<div id="campaign-rewards"
-										style="position: relative; top: -50px"></div>
-									<div class="moveRewards">
-										<div class="wd-ui-gift">
-											<h3 class="project-right-title">물품 선택</h3>
-											<c:forEach var="product" items="${ productList }">
- 												
-											
-														<button class="rightinfo-reward-list  ing"
-															onclick="backMoney('26841', 'false')">
-															<div class="top-info">
-																<dl class="reward-info">
-																	<dt>${ product.product_name }</dt>
-																	<dd>
-																	</dd>
-																</dl>
-																<ul class="data-info">
-																	<li class="shipping"
-																		style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-																	<li class="date" style="width: 100%;">물품 발송 시작일 <em>${ product.payment_date } 예정</em>
-																	</li>
-																</ul>
-															<c:if test="${ product.rest_count <= 0 }">
-																<p class="reward-qty">
-																	<em>최소 구매 수량 이상으로 판매 완료!</em>
-																</p>
-																<p class="reward-soldcount">
-																	총 <strong>${ product.pay_count }</strong>개 판매완료
-																</p>
-															</c:if>
-															<c:if test="${ product.rest_count > 0 }">
-																<p class="reward-qty">
-																	최소 구매 개수 <strong>${ product.mincount }</strong>개 &nbsp; <br>
-																	<em>앞으로 ${ product.rest_count }개 이상 판매되면 특별 상품이!</em>
-																</p>
-																<p class="reward-soldcount">
-																	총 <strong>${ product.pay_count }</strong>개 판매완료
-																</p>
-															</c:if>
-															</div>
-															<p class="hover-text ingtext">이 물품 구매하기</p>
-														
-														</button>
-													</c:forEach> 	
-													
-													
-												
-											
-
-
-										</div>
-									</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> <!-- S : 인기 프로젝트 리스트 -->
-									<div id="normalpane" class="recommend-box-container stoped">
-
-										<div id="fixed-funding-btn" class="fixed-funding-btn">
-											<button onclick="backMoney('backing', 'false');"
-												class="wz-btn primary large block">이 프로젝트 참여하기</button>
-										</div>
-
-
-										<!-- S : 프로젝트 신고하기 -->
-										<!-- E : 프로젝트 신고하기 -->
-
-										<div class="recommend-box">
-											<h3 class="title">인기 프로젝트</h3>
-											<c:set var="count" value="1"/>
-											<c:forEach var="hot" items="${hotlist}">
-											
-												<div class="item">
-													<div class="number">${count}</div>
-													<div class="text">
-												
-												<c:url var="detail" value="projectDetailView.do">
-													<c:param name="project_id" value="${hot.project_id}"/>
-													<c:param name="member_id" value="${loginUser.member_id}"/>
-												</c:url>
-												
-												<a href="${detail}" style="color: #F7D358;">${hot.project_name }</a>
-														
-													</div>
-												</div>
-												<c:set var ="count" value="${count+1}"/>
-											</c:forEach> 
-
-
-										</div>
+							
+							<div class="bJXRvz">
+								<div class="cBbkfc">
+									<div class="fuCNpE">창작자 소개</div>
+									<div class="eYscdN">
+										<span class="ilGdVJ"></span> <a
+											href="/u/donipisepozodachi/projects"> <span
+											class="fVfxlF">${proview.member_name }</span>
+										</a>
 									</div>
-									<!-- E : 인기 프로젝트 리스트 --> <!-- S : 프로젝트 신고 팝업 --> <!-- S : 리턴 폼 -->
-									<form action="/web/waccount/wAccountLogin" id="returnForm"
-										method="get" novalidate="novalidate">
-										<input type="hidden" id="returnURL" name="returnURL">
-									</form> <!-- E : 리턴 폼 --> <!-- S : 인증 확인 모달 -->
-									<div id="authMailLypop" class="lypop-fixed"
-										style="display: none;">
-										<div class="popup-mint-basic">
-											<a href="javascript:closeLyPop('authMail');"
-												class="btn-close"><em></em></a>
-											<div class="popup-mint-text">
-												<strong class="tit-popup">공동구매를 진행하기 위한<br> 기본
-													회원 정보를 확인해 주세요.
-												</strong>
-												<div style="padding: 20px;">- 이메일 인증 : 미인증</div>
-											</div>
-											<div class="btn-wrap">
-												<a class="btn-pd-mint" href="/web/waccount/wAuth">기본
-													회원정보 변경</a>
+ 			
+									<div class="dHxdxH"></div>
+									<div class="iiBGoJt">
+										<div>
+											<!-- react-text: 598 -->
+											마지막 로그인&nbsp;&nbsp;
+											<!-- /react-text -->
+											<b id="Min1">${LoginTimeView.min }시간</b>&nbsp;<b>${LoginTimeView.second}분</b>
+										</div>
+										<!-- react-text: 600 -->
+										진행한 프로젝트&nbsp;&nbsp;
+										<!-- /react-text -->
+										<b>${count}</b>
+										<!-- react-text: 602 -->
+										&nbsp;&nbsp;&nbsp;&nbsp; 밀어준 프로젝트&nbsp;&nbsp;
+										<!-- /react-text -->
+										<b>0</b>
+									</div>
+									<div class="khYIRi">
+										<c:if test="${not empty loginUser }">
+										<c:if
+											test="${loginUser.member_id eq LoginTimeView.member_id }">
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												채팅방 만들기
+												<!-- /react-text -->
+											</button>
+										</c:if>
+										<c:if
+											test="${loginUser.member_id ne LoginTimeView.member_id }">
+											<button class="dxWcyc" data-toggle="modal"
+												data-target="#contact">
+												<img src="resources/images/icon/메일이메일.png" width="15px"
+													width="10px"
+													style="margin-right: 2px; margin-bottom: -4px;"> <i
+													class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												창작자에게 문의하기
+												<!-- /react-text -->
+											</button>
+											<br><br>
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												채팅방참여하기
+												<!-- /react-text -->
+											</button>
+										</c:if>
+
+										</c:if>
+										<c:if test="${empty loginUser }">
+											<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+												<img src="resources/images/icon/메일이메일.png" width="15px"
+													width="10px"
+													style="margin-right: 2px; margin-bottom: -4px;"> <i
+													class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												창작자에게 문의하기
+												<!-- /react-text -->
+											</button>
+										</c:if>
+									</div>
+								</div>
+							</div> <!-- E : 프로젝트 위험 요인과 해결 방안  --> <!-- S : 프로젝트 신고하기 모바일 -->
+
+							<div class="wz-message-box project-report-mobile">
+								<p class="title">신고하기란?</p>
+								<p>
+									해당 프로젝트에 지적 재산권을 침해하거나<br>거짓된 내용이 있다면 알려주세요.
+								</p>
+
+								<c:if test="${not empty loginUser }">
+								<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#blacklist-modal"
+										style="width: 100%;">프로젝트 신고하기</button>
+								</c:if>
+								<c:if test="${empty loginUser }">
+								<button type="button" class="btn btn-primary"
+										onclick="alertify.alert('로그인해주세요')"
+										style="width: 100%;">프로젝트 신고하기</button>
+								</c:if>
+							</div> <!-- E : 프로젝트 신고하기 --> <!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
+									
+							
+							<div class="moveRewards">
+								<div class="wd-ui-gift">
+									<h3 class="project-right-title">물품 선택</h3>
+									<c:forEach var="product" items="${ productList }">
+											
+									
+												<button class="rightinfo-reward-list  ing"
+													onclick="backMoney('26841', 'false')">
+													<div class="top-info">
+														<dl class="reward-info">
+															<dt>${ product.product_name }</dt>
+															<dd>
+															</dd>
+														</dl>
+														<ul class="data-info">
+															<li class="shipping"
+																style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
+															<li class="date" style="width: 100%;">물품 발송 시작일 <em>${ product.payment_date } 예정</em>
+															</li>
+														</ul>
+													<c:if test="${ product.rest_count <= 0 }">
+														<p class="reward-qty">
+															<em>최소 구매 수량 이상으로 판매 완료!</em>
+														</p>
+														<p class="reward-soldcount">
+															총 <strong>${ product.pay_count }</strong>개 판매완료
+														</p>
+													</c:if>
+													<c:if test="${ product.rest_count > 0 }">
+														<p class="reward-qty">
+															최소 구매 개수 <strong>${ product.mincount }</strong>개 &nbsp; <br>
+															<em>앞으로 ${ product.rest_count }개 이상 판매되면 특별 상품이!</em>
+														</p>
+														<p class="reward-soldcount">
+															총 <strong>${ product.pay_count }</strong>개 판매완료
+														</p>
+													</c:if>
+													</div>
+													<p class="hover-text ingtext">이 물품 구매하기</p>
+												
+												</button>
+											</c:forEach> 	
+											
+											
+										
+									
+
+
+								</div>
+							</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> <!-- S : 인기 프로젝트 리스트 -->
+									
+							<div id="normalpane" class="recommend-box-container stoped">
+
+								<div id="fixed-funding-btn" class="fixed-funding-btn">
+									<button onclick="backMoney('backing', 'false');"
+										class="wz-btn primary large block">이 프로젝트 참여하기</button>
+								</div>
+
+
+								<!-- S : 프로젝트 신고하기 -->
+								<!-- E : 프로젝트 신고하기 -->
+
+								<div class="recommend-box">
+									<h3 class="title">인기 프로젝트</h3>
+									<c:set var="count" value="1"/>
+									<c:forEach var="hot" items="${hotlist}">
+									
+										<div class="item">
+											<div class="number">${count}</div>
+											<div class="text">
+										
+										<c:url var="detail" value="projectDetailView.do">
+											<c:param name="project_id" value="${hot.project_id}"/>
+											<c:param name="member_id" value="${loginUser.member_id}"/>
+										</c:url>
+										
+										<a href="${detail}" style="color: #F7D358;">${hot.project_name }</a>
+												
 											</div>
 										</div>
-									</div> <!-- E : 인증 확인 모달 -->
+										<c:set var ="count" value="${count+1}"/>
+									</c:forEach> 
+								</div>
 							</div>
-							<!-- E : 우측 캠페인 관련 정보 -->
-
-
-							<!-- S : 캠페인 정보 -->
-
 						</div>
-
-						<!-- E : 캠페인 정보 -->
-
 					</div>
+
 					<div class="wd-ui-sub-campaign-info-container">
 						<div class="wd-ui-sub-campaign-info">
 							<!-- S : 탭 주요 콘텐츠 -->
@@ -619,6 +625,7 @@ $(document).ready(function() {
 											var json = JSON.parse(jsonStr);
 											
 											var values="";
+											var suppoterFlag=${suppoterFlag};
 											
 											var commentCount = 0;
 											
@@ -643,7 +650,7 @@ $(document).ready(function() {
 																	'<button type="button" disabled '+
 																		'class="wz-btn dense" style="font-size:14px;">답글 등록</button></div>';
 													}else{
-														if(${suppoterFlag}){
+														if(suppoterFlag){
 															values+='<textarea name="reply_content" rows="1" maxlength="2000" '+
 																	'class="wz-textarea replyOne" placeholder="후원자입니다. 답글을 입력하세요." '+
 																	'style="overflow-y: hidden; resize: none; background: #ffff"></textarea>'+

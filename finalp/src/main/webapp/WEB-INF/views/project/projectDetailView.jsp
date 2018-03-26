@@ -258,39 +258,19 @@
 										</div>
 									<div class="khYIRi">
 										<c:if test="${not empty loginUser }">
-											<c:if
-												test="${loginUser.member_id eq LoginTimeView.member_id }">
-												<button class="dxWcyc">
-													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													채팅방 만들기
-													<!-- /react-text -->
-												</button>
-											</c:if>
-											<c:if
-												test="${loginUser.member_id ne LoginTimeView.member_id }">
-												<button class="dxWcyc" data-toggle="modal"
-													data-target="#contact">
-													<img src="resources/images/icon/메일이메일.png" width="15px"
-														width="10px"
-														style="margin-right: 2px; margin-bottom: -4px;"> <i
-														class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													창작자에게 문의하기
-													<!-- /react-text -->
-												</button>
-												<br><br>
-												<button class="dxWcyc">
-													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													채팅방참여하기
-													<!-- /react-text -->
-												</button>
-											</c:if>
-
+										<c:if
+											test="${loginUser.member_id eq LoginTimeView.member_id }">
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												채팅방 만들기
+												<!-- /react-text -->
+											</button>
 										</c:if>
-										<c:if test="${empty loginUser }">
-											<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+										<c:if
+											test="${loginUser.member_id ne LoginTimeView.member_id }">
+											<button class="dxWcyc" data-toggle="modal"
+												data-target="#contact">
 												<img src="resources/images/icon/메일이메일.png" width="15px"
 													width="10px"
 													style="margin-right: 2px; margin-bottom: -4px;"> <i
@@ -299,7 +279,27 @@
 												창작자에게 문의하기
 												<!-- /react-text -->
 											</button>
+											<br><br>
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												채팅방참여하기
+												<!-- /react-text -->
+											</button>
 										</c:if>
+
+									</c:if>
+									<c:if test="${empty loginUser }">
+										<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+											<img src="resources/images/icon/메일이메일.png" width="15px"
+												width="10px"
+												style="margin-right: 2px; margin-bottom: -4px;"> <i
+												class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+											<!-- react-text: 607 -->
+											창작자에게 문의하기
+											<!-- /react-text -->
+										</button>
+									</c:if>
 
 									</div>
 								</div>
