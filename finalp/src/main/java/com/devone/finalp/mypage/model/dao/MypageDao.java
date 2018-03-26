@@ -179,7 +179,8 @@ public class MypageDao {
 	}
 
 	public List<FundingProject> searchFundingProejct(FundingProject fundingProject) {
-		// TODO Auto-generated method stub
+		String keyword = "%" + fundingProject.getProject_name() + "%";
+		fundingProject.setProject_name(keyword);
 		return mybatis.selectList("mystatusmapper.searchfundingproject",fundingProject);
 	}
 

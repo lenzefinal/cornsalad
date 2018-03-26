@@ -103,7 +103,7 @@ $(window).ready(function(){
 				console.log("1");
 				for(var i=0;i<json.fproject.length;i++){
 					//jieun
-					var projectIdFlag = true;
+				 	var projectIdFlag = true;
 					for(var j=0; j<projectIds.length; ++j){
 						if(projectIds[j] === json.fproject[i].project_id){
 							projectIdFlag = false;
@@ -115,7 +115,7 @@ $(window).ready(function(){
 					if(projectIdFlag){
 						projectIds[projectIdsIndex] = json.fproject[i].project_id;
 						projectIdsIndex++;
-					}
+					} 
 					//jieun
 					
 					console.log("3");
@@ -127,7 +127,7 @@ $(window).ready(function(){
 						+'</td>'
 						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 						+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
-						+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+						+'<a href=""  onclick="fModal(this.value) value='+json.fproject[i].payment_id+'"'
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
@@ -143,16 +143,17 @@ $(window).ready(function(){
 							+'</td>'
 							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
-							+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
-							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'<a href="" name="payment_id" onclick="fModal('+json.fproject[i].payment_id+');" data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
 							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
+						console.log(typeof json.fproject[i].payment_id);
 					}
 				}
 			$('.tbl_type').html(tag);
+		
 			} else{
 				$('#result').html("결과가 없습니다.");
 				$('#container').css("height","600px");
@@ -188,8 +189,8 @@ $(window).ready(function(){
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+						+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.sfproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -202,8 +203,8 @@ $(window).ready(function(){
 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.sfproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
 					}
 					size++;
@@ -241,13 +242,10 @@ $(window).scroll(function() {
 	 				var jsonStr=JSON.stringify(e);
 	 				var json=JSON.parse(jsonStr); 
 	 				var tag="";
-	 				console.log("1");
 	 				if(json.fproject[0]!=null){
 	 					console.log("1");
 	 					for(var i=0;i<json.fproject.length;i++){
-	 						console.log("3");
 	 						if(json.fproject[i].image_rename==null){
-	 							console.log("4");
 	 						tag+='<tr class="list" name="tt">'
 	 							+'<td class="limg">'
 	 							+'<img name="img_rename" src="resources/images/logo.png"/>'
@@ -264,7 +262,7 @@ $(window).scroll(function() {
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
 	 								+'<td class="limg">'
-	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.pproduct[i].image_rename)+'"/>'
+	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.fproject[i].image_rename)+'"/>'
 	 								+'</td>'
 	 								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 	 								+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
@@ -313,8 +311,8 @@ $(window).scroll(function() {
 	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.sfproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
@@ -327,8 +325,8 @@ $(window).scroll(function() {
 	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 								+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.sfproject[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 						size++;
@@ -345,14 +343,14 @@ $(window).scroll(function() {
 	 	}
 	 }
 });
-function fModal(fmid){
+function fModal(payment_id){
 	var member_id=$('#memberId').val();
-	console.log("payment_id" +fmid);
-	console.log("typeof"+typeof fmid)
+	console.log("payment_id: " +payment_id);
+	console.log("typeof: "+typeof payment_id)
 	console.log(member_id);
 	$.ajax({
 		url:"fund_payment.do",
-		data: {"payment_id":fmid, "member_id":member_id},
+		data: {payment_id:payment_id, member_id:member_id},
 		dataType:"json",
 		type:"post",
 		success:function(e){

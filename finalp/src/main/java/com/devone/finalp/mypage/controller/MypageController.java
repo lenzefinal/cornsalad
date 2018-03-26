@@ -277,7 +277,7 @@ public class MypageController {
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
-			j.put("payment_id", p.getPayment_id());
+			j.put("payment_id", p.getPayment_id().toString().toString());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 		}
@@ -310,7 +310,7 @@ public class MypageController {
 			j.put("member_id", f.getMember_id());
 			j.put("end_date", f.getEnd_date().toString());
 			j.put("pay_option", f.getPay_option());
-			j.put("payment_id", f.getPayment_id());
+			j.put("payment_id", f.getPayment_id().toString());
 			jarr.add(j);
 
 		}
@@ -525,7 +525,8 @@ public class MypageController {
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
-			j.put("payment_id", p.getPayment_id());
+			j.put("payment_id", p.getPayment_id().toString());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -548,16 +549,17 @@ public class MypageController {
 
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
-
-		for (FundingProject sfp : list) {
+		
+		for (FundingProject p : list) {
 			JSONObject j = new JSONObject();
-			j.put("project_id", sfp.getProject_id());
-			j.put("image_rename", sfp.getImage_rename());
-			j.put("project_name", sfp.getProject_name());
-			j.put("product_name", sfp.getProduct_name());
-			j.put("member_id", sfp.getMember_id());
-			j.put("payment_id", sfp.getPayment_id());
-			j.put("end_date", sfp.getEnd_date().toString());
+			j.put("project_id", p.getProject_id());
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("product_name", p.getProduct_name());
+			j.put("member_id", p.getMember_id());
+			j.put("end_date", p.getEnd_date().toString());
+			j.put("payment_id", p.getPayment_id().toString());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -565,7 +567,7 @@ public class MypageController {
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
-		out.println(json.toJSONString());
+		out.println(json.toJSONString());	
 		out.flush();
 		out.close();
 
@@ -575,6 +577,7 @@ public class MypageController {
 	@RequestMapping(value = "prod_payment.do", method = RequestMethod.POST)
 	public void myProdpay(MyProdPay prodpay, HttpServletResponse response) throws IOException {
 		System.out.println("공구 결제 list");
+		System.out.println("list test : "+ mypageService.myProdpay(prodpay));
 		List<MyProdPay> list = mypageService.myProdpay(prodpay);
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject json = new JSONObject();
@@ -609,7 +612,9 @@ public class MypageController {
 	@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
 	public void myFundpay(MyFundPay fundpay, HttpServletResponse response) throws IOException {
 		System.out.println("펀딩 결제 list");
+		System.out.println("펀딩 결제 리스트 테스트: "+mypageService.myFundpay(fundpay));
 		List<MyFundPay> list = mypageService.myFundpay(fundpay);
+		
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
