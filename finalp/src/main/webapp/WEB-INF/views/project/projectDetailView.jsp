@@ -25,7 +25,6 @@
 		});
 		
 		
-		
 		$(".a1").click(function() {
 			var pic = $(".active");
 			pic.removeClass("active");
