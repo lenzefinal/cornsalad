@@ -16,6 +16,18 @@
 		]]>
 	</select>
 	
+	<select id="selectEndProject" resultType="ProjectListView">
+		<![CDATA[
+			select * from v_projectListEnd 
+		]]>
+	</select>
+	
+	<select id="selectEndProduct" resultType="ProductListView">
+		<![CDATA[
+			select * from v_productListEnd
+		]]>
+	</select>
+	
 	<select id="selectEndProjectList" resultType="ProjectListView">
 		<![CDATA[
 			

@@ -25,6 +25,16 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDao.selectProductList();
 	}
 	
+	@Override
+	public List<ProjectListView> selectEndProject() {
+		return projectListDao.selectEndProject();
+	}
+	
+	@Override
+	public List<ProductListView> selectEndProduct(){
+		return projectListDao.selectEndProduct();
+	}
+	
 
 	//----------------------------공동구매----------------------------------------
 	@Override

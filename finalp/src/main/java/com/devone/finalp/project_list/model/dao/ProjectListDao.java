@@ -16,6 +16,7 @@ public class ProjectListDao {
 	@Autowired
 	private SqlSession mybatis;
 	
+	//----------------------전체리스트------------------------------
 	public List<ProjectListView> selectProjectList(){
 		return mybatis.selectList("projectListMapper.selectProjectList");
 	}
@@ -23,7 +24,16 @@ public class ProjectListDao {
 	public List<ProductListView> selectProductList(){
 		return mybatis.selectList("projectListMapper.selectProductList");
 	}
-
+	
+	
+	//--------------------------종료된리스트-------------------------
+	public List<ProjectListView> selectEndProject(){
+		return mybatis.selectList("projectListMapper.selectEndProject");
+	}
+	
+	public List<ProductListView> selectEndProduct(){
+		return mybatis.selectList("projectListMapper.selectEndProduct");
+	}
 
 	//-----------------------------펀딩프로젝트 검색---------------------------------
 	public List<ProjectListView> selectProjectListKeyword(String project_name) {

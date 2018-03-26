@@ -371,12 +371,16 @@
 						if(rank == json.list[j].rankNum){
 							
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
-							values += '<li>' +
-										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-										 '</div>' +
-									  '</li>';
+							values += '<li><div>';
+							
+							if(json.list[j].projectCategoryId === "PC-FUND"){
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}else{
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}
+							values+='</div></li>';
 							break;
 						}							
 					}
@@ -437,12 +441,16 @@
 						if(rank == json.list[j].rankNum){
 							
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
-							values += '<li>' +
-										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-										 '</div>' +
-									  '</li>';
+							values += '<li><div>';
+							
+							if(json.list[j].projectCategoryId === "PC-FUND"){
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}else{
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}
+							values+='</div></li>';
 							break;
 						}							
 					}
@@ -503,12 +511,16 @@
 						if(rank == json.list[j].rankNum){
 							
 							var projectN = (decodeURIComponent(json.list[j].projectName)).replaceAll("+", " ");
-							values += '<li>' +
-										 '<div>' +
-											 '<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-											 '<p><em>'+ rank +'</em><a href="/web/campaign/detail/'+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
-										 '</div>' +
-									  '</li>';
+							values += '<li><div>';
+							
+							if(json.list[j].projectCategoryId === "PC-FUND"){
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}else{
+								values+='<p class="real"><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>' +
+								 		'<p><em>'+ rank +'</em><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+ json.list[j].projectId +'">'+ projectN +'</a></p>';
+							}
+							values+='</div></li>';
 							break;
 						}							
 					}
