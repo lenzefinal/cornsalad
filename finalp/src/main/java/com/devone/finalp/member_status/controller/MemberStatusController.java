@@ -195,6 +195,9 @@ public class MemberStatusController {
 	      member.setMember_pwd(newpassword);
 		
 		int result = memberStatusService.insertMember(member);
+		//jieun
+		//회원가입할 때 멤버신고테이블에도 row 추가
+		memberStatusService.insertMemberReportCount(member.getMember_id());
 		
 		PrintWriter out = response.getWriter();
 		if(result>0) {

@@ -33,6 +33,11 @@ public class MemberStatusServiceImpl implements MemberStatusService {
 		
 	}
 
+	@Override
+	public int insertMemberReportCount(String member_id) {
+		return memberStatusDao.insertMemberReportCount(member_id);
+	}
+
 
 
 }

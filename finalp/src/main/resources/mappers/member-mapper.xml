@@ -62,4 +62,11 @@
 		
 	</update> 
 
+
+	<insert id="insertMemberReportCount" parameterType="MemberReportCount">
+		<![CDATA[
+			INSERT INTO T_MEM_RPT_COUNT VALUES( #{ member_id }, #{ total_report_count }
+			)
+		]]>
+	</insert> 
 </mapper>
