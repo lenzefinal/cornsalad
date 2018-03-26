@@ -62,15 +62,27 @@
 	
 	#report div.modal-body{
 		height: auto;
+		font-size:14px;
+		background-color:#212121;
+		color: white;
 	}
 	#report div.modal-body #rdate{
 		font-size: 14px;
 		width: 290px;
 	}
+	#report div.modal-header{
+		background-color:#212121;
+		color: white;
+	}
+	#report div.modal-body a{
+		text-decoration:none;
+		color:white;
+	}
 	#report div.modal-body #rmember,#rmember2{
 		font-size: 14px;
 		width:690px;
 		background-color:#DE4F4F;
+		color: white;
 		font-weight: bold;
 	}
 	#report div.modal-body #rwriter,#rwriter2{
@@ -103,6 +115,9 @@
   	#report select#caselect{
   		font-size:14px;
   		height:30px;
+  	}
+  	#report table tr.active{
+  		color: black;
   	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
@@ -163,7 +178,7 @@
 						"<input type='text' class='form-control' id='rwriter' value='"+ decodeURIComponent(json.member_name.replace(/\+/g," ")) +"' readonly> </div> <div class='form-group'>"+
 						"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
 						json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
-						" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+						" <textarea class='form-control' id='rcontent' cols='90' rows='5' readonly>"+ 
 						decodeURIComponent(json.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
 						" <div class='form-group'> <label for='atitle'>신고 당한 글 바로가기 "+
 						"<span class='colorspan'>해당 글 신고 횟수 : "+ json.report_count +"</span><br><table class='table table-bordered atable'>"+
@@ -191,7 +206,7 @@
 									"<button class='btn btn-danger'>해당 게시글 블라인드</button></a>&nbsp; ";
 						}
 						
-						values +="<button class='btn' data-dismiss='modal'>닫기</button></span> <br> </div> ";
+						values +="<button class='btn' data-dismiss='modal' style='color:black;'>닫기</button></span> <br> </div> ";
 						
 				$('#bodemo').html(values);
 				
@@ -228,11 +243,11 @@
 							"' readonly> </div> <div class='form-group'>"+
 							"<label for='rdate'> 신고 날짜 : &nbsp;</label> <input type='date' class='form-control' id='rdate' readonly value='"+
 							json.report_date+"'> </div> </div> <br> <div class='form-group'> <label for='content'>신고 사유  </label>"+
-							" <textarea class='form-control' id='rcontent' cols='90' rows='10' readonly>"+ 
+							" <textarea class='form-control' id='rcontent' cols='90' rows='5' readonly>"+ 
 							decodeURIComponent(json.report_reason.replace(/\+/g," ")) + "</textarea> </div>"+
 							" <div class='form-group'> <label for='category'>카테고리 : &nbsp;</label> <input type='text' class='form-control' id='rcategory' value=' "+
 							decodeURIComponent(json.report_category_name.replace(/\+/g," ")) + "' > </div> <div class='form-group'> <label for='acontent'>신고 댓글  </label>"+
-							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span> <textarea class='form-control' id='racontent' cols='60' rows='10' readonly>"+
+							"<span class='colorspan'>해당 댓글 신고 횟수 : "+ json.report_count +"</span> <textarea class='form-control' id='racontent' cols='40' rows='5' readonly>"+
 							decodeURIComponent(json.reply_content.replace(/\+/g," ")) + "</textarea> <br>";
 						
 							console.log(json.board_reply_id);
@@ -335,10 +350,10 @@
 </div>
 
 <div id="report">
- <h3>금지어 / 신고 </h3>
+ <h3>신고 </h3>
  <hr class="hrst">
- <br>
- <button type="button" class="btn taboobt" id="taboobtn" data-toggle="modal" data-target="#taboomodal">금지어</button>
+<!--  <br>
+ <button type="button" class="btn taboobt" id="taboobtn" data-toggle="modal" data-target="#taboomodal">금지어</button> -->
  <br>
 <div class="searchdiv">
     <div class="input-group">

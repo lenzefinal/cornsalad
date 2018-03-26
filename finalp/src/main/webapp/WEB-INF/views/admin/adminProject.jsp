@@ -21,7 +21,11 @@
 		display:inline-block;
 		width: 60%;
 		float:center;
-		font-size: 13px;
+		font-size: 14px;
+	}
+	div#projec table{
+		font-size: 15px;
+		font-family:"맑은 고딕";
 	}
 	hr.hrst{
 		background-color:#F7D358;
@@ -135,6 +139,12 @@
 		font-family : '맑은 고딕';
 		font-weight: bold;
 	}
+	#projec td.fonttd{
+		font-size: 15px;
+		font-weight: bold;
+		background-color: #FAF4C0;
+		color: #002266;
+	}
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
@@ -173,7 +183,7 @@
 					
 					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-						"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 					
 					if(json.cplist.length > 0){
 						for(var i in json.cplist){
@@ -190,32 +200,38 @@
 									
 									
 								value += "<td>" + decodeURIComponent(json.cplist[i].member_name.replace(/\+/g," ")) + 
-										"</td><td>" + json.cplist[i].spon + "% </td><td>"+ json.cplist[i].start_date +
-										"</td><td>" + json.cplist[i].end_date +"</td>";
+										"</td><td>" + json.cplist[i].spon + "% </td><td>" + json.cplist[i].end_date +"</td>";
 										
 							if(json.cplist[i].ing_flag == 'Y'){
-								value += "<td>진행중</td>";
+								value += "<td class='fonttd'>진행중</td>";
 							}else if( (json.cplist[i].ing_flag == 'N') && ( json.cplist[i].spon < 100 ) ){
 								if( json.cplist[i].refund_flag == 'Y' ){
-									value += "<td>실패 / 환불완료 </td>";
+									value += "<td class='fonttd'>실패 / 환불완료 </td>";
 								}else{
-									value += "<td>실패 <button class='btn btn-danger'>환불</button></td>";
+									value += "<td class='fonttd'>실패 <button class='btn btn-danger'>환불</button></td>";
 								}
 								
 							}else if( (json.cplist[i].ing_flag == 'N') && ( json.cplist[i].spon >= 100 ) ){
-								value += "<td>성공</td>";
+								value += "<td class='fonttd'>성공</td>";
+							}else if( (json.cplist[i].project_request_flag == 'Y') ){
+								value += "<td class='fonttd' colspan='2'>승인 요청중</td>";
+							}else if( (json.cplist[i].project_request_flag == 'W') || ((json.cplist[i].project_request_flag == 'N') && 
+									(json.cplist[i].start_date == null )) ){
+								value += "<td class='fonttd' colspan='2'>창작자 수정중</td>";
 							}
 							
-							if( json.cplist[i].project_onoff_flag == 'Y' ){
-								value += "<td><a href='adminProjectOff.do?project_id="+ json.cplist[i].project_id +"'>"+
-									"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
-							}else if(json.cplist[i].project_onoff_flag == 'N'){
-								value += "<td><a href='adminProjectOn.do?project_id="+ json.cplist[i].project_id +"'>"+
-									"<button class='btn btn-success'>활성화</button></a></td></tr>";
+							if(json.cplist[i].project_request_flag == 'N'){
+								if( json.cplist[i].project_onoff_flag == 'Y' ){
+									value += "<td><a href='adminProjectOff.do?project_id="+ json.cplist[i].project_id +"'>"+
+										"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
+								}else if(json.cplist[i].project_onoff_flag == 'N'){
+									value += "<td><a href='adminProjectOn.do?project_id="+ json.cplist[i].project_id +"'>"+
+										"<button class='btn btn-success'>활성화</button></a></td></tr>";
+								}
 							}
 						}
 					}else {
-						value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
+						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
 					}
 					$('#pagediv').empty();
 					$('#aptable').html(value);
@@ -244,7 +260,7 @@
 				
 				var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 					"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-					"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+					"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 				
 				if(json.rplist.length > 0){
 					for(var i in json.rplist){
@@ -260,32 +276,38 @@
 						}	
 							
 						value += "<td>" + decodeURIComponent(json.rplist[i].member_name.replace(/\+/g," ")) + 
-								"</td><td>" + json.rplist[i].spon + "% </td><td>"+ json.rplist[i].start_date +
-								"</td><td>" + json.rplist[i].end_date +"</td>";
+								"</td><td>" + json.rplist[i].spon + "% </td><td>"+ json.rplist[i].end_date +"</td>";
 
 						if(json.rplist[i].ing_flag == 'Y'){
-							value += "<td>진행중</td>";
+							value += "<td class='fonttd'>진행중</td>";
 						}else if( (json.rplist[i].ing_flag == 'N') && ( json.rplist[i].spon < 100 ) ){
 							if( json.rplist[i].refund_flag == 'Y' ){
-								value += "<td>실패 / 환불완료 </td>";
+								value += "<td class='fonttd'>실패 / 환불완료 </td>";
 							}else{
-								value += "<td>실패 <button class='btn btn-danger'>환불</button></td>";
+								value += "<td class='fonttd'>실패 <button class='btn btn-danger'>환불</button></td>";
 							}
 							
 						}else if( (json.rplist[i].ing_flag == 'N') && ( json.rplist[i].spon >= 100 ) ){
-							value += "<td>성공</td>";
+							value += "<td class='fonttd'>성공</td>";
+						}else if( (json.rplist[i].project_request_flag == 'Y') ){
+							value += "<td class='fonttd' colspan='2'>승인 요청중</td>";
+						}else if( (json.rplist[i].project_request_flag == 'W') || ((json.rplist[i].project_request_flag == 'N') && 
+								(json.rplist[i].start_date == null )) ){
+							value += "<td class='fonttd' colspan='2'>창작자 수정중</td>";
 						}
 						
-						if( json.rplist[i].project_onoff_flag == 'Y' ){
-							value += "<td><a href='adminProjectOff.do?project_id="+ json.rplist[i].project_id +"'>"+
-								"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
-						}else if(json.rplist[i].project_onoff_flag == 'N'){
-							value += "<td><a href='adminProjectOn.do?project_id="+ json.rplist[i].project_id +"'>"+
-								"<button class='btn btn-success'>활성화</button></a></td></tr>";
+						if(json.rplist[i].project_request_flag == 'N'){
+							if( json.rplist[i].project_onoff_flag == 'Y' ){
+								value += "<td><a href='adminProjectOff.do?project_id="+ json.rplist[i].project_id +"'>"+
+									"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
+							}else if(json.rplist[i].project_onoff_flag == 'N'){
+								value += "<td><a href='adminProjectOn.do?project_id="+ json.rplist[i].project_id +"'>"+
+									"<button class='btn btn-success'>활성화</button></a></td></tr>";
+							}
 						}
 					}
 				}else {
-					value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
+					value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
 				}
 				$('#pagediv').empty();
 				$('#aptable').html(value);
@@ -322,7 +344,7 @@
 					
 					var value = "<table class='table table-bordered table-condensed' id='aptable' ><thead>"+
 						"<tr class='active'><th>카테고리</th><th>소카테고리</th><th>제목</th><th>작성자</th>"+
-						"<th>후원현황</th><th>시작일</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
+						"<th>후원현황</th><th>종료일</th><th>목표 달성</th><th>활성화 / 비활성화</th></tr></thead>";
 					
 					if(json.tplist.length > 0){
 						for(var i in json.tplist){
@@ -338,32 +360,38 @@
 							}	
 								
 							value += "<td>" + decodeURIComponent(json.tplist[i].member_name.replace(/\+/g," ")) + 
-									"</td><td>" + json.tplist[i].spon + "% </td><td>"+ json.tplist[i].start_date +
-									"</td><td>" + json.tplist[i].end_date +"</td>";
+									"</td><td>" + json.tplist[i].spon + "% </td><td>" + json.tplist[i].end_date +"</td>";
 
 							if(json.tplist[i].ing_flag == 'Y'){
-								value += "<td>진행중</td>";
+								value += "<td class='fonttd'>진행중</td>";
 							}else if( (json.tplist[i].ing_flag == 'N') && ( json.tplist[i].spon < 100 ) ){
 								if( json.tplist[i].refund_flag == 'Y' ){
-									value += "<td>실패 / 환불완료 </td>";
+									value += "<td class='fonttd'>실패 / 환불완료 </td>";
 								}else{
-									value += "<td>실패 <button class='btn btn-danger'>환불</button></td>";
+									value += "<td class='fonttd'>실패 <button class='btn btn-danger'>환불</button></td>";
 								}
 								
 							}else if( (json.tplist[i].ing_flag == 'N') && ( json.tplist[i].spon >= 100 ) ){
-								value += "<td>성공</td>";
+								value += "<td class='fonttd'>성공</td>";
+							}else if( (json.tplist[i].project_request_flag == 'Y') ){
+								value += "<td class='fonttd' colspan='2'>승인 요청중</td>";
+							}else if( (json.tplist[i].project_request_flag == 'W') || ((json.tplist[i].project_request_flag == 'N') && 
+									(json.tplist[i].start_date == null )) ){
+								value += "<td class='fonttd' colspan='2'>창작자 수정중</td>";
 							}
 							
-							if( json.tplist[i].project_onoff_flag == 'Y' ){
-								value += "<td><a href='adminProjectOff.do?project_id="+ json.tplist[i].project_id +"'>"+
-									"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
-							}else if(json.tplist[i].project_onoff_flag == 'N'){
-								value += "<td><a href='adminProjectOn.do?project_id="+ json.tplist[i].project_id +"'>"+
-									"<button class='btn btn-success'>활성화</button></a></td></tr>";
+							if(json.tplist[i].project_request_flag == 'N'){
+								if( json.tplist[i].project_onoff_flag == 'Y' ){
+									value += "<td><a href='adminProjectOff.do?project_id="+ json.tplist[i].project_id +"'>"+
+										"<button class='btn btn-danger'>비활성화</button></a></td></tr>";
+								}else if(json.tplist[i].project_onoff_flag == 'N'){
+									value += "<td><a href='adminProjectOn.do?project_id="+ json.tplist[i].project_id +"'>"+
+										"<button class='btn btn-success'>활성화</button></a></td></tr>";
+								}
 							}
 						}
 					}else {
-						value += "<tr><td colspan='9'>조회된 프로젝트가 없습니다.</td></tr>"
+						value += "<tr><td colspan='8'>조회된 프로젝트가 없습니다.</td></tr>"
 					}
 					$('#pagediv').empty();
 					$('#aptable').html(value);
@@ -496,7 +524,6 @@
         <th>제목</th>
 		<th>작성자</th>
 		<th>후원현황</th>
-		<th>시작일</th>
 		<th>종료일</th>
 		<th>목표 달성</th>
 		<th>활성화 / 비활성화</th>
@@ -523,36 +550,46 @@
         				</td>
 						<td>${ aprow.member_name }</td>
 						<td>${ aprow.spon } % </td>
-						<td>${ aprow.start_date }</td>
 						<td>${ aprow.end_date }</td>
-						<td>
+						
 						<c:choose>
 							<c:when test="${ aprow.ing_flag eq 'Y' }">
-								진행중
+								<td class='fonttd'>진행중</td>
 							</c:when>
 							<c:when test="${ (aprow.ing_flag eq 'N') and ( aprow.spon < 100 ) }">
 								<c:if test="${ aprow.refund_flag eq 'Y' }">
-									실패 / 환불완료
+									<td class='fonttd'>실패 / 환불완료</td>
 								</c:if>
 								<c:if test="${ aprow.refund_flag eq 'N' }">
-									실패 
+									<td class='fonttd'>실패 
 									<a href="refundAll.do?project_id=${ aprow.project_id }">
-									<button class="btn btn-danger">전체 환불</button></a>
+									<button class="btn btn-danger">전체 환불</button></a></td>
 								</c:if>
 							</c:when>
 							<c:when test="${ (aprow.ing_flag eq 'N') and (aprow.spon >= 100) }">
-								성공
+								<td class='fonttd'>성공</td>
+							</c:when>
+							<c:when test="${ aprow.project_request_flag eq 'Y' }">
+								<td class='fonttd' colspan="2">승인 요청중</td>
+							</c:when>
+							<c:when test="${ (aprow.project_request_flag eq 'W') or ((aprow.project_request_flag eq 'N') and (aprow.start_date eq '')) }">
+								<td class='fonttd' colspan="2">창작자 수정중</td>
 							</c:when>
 						</c:choose>
-						</td>
-						<td>
+						
+						
+						<c:choose>
+						<c:when test="${ aprow.project_request_flag eq 'N' }">
+							
 							<c:if test="${ aprow.project_onoff_flag eq 'Y' }">
-								<a href="adminProjectOff.do?project_id=${ aprow.project_id }"><button class="btn btn-danger">비활성화</button></a>
+								<td><a href="adminProjectOff.do?project_id=${ aprow.project_id }"><button class="btn btn-danger">비활성화</button></a></td>
 							</c:if>
 							<c:if test="${ aprow.project_onoff_flag eq 'N' }">
-								<a href="adminProjectOn.do?project_id=${ aprow.project_id }"><button class="btn btn-success">활성화</button></a>
+								<td><a href="adminProjectOn.do?project_id=${ aprow.project_id }"><button class="btn btn-success">활성화</button></a></td>
 							</c:if>
-						</td>
+						</c:when>
+						</c:choose>
+						
       				</tr>
       			</c:forEach>
       		</c:when>
