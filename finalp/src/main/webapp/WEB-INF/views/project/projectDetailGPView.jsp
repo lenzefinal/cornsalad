@@ -142,7 +142,8 @@ $(document).ready(function() {
 								</p>
 							</div>
 							<div class="btn-wrap funding">
-								<button onclick="location.href='account.do'"
+								<c:set var="n" value="null"/>
+								<button onclick="location.href='payment.do?p_id=${proview.project_id}&p_id=n'"
 									class="wz-btn primary large block">구매하기</button>
 							</div>
 									
@@ -312,50 +313,42 @@ $(document).ready(function() {
 								<div class="wd-ui-gift">
 									<h3 class="project-right-title">물품 선택</h3>
 									<c:forEach var="product" items="${ productList }">
-											
-									
-												<button class="rightinfo-reward-list  ing"
-													onclick="backMoney('26841', 'false')">
-													<div class="top-info">
-														<dl class="reward-info">
-															<dt>${ product.product_name }</dt>
-															<dd>
-															</dd>
-														</dl>
-														<ul class="data-info">
-															<li class="shipping"
-																style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
-															<li class="date" style="width: 100%;">물품 발송 시작일 <em>${ product.payment_date } 예정</em>
-															</li>
-														</ul>
-													<c:if test="${ product.rest_count <= 0 }">
-														<p class="reward-qty">
-															<em>최소 구매 수량 이상으로 판매 완료!</em>
-														</p>
-														<p class="reward-soldcount">
-															총 <strong>${ product.pay_count }</strong>개 판매완료
-														</p>
-													</c:if>
-													<c:if test="${ product.rest_count > 0 }">
-														<p class="reward-qty">
-															최소 구매 개수 <strong>${ product.mincount }</strong>개 &nbsp; <br>
-															<em>앞으로 ${ product.rest_count }개 이상 판매되면 특별 상품이!</em>
-														</p>
-														<p class="reward-soldcount">
-															총 <strong>${ product.pay_count }</strong>개 판매완료
-														</p>
-													</c:if>
-													</div>
-													<p class="hover-text ingtext">이 물품 구매하기</p>
-												
-												</button>
-											</c:forEach> 	
-											
-											
+										<button class="rightinfo-reward-list  ing"
+											onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ productList.product_id }'">
+											<div class="top-info">
+												<dl class="reward-info">
+													<dt>${ product.product_name }</dt>
+													<dd>
+													</dd>
+												</dl>
+												<ul class="data-info">
+													<li class="shipping"
+														style="width: 100%; margin-bottom: 5px;">배송비<em>3,000원</em></li>
+													<li class="date" style="width: 100%;">물품 발송 시작일 <em>${ product.payment_date } 예정</em>
+													</li>
+												</ul>
+											<c:if test="${ product.rest_count <= 0 }">
+												<p class="reward-qty">
+													<em>최소 구매 수량 이상으로 판매 완료!</em>
+												</p>
+												<p class="reward-soldcount">
+													총 <strong>${ product.pay_count }</strong>개 판매완료
+												</p>
+											</c:if>
+											<c:if test="${ product.rest_count > 0 }">
+												<p class="reward-qty">
+													최소 구매 개수 <strong>${ product.mincount }</strong>개 &nbsp; <br>
+													<em>앞으로 ${ product.rest_count }개 이상 판매되면 특별 상품이!</em>
+												</p>
+												<p class="reward-soldcount">
+													총 <strong>${ product.pay_count }</strong>개 판매완료
+												</p>
+											</c:if>
+											</div>
+											<p class="hover-text ingtext">이 물품 구매하기</p>
 										
-									
-
-
+										</button>
+									</c:forEach> 	
 								</div>
 							</div> <!-- E : 보상품 목록, 참여할 때 드리는 선물 --> <!-- S : 인기 프로젝트 리스트 -->
 									

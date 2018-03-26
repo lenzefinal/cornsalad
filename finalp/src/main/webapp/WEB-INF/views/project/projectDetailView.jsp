@@ -78,7 +78,9 @@
 	
 	//jieun
 	function initComparisons() {
-		if($("#cornGrade-avg-input") != 'undefined'){
+		var arr = $("#cornGrade-avg-input");
+		
+		if(arr.length != 0){
 			var avg = $("#cornGrade-avg-input").attr("value");
 			
 			var x, i;
@@ -162,7 +164,8 @@
 							</div>
 							
 							<div class="btn-wrap funding">
-								<button onclick="location.href='account.do'"
+								<c:set var="n" value="null"/>
+								<button onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${n}'"
 									class="wz-btn primary large block">펀딩하기</button>
 							</div>
 									
@@ -701,7 +704,13 @@
 																			'<a href="#"><strong>'+decodeURIComponent(json.replylist[i].member_name.replace(/\+/g," "))+'</strong></a></p>'+
 																			'<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>'+
 																		'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
-																'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>';
+																'<div class="comment-content"><p>';
+																if(json.replylist[i].reply_count<=5)
+															 values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
+																else{
+														 	values+='신고된 댓글입니다.';
+																}
+																values+='</p></div>';
 													
 													if($("#member_id").val() === "" ){
 														values+='<textarea name="reply_content" readonly rows="1" maxlength="2000" '+
@@ -745,8 +754,14 @@
 																						
 																		values+='</a><a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a></p>'+
 																			'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
-																	'<div class="comment-content"><p>'+decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "))+'</p></div>'+
-																	'<div class="comment-bottom"></div></div></div></div>';
+																	'<div class="comment-content"><p>';
+																	if(json.replylist[i].reply_count<=5)
+																values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
+																	else{
+																values+="신고된 댓글입니다.";
+																	}
+																	
+																values+='</p></div>'+'<div class="comment-bottom"></div></div></div></div>';
 												}
 												
 												commentCount = commentCount+1;
