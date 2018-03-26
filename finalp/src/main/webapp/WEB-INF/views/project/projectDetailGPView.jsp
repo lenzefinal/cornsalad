@@ -314,7 +314,7 @@ $(document).ready(function() {
 									<h3 class="project-right-title">물품 선택</h3>
 									<c:forEach var="product" items="${ productList }">
 										<button class="rightinfo-reward-list  ing"
-											onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ productList.product_id }'">
+											onclick="location.href='p_payment.do?p_id=${proview.project_id}&product_id=${ product.product_id }'">
 											<div class="top-info">
 												<dl class="reward-info">
 													<dt>${ product.product_name }</dt>
@@ -358,7 +358,6 @@ $(document).ready(function() {
 									<button onclick="backMoney('backing', 'false');"
 										class="wz-btn primary large block">이 프로젝트 참여하기</button>
 								</div>
-
 
 								<!-- S : 프로젝트 신고하기 -->
 								<!-- E : 프로젝트 신고하기 -->
