@@ -273,6 +273,7 @@ $(document).ready(function() {
 											</button>
 											<br><br>
 											
+											
 											<c:forEach var="wc" items="${wclist}" >
 												<c:url var ="inchat" value="inchat.do">
 												<c:param name="room_reply_id" value="${wc.room_id}"/>
