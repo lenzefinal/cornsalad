@@ -756,9 +756,9 @@
 </div> -->
 <c:if test="${loginUser.member_id ne 'admin' and not empty loginUser.member_id }">
 <div>
-<div style="margin-left:93%; margin-top:35%; position:absolute; height:100px; width:100px;" id="question">
+<div style="margin-left:94%; margin-top:39%; position:absolute; height:100px; width:100px;" id="question">
 	<label for="insertQ">
-	<img src="resources/images/question.png" data-toggle="modal" data-target="#insertQ" style="height:95px; width:95px; border-radius:30%"/>
+	<img src="resources/images/icon/question.png" data-toggle="modal" data-target="#insertQ" style="height:80px; width:80px; cursor:pointer;"/>
 	</label>
 </div>
 </div>
