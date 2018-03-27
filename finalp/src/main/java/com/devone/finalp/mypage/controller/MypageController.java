@@ -597,6 +597,7 @@ public class MypageController {
 	@RequestMapping(value = "prod_payment.do", method = RequestMethod.POST)
 	public void myProdpay(MyProdPay prodpay, HttpServletResponse response) throws IOException {
 		System.out.println("공구 결제 list");
+		prodpay.setPayment_id("imp_"+prodpay.getPayment_id());
 		System.out.println("list test : "+ mypageService.myProdpay(prodpay));
 		List<MyProdPay> list = mypageService.myProdpay(prodpay);
 		response.setContentType("application/json; charset=utf-8");
@@ -608,7 +609,7 @@ public class MypageController {
 			j.put("project_id", mpp.getProject_id());
 			j.put("payment_id", mpp.getPayment_id().toString());
 			j.put("product_id", mpp.getProduct_id());
-			j.put("product_name", mpp.getProduct_name());
+			j.put("item_name", mpp.getProduct_name());
 			j.put("member_id", mpp.getMember_id());
 			j.put("count", mpp.getCount());
 			j.put("pay_option", mpp.getPay_option());
@@ -632,6 +633,7 @@ public class MypageController {
 	@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
 	public void myFundpay(MyFundPay fundpay, HttpServletResponse response) throws IOException {
 		System.out.println("펀딩 결제 list");
+		fundpay.setPayment_id("imp_"+fundpay.getPayment_id());
 		System.out.println("펀딩 결제 리스트 테스트: "+mypageService.myFundpay(fundpay));
 		List<MyFundPay> list = mypageService.myFundpay(fundpay);
 		
