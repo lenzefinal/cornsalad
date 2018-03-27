@@ -31,6 +31,9 @@ public class HomeController {
 		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
 		model.addAttribute("wclist", wService.selecthomeList());
 		
+		System.out.println(projectListService.selectEndProjectList());
+		System.out.println(projectListService.selectEndProductList());
+		
 		return "home";
 	}
 	

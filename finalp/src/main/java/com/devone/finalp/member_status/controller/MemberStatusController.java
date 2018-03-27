@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.devone.finalp.common.model.vo.Encryption;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.member_status.model.service.MemberStatusService;
+import com.devone.finalp.project_list.model.service.ProjectListService;
 import com.devone.finalp.webchat.model.service.webchatService;
 
 @Controller
@@ -38,6 +39,8 @@ public class MemberStatusController {
 	private MemberStatusService memberStatusService;
 	@Autowired
 	private webchatService wService;
+	@Autowired
+	private ProjectListService projectListService;
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String loginMethod(Member member, HttpSession session, Model model) throws ParseException {
@@ -51,12 +54,16 @@ public class MemberStatusController {
 		member.setSys_date(str);
 		
 		memberStatusService.updateTime(member);
+		
 		String userpwd = member.getMember_pwd();
-	      Encryption encryption = new Encryption("MD5", userpwd);
-	      String newpassword = String.valueOf(encryption.getEncryptData());
-	      member.setMember_pwd(newpassword);
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
 		
 		session.setAttribute("loginUser", memberStatusService.login(member));
+		
+		model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
+		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
 		model.addAttribute("wclist", wService.selecthomeList());
 		System.out.println(memberStatusService.login(member));
 		return "home";
@@ -70,8 +77,11 @@ public class MemberStatusController {
 		if(session != null) {
 			session.invalidate();
 		}
-		model.addAttribute("wclist", wService.selecthomeList());
-		return "home";
+		
+		/*model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
+		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
+		model.addAttribute("wclist", wService.selecthomeList());*/
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping("/enroll.do")
