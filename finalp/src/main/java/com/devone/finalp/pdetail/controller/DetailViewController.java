@@ -34,12 +34,15 @@ import com.devone.finalp.pdetail.model.vo.ProductDetailView;
 import com.devone.finalp.pdetail.model.vo.ProjectView;
 import com.devone.finalp.pdetail.model.vo.ReplyView;
 import com.devone.finalp.pdetail.model.vo.SuppoterView;
+import com.devone.finalp.webchat.model.service.webchatService;
 
 @Controller
 public class DetailViewController {
 
 	@Autowired
 	private DetailViewServiceImpl detailviewService;
+	@Autowired
+	private webchatService wService;
 	
 	@RequestMapping("projectDetailView.do")
 	public String projectDetailView(Model model,@RequestParam("project_id") String project_id,
@@ -106,6 +109,7 @@ public class DetailViewController {
 		model.addAttribute("count", count);
 		model.addAttribute("SuppoterView", suppoter);
 		model.addAttribute("cornGrade", cornGrade);
+		model.addAttribute("wclist", wService.selecthomeList());
 		
 		return "project/projectDetailView";
 	}
@@ -320,7 +324,7 @@ public class DetailViewController {
 		model.addAttribute("count", count);
 		model.addAttribute("SuppoterView", suppoter);
 		model.addAttribute("SuppoterCount", suppoter.size());
-		
+		model.addAttribute("wclist", wService.selecthomeList());
 		return "project/projectDetailGPView";
 	}
 	

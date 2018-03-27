@@ -97,7 +97,7 @@ img{
 							<th>내 용</th>
 							<td>
 							<div class="myeditabletable">
-							<textarea rows="40" cols="100" name="content" id = "tarea"></textarea>
+							<textarea rows="40" cols="500" name="content" id = "tarea"></textarea>
 							</div>
 							</td>
 						</tr>

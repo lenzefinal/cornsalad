@@ -165,13 +165,13 @@ public class BoardController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter output = response.getWriter();
-		if(br.getMember_id() == ""){
+		if(br.getMember_id().equals("") || br.getMember_id() == null){
 			output.println("<script language='javascript'>");
 			output.println("alert('세션이 만료되엇습니다. 다시 로그인 해 주세요')");
 			output.println("history.back();");
 			output.println("</script>");
 			output.close();
-		}else if(br.getBoard_content() == null){
+		}else if(br.getBoard_content().equals("") || br.getBoard_content() == null){
 			output.println("<script language='javascript'>");
 			output.println("alert('내용을 입력해 주세요')");
 			output.println("history.back();");

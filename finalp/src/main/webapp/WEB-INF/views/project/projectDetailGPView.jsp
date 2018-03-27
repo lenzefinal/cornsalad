@@ -272,12 +272,24 @@ $(document).ready(function() {
 												<!-- /react-text -->
 											</button>
 											<br><br>
-											<button class="dxWcyc">
+											
+											<c:forEach var="wc" items="${wclist}" >
+												<c:url var ="inchat" value="inchat.do">
+												<c:param name="room_reply_id" value="${wc.room_id}"/>
+												<c:param name="room_name" value="${wc.room_name}"/>
+												<c:param name="member_id" value="${loginUser.member_id }"/>
+												</c:url>
+												
+												<c:if test="${proview.project_name == wc.room_name}">
+												<button class="dxWcyc">
 												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-												<!-- react-text: 607 -->
-												채팅방참여하기
-												<!-- /react-text -->
-											</button>
+												<a href="#" onclick="window.open('${inchat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false" class="pointer noticeClick">채팅방참여하기</a>
+												</button>
+												</c:if>
+												
+												</c:forEach>
+																		
+											
 										</c:if>
 
 										</c:if>

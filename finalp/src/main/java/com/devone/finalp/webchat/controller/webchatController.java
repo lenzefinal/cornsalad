@@ -61,7 +61,7 @@ public class webchatController {
 	public String inchat(Webchat wc, Model model,Random ran, HttpServletResponse rs) throws IOException {
 		rs.setCharacterEncoding("utf-8");
 		rs.setContentType("text/html; charset=UTF-8");
-		if(wc.getMember_id() == "") {
+		if(wc.getMember_id().equals("") ){
 			PrintWriter output = rs.getWriter();
 			output.println("<script language='javascript'>");
 			output.println("alert('로그인 후 이용해 주세요')");
