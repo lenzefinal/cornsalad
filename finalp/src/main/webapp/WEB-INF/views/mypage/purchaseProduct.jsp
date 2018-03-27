@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구매한 공동구매</title>
+<title>펀딩한 프로젝트</title>
 <style>
 	td{
 		font-size:13px;
@@ -43,6 +43,19 @@
 	div.display-none{
 		display:none;
 	}
+	
+	/* jieun */
+	.btn-primary{
+		border: 1px solid #3e4b53;
+		background-color: white;
+		color: #3e4b53;
+		
+	}
+	.btn-primary:hover{
+		border: 1px solid #3e4b53;
+		background-color: #3e4b53;
+		color: white;
+	}
 </style>
 
 </head>
@@ -54,8 +67,8 @@
 			<input type="hidden" id="memberId" value="${loginUser.member_id }"/>
 			
 			<div class="c_header">
-				<h2>구매한 공동구매 상품</h2>
-				<p class="contxt">내가 구매한 공동구매 상품을 확인할 수 있어요.</p>
+				<h2>구매한 공동구매</h2>
+				<p class="contxt">내가 구매한 공동구매를 확인할 수 있어요.</p>
 			</div>
 		</div>
 		<div id="list">
@@ -67,8 +80,13 @@
 	</div>
 	
 <script type="text/javascript">
+//jieun
+//프로젝트 아이디 배열
+projectIds = [];
+projectIdsIndex = 0;
+
 var size=4;
-//시작하자마자 리스트 출력
+
 $(window).ready(function(){
 	var member_id=$('#memberId').val();
 	$.ajax({
@@ -84,6 +102,22 @@ $(window).ready(function(){
 			if(json.pproduct[0]!=null){
 				console.log("1");
 				for(var i=0;i<json.pproduct.length;i++){
+					//jieun
+				 	var projectIdFlag = true;
+					for(var j=0; j<projectIds.length; ++j){
+						if(projectIds[j] === json.pproduct[i].project_id){
+							projectIdFlag = false;
+							break;
+						}
+					}
+					
+					//프로젝트 아이디 중복 안되게
+					if(projectIdFlag){
+						projectIds[projectIdsIndex] = json.pproduct[i].project_id;
+						projectIdsIndex++;
+					} 
+					//jieun
+					
 					console.log("3");
 					if(json.pproduct[i].image_rename==null){
 						console.log("4");
@@ -91,30 +125,35 @@ $(window).ready(function(){
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
-						+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
+						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
 						+decodeURIComponent(json.pproduct[i].project_name)+'</b></a><br><br>'
-						+'<a href="" onclick="pModal('+json.pproduct[i].payment_id+')"'
-						+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+						+'<a href=""  onclick="pmodal(this.value) value='+json.pproduct[i].payment_id+'"'
+						+'data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b></td>'
+						+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b><br><br>'
+						//jieun
+						//버튼추가
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.pproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.pproduct[i].image_rename)+'"/>'
 							+'</td>'
-							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.pproduct[i].project_name)+'</b></a><br><br>'
-							+'<a href="" onclick="pModal('+json.pproduct[i].payment_id+')"'
-							+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'<a href="" name="payment_id" onclick="pmodal('+(json.pproduct[i].payment_id).substring(4)+')" data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b></td>'
+							+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.pproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
+						console.log("리스트 추력:"+typeof json.pproduct[i].payment_id);
 					}
 				}
 			$('.tbl_type').html(tag);
+		
 			} else{
 				$('#result').html("결과가 없습니다.");
 				$('#container').css("height","600px");
@@ -144,26 +183,28 @@ $(window).ready(function(){
 						+'<td class="limg">'
 						+'<img name="img_rename" src="resources/images/logo.png"/>'
 						+'</td>'
-						+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
+						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
 						+decodeURIComponent(json.spproduct[i].project_name)+'</b></a><br><br>'
-						+'<a href="" onclick="pModal('+json.spproduct[i].payment_id+')"'
-						+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+						+'<a href="" onclick="pmodal('+json.spproduct[i].payment_id+')"'
+						+'data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+						+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b><br><br>'
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.spproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
 							+'<td class="limg">'
 							+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.spproduct[i].image_rename)+'"/>'
 							+'</td>'
-							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
+							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.spproduct[i].project_name)+'</b></a><br><br>'
-							+'<a href="" onclick="pModal('+json.spproduct[i].payment_id+')"'
-							+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'<a href="" onclick="pmodal('+json.spproduct[i].payment_id+')"'
+							+'data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+							+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.spproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 							+'</tr>';
 					}
 					size++;
@@ -177,8 +218,13 @@ $(window).ready(function(){
 			}
 		});
 	});
+	
+	
+	//jieun
+	//프로젝트 아이디마다 모달창 만들기
+	
 });
-//스크롤 페이징
+
 $(window).scroll(function() {
 	 var member_id=$('#memberId').val();
 	 var project_name=$('#project_name').val();
@@ -196,37 +242,36 @@ $(window).scroll(function() {
 	 				var jsonStr=JSON.stringify(e);
 	 				var json=JSON.parse(jsonStr); 
 	 				var tag="";
-	 				console.log("1");
 	 				if(json.pproduct[0]!=null){
 	 					console.log("1");
 	 					for(var i=0;i<json.pproduct.length;i++){
-	 						console.log("3");
 	 						if(json.pproduct[i].image_rename==null){
-	 							console.log("4");
 	 						tag+='<tr class="list" name="tt">'
 	 							+'<td class="limg">'
 	 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 	 							+'</td>'
-	 							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
+	 							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
 	 							+decodeURIComponent(json.pproduct[i].project_name)+'</b></a><br><br>'
-	 							+'<a href="" onclick="pModal('+json.pproduct[i].payment_id+')"'
-	 							+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 							+'<a href="" onclick="pmodal('+json.pproduct[i].payment_id+')"'
+	 							+'data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b></td>'
+	 							+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b><br><br>'
+								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.pproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
 	 								+'<td class="limg">'
 	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.pproduct[i].image_rename)+'"/>'
 	 								+'</td>'
-	 								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
+	 								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.pproduct[i].project_id+'" style="color:black;">'
 	 								+decodeURIComponent(json.pproduct[i].project_name)+'</b></a><br><br>'
-	 								+'<a href="" onclick="pModal('+json.pproduct[i].payment_id+')"'
-	 								+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+	 								+'<a href="" onclick="pmodal('+json.pproduct[i].payment_id+')"'
+	 								+'data-toggle="modal" data-target="#pppyamentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b></td>'
+	 								+'<td><b>마감일<br>'+json.pproduct[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.pproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 					}
@@ -260,26 +305,28 @@ $(window).scroll(function() {
 	 							+'<td class="limg">'
 	 							+'<img name="img_rename" src="resources/images/logo.png"/>'
 	 							+'</td>'
-	 							+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
+	 							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
 	 							+decodeURIComponent(json.spproduct[i].project_name)+'</b></a><br><br>'
-	 							+'<a href="" onclick="pModal('+json.spproduct[i].payment_id+')"'
+	 							+'<a href="" onclick="pmodal('+json.spproduct[i].payment_id+')"'
 	 							+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+	 							+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b><br><br>'
+								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.spproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
 	 								+'<td class="limg">'
 	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.spproduct[i].image_rename)+'"/>'
 	 								+'</td>'
-	 								+'<td><b><small>[공동구매]</small><br><a href="projectDetailGPView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
+	 								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.spproduct[i].project_id+'" style="color:black;">'
 	 								+decodeURIComponent(json.spproduct[i].project_name)+'</b></a><br><br>'
-	 								+'<a href="" onclick="pModal('+json.spproduct[i].payment_id+')"'
+	 								+'<a href="" onclick="pmodal('+json.spproduct[i].payment_id+')"'
 	 								+'data-toggle="modal" data-target="#pppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b></td>'
+	 								+'<td><b>마감일<br>'+json.spproduct[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.spproduct[i].project_id +')">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 						size++;
@@ -296,45 +343,44 @@ $(window).scroll(function() {
 	 	}
 	 }
 });
-	function pModal(pmid){
-		var member_id=$('#memberId').val();
-		console.log("payment_id" +pmid);
-		console.log("typeof"+typeof pmid)
-		console.log(member_id);
-		$.ajax({
-			url:"prod_payment.do",
-			data: {"payment_id":pmid, "member_id":member_id},
-			dataType:"json",
-			type:"post",
-			success:function(e){
-				var jsonStr = JSON.stringify(e);
-				//변환된 문자열을 json 객체로 바꿈
-				var json = JSON.parse(jsonStr);
-				
-				$("#ppmodal").empty();
-				
-				var value=$("#ppmodal").html();
-				value='<hr style="border:0.5px solid black;">'
-				for(var i in json.mpproduct){
-				value+=	'<div><br><div>&nbsp; 상품 ID - '
-						+decodeURIComponent(json.mpproduct[i].product_id)+'<br> &nbsp; 상품명 - '
-						+'<b>'+decodeURIComponent(json.mpproduct[i].product_name)+'&nbsp;&nbsp;(총 '
-						+json.mpproduct[i].count+'개)</b></div><br>'
-						
-				}
-				value+='<hr style="border:0.5px solid black;"><b><i>&nbsp;총 결제금액 - '+json.mpproduct[i].total_amount+' 원<br>&nbsp;결제하신 날 - '
-						+json.mpproduct[i].payment_date+'<i></b>'
-						+'</div>'
-				value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mpproduct[i].payment_id+'&pay_option='+json.mpproduct[i].pay_option+'" style="color:white;">결제 취소</a></button>'
-				$("#ppmodal").html(value);
-			},
-			error:function(request, status, errorData){
-					alert("error code : " + request.status + "\n" 
-						+ "message : " + request.responseText + "\n"
-						+ "error : " + errorData );	
+function pmodal(payment_id){
+	var member_id=$('#memberId').val();
+	console.log("payment_id: " +payment_id);
+	console.log("typeof: "+typeof payment_id)
+	console.log(member_id);
+	$.ajax({
+		url:"prod_payment.do",
+		data: {payment_id:payment_id, member_id:member_id},
+		dataType:"json",
+		type:"post",
+		success:function(e){
+			var jsonStr = JSON.stringify(e);
+			//변환된 문자열을 json 객체로 바꿈
+			var json = JSON.parse(jsonStr);
+			
+			$("#ppmodal").empty();
+			
+			var value=$("#ppmodal").html();
+			value='<hr style="border:0.5px solid black;">'
+			for(var i in json.mpproduct){
+			value+=	'<div><br><div>&nbsp; 선택하신 선물 - '
+					+'<b>'+decodeURIComponent(json.mpproduct[i].item_name)+' &nbsp;총 '
+					+json.mpproduct[i].count+'개 </b></div><br>'
 			}
-		});
-	}
+			value+='<hr style="border:0.5px solid black"><br><b><i>&nbsp;총 결제금액 : '+json.mpproduct[i].total_amount+' 원<br>&nbsp;결제하신 날 : '
+			+json.mpproduct[i].payment_date+'<i></b>'
+			+'</div>'
+			value+='<br><div style="margin-left:75%;"><button class="btn btn-danger btn-sm"><a href="refund.do?payment_id='+json.mpproduct[i].payment_id+'&pay_option='+json.mpproduct[i].pay_option+'" style="color:white;">결제 취소</a></button>'
+			$("#ppmodal").html(value);
+		},
+		error:function(request, status, errorData){
+				alert("error code : " + request.status + "\n" 
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData );	
+		}
+	});
+}
+
 </script>
 <!-- 결제내역 modal -->
 <div class="modal fade" id="pppaymentModal">
@@ -349,11 +395,15 @@ $(window).scroll(function() {
 
       <!-- Modal body -->
       <div class="modal-body" id="ppmodal">
-     
+      <hr>
        
       </div>
     </div>
   </div>
 </div>
+
+<!-- 별점 모달창 만들 곳 -->
+<div id="starpoint-div"></div>
+
 </body>
 </html>

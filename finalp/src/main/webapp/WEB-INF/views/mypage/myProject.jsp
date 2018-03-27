@@ -121,14 +121,14 @@ $(window).ready(function(){
 					+ errorData);
 		}
 	}); 
-	$('#project_name').keyup(function(){
+	$('#mpj_name').keyup(function(){
 		 var size=4;
 		 var member_id=$('#memberId').val();
-		 var project_name=$('#project_name').val();
+		 var mpproject_name=$('#mpj_name').val();
 		$.ajax({
 			url:"searchmyproject.do",
 			dataType:"json",
-			data:{"size":size, "member_id":member_id,"project_name":project_name},
+			data:{"size":size, "member_id":member_id,"project_name":mpproject_name},
 			type:"post",
 			success:function(e){
 				var jsonStr=JSON.stringify(e);
@@ -193,7 +193,7 @@ $(window).ready(function(){
 
  $(window).scroll(function() {
 	 var member_id=$('#memberId').val();
-	 var project_name=$('#project_name').val();
+	 var mpproject_name=$('#mpj_name').val();
 	 console.log("구분자");
 	 console.log($(window).scrollTop());
 	 console.log($(document).height()-$(window).height());
@@ -271,7 +271,7 @@ $(window).ready(function(){
 	 		$.ajax({
 				url:"searchmyproject.do",
 				dataType:"json",
-				data:{"size":size, "member_id":member_id,"project_name":project_name},
+				data:{"size":size, "member_id":member_id,"project_name":mpproject_name},
 				type:"post",
 				success:function(e){
 					var jsonStr=JSON.stringify(e);
@@ -350,7 +350,7 @@ $(window).ready(function(){
 		</div>
 		
 		<div id="list">
-			<input type="text" style="margin-left:2%" id="project_name" name="project_name" placeholder="제목으로 검색"/>
+			<input type="text" style="margin-left:2%" id="mpj_name" name="project_name" placeholder="제목으로 검색"/>
 			<table class="tbl_type" cellspacing="0" border="1">
 			</table>
 		</div>

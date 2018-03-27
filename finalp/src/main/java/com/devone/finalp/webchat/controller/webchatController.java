@@ -58,8 +58,19 @@ public class webchatController {
 	}
 	
 	@RequestMapping(value="inchat.do")
-	public String inchat(Webchat wc, Model model,Random ran) {
-		if(wService.searchWC(wc.getRoom_reply_id())==null) {
+	public String inchat(Webchat wc, Model model,Random ran, HttpServletResponse rs) throws IOException {
+		rs.setCharacterEncoding("utf-8");
+		rs.setContentType("text/html; charset=UTF-8");
+		if(wc.getMember_id() == "") {
+			PrintWriter output = rs.getWriter();
+			output.println("<script language='javascript'>");
+			output.println("alert('로그인 후 이용해 주세요')");
+			output.println("window.close();");
+			output.println("</script>");
+			output.close();
+			return null;
+		}
+		else if(wService.searchWC(wc.getRoom_reply_id())==null) {
 			return "webchat/errorChat";
 		}else{
 		long currentTime = System.currentTimeMillis();

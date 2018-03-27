@@ -3,6 +3,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,18 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.devone.finalp.common.model.vo.Encryption;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.MemberTrust;
 import com.devone.finalp.common.model.vo.Project;
+import com.devone.finalp.common.model.vo.SubCategory;
 import com.devone.finalp.mypage.model.vo.FundingProject;
 import com.devone.finalp.mypage.model.vo.MemberAccount;
 import com.devone.finalp.mypage.model.vo.MyFundPay;
@@ -213,7 +219,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -277,7 +290,7 @@ public class MypageController {
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
-			j.put("payment_id", p.getPayment_id());
+			j.put("payment_id", p.getPayment_id().toString().toString());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 		}
@@ -310,7 +323,7 @@ public class MypageController {
 			j.put("member_id", f.getMember_id());
 			j.put("end_date", f.getEnd_date().toString());
 			j.put("pay_option", f.getPay_option());
-			j.put("payment_id", f.getPayment_id());
+			j.put("payment_id", f.getPayment_id().toString());
 			jarr.add(j);
 
 		}
@@ -402,7 +415,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -525,7 +545,8 @@ public class MypageController {
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
 			j.put("end_date", p.getEnd_date().toString());
-			j.put("payment_id", p.getPayment_id());
+			j.put("payment_id", p.getPayment_id().toString());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -548,16 +569,17 @@ public class MypageController {
 
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
-
-		for (FundingProject sfp : list) {
+		
+		for (FundingProject p : list) {
 			JSONObject j = new JSONObject();
-			j.put("project_id", sfp.getProject_id());
-			j.put("image_rename", sfp.getImage_rename());
-			j.put("project_name", sfp.getProject_name());
-			j.put("product_name", sfp.getProduct_name());
-			j.put("member_id", sfp.getMember_id());
-			j.put("payment_id", sfp.getPayment_id());
-			j.put("end_date", sfp.getEnd_date().toString());
+			j.put("project_id", p.getProject_id());
+			j.put("image_rename", p.getImage_rename());
+			j.put("project_name", p.getProject_name());
+			j.put("product_name", p.getProduct_name());
+			j.put("member_id", p.getMember_id());
+			j.put("end_date", p.getEnd_date().toString());
+			j.put("payment_id", p.getPayment_id().toString());
+			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
 
 		}
@@ -565,7 +587,7 @@ public class MypageController {
 		System.out.println(json.toJSONString());
 
 		PrintWriter out = response.getWriter();
-		out.println(json.toJSONString());
+		out.println(json.toJSONString());	
 		out.flush();
 		out.close();
 
@@ -575,6 +597,7 @@ public class MypageController {
 	@RequestMapping(value = "prod_payment.do", method = RequestMethod.POST)
 	public void myProdpay(MyProdPay prodpay, HttpServletResponse response) throws IOException {
 		System.out.println("공구 결제 list");
+		System.out.println("list test : "+ mypageService.myProdpay(prodpay));
 		List<MyProdPay> list = mypageService.myProdpay(prodpay);
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject json = new JSONObject();
@@ -609,7 +632,9 @@ public class MypageController {
 	@RequestMapping(value = "fund_payment.do", method = RequestMethod.POST)
 	public void myFundpay(MyFundPay fundpay, HttpServletResponse response) throws IOException {
 		System.out.println("펀딩 결제 list");
+		System.out.println("펀딩 결제 리스트 테스트: "+mypageService.myFundpay(fundpay));
 		List<MyFundPay> list = mypageService.myFundpay(fundpay);
+		
 		response.setContentType("application/json; charset=utf-8");
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
@@ -766,4 +791,83 @@ public class MypageController {
 
 		return "redirect:myRQuestion.do?receive_member_id=" + q.getReceive_member_id();
 	}
+	
+	//해당 회원이 매긴 별점들
+	@ResponseBody
+	@RequestMapping(value="memberTrustListByMemberId.do", method=RequestMethod.POST)
+	public String memberTrustListByMemberIdMethod(
+			@RequestParam(value="member_id") String memberId,
+			HttpServletResponse response) throws IOException {
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		
+		
+		List<MemberTrust> list = mypageService.selectListMemberTrustByMemberId(memberId);
+		
+		System.out.println(list);
+		//전송용 최종 json 객체 생성
+		JSONObject sendJson = new JSONObject();
+		
+		JSONArray jarr = new JSONArray();
+		//list를 jsonArray로 복사
+		for(MemberTrust membert : list) {
+			JSONObject juser = new JSONObject();
+			juser.put("projectId", membert.getProject_id());
+			juser.put("cornGrade", membert.getCorn_grade());
+			
+			jarr.add(juser);
+		}
+
+		sendJson.put("list", jarr);
+			
+		return sendJson.toJSONString();
+	}
+	
+	
+	//별점 업데이트
+	@ResponseBody
+	@RequestMapping(value="updateMemberTrust.do", method=RequestMethod.POST)
+	public void updateMemberTrusttMethod(
+			MemberTrust memberTrust,
+			@RequestBody String param) throws Exception {
+		
+		System.out.println("[updateMemberTrusttMethod.do]");
+		System.out.println("MemberTrust:" + param);
+		
+		//전송 온 문자열을 json 객체로 변환 처리
+		JSONParser parser = new JSONParser();
+		JSONObject job = (JSONObject)parser.parse(param);
+		
+		//별점
+		int starPoint = 0;
+		String starPointStr = (String)job.get("corn_grade");
+		
+		try {
+			starPoint = Integer.parseInt(starPointStr);
+		} catch(NumberFormatException e) {
+			starPoint = 0;
+		}
+		memberTrust.setCorn_grade(starPoint);
+		
+		//멤버 아이디
+		memberTrust.setMember_id((String)job.get("member_id"));
+		
+		//프로젝트 아이디
+		memberTrust.setProject_id((String)job.get("project_id"));
+		
+		//DB에 update
+		MemberTrust beforeMT = mypageService.selectOneMemberTrust(memberTrust);
+		if(beforeMT == null) {
+			//insert
+			mypageService.insertMemberTrust(memberTrust);
+			System.out.println("MemberTrust 등록 완료");
+		}
+		else {
+			//update
+			mypageService.updateMemberTrust(memberTrust);
+			System.out.println("MemberTrust 업데이트 완료");
+		}
+	}
+	
 }

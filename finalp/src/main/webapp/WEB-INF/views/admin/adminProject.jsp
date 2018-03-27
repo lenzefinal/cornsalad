@@ -553,6 +553,12 @@
 						<td>${ aprow.end_date }</td>
 						
 						<c:choose>
+							<c:when test="${ aprow.project_request_flag eq 'Y' }">
+								<td class='fonttd' colspan="2">승인 요청중</td>
+							</c:when>
+							<c:when test="${ (aprow.project_request_flag eq 'W') or ((aprow.project_request_flag eq 'N') and (aprow.start_date eq '')) }">
+								<td class='fonttd' colspan="2">창작자 수정중</td>
+							</c:when>
 							<c:when test="${ aprow.ing_flag eq 'Y' }">
 								<td class='fonttd'>진행중</td>
 							</c:when>
@@ -567,20 +573,13 @@
 								</c:if>
 							</c:when>
 							<c:when test="${ (aprow.ing_flag eq 'N') and (aprow.spon >= 100) }">
-								<td class='fonttd'>성공</td>
-							</c:when>
-							<c:when test="${ aprow.project_request_flag eq 'Y' }">
-								<td class='fonttd' colspan="2">승인 요청중</td>
-							</c:when>
-							<c:when test="${ (aprow.project_request_flag eq 'W') or ((aprow.project_request_flag eq 'N') and (aprow.start_date eq '')) }">
-								<td class='fonttd' colspan="2">창작자 수정중</td>
+								<td class='fonttd' >성공</td>
 							</c:when>
 						</c:choose>
 						
 						
 						<c:choose>
 						<c:when test="${ aprow.project_request_flag eq 'N' }">
-							
 							<c:if test="${ aprow.project_onoff_flag eq 'Y' }">
 								<td><a href="adminProjectOff.do?project_id=${ aprow.project_id }"><button class="btn btn-danger">비활성화</button></a></td>
 							</c:if>

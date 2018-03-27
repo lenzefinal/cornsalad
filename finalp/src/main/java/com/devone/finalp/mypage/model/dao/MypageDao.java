@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.MemberTrust;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.FundingProject;
@@ -179,7 +180,8 @@ public class MypageDao {
 	}
 
 	public List<FundingProject> searchFundingProejct(FundingProject fundingProject) {
-		// TODO Auto-generated method stub
+		String keyword = "%" + fundingProject.getProject_name() + "%";
+		fundingProject.setProject_name(keyword);
 		return mybatis.selectList("mystatusmapper.searchfundingproject",fundingProject);
 	}
 
@@ -191,5 +193,21 @@ public class MypageDao {
 	public List<MyFundPay> myFundPay(MyFundPay fundpay) {
 		// TODO Auto-generated method stub
 		return mybatis.selectList("mystatusmapper.fundingPayment", fundpay);
+	}
+
+	public MemberTrust selectOneMemberTrust(MemberTrust memberTrust) {
+		return mybatis.selectOne("mystatusmapper.selectOneMemberTrust", memberTrust);
+	}
+
+	public int insertMemberTrust(MemberTrust memberTrust) {
+		return mybatis.insert("mystatusmapper.insertMemberTrust", memberTrust);
+	}
+
+	public int updateMemberTrust(MemberTrust memberTrust) {
+		return mybatis.update("mystatusmapper.updateMemberTrust", memberTrust);
+	}
+
+	public List<MemberTrust> selectListMemberTrustByMemberId(String memberId) {
+		return mybatis.selectList("mystatusmapper.selectListMemberTrust", memberId);
 	}
 }

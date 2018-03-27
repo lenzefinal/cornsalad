@@ -57,10 +57,10 @@
 	
 	<select id="wclistCount" resultType="int" parameterType="String">
 		<if test="_parameter == 'pj'">
-			SELECT count(*) from board where board_category_id = 'PJ'
+			SELECT count(*) from webchat where room_category = 'pj'
 		</if>
 		<if test="_parameter == 'pr'">
-			SELECT count(*) from board where board_category_id = 'PR'
+			SELECT count(*) from webchat where room_category = 'pr'
 		</if>
 		<if test='_parameter == null'>
 		 <![CDATA[

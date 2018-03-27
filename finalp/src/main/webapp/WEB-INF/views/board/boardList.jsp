@@ -236,52 +236,6 @@
 		</div>
 	
 	</div>
-	<a href="wcList.do">채팅방 리스트 보기</a>
-	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-	채팅방 만들기
-	</button>
 	
-	 <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-      <form action="chat.do" method = "post" target="채팅방">
-      	<input type = "hidden" name="member_id" value="${loginUser.member_id }" readonly>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">채팅방 만들기</h4>
-        </div>
-        <div class="modal-body">
-        	 <table class ="table table-striped table-bordered" >
-                  	<tr>
-                   		<th>채팅방 이름</th> 
-                   		<td><input type = "text" name="room_name"></td>
-                   	</tr>
-              </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-          <button type="submit" onclick="chat(this.form)"class="btn btn-default">만들기</button>
-        </div>
-        </form>
-      </div>
-      
-    </div>
-  </div>
-	
-	<script>
-	var chat=function(form){
-		var url = "chat.do";
-		var title="채팅방";
-		var status="width=500,height=600, left=1500, resizable=0";
-		window.open('',title,status);
-		form.target = title;
-		form.action=url;
-		form.method = 'post';
-		form.submit();
-	}
-	</script>
 </body>
 </html>

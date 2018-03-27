@@ -103,12 +103,7 @@
 									<c:param name="member_id" value="${loginUser.member_id }"/>
 									</c:url>
 							<li style="border-bottom:1px solid lightgray;padding: 5px;">${webchat.room_name}
-								<c:if test="${!empty loginUser.member_id }">
 								<a href="#" onclick="window.open('${inchat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false" class="pointer noticeClick" style="float:right">[입장 하기]	</a>
-								</c:if>
-								<c:if test="${empty loginUser.member_id }">
-								<a style="float:right">[입장 하기] ${loginUser.member_id }</a>
-								</c:if>
 							</li>
 				</c:forEach>
 			</ul>
