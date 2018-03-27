@@ -201,6 +201,7 @@
 			</c:forEach>
 	  </section>
   </div>
+  
 
 	
   <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -231,9 +232,6 @@
     		        slidesToScroll: 1
     		      }
     		    }
-    		    // You can unslick at a given breakpoint now by adding:
-    		    // settings: "unslick"
-    		    // instead of a settings object
     		  ]
     		});
      
