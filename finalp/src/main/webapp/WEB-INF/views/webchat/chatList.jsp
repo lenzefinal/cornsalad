@@ -139,7 +139,9 @@
 						<c:param name=""/>
 					</c:url>
 					<c:if test="${loginUser != null}">
-					<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">채팅방 만들기</button>
+						<c:if test="${pagectr.c_id == null}">
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">채팅방 만들기</button>
+						</c:if>
 					</c:if>
 				</div>
 				<div class="pageCenter" style="clear: both;">
