@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.MemberTrust;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.Question;
 import com.devone.finalp.common.model.vo.QuestionCategory;
@@ -208,6 +209,26 @@ public class MypageServiceImpl implements MypageService {
 	public List<MyFundPay> myFundpay(MyFundPay fundpay) {
 		// TODO Auto-generated method stub
 		return mypageDao.myFundPay(fundpay);
+	}
+
+	@Override
+	public MemberTrust selectOneMemberTrust(MemberTrust memberTrust) {
+		return mypageDao.selectOneMemberTrust(memberTrust);
+	}
+
+	@Override
+	public int insertMemberTrust(MemberTrust memberTrust) {
+		return mypageDao.insertMemberTrust(memberTrust);
+	}
+
+	@Override
+	public int updateMemberTrust(MemberTrust memberTrust) {
+		return mypageDao.updateMemberTrust(memberTrust);
+	}
+
+	@Override
+	public List<MemberTrust> selectListMemberTrustByMemberId(String memberId) {
+		return mypageDao.selectListMemberTrustByMemberId(memberId);
 	}
 
 	

@@ -286,4 +286,45 @@
 			where question_id=#{question_id}
 		]]>
 	</update>
+	
+	<resultMap id="MemberTrustResultMap" type="MemberTrust">
+		<result column="project_id" property="project_id"/>
+		<result column="member_id" property="member_id"/>
+		<result column="corn_grade" property="corn_grade"/>
+		<result column="creation_date" property="creation_date"/>
+	</resultMap>
+	<select id="selectOneMemberTrust" resultMap="MemberTrustResultMap"
+		parameterType="MemberTrust">
+		<![CDATA[
+			SELECT * 
+			FROM MEMBER_TRUST
+			WHERE MEMBER_ID = #{ member_id } 
+			AND PROJECT_ID = #{ project_id }
+		]]>
+	</select>
+	<select id="selectListMemberTrust" resultMap="MemberTrustResultMap"
+		parameterType="MemberTrust">
+		<![CDATA[
+			SELECT * 
+			FROM MEMBER_TRUST
+			WHERE MEMBER_ID = #{ member_id } 
+		]]>
+	</select>
+	
+	<insert id="insertMemberTrust" parameterType="MemberTrust">
+		<![CDATA[
+			INSERT INTO MEMBER_TRUST VALUES( #{ project_id }, 
+				#{ member_id },  #{ corn_grade },  SYSDATE
+			)
+		]]>
+	</insert>
+	
+	<update id="updateMemberTrust" parameterType="MemberTrust">
+		<![CDATA[
+			UPDATE MEMBER_TRUST SET
+			CORN_GRADE = #{ corn_grade },
+			CREATION_DATE = SYSDATE
+			WHERE MEMBER_ID = #{ member_id }
+		]]>
+	</update>
 </mapper>
