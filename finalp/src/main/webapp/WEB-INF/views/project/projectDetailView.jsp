@@ -334,11 +334,14 @@
 										<h3 class="project-right-title">리워드 선택</h3>
 										
 										<c:forEach var="glist" items="${ glist }">
-											<c:if test="${ glist.remain > 0 || glist.capacity eq 0 }">
+											<c:if test="${ glist.remain > 0 || glist.capacity eq 0}">
 	 											<button class="rightinfo-reward-list ing" onclick="location.href='payment.do?p_id=${proview.project_id}&g_id=${ glist.gift_id }'">
 	 											
  											</c:if>
- 											<c:if test="${ glist.remain eq 0 && glist.capacity ne 0 }">
+ 											<c:if test="${empty loginUser }">
+ 												<button class="rightinfo-reward-list ing" onclick="alertify.alert('로그인해주세요')">
+ 											</c:if>
+ 											<c:if test="${ glist.remain eq 0 && glist.capacity ne 0}">
 	 											<button class="rightinfo-reward-list soldout" disabled>
  											</c:if>
  											
