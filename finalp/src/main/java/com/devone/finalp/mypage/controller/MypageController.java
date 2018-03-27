@@ -219,7 +219,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -408,7 +415,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -855,4 +869,5 @@ public class MypageController {
 			System.out.println("MemberTrust 업데이트 완료");
 		}
 	}
+	
 }
