@@ -103,13 +103,13 @@
 	 <div class="projectview-btnbox">
 		<button class="btn btn-primary" style="width:250px;height:60px;margin-right:10px;" onclick="goFundingView()"><b>펀딩 프로젝트 만들기</b></button>
 		<button class="btn btn-primary" style="width:250px;height:60px;" onclick="goParView()"><b>공동구매 프로젝트 만들기</b></button>
-		<button class="btn btn-primary" style="width:250px;height:60px;" onclick="goPDtailView()"><b>공동구매 상세페이지</b></button>
+		<!-- <button class="btn btn-primary" style="width:250px;height:60px;" onclick="goPDtailView()"><b>공동구매 상세페이지</b></button> -->
 	</div>
 </div>
 <div style="height:400px;">
 </div>
-<button onclick="funUpdate()">펀딩 수정 페이지</button>
-<button onclick="grouUpdate()">공동거래 수정 페이지</button>
-<c:import url="/WEB-INF/views/footer.jsp"/>
+<!-- <button onclick="funUpdate()">펀딩 수정 페이지</button>
+<button onclick="grouUpdate()">공동거래 수정 페이지</button>  -->
+<%-- <c:import url="/WEB-INF/views/footer.jsp"/> --%>
 </body>
 </html>
