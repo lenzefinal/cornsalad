@@ -85,9 +85,9 @@
                   <dt>프로젝트</dt>
                   <dd>${ aalarm.projectcount } 개</dd>
                   <dt>공동구매</dt>
-                  <dd>${ aalarm.productcount } 건</dd>
+                  <dd>${ aalarm.productcount } 개</dd>
 				  <dt>승인 요청</dt>
-                  <dd>${ aalarm.offprojectcount } 건</dd>
+                  <dd>${ aalarm.offprojectcount } 개</dd>
                </dl>
             </div>
          </div>

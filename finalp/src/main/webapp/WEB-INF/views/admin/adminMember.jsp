@@ -26,6 +26,7 @@
 		margin-top:2%;
 		margin-left:5%;
 		margin-right:10%;
+		margin-bottom:20%;
 		display:inline-block;
 		width: 80%;
 		float:center;
@@ -64,13 +65,21 @@
 	#adminMain button.btn{
 		font-size:13px;
 	}
+	#adminMain input.searchinput{
+		width: 200px;
+		font-size:14px;
+		float: right;
+		margin-top:5px;
+	}
 	
  } 
 </style>
 <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
+//회원이름검색
   	$(function(){
-  		$('#bid').click(function(){
+  		$('#search').keypress(function(e){
+  		  if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
   			var searchM = document.getElementById("search").value;
   			console.log(searchM);
   			$.ajax({
@@ -104,7 +113,7 @@
 					}else{
 						value += "<tr><td colspan='6'>조회된 회원이 없습니다.</td></tr>"
 					}
- 					
+ 					$('#pagediv').empty();
  					$('#mtable').html(value);
   				},
   				error: function(request, status, errorData){
@@ -113,6 +122,7 @@
 						+ "error : " + errorData );	
 				}
   			});
+  		  }
   		});
   	});
   </script>
@@ -136,11 +146,7 @@
 <br>
 <div class="searchdiv">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" id="search">
-      <div class="input-group-btn">
-        <button id="bid" class="btn btn-default">
-        <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
-      </div>
+        <input type="text" class="form-control searchinput" id="search" placeholder="이름검색" />
     </div>
 </div>
 
@@ -177,15 +183,10 @@
   </div>
   
   <!-- 페이지 번호 처리 -->
-	<div style="text-align:center;">
+	<div style="text-align:center;" id="pagediv">
 	<c:url var="first" value="adminMember.do">
 		<c:param name="currentPage" value="1" />
 	</c:url>
-	<%-- <a href="${first }">[<<]</a>
-	<c:url var="prev" value="adminMember.do">
-		<c:param name="currentPage" value="${startPage - limit }" />
-	</c:url>
-	<a href="${prev }">	[<]</a> --%>
 	<c:forEach var="p" begin="${startPage }" end="${endPage }" step="1">
 	<c:url var="page" value="adminMember.do">
 		<c:param name="currentPage" value="${p }" />
@@ -204,11 +205,6 @@
 	<c:url var="next" value="adminMember.do">
 		<c:param name="currentPage" value="${endPage + limit }" />
 	</c:url>
-	<%-- <a href="${next }">	[>]</a>
-	<c:url var="last" value="adminMember.do">
-		<c:param name="currentPage" value="${maxPage }" />
-	</c:url>
-	<a href="${last }">[>>]</a> --%>
 	</div>
 
 </div>
