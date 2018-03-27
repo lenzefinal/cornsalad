@@ -83,7 +83,9 @@
 //jieun
 //프로젝트 아이디 배열
 projectIds = [];
+projectNames = [];
 projectIdsIndex = 0;
+
 
 var size=4;
 
@@ -102,7 +104,7 @@ $(window).ready(function(){
 			if(json.fproject[0]!=null){
 				console.log("1");
 				for(var i=0;i<json.fproject.length;i++){
-					//jieun
+					//jieun----------------------------------------
 					var projectIdFlag = true;
 					for(var j=0; j<projectIds.length; ++j){
 						if(projectIds[j] === json.fproject[i].project_id){
@@ -114,9 +116,10 @@ $(window).ready(function(){
 					//프로젝트 아이디 중복 안되게
 					if(projectIdFlag){
 						projectIds[projectIdsIndex] = json.fproject[i].project_id;
+						projectNames[projectIdsIndex] = json.fproject[i].project_name;
 						projectIdsIndex++;
 					}
-					//jieun
+					//jieun---------------------------------------
 					
 					console.log("3");
 					if(json.fproject[i].image_rename==null){
@@ -127,14 +130,15 @@ $(window).ready(function(){
 						+'</td>'
 						+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 						+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
-						+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
+						+'<a href=""  onclick="fModal(this.value) value='+json.fproject[i].payment_id+'"'
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
 						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
 						//jieun
 						//버튼추가
-						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+							+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -143,16 +147,22 @@ $(window).ready(function(){
 							+'</td>'
 							+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 							+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
-							+'<a href="" onclick="fModal('+json.fproject[i].payment_id+')"'
-							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
+							+'<a href="" name="payment_id" onclick="fModal('+json.fproject[i].payment_id+');" data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+							+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 							+'</tr>';
+						console.log(typeof json.fproject[i].payment_id);
 					}
 				}
 			$('.tbl_type').html(tag);
+			
+			//jieun
+			//프로젝트 아이디마다 모달창 만들기
+			createStarPointModal();
+		
 			} else{
 				$('#result').html("결과가 없습니다.");
 				$('#container').css("height","600px");
@@ -188,8 +198,9 @@ $(window).ready(function(){
 						+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 						+'결제 내역 보기</a></td>'
 						+'</td>'
-						+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-						+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+						+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+						+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+						+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 						+'</tr>';
 					} else{
 						tag+='<tr class="list" name="tt">'
@@ -202,8 +213,9 @@ $(window).ready(function(){
 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 							+'결제 내역 보기</a></td>'
 							+'</td>'
-							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-							+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+							+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+							+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 							+'</tr>';
 					}
 					size++;
@@ -217,11 +229,6 @@ $(window).ready(function(){
 			}
 		});
 	});
-	
-	
-	//jieun
-	//프로젝트 아이디마다 모달창 만들기
-	
 });
 
 $(window).scroll(function() {
@@ -241,13 +248,10 @@ $(window).scroll(function() {
 	 				var jsonStr=JSON.stringify(e);
 	 				var json=JSON.parse(jsonStr); 
 	 				var tag="";
-	 				console.log("1");
 	 				if(json.fproject[0]!=null){
 	 					console.log("1");
 	 					for(var i=0;i<json.fproject.length;i++){
-	 						console.log("3");
 	 						if(json.fproject[i].image_rename==null){
-	 							console.log("4");
 	 						tag+='<tr class="list" name="tt">'
 	 							+'<td class="limg">'
 	 							+'<img name="img_rename" src="resources/images/logo.png"/>'
@@ -259,12 +263,13 @@ $(window).scroll(function() {
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
 	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 							+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+								+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
 	 								+'<td class="limg">'
-	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.pproduct[i].image_rename)+'"/>'
+	 								+'<img name="img_rename" src="resources/uploadProPreImages/'+decodeURIComponent(json.fproject[i].image_rename)+'"/>'
 	 								+'</td>'
 	 								+'<td><b><small>[프로젝트]</small><br><a href="projectDetailView.do?member_id=${loginUser.member_id}&project_id='+json.fproject[i].project_id+'" style="color:black;">'
 	 								+decodeURIComponent(json.fproject[i].project_name)+'</b></a><br><br>'
@@ -273,7 +278,8 @@ $(window).scroll(function() {
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
 	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+	 								+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 					}
@@ -313,8 +319,9 @@ $(window).scroll(function() {
 	 							+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 							+'결제 내역 보기</a></td>'
 	 							+'</td>'
-	 							+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 							+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+	 							+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+								+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 	 							+'</tr>';
 	 						} else{
 	 							tag+='<tr class="list" name="tt">'
@@ -327,8 +334,9 @@ $(window).scroll(function() {
 	 								+'data-toggle="modal" data-target="#fppaymentModal" style="color:black; font-size:11px; text-decoration:underline;">'
 	 								+'결제 내역 보기</a></td>'
 	 								+'</td>'
-	 								+'<td><b>마감일<br>'+json.fproject[i].end_date+'</b><br><br>'
-	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" onclick="showStarPoint('+ json.fproject[i].project_id +')">프로젝트 별점 주기</button></td>'
+	 								+'<td><b>마감일<br>'+json.sfproject[i].end_date+'</b><br><br>'
+	 								+ '<button class="btn btn-primary" style="font-size: 9pt;" data-toggle="modal" '
+	 								+ 'data-target="#'+ json.fproject[i].project_id +'">프로젝트 별점 주기</button></td>'
 	 								+'</tr>';
 	 						}
 	 						size++;
@@ -345,14 +353,14 @@ $(window).scroll(function() {
 	 	}
 	 }
 });
-function fModal(fmid){
+function fModal(payment_id){
 	var member_id=$('#memberId').val();
-	console.log("payment_id" +fmid);
-	console.log("typeof"+typeof fmid)
+	console.log("payment_id: " +payment_id);
+	console.log("typeof: "+typeof payment_id)
 	console.log(member_id);
 	$.ajax({
 		url:"fund_payment.do",
-		data: {"payment_id":fmid, "member_id":member_id},
+		data: {payment_id:payment_id, member_id:member_id},
 		dataType:"json",
 		type:"post",
 		success:function(e){
@@ -383,6 +391,163 @@ function fModal(fmid){
 	});
 }
 
+//----------
+//jieun 
+//별점 모달창 생성
+function createStarPointModal(){
+	var values = "";
+	
+	for(var i=0; i<projectIds.length; ++i){
+		
+		values += '<div class="modal fade" id="'+ projectIds[i] +'">' +
+					  '<div class="modal-dialog">' +
+					    '<div class="modal-content">' +
+					      '<div class="startpoint-projectName-div">'+ projectNames[i] +'</div>' +
+					      '<div class="modal-body">' +
+					       '<div align="center">' +
+					       	'<img class="starpoint1" src="/finalp/resources/images/icon/starpoint.png" ' +
+					       		'onmouseover="mouseoverStarPoint('+ projectIds[i] +', 1)" ' + 
+					       		'onmouseout="mouseoutStarPoint('+ projectIds[i] +', 1)" ' +
+					       		'onclick="mark('+ projectIds[i] +', 1)">' + 
+					       	'<img class="starpoint2" src="/finalp/resources/images/icon/starpoint.png" ' +
+						       	'onmouseover="mouseoverStarPoint('+ projectIds[i] +', 2)" ' + 
+					       		'onmouseout="mouseoutStarPoint('+ projectIds[i] +', 2)"' + 
+					       		'onclick="mark('+ projectIds[i] +', 2)">' + 
+					       	'<img class="starpoint3" src="/finalp/resources/images/icon/starpoint.png" ' +
+						       	'onmouseover="mouseoverStarPoint('+ projectIds[i] +', 3)" ' + 
+					       		'onmouseout="mouseoutStarPoint('+ projectIds[i] +', 3)"' + 
+					       		'onclick="mark('+ projectIds[i] +', 3)">' + 
+					       	'<img class="starpoint4" src="/finalp/resources/images/icon/starpoint.png" ' +
+						       	'onmouseover="mouseoverStarPoint('+ projectIds[i] +', 4)" ' + 
+					       		'onmouseout="mouseoutStarPoint('+ projectIds[i] +', 4)"' + 
+					       		'onclick="mark('+ projectIds[i] +', 4)">' + 
+					       	'<img class="starpoint5" src="/finalp/resources/images/icon/starpoint.png" ' +
+						       	'onmouseover="mouseoverStarPoint('+ projectIds[i] +', 5)" ' + 
+					       		'onmouseout="mouseoutStarPoint('+ projectIds[i] +', 5)"' +
+					       		'onclick="mark('+ projectIds[i] +', 5)">' + 
+					       	'<div class="starlock" value="0"></div>' +
+					       	'<div class="starpoint-value" value="0"></div>' +
+					       '</div>' +
+					      '</div>' +
+					    '</div>' +
+					  '</div>' +
+					'</div>';
+	}
+	
+	$("#starpoint-div").html(values);
+	
+	getStarPointList();
+}
+
+//locked = 0;
+//별점 hover
+function mouseoverStarPoint(id, star){
+	
+	var locked = $("#"+id + " .starlock").attr("value");
+	console.log("lock]"+locked);
+	if(locked == 1)
+		return; 
+	
+	console.log("yfdfasfa");
+	
+	for(var i=1; i<=star; ++i){
+		var seletor = "#"+id + " .starpoint"+i;
+		console.log("over]"+seletor);
+		$(seletor).attr("src", "/finalp/resources/images/icon/starpoint2.png");
+		//$(seletor).addClass("activestar");
+	}
+}
+
+//별점 no hover
+function mouseoutStarPoint(id, star){
+	
+	var locked = $("#"+id + " .starlock").attr("value");
+	
+	if(locked == 1)
+		return; 
+	
+	for(var i=1; i<=star; ++i){
+		var seletor = "#"+id + " .starpoint"+i;
+		console.log("out]"+seletor);
+		$(seletor).attr("src", "/finalp/resources/images/icon/starpoint.png");
+		//$(seletor).removeClass("activestar");
+	}
+}
+
+function lock(id, star){
+	mouseoverStarPoint(id, star);
+	var locked = $("#"+id + " .starlock").attr("value");
+	
+	if(locked == 0){
+		updateStarPoint(id, star);
+	}
+	$("#"+id + " .starlock").attr("value", 1);
+	$("#"+id + " .starpoint-value").attr("value", star);
+	
+	
+	//locked = 1;
+}
+
+function mark(id, star){
+	lock(id, star);
+	
+}
+
+function updateStarPoint(id, star){
+	var member_id = $('#memberId').val();
+	
+	var memberTrust = new Object();
+	memberTrust.member_id = member_id;
+	memberTrust.project_id = ""+id;
+	memberTrust.corn_grade = ""+star;
+	
+	$.ajax({
+		url: "updateMemberTrust.do",
+		data: JSON.stringify(memberTrust),
+		type: "post",
+		async: false,
+		contentType: "application/json; charset=UTF-8",
+		success: function(){
+			console.log("별점 업데이트  성공")
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	}); 
+}
+
+//프로젝트별 별점 가져오기
+function getStarPointList(){
+	var member_id = $('#memberId').val();
+	
+	$.ajax({
+		url: "memberTrustListByMemberId.do",
+		type: "post",
+		data: {"member_id": member_id},
+		dataType: "json",
+		success: function(data){
+			//리턴된 하나의 객체를 문자열로 변환
+			var jsonStr = JSON.stringify(data);
+			//변환된 문자열을 json 객체로 변환
+			var json = JSON.parse(jsonStr);
+
+			for(var i in json.list){
+				mouseoverStarPoint(json.list[i].projectId, json.list[i].cornGrade);
+			/* 	console.log("fff]"+json.list[i].projectId);
+				console.log("fff44]"+json.list[i].cornGrade); */
+			}
+			
+		},
+		error: function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+ "message : " + request.responseText + "\n"
+					+ "error : " + errorData);
+		}
+	});
+}
+
 </script>
 <!-- 결제내역 modal -->
 <div class="modal fade" id="fppaymentModal">
@@ -403,6 +568,41 @@ function fModal(fmid){
     </div>
   </div>
 </div>
+
+<style>
+	#starpoint-div .modal {
+        text-align: center;
+	}
+	 
+	@media screen and (min-width: 768px) { 
+	       #starpoint-div .modal:before {
+	                display: inline-block;
+	                vertical-align: middle;
+	                content: " ";
+	                height: 100%;
+	        }
+	}
+	 
+	#starpoint-div .modal-dialog {
+	        display: inline-block;
+	        text-align: left;
+	        vertical-align: middle;
+	}
+
+	#starpoint-div .startpoint-projectName-div{
+		align:center;
+		padding: 20px 20px 20px 20px;
+	}
+	
+	#starpoint-div .starpoint1,
+	#starpoint-div .starpoint2,
+	#starpoint-div .starpoint3,
+	#starpoint-div .starpoint4,
+	#starpoint-div .starpoint5{
+		width: 50px;
+		height:50px;
+	}
+</style>
 
 <!-- 별점 모달창 만들 곳 -->
 <div id="starpoint-div"></div>

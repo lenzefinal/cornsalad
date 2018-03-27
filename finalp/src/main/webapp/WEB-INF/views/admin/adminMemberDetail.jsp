@@ -55,8 +55,8 @@
 		color:black;
 	}
 	#adminmemde #btn1{
-		margin-left:80px;
-		margin-top: 10px;
+		margin-left:60px;
+		margin-top: 4px;
 		clear:both;
 		float:left;
 	}

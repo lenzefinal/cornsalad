@@ -101,6 +101,12 @@
 	}
 </style>
 
+<script>
+	function goMyProjectPage(){
+		location.href="myProject.do";
+	}
+</script>
+
 <div class="request-div project-outter-div-margin">
 	<table cellspacing="0" style="width:100%;">
 		<colgroup>
@@ -123,7 +129,7 @@
 							</div>
 						</td></tr>
 						<tr><td style="padding-bottom: 80px;">
-							<button class="btn btn-primary"><b>프로젝트 목록</b></button>
+							<button class="btn btn-primary" onclick="goMyProjectPage()"><b>프로젝트 목록</b></button>
 						</td></tr>
 					</table>	
 				</div>

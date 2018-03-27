@@ -57,6 +57,8 @@
   }
   #notice #nomodal div.modal-body , #notice #nomodal2 div.modal-body{
 		height: auto;
+		background-color: #FFE08C;
+		color:black;
   }
   #notice #nomodal div.modal-body #ntitle , #notice #nomodal2 div.modal-body #ntitle{
 		font-size: 14px;
@@ -64,7 +66,7 @@
   }
   #notice #nomodal div.modal-body #nwriter , #notice #nomodal2 div.modal-body #nwriter{
 		font-size: 14px;
-		width:300px;
+		width:700px;
   }
   #notice #nomodal div.modal-body #ndate , #notice #nomodal2 div.modal-body #ndate{
 		font-size: 14px;
@@ -74,7 +76,7 @@
   		font-size:14px;
   }
   #notice button.inbt{
-		font-size:14px;
+		font-size:16px;
 		background-color:#F7D358;
   }
   #notice button.mobt{
@@ -89,6 +91,9 @@
   }
   #notice span#cdate{
   		color:#5D5D5D;
+  }
+  #notice input#query{
+  		font-size:14px;
   }
   </style>
   <script type="text/javascript" src="/finalp/resources/js/jquery-3.3.1.min.js"></script>
@@ -123,7 +128,7 @@
 					//변환된 문자열을 json 객체로 바꿈
 					var json = JSON.parse(jsonStr);
 					
-					$("#noupform").empty();
+					$("#noupform").empty(); 
 					
 					var values = $("#noupform").html();
 					
@@ -146,6 +151,59 @@
 				}
   	  	});
   	}
+  
+  
+  	 $(function(){
+  		  //공지사항 검색
+  			 $('#query').keypress(function(e){
+  			  if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
+  			     var searchN=document.getElementById("query").value;
+  			     console.log(searchN);
+  			     $.ajax({
+  			    	url:"searchNotice.do",
+  			    	data: {
+  			    		searchN : searchN
+  			    	},
+  			    	type:"post",
+  			    	dataType: "json",
+  			    	success : function(data){
+  			    		var jsonStr = JSON.stringify(data);
+  							
+  						var json = JSON.parse(jsonStr);
+  						
+  						$('#accordion').empty();
+  						
+  						var value="<div class='panel-group' id='accordion' style='font-size:16px;'>";
+  						
+  						if(json.snlist.length > 0){
+  							for(var i in json.snlist){
+  								value+="<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion'"+
+  										" href='#notice"+ json.snlist[i].notice_id +"'>"+ decodeURIComponent(json.snlist[i].title.replace(/\+/g," ")) + 
+  										"</a><span class='btnspan'><button class='btn mobt' onclick='noupbtn("+ json.snlist[i].notice_id + ")'>수정</button>&nbsp;"+
+  										"<a href='adminNoticeDe.do?notice_id="+ json.snlist[i].notice_id + "'><button class='btn debt'>삭제</button></a>"+
+  										"</span></h4></div><div id='notice"+
+  										json.snlist[i].notice_id + "' class='panel-collapse collapse '><div class='panel-body'><span id='cdate'>" +
+  										json.snlist[i].creation_date + "작성 </span> <br><hr>"+ 
+  										decodeURIComponent(json.snlist[i].content.replace(/\+/g," ")) + "</div></div></div>";
+  							}
+  						}else{
+  							value += "<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'>조회된 결과가 없습니다.</h4></div></div>";
+  						}
+  						
+  						$('#pagediv').empty();
+  						$('#accordion').html(value);
+  							
+  					},
+  						error: function(request, status, errorData){
+  						alert("error code : " + request.status + "\n" 
+  							+ "message : " + request.responseText + "\n"
+  							+ "error : " + errorData );	
+  					}
+  			     });
+  			        
+  			  }
+  			});
+  		 });
  </script>
  </head>
  <body class="skin_main">
@@ -167,19 +225,14 @@
 	<button type="button" class="btn inbt" data-toggle="modal" data-target="#nomodal">공지사항 등록</button>
 	<br><br>
 
-<!-- <div class="searchdiv">
+<div class="searchdiv">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" name="search">
-      <div class="input-group-btn">
-        <button id="bid" class="btn btn-default">
-        <img class="iconi" src="/finalp/resources/images/adminimage/search.png" /></button>
-      </div>
-    </div>
+        <input type="search" class="form-control" name="query" id="query" placeholder="검색" autocomplete="off" aria-label="검색">
+     </div>
 </div>
 <br><br>
 <hr>
-<br><br> -->
-
+<br><br>
 <div class="panel-group" id="accordion">
     <c:forEach items="${ anlist }" var="nrow" >
     <div class="panel panel-default" id="noupform">

@@ -54,9 +54,9 @@ CREATE OR REPLACE VIEW V_SUPPOTER
 AS
 (SELECT P.PROJECT_ID, PM.MEMBER_ID, M.MEMBER_NAME,PC.PROJECT_CATEGORY_NAME, PM.PAYMENT_DATE, PM.REFUND_FLAG,M.PROFILE_IMG_RENAME
 FROM PROJECT P
-LEFT JOIN PAYMENT PM ON(P.PROJECT_ID=PM.PROJECT_ID)
-LEFT JOIN MEMBER M ON(PM.MEMBER_ID=M.MEMBER_ID)
-LEFT JOIN PROJECT_CATEGORY PC ON(P.PROJECT_CATEGORY_ID=PC.PROJECT_CATEGORY_ID)
+JOIN PAYMENT PM ON(P.PROJECT_ID=PM.PROJECT_ID)
+JOIN MEMBER M ON(PM.MEMBER_ID=M.MEMBER_ID)
+JOIN PROJECT_CATEGORY PC ON(P.PROJECT_CATEGORY_ID=PC.PROJECT_CATEGORY_ID)
 GROUP BY P.PROJECT_ID, PM.MEMBER_ID, M.MEMBER_NAME,PC.PROJECT_CATEGORY_NAME, PM.PAYMENT_DATE, PM.REFUND_FLAG, M.PROFILE_IMG_RENAME);
 
 
@@ -83,12 +83,12 @@ LEFT JOIN MEMBER_TRUST T ON(P.PROJECT_ID=T.PROJECT_ID));
     create or replace view v_giftlist
 (project_id, gift_id, capacity, payment_date, support_price, sellcount, remain)
 as
-select s.project_id, s.gift_id, g.capacity, p.payment_date+7 as payment_date, g.support_price, s.sellcount, g.capacity-sellcount as remain
-from (select pa.project_id as project_id, pc.gift_id as gift_id, sum(pc.count) as sellcount
-      from payment_count pc
-      join payment pa on(pa.payment_id = pc.payment_id)
-      group by pa.project_id, pc.gift_id) s
-join gift g on(s.gift_id=g.gift_id)
+select s.project_id, s.gift_id, s.capacity, p.payment_date+7 as payment_date, s.support_price, s.sellcount, s.capacity-sellcount as remain
+from (select g.project_id as project_id, g.gift_id as gift_id, g.capacity as capacity, g.support_price as support_price, sum(nvl(pc.count,0)) as sellcount
+      from gift g
+      left join payment_count pc on(g.gift_id=pc.gift_id)
+      left join payment pa on(pa.payment_id=pc.payment_id)
+      group by g.project_id, g.gift_id, g.capacity, g.support_price) s
 join project p on(s.project_id=p.project_id);
 
 

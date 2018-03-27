@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.devone.finalp.common.model.vo.Bank;
 import com.devone.finalp.common.model.vo.Member;
+import com.devone.finalp.common.model.vo.MemberTrust;
 import com.devone.finalp.common.model.vo.Project;
 import com.devone.finalp.common.model.vo.QuestionCategory;
 import com.devone.finalp.mypage.model.vo.FundingProject;
@@ -49,5 +50,9 @@ public interface MypageService {
 	List<FundingProject> searchFundingProject(FundingProject fundingProject);
 	List<MyProdPay> myProdpay(MyProdPay prodpay);
 	List<MyFundPay> myFundpay(MyFundPay fundpay);
+	MemberTrust selectOneMemberTrust(MemberTrust memberTrust);
+	int insertMemberTrust(MemberTrust memberTrust);
+	int updateMemberTrust(MemberTrust memberTrust);
+	List<MemberTrust> selectListMemberTrustByMemberId(String memberId);
 	
 }

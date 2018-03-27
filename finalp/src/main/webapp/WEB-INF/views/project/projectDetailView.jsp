@@ -261,39 +261,24 @@
 										</div>
 									<div class="khYIRi">
 										<c:if test="${not empty loginUser }">
-											<c:if
-												test="${loginUser.member_id eq LoginTimeView.member_id }">
-												<button class="dxWcyc">
-													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													채팅방 만들기
-													<!-- /react-text -->
-												</button>
-											</c:if>
-											<c:if
-												test="${loginUser.member_id ne LoginTimeView.member_id }">
-												<button class="dxWcyc" data-toggle="modal"
-													data-target="#contact">
-													<img src="resources/images/icon/메일이메일.png" width="15px"
-														width="10px"
-														style="margin-right: 2px; margin-bottom: -4px;"> <i
-														class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													창작자에게 문의하기
-													<!-- /react-text -->
-												</button>
-												<br><br>
-												<button class="dxWcyc">
-													<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
-													<!-- react-text: 607 -->
-													채팅방참여하기
-													<!-- /react-text -->
-												</button>
-											</c:if>
-
+										<c:if
+											test="${loginUser.member_id eq LoginTimeView.member_id }">
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												<c:url var="chat" value="chat.do">
+															<c:param name="room_category" value="pj"/>
+															<c:param name="room_name" value="${proview.project_name}"/>
+															<c:param name="member_id" value="${loginUser.member_id}"/>
+												</c:url>
+												<a href="#" onclick="window.open('${chat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false">채팅방 만들기</a>
+												<!-- /react-text -->
+											</button>
 										</c:if>
-										<c:if test="${empty loginUser }">
-											<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+										<c:if
+											test="${loginUser.member_id ne LoginTimeView.member_id }">
+											<button class="dxWcyc" data-toggle="modal"
+												data-target="#contact">
 												<img src="resources/images/icon/메일이메일.png" width="15px"
 													width="10px"
 													style="margin-right: 2px; margin-bottom: -4px;"> <i
@@ -302,7 +287,27 @@
 												창작자에게 문의하기
 												<!-- /react-text -->
 											</button>
+											<br><br>
+											<button class="dxWcyc">
+												<i class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+												<!-- react-text: 607 -->
+												채팅방참여하기
+												<!-- /react-text -->
+											</button>
 										</c:if>
+
+									</c:if>
+									<c:if test="${empty loginUser }">
+										<button class="dxWcyc" onclick="alertify.alert('로그인해주세요')">
+											<img src="resources/images/icon/메일이메일.png" width="15px"
+												width="10px"
+												style="margin-right: 2px; margin-bottom: -4px;"> <i
+												class="_3YmAkQhwzI7o-uUWz_8Mp4 _1QY7TzdLHKX3-BKPDNNY"></i>
+											<!-- react-text: 607 -->
+											창작자에게 문의하기
+											<!-- /react-text -->
+										</button>
+									</c:if>
 
 									</div>
 								</div>
@@ -708,7 +713,7 @@
 																			'<a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a>'+
 																		'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																'<div class="comment-content"><p>';
-																if(json.replylist[i].reply_count<=5)
+																if(json.replylist[i].report_count<=5)
 															 values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
 																else{
 														 	values+='신고된 댓글입니다.';
@@ -758,7 +763,7 @@
 																		values+='</a><a href="#" data-toggle="modal" data-target="#blacklist-modal${ status.count }" style="color:red;float:right;right:0px;">신고하기</a></p>'+
 																			'<p class="date">'+json.replylist[i].creation_date+'</p></div></div>'+
 																	'<div class="comment-content"><p>';
-																	if(json.replylist[i].reply_count<=5)
+																	if(json.replylist[i].report_count<=5)
 																values+=decodeURIComponent(json.replylist[i].reply_content.replace(/\+/g," "));
 																	else{
 																values+="신고된 댓글입니다.";
@@ -855,9 +860,11 @@
 				<br>
 				<form action="insertQuestion.do" method="post">
 						<input type="hidden" name="send_member_id" value="${ loginUser.member_id}"> 
+						<input type="hidden" name="receive_member_id" value="${ LoginTimeView.member_id }">
+						<input type="hidden" name="category" value="PC-FUND">
 						<input type="text"  value="문의자:  ${ loginUser.member_name}" readonly> 
 						<input type="hidden" name="project_id" value="${ proview.project_id }">
-						<input type="text" name="title" value="" placeholder="문의 제목">
+						<input type="text" name="title" placeholder="문의 제목">
 						<textarea name="content" placeholder="문의 내용"></textarea>
 
 					<input type="submit" class="blacklist blacklist-submit"

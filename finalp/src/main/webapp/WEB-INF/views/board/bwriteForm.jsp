@@ -109,7 +109,7 @@ img{
 				</form>
 				<hr />
 				<div id="buttoncontrill">
-					<a href="blist.do?page=1">[목록으로]</a>
+					<a href="javascript:history.back()">[목록으로]</a>
 				</div>
 			</div>
 		</div>

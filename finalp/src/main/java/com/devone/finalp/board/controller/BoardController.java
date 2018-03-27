@@ -27,11 +27,13 @@ import com.devone.finalp.board.model.vo.Board_Reply;
 import com.devone.finalp.board.model.vo.Board_recommend;
 import com.devone.finalp.board.service.BoardService;
 import com.devone.finalp.common.model.vo.Report;
+import com.devone.finalp.pdetail.model.service.DetailViewServiceImpl;
 
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService bService;
+	
 
 	@RequestMapping(value = "blist.do")
 	public String boardList(Model model, int page, String c_id) {
@@ -59,7 +61,18 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/binsert.do")
-	public String insertBoard(Board b, HttpServletRequest request) throws IOException {
+	public String insertBoard(Board b, HttpServletRequest request, HttpServletResponse rs) throws IOException {
+		rs.setCharacterEncoding("utf-8");
+		rs.setContentType("text/html; charset=UTF-8");
+		if(b.getBoard_category_id() == null || b.getTitle() == null || b.getContent() == null) {
+			PrintWriter output = rs.getWriter();
+			output.println("<script language='javascript'>");
+			output.println("alert('공란이 존재합니다. 다시 작성해 주세요')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+			return null;
+		}else {
 		// 파일 업로드 처리
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		MultipartFile uploadFile = multipartRequest.getFile("uploadFile");
@@ -86,6 +99,7 @@ public class BoardController {
 		bService.insertBoard(b);
 
 		return "redirect:blist.do?page=1";
+		}
 	}
 
 	@RequestMapping(value = "bdetail.do")
@@ -103,7 +117,7 @@ public class BoardController {
 			output.println("history.back();");
 			output.println("</script>");
 			output.close();
-			return "redirect:blist.do?page=1";
+			return null;
 		}else { 
 		b.setReadcount(b.getReadcount()+1);
 		bService.updateBRC(b);
@@ -247,22 +261,57 @@ public class BoardController {
 		return "redirect:bdetail.do?b_id=" + br.getBoard_id();
 	}
 	@RequestMapping(value="breport.do")
-	public String breport(Report report, HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+	public void breport(Report report, HttpServletRequest rq, HttpServletResponse rs) throws IOException {
 		int board_id = Integer.parseInt(rq.getParameter("board_id"));
 		rs.setCharacterEncoding("UTF-8");
 		rs.setContentType("text/html; charset=UTF-8");
-		bService.countbReport(board_id);
 		PrintWriter output = rs.getWriter();
+		report.setReport_category_id("R-BRD");
+		if(bService.checkRep(report) ==0) {
+		bService.countbReport(board_id);
+		bService.insertbReport(report);
 		output.println("<script language='javascript'>");
 		output.println("alert('신고가 완료되었습니다')");
 		output.println("history.back();");
 		output.println("</script>");
 		output.close();
-		return "redirect:bdetail.do?b_id="+board_id;
+		}else {
+			output.println("<script language='javascript'>");
+			output.println("alert('이미 신고한 게시글입니다')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+		}
 	}
 	
+	@RequestMapping(value="brReport.do")
+	public void brReport(Report report, Board_Reply br,HttpServletResponse rs)  throws IOException  {
+		rs.setCharacterEncoding("UTF-8");
+		rs.setContentType("text/html; charset=UTF-8");
+		PrintWriter output = rs.getWriter();
+		report.setReport_category_id("R_BRDR");
+		if(bService.checkbrRep(report) ==0) {
+			bService.countbrReport(br.getBoard_reply_id());
+			bService.insertbrReport(report);
+			output.println("<script language='javascript'>");
+			output.println("alert('신고가 완료되었습니다')");
+			output.println("history.back();");
+			output.println("</script>");
+			output.close();
+			}else {
+				output.println("<script language='javascript'>");
+				output.println("alert('이미 신고한 댓글입니다')");
+				output.println("history.back();");
+				output.println("</script>");
+				output.close();
+			}
+		
+	}
+	
+	
+	
 	@RequestMapping(value="brecom.do")
-	public String brecom(Board_recommend brec, Board b,HttpServletResponse rs ) throws IOException {
+	public void brecom(Board_recommend brec, Board b,HttpServletResponse rs ) throws IOException {
 		rs.setCharacterEncoding("UTF-8");
 		rs.setContentType("text/html; charset=UTF-8");
 		PrintWriter output = rs.getWriter();
@@ -282,6 +331,5 @@ public class BoardController {
 			output.println("</script>");
 			output.close();
 		}
-		return "redirect:bdetail.do?b_id="+b.getBoard_id();
 	}
 }

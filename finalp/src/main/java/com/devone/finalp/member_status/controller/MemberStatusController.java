@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,15 +29,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.devone.finalp.common.model.vo.Encryption;
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.member_status.model.service.MemberStatusService;
+import com.devone.finalp.project_list.model.service.ProjectListService;
+import com.devone.finalp.webchat.model.service.webchatService;
 
 @Controller
 public class MemberStatusController {
 
 	@Autowired
 	private MemberStatusService memberStatusService;
+	@Autowired
+	private webchatService wService;
+	@Autowired
+	private ProjectListService projectListService;
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String loginMethod(Member member, HttpSession session) throws ParseException {
+	public String loginMethod(Member member, HttpSession session, Model model) throws ParseException {
 		
 		System.out.println("로그인");
 		
@@ -47,18 +54,23 @@ public class MemberStatusController {
 		member.setSys_date(str);
 		
 		memberStatusService.updateTime(member);
+		
 		String userpwd = member.getMember_pwd();
-	      Encryption encryption = new Encryption("MD5", userpwd);
-	      String newpassword = String.valueOf(encryption.getEncryptData());
-	      member.setMember_pwd(newpassword);
+		Encryption encryption = new Encryption("MD5", userpwd);
+		String newpassword = String.valueOf(encryption.getEncryptData());
+		member.setMember_pwd(newpassword);
 		
 		session.setAttribute("loginUser", memberStatusService.login(member));
+		
+		model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
+		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
+		model.addAttribute("wclist", wService.selecthomeList());
 		System.out.println(memberStatusService.login(member));
 		return "home";
 	}
 	
 	@RequestMapping("/logout.do")
-	public String logoutMethod(HttpServletRequest request) {
+	public String logoutMethod(HttpServletRequest request,Model model) {
 		
 		HttpSession session = request.getSession(false);
 		
@@ -66,7 +78,10 @@ public class MemberStatusController {
 			session.invalidate();
 		}
 		
-		return "home";
+		/*model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
+		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
+		model.addAttribute("wclist", wService.selecthomeList());*/
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping("/enroll.do")

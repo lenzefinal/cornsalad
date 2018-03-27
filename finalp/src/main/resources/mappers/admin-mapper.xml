@@ -162,15 +162,15 @@
 	
 	<select id="aproListCount" resultType="int" >
 		<![CDATA[
-			SELECT COUNT(*) FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND START_DATE IS NOT NULL
+			SELECT COUNT(*) FROM A_PROJECT
 		]]>	
 	</select>
 	
 	
 	<select id="selectprojectlist" resultMap="AProjectmap" resultType="list" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT * FROM A_PROJECT WHERE PROJECT_REQUEST_FLAG='N' AND START_DATE IS NOT NULL 
-			AND RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
+			SELECT * FROM A_PROJECT 
+			WHERE RNUM >= #{ startRow  } AND RNUM <= #{ endRow }
 		]]>
 	</select>
 	
@@ -182,7 +182,7 @@
 	
 	<update id="ponupdate" parameterType="String">
 		<![CDATA[
-			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='Y',PROJECT_REQUEST_FLAG='N',START_DATE = SYSDATE 
+			UPDATE PROJECT SET PROJECT_ONOFF_FLAG='Y',PROJECT_REQUEST_FLAG='N', START_DATE = SYSDATE 
 			WHERE PROJECT_ID = #{ project_id }
 		]]>
 	</update>

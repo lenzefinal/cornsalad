@@ -115,16 +115,16 @@
 							"<div class='form-group'> <label for='qwriter'>작성자 : &nbsp;</label> <input type='text' class='form-control' id='qwriter' value='"+
 							decodeURIComponent(json.send_member_name.replace(/\+/g," ")) + "' readonly >&nbsp; </div><div class='form-group'><label for='qdate'>작성날짜 : &nbsp;</label>"+
 							"<input type='date' class='form-control' id='qdate' value='"+ json.send_creation_date + "' readonly> </div></div><br>"+
-							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='10' readonly>"+
+							"<div class='form-group'> <label for='qcontent'>문의내용  </label> <textarea class='form-control' id='qcontent' cols='90' rows='7' readonly>"+
 							decodeURIComponent(json.content.replace(/\+/g," "))+"</textarea></div>";
 							if( json.re_content == null){
 								values += "<div class='form-group'><label for='qacontent'>답변내용  </label>"+
 								"<form name='qupform' onsubmit='return check()' action='adminQuUpdate.do' method='post' ><div class='form-inline'> "+
-								"<textarea class='form-control' id='qacontent' placeholder='답변을 써주세요' name='re_content' cols='90' rows='8'></textarea>"+
+								"<textarea class='form-control' id='qacontent' placeholder='답변을 써주세요' name='re_content' cols='90' rows='6'></textarea>"+
 								"<input type='hidden' name='question_id' value='"+json.question_id+"'>"+
 								"&nbsp;<button type='submit' class='btn subt'>보내기</button></form> </div> </div>";
 							}else{
-								values += "<div class='form-group'><label for='qcontent2'>답변내용  </label><textarea class='form-control' id='qancontent' cols='90' rows='10' readonly>"+
+								values += "<div class='form-group'><label for='qcontent2'>답변내용  </label><textarea class='form-control' id='qancontent' cols='90' rows='6' readonly>"+
 										decodeURIComponent(json.re_content.replace(/\+/g," ")) + "</textarea></div>";
 							}
 					
@@ -260,7 +260,7 @@
       <!-- Modal content-->
       <div class="modal-content">
          <div class="modal-header"> 
-         <h4 class="modal-title">문의글 답변하기</h4> 
+         <h4 class="modal-title">문의글</h4> 
            <button type="button" class="close" data-dismiss="modal">&times;</button> 
         </div>
         <div class="modal-body" id="qudemo">

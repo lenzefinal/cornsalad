@@ -60,7 +60,7 @@
          </div>
 		 <div class="sh_group">
             <div class="sh_header">
-               <h2>금지어 / 신고 게시글</h2>
+               <h2>신고 게시글</h2>
                <a href="adminReport.do" class="all" style="text-decoration:underline; color:#a3a3a3;">전체보기</a>
             </div>
             <div class="sh_content">

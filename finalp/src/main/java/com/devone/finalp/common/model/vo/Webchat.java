@@ -10,6 +10,7 @@ public class Webchat implements Serializable{
 	private String room_name;
 	private String member_id;
 	private String room_reply_id;
+	private String room_category;
 	public String getRoom_id() {
 		return room_id;
 	}
@@ -34,23 +35,28 @@ public class Webchat implements Serializable{
 	public void setRoom_reply_id(String room_reply_id) {
 		this.room_reply_id = room_reply_id;
 	}
+	public String getRoom_category() {
+		return room_category;
+	}
+	public void setRoom_category(String room_category) {
+		this.room_category = room_category;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public Webchat(String room_id, String room_name, String member_id, String room_reply_id) {
+	public Webchat(String room_id, String room_name, String member_id, String room_reply_id, String room_category) {
 		super();
 		this.room_id = room_id;
 		this.room_name = room_name;
 		this.member_id = member_id;
 		this.room_reply_id = room_reply_id;
+		this.room_category = room_category;
 	}
 	@Override
 	public String toString() {
 		return "Webchat [room_id=" + room_id + ", room_name=" + room_name + ", member_id=" + member_id
-				+ ", room_reply_id=" + room_reply_id + "]";
+				+ ", room_reply_id=" + room_reply_id + ", room_category=" + room_category + "]";
 	}
-	
-	
 	
 	
 }

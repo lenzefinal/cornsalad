@@ -6,6 +6,7 @@ import com.devone.finalp.board.model.vo.Board;
 import com.devone.finalp.board.model.vo.Board_Pagectr;
 import com.devone.finalp.board.model.vo.Board_Reply;
 import com.devone.finalp.board.model.vo.Board_recommend;
+import com.devone.finalp.common.model.vo.Report;
 
 public interface BoardService {
 	List<Board> selectbList(Board_Pagectr bp);
@@ -26,5 +27,9 @@ public interface BoardService {
 	int getlistCount(String c_id);
 	int checkRec(Board_recommend brec);
 	int insertBoard_Rec(Board_recommend brec);
+	int insertbReport(Report report);
+	int checkRep(Report report);
+	int insertbrReport(Report report);
+	int checkbrRep(Report report);
 	
 }

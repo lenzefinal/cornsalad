@@ -122,7 +122,10 @@ var detailform0 = function(num,cont){
 
 </head>
 <body>
+
 	<c:import url="/WEB-INF/views/header.jsp" />
+	<c:set var="num" value="0" />
+	<c:set var="num1" value="0" />
 
 	<div class="container" style="margin-top: 5%; font-size : 1.5em">
 		<div>
@@ -190,7 +193,7 @@ var detailform0 = function(num,cont){
 						</button>
 					</c:if>
 
-					<a href="blist.do?page=1">[목록으로]</a>
+					<a href="javascript:history.back()">[목록으로]</a>
 				</div>
 
 				<h3 style="display: inline-block;">댓 글</h3>
@@ -198,8 +201,7 @@ var detailform0 = function(num,cont){
 				<table id="dt_basic" class="table table-striped table-bordered "
 					width="80%" style="background: white;">
 
-					<c:set var="num" value="0" />
-					<c:set var="num1" value="0" />
+					
 					<c:forEach var="boardR" items="${brlist}" varStatus="loop">
 						<c:if test="${boardR.board_id == board.board_id}">
 							<c:if test="${boardR.board_level == 0}">
@@ -225,7 +227,7 @@ var detailform0 = function(num,cont){
 										</c:if> <c:if test="${boardR.member_id != loginUser.member_id}">
 											<a href="#" onclick="aropen(${num}); return false"> [답글]</a>
 										 <small> ${boardR.creation_date}</small> 
-										<a href="#" data-toggle="modal" data-target="#brReport">[신고]</a>
+										<a href="#" data-toggle="modal" data-target="#brReport${loop.index}">[신고]</a>
 										</c:if>
 										</aa>
 									</td>
@@ -255,7 +257,7 @@ var detailform0 = function(num,cont){
 									    </td>
 								</tr>
 								<tr></tr>
-								<c:forEach var="boardRR" items="${brlist}">
+								<c:forEach var="boardRR" items="${brlist}" varStatus="loop">
 									<c:if
 										test="${boardR.board_reply_id == boardRR.board_reply_id_ref}">
 										<tr>
@@ -270,7 +272,7 @@ var detailform0 = function(num,cont){
 											<aa style="float:right">
 												<c:if test="${boardRR.member_id != loginUser.member_id}">
 													<small> ${boardRR.creation_date}</small>
-													<a href="#" data-toggle="modal" data-target="#brrReport">[신고]</a> 
+													<a href="#" data-toggle="modal" data-target="#brrReport${loop.index}">[신고]</a> 
 												</c:if> <c:if test="${boardRR.member_id == loginUser.member_id}">
 												<c:url var="brdelete" value="brdelete.do">
 												<c:param name = "board_id" value="${board.board_id}"/>
@@ -328,6 +330,7 @@ var detailform0 = function(num,cont){
 		</div>
 	</div>
 	 <!-- 신고 Modal -->
+	
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -363,12 +366,14 @@ var detailform0 = function(num,cont){
   </div>
   
    <!-- 댓글 Modal -->
-  <div class="modal fade" id="brReport" role="dialog">
+    <c:forEach var="boardR" items="${brlist}" varStatus="loop">
+    <div class="modal fade" id="brReport${loop.index}" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <form action="brReport.do" method="post">
-      <input type="hidden" name = "board_id" value="${board.board_id}">
+      <input type="hidden" name = "board_reply_id" value="${boardR.board_reply_id}">
+      <input type="hidden" name = "board_id" value="${boardR.board_id}">
       <div class="modal-content" style="font-size : 1.5em" >
         <div class="modal-header">
           <h4 class="modal-title">신고하기</h4>
@@ -396,6 +401,46 @@ var detailform0 = function(num,cont){
       
     </div>
   </div>
+	 </c:forEach>
+  
+  
+  <!-- 댓글 Modal -->
+    <c:forEach var="boardRR" items="${brlist}" varStatus="loop">
+    <div class="modal fade" id="brrReport${loop.index}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <form action="brReport.do" method="post">
+      <input type="hidden" name = "board_reply_id" value="${boardRR.board_reply_id}">
+      <input type="hidden" name = "board_id" value="${boardRR.board_id}">
+      <div class="modal-content" style="font-size : 1.5em" >
+        <div class="modal-header">
+          <h4 class="modal-title">신고하기</h4>
+        </div>
+        <div class="modal-body">
+                   
+                      <table class ="table table-striped table-bordered" >
+                      	<tr>
+                      		<th>신고자</th> 
+                      		<td><input type = "text" name="member_id" value="${loginUser.member_id }" readonly></td>
+                      	</tr>
+                      	<tr>
+                      		<th>신고 내용</th>
+                      		<td><textarea name ="report_reason" style="width : 100%" rows='5'></textarea></td>
+                      	</tr>
+                      </table>
+                    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="submit" class="btn btn-default">신고하기</button>
+        </div>
+      </div>
+      </form>
+      
+    </div>
+  </div>
+	 </c:forEach>
   
   
   
