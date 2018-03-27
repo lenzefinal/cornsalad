@@ -20,7 +20,7 @@ $(function(){
 	for(var i =0; i<sums.length; i++){
 		totalsum += Number($(sums[i]).attr('value'));
 	}
-	
+	totalsum += 3000;
 	
 	$("#totalPriceView").text(totalsum);
 });
@@ -38,7 +38,7 @@ $(function(){
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="projectDetailView.do?project_id=${ p.project_id }&member_id=${ loginUser.member_id }"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">${ p.project_name }</td>
 				<td id="seller">
 				<h4><img class="img_round" src="resources/images/mypageProfiles/${ p.profile_img_rename }" /> &nbsp; ${ p.member_name }</h4></td>
@@ -61,8 +61,9 @@ $(function(){
             <div class="wpurchase-order">
               <h3>리워드</h3>
               <div class="order-list">
+              	
                 <ul>
-                  
+                  <hr>
                   <c:forEach items="${ idlist }" var="idlist" varStatus="status">
 	                  <c:forEach items="${ glist }" var="glist">
 	                  	<c:if test="${ (glist.gift_id eq idlist) and (glist.project_id eq p.project_id)}">
@@ -90,7 +91,10 @@ $(function(){
                 </ul>
               </div>
               <div class="order-addinfo">
-               
+               <dl>
+             		<dt>배송비</dt>
+             		<dd>3000 원</dd>
+             	</dl>
               </div>
               <div class="order-suminfo">
                 
@@ -207,7 +211,7 @@ $(function(){
 				<div class="btn-wrap">
     				<p class="confirm">${ p.project_name } <span id="sumTotalNum">${ total_account }</span> 원을 펀딩합니다.</p>
     				
-    				<button class="btn-rd-violet" onclick="openPay('${ p.project_name }','${ m.member_id }','${ p.project_id }','${ g_ids }','${ g_amounts }','${ total_account }')">다음 단계로 &gt;</button>
+    				<button class="btn-rd-violet" onclick="openPay('${ p.project_name }','${ loginUser.member_id }','${ p.project_id }','${ g_ids }','${ g_amounts }','${ total_account }')">다음 단계로 &gt;</button>
     			</div>
     			
 </div>

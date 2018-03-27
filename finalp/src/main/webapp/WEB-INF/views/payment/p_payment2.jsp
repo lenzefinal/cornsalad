@@ -21,6 +21,8 @@ $(function(){
 		totalsum += Number($(sums[i]).attr('value'));
 	}
 	
+	totalsum += 3000;
+	
 	console.log('최종'+totalsum);
 	$("#totalPriceView").text(totalsum);
 });
@@ -38,7 +40,7 @@ $(function(){
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="projectDetailGPView.do?project_id=${ p.project_id }&member_id=${ loginUser.member_id }"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">${ p.project_name }</td>
 				<td id="seller">
 				<h4><img class="img_round" src="resources/images/mypageProfiles/${ p.profile_img_rename }" /> &nbsp; ${ p.member_name }</h4></td>
@@ -61,8 +63,9 @@ $(function(){
             <div class="wpurchase-order">
               <h3>리워드</h3>
               <div class="order-list">
+              	
                 <ul>
-                  
+                  <hr>
                   <c:forEach items="${ idlist }" var="idlist" varStatus="status">
 	                  <c:forEach items="${ prlist }" var="prlist">
 	                  	<c:if test="${ prlist.product_id eq idlist}">
@@ -86,7 +89,10 @@ $(function(){
                 </ul>
               </div>
               <div class="order-addinfo">
-               
+             	<dl>
+             		<dt>배송비</dt>
+             		<dd>3000 원</dd>
+             	</dl>
               </div>
               <div class="order-suminfo">
                 

@@ -13,14 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.devone.finalp.common.model.vo.Member;
 import com.devone.finalp.common.model.vo.Payment;
 import com.devone.finalp.common.model.vo.PaymentCount;
-import com.devone.finalp.common.model.vo.Product;
 import com.devone.finalp.iamport.model.vo.Iamport_class;
 import com.devone.finalp.payment.model.service.PaymentService;
 import com.devone.finalp.payment.model.vo.GiftItem;
+import com.devone.finalp.payment.model.vo.PayGiftView;
 import com.siot.IamportRestClient.request.CancelData;
 
 @Controller
@@ -48,9 +49,11 @@ public class PaymentController {
 		HttpSession session = request.getSession(false);
 		Member member = (Member)session.getAttribute("loginUser");
 		String m_id = member.getMember_id();
+		List<PayGiftView> list = payService.selectAllGift(project_id);
+		System.out.println(list);
 		
 		model.addAttribute("p", payService.selectProjectInfo(project_id));
-		model.addAttribute("glist", payService.selectAllGift(project_id));
+		model.addAttribute("glist", list);
 		model.addAttribute("ilist",payService.selectItem());
 		model.addAttribute("p_id",project_id);
 		model.addAttribute("gift_id", gift_id);
@@ -106,8 +109,13 @@ public class PaymentController {
 	@RequestMapping("payment3.do")
 	public String accountMethod3(@RequestParam("p_id") String p_id,
 								@RequestParam("payment_id") String payment_id,
-								@RequestParam("m_id") String m_id,
+								@RequestParam("m_id") String memeber_id,
+								HttpServletRequest request,
 								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		Member member = (Member)session.getAttribute("loginUser");
+		String m_id = member.getMember_id();
 		
 		model.addAttribute("p",payService.selectProjectInfo(p_id));
 		model.addAttribute("m", payService.selectMember(m_id));
@@ -161,8 +169,14 @@ public class PaymentController {
 	@RequestMapping("p_payment3.do")
 	public String openp_Payment3(@RequestParam("p_id") String p_id,
 								@RequestParam("payment_id") String payment_id,
-								@RequestParam("m_id") String m_id,
+								@RequestParam("m_id") String member_id,
+								HttpServletRequest request,
 								Model model) {
+		
+		
+		HttpSession session = request.getSession(false);
+		Member member = (Member)session.getAttribute("loginUser");
+		String m_id = member.getMember_id();
 		
 		model.addAttribute("p",payService.selectProjectInfo(p_id));
 		model.addAttribute("m", payService.selectMember(m_id));
@@ -180,6 +194,7 @@ public class PaymentController {
 							@RequestParam("g_amounts") String g_amounts,
 							@RequestParam("p_price") int p_price,
 							Model model) {
+		System.out.println("m_id/"+m_id);
 		
 		model.addAttribute("p_name", p_name);
 		model.addAttribute("m_id", m_id);
@@ -225,6 +240,9 @@ public class PaymentController {
 								@RequestParam("total_amount") int total_amount,
 								@RequestParam("pay_option") String pay_option,
 								@RequestParam("p_category") String p_category) {
+		
+		System.out.println("member_id"+member_id);
+		
 		Payment p= new Payment();
 		p.setPayment_id(imp_uid);
 		p.setMember_id(member_id);
@@ -234,8 +252,9 @@ public class PaymentController {
 		
 		payService.insertPayment(p);
 		
+		System.out.println(p_category);
 		
-		if(p_category == "PC-FUND") {
+		if(p_category.equals("PC-FUND")) {
 			String[] idlist = g_ids.split(",");
 			String[] amountlist = g_amounts.split(",");
 			
@@ -274,12 +293,14 @@ public class PaymentController {
 
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping("refund.do")
-	public void refund(@RequestParam("payment_id") String payment_id, 
-						@RequestParam("payment_option") String payment_option) {
+	public String refund(@RequestParam("payment_id") String payment_id, 
+						@RequestParam("pay_option") String pay_option,
+						HttpServletRequest request,
+						RedirectAttributes redirectAttributes) {
 		
-		System.out.println(payment_id+", "+payment_option);
+		System.out.println(payment_id+", "+pay_option);
 		CancelData cancel_data = new CancelData(payment_id, true);
 		
 		String imp_id ="";
@@ -287,7 +308,7 @@ public class PaymentController {
 		
 		
 		
-			if(payment_option == "C") {
+			if(pay_option.equals("C")) {
 				imp_id="4112304821735697";
 				imp_secret="Pa6KLq7gwfsSiXGw6pVG3Ttg42u7U3jKdpuZPBfmRIf9FWGMlCtpwWFAYaITd1Drr7qhIGEAoTJ4PqRa";
 				/*i.cancelPaymentByImpUid(cancel_data,imp_id, imp_secret);*/
@@ -303,12 +324,18 @@ public class PaymentController {
 				payService.updatePayment(payment_id);
 			}
 		
+			HttpSession session = request.getSession(false);
+			Member member = (Member)session.getAttribute("loginUser");
+			String m_id = member.getMember_id();
+			redirectAttributes.addAttribute("member_id",m_id);
+		
 		System.out.println("환불 성공");
+		return "redirect:mypageIndex.do";
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping("refundAll.do")
-	public void refundAll(@RequestParam("project_id") String project_id) {
+	public String refundAll(@RequestParam("project_id") String project_id) {
 		payService.adminRefund(project_id);
 		List<Payment> list = payService.selectPayment(project_id);
 		
@@ -334,6 +361,8 @@ public class PaymentController {
 				payService.updatePayment(imp_id);
 			}
 		}
+		
+		return "redirect:adminProject.do";
 		
 	}
 	

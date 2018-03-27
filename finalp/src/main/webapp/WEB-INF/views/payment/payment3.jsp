@@ -29,7 +29,7 @@
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="projectDetailView.do?project_id=${ p.project_id }&member_id=${ loginUser.member_id }"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">${ p.project_name }</td>
 				<td id="seller">
 				<h4><img class="img_round" src="resources/images/mypageProfiles/${ p.profile_img_rename }" /> &nbsp; ${ p.member_name }</h4></td>
@@ -59,7 +59,7 @@
 	    				<ul class="share-list">
 	    					<li>
 	    						<p>댓글로 메이커 응원하기</p>
-	    						<a href="댓글이동?projet_id='${ p.project_id }'" class="comment">댓글 남기기</a>
+	    						<a href="projectDetailView.do?project_id=${ p.project_id }&member_id=${ loginUser.member_id }" class="comment">댓글 남기기</a>
 	    					</li>
 	    				</ul>
 	    			</div>

@@ -73,7 +73,7 @@ public class Iamport_class {
 	}
 	
 
-	public IamportResponse<Payment> cancelPaymentByImpUid(CancelData cancel_data,String api_key, String api_secret) {
+	public void cancelPaymentByImpUid(CancelData cancel_data,String api_key, String api_secret) {
 		AccessToken auth = getAuth(api_key,api_secret).getResponse();
 		if ( auth != null ) {
 			Call<IamportResponse<Payment>> call = this.iamport.cancel_payment(auth.getToken(), cancel_data);
@@ -81,14 +81,16 @@ public class Iamport_class {
 			try {
 				Response<IamportResponse<Payment>> response = call.execute();
 				if ( response.isSuccessful() ) {
-					return response.body();
+					
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return null;
+		
+		
 	}
 
 	

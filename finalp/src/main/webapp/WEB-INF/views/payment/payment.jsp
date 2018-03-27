@@ -29,15 +29,23 @@
 <script>
 
 $(function() {
-
-		var id = "#ckrw"+${ gift_id };
-		var idata = $(id).attr("i-data");
+		var val = ${ gift_id };
+		console.log(val);
+		console.log(typeof(val));
 		
-		console.log(idata);
-				
-		$(id).attr("checked", true);
-		$("."+idata).removeClass("hidden");
-		
+		if(val != null){
+			var id = "#ckrw"+val;
+			var idata = $(id).attr("i-data");
+			var price = Number($("#qty"+val).attr("price"))+3000;
+			$(id).attr("checked", true);
+			$("."+idata).removeClass("hidden");
+			$("#qty"+val).val("1");
+			$("#sumTotalNum").text(price);
+			
+			$("#first").val(price);
+			console.log("처음:"+$("#first").val());
+			
+		}
 		//종료일 받아오기
 		var e_date = $('#end_date').val();
 		var year = e_date.substr(0,4);
@@ -134,7 +142,7 @@ $(function() {
 <div class="wpurchase-title">
 				<table id="reward-title">
 				<tr>
-				<td id="back"><a href="#"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
+				<td id="back"><a href="projectDetailView.do?project_id=${ p.project_id }&member_id=${ loginUser.member_id }"><img src="/finalp/resources/images/paymentimages/left-arrow2.png" height="20" width="20"> &nbsp; <span>스토리로 돌아가기</span></a></td>
 				<td id="reward-name">${ p.project_name }</td>
 				<td id="seller">
 				<h4><img class="img_round" src="resources/images/mypageProfiles/${ p.profile_img_rename }" /> &nbsp; ${ p.member_name }</h4></td>
@@ -226,11 +234,11 @@ $(function() {
 	    					</ul>
 	    				</div>
 	    			</form>
-
+				
 				<div class="btn-wrap">
 					<input type="hidden" id="total_price" value="0"/>
+					<input type="hidden" id="first" value="0"/>
     				<p class="confirm">${ p.project_name }에 <span id="sumTotalNum">0</span> 원을 펀딩합니다.</p>
-    				
     				<button class="btn-rd-violet" onclick="secondPage('${ p_id }','${ m_id }')">다음 단계로 &gt;</button>
     			</div>
 

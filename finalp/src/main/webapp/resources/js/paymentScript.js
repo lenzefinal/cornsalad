@@ -26,21 +26,26 @@ function buttonEvent1(){
 }
 
 function checkboxEvent1(val){
+	
 	var id = "#ckrw"+val;
 	var idata = $(id).attr("i-data");
 	
 	console.log(idata);
 	
 	if($(id).prop("checked")){
-		console.log(id+"체크됨!");
 		$("."+idata).removeClass("hidden");
+		$("#qty"+val).val("1");
+		/*$("#qty"+val).trigger("change");*/
 	}else{
-		console.log(id+"체크안됨");
 		$("."+idata).addClass("hidden");
 		$("#qty"+val).val("0");
+		/*$("#qty"+val).trigger("change");*/
 	}
-
+	
+	
+	$("#qty"+val).trigger("change");
 }
+
 
 function changeQty(flag, id){
 	var qty = $("#qty"+id);
@@ -113,8 +118,11 @@ function refund(){
 	});
 }
 
-function change_val(){
 
+
+
+function change_val(){
+	
 	var arr = document.getElementsByName('qty');
 	var totalprice = new Array(arr.length);
 	
@@ -124,7 +132,10 @@ function change_val(){
 	}
 	
 	$(':text').on("change",function(){
+		var first = Number($("#first").val());
+		console.log("first"+first);
 		var finalprice = 0;
+		console.log("마지막"+finalprice);
 		var id = $(this).attr('id');
 		
 		var price = $("#"+id).attr('price');
@@ -136,7 +147,8 @@ function change_val(){
 		if(capacity != 0){
 			if(qty > maxP){
 				alertify.alert("최대 수량을 초과하였습니다.");
-				$("#"+id).val(0);	
+				$("#"+id).val(0);
+				$(qty).trigger("change");
 			}
 		}else{
 		
@@ -146,7 +158,12 @@ function change_val(){
 			finalprice += totalprice[i];
 		}
 		
-		console.log(finalprice);
+		if(first != 0){
+			finalprice += first;
+		}else{
+			finalprice += 3000;
+		}
+		console.log("최종:"+finalprice);
 		
 		$('#sumTotalNum').text(finalprice);
 		$('#total_price').val(finalprice);
@@ -161,7 +178,7 @@ function secondPage(p_id,m_id){
 	if(m_id == ''){
 		alertify.alert("로그인이 필요한 서비스 입니다");
 	}else{
-		var t_price = $("#total_price").val();
+		var t_price = Number($("#sumTotalNum").text());
 	
 		var arr = document.getElementsByName('qty');
 		var g_ids = "";

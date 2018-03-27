@@ -143,7 +143,7 @@ $(document).ready(function() {
 							</div>
 							<div class="btn-wrap funding">
 								<c:set var="n" value="null"/>
-								<button onclick="location.href='payment.do?p_id=${proview.project_id}&p_id=n'"
+								<button onclick="location.href='p_payment.do?p_id=${proview.project_id}&product_id=n'"
 									class="wz-btn primary large block">구매하기</button>
 							</div>
 									
@@ -372,7 +372,7 @@ $(document).ready(function() {
 							<div id="normalpane" class="recommend-box-container stoped">
 
 								<div id="fixed-funding-btn" class="fixed-funding-btn">
-									<button onclick="backMoney('backing', 'false');"
+									<button onclick="location.href='p_payment.do?p_id=${proview.project_id}&product_id=n'"
 										class="wz-btn primary large block">이 프로젝트 참여하기</button>
 								</div>
 

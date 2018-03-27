@@ -13,6 +13,7 @@
  <body>
 <input type="hidden" id="p_id" value="${ p_id }">
 <input type="hidden" id="p_category" value="${ p_category }">
+<input type="hidden" id="m_id" value="${ m_id }">
 
 <c:if test="${ p_category eq 'PC-FUND' }">
 	<input type="hidden" id="g_ids" value="${ g_ids }">
@@ -41,6 +42,7 @@ IMP.request_pay({
     	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
     	var p_id = $('#p_id').val();
     	var p_category = $('#p_category').val();
+    	var m_id = $('#m_id').val();
     	
     	if(p_category == 'PC-FUND'){
 	    	var g_ids = $('#g_ids').val();
@@ -59,7 +61,7 @@ IMP.request_pay({
     		type: 'POST',
     		data: {
     			imp_uid : rsp.imp_uid,
-	    		member_id : rsp.buyer_name,
+	    		member_id : m_id,
 	    		project_id : p_id,
 	    		g_ids : g_ids,
 	    		g_amounts : g_amounts,
