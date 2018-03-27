@@ -80,7 +80,8 @@
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
-					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-PROD'
+					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} 
+					and p.project_category_id='PC-PROD'  and pm.refund_flag='N'
 					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
@@ -89,7 +90,8 @@
 		<![CDATA[
 			select p.project_id ,p.image_rename, p.project_name, p.end_date, pm.payment_id, pm.pay_option
 					from project p
-					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} and p.project_category_id='PC-FUND'
+					join payment pm on(p.project_id=pm.project_id) where pm.member_id=#{member_id} 
+					and p.project_category_id='PC-FUND' and pm.refund_flag='N'
 					order by p.project_id desc, pm.payment_id desc
 		]]>
 	</select>
