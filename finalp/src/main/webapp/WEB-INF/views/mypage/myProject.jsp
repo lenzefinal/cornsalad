@@ -198,7 +198,7 @@ $(window).ready(function(){
 	 console.log($(window).scrollTop());
 	 console.log($(document).height()-$(window).height());
 	 	if($(window).scrollTop()>=$(document).height()-$(window).height()-2 ){
-	 	if(project_name==null){
+	 	if(mpproject_name==null){
 		 $.ajax({
 			url:"myProjectList.do",
 			data:{"size":Number(size), "member_id":member_id},

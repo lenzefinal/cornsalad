@@ -97,14 +97,7 @@
 			<ul>
 				<li style="padding:5px;"><p style="font-size:17px;float:left;">채팅방</p> <a href = "wcList.do?page=1" style="float:right;font-size:13px;">전체보기</a><br><hr></li>
 				<c:forEach var="webchat" items="${wclist}" >
-									<c:url var ="inchat" value="inchat.do">
-									<c:param name="room_reply_id" value="${webchat.room_id}"/>
-									<c:param name="room_name" value="${webchat.room_name}"/>
-									<c:param name="member_id" value="${loginUser.member_id }"/>
-									</c:url>
-							<li style="border-bottom:1px solid lightgray;padding: 5px;">${webchat.room_name}
-								<a href="#" onclick="window.open('${inchat}','채팅창','width=500,height=600, left=1500, resizable=0'); return false" class="pointer noticeClick" style="float:right">[입장 하기]	</a>
-							</li>
+							<li style="border-bottom:1px solid lightgray;padding: 5px;">${webchat.room_name}</li>
 				</c:forEach>
 			</ul>
 			
@@ -122,7 +115,7 @@
 	  <section class="responsive slider">
 	 	 <c:forEach var="project" items="${ comingEndProject }">
 		      <div class="thumnailContent">
-					<a class="thumnailAtag" href="projectDetailView.do?member_id=${loginUser.member_id }&project_id=${project.project_id}">
+					<a class="thumnailAtag" href="projectDetailView.do?member_id=${login.member_id }&project_id=${project.project_id}">
 						<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/${ project.image_rename }" alt="${ project.project_name }">
 						<div class="thumnailTextWrap">
 							<div class="fundingTitle">
@@ -161,7 +154,7 @@
 		<section class="responsive slider">
 		      <c:forEach var="product" items="${ comingEndProduct }">
 		      <div class="thumnailContent">
-					<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${ loginUser.member_id }&project_id=${ product.project_id }">
+					<a class="thumnailAtag" href="projectDetailGPView.do?member_id=${ login.member_id }&project_id=${ product.project_id }">
 						<img class="thumnailImage" src="/finalp/resources/uploadProPreImages/${ product.image_rename }" alt="${ product.project_name }">
 						<div class="thumnailTextWrap">
 							<div class="fundingTitle">

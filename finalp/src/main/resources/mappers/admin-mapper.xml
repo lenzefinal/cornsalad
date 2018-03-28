@@ -89,7 +89,7 @@
 	
 	<update id="reportBupdate" parameterType="int">
 		<![CDATA[
-			UPDATE BOARD SET REPORT_COUNT = 100 WHERE BOARD_ID = #{ board_id }
+			UPDATE BOARD SET REPORT_COUNT = 5 WHERE BOARD_ID = #{ board_id }
 		]]>
 	</update>
 	

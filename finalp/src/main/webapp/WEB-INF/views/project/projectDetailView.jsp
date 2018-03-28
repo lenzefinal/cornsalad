@@ -128,7 +128,7 @@
 				<li><a class="tab-link a2">댓글 <span
 						class="count-total comment-total">${fn:length(replylist)}</span>
 				</a></li>
-				<li><a class="tab-link a3">환불및 교환 <span class="count-total">2<i
+				<li><a class="tab-link a3">환불및 교환 <span class="count-total"><i
 							class="icon-new"></i></span>
 				</a></li>
 				<li><a class="tab-link a4">서포터 <span class="count-total">${fn:length(SuppoterView)}<i

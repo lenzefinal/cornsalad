@@ -196,7 +196,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-          <button type="submit" onclick="chat(this.form)"class="btn btn-default">만들기</button>
+          <button type="submit" onclick="chat(this.form)"class="btn btn-default" data-dismiss="modal">만들기</button>
         </div>
         </form>
       </div>

@@ -393,7 +393,7 @@
 					<c:if test="${ rrow.report_read_flag eq 'Y' }">
 						처리 완료
 					</c:if>
-					<c:if test="${ rrow.report_read_flag eq 'N' }">
+					<c:if test="${ rrow.report_read_flag != 'Y' }">
 						<c:choose>
 						<c:when test="${ rrow.report_category_name eq '프로젝트 신고' }">
 					 		<button class="btn btn-primary" data-toggle="modal"  data-target="#redetail1" onclick="rebtn1(${ rrow.report_id })">처리하기</button>

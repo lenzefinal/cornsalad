@@ -257,7 +257,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -289,7 +296,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("payment_id", p.getPayment_id().toString().toString());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
@@ -321,7 +335,14 @@ public class MypageController {
 			j.put("project_name", f.getProject_name());
 			j.put("product_name", f.getProduct_name());
 			j.put("member_id", f.getMember_id());
-			j.put("end_date", f.getEnd_date().toString());
+			Date enddate = f.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("pay_option", f.getPay_option());
 			j.put("payment_id", f.getPayment_id().toString());
 			jarr.add(j);
@@ -354,7 +375,14 @@ public class MypageController {
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
 			j.put("creation_date", lpj.getCreation_date().toString());
-			j.put("end_date", lpj.getEnd_date().toString());
+			Date enddate = lpj.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			jarr.add(j);
 
 		}
@@ -384,7 +412,13 @@ public class MypageController {
 			j.put("project_name", lpd.getProject_name());
 			j.put("member_id", lpd.getMember_id());
 			j.put("creation_date", lpd.getCreation_date().toString());
-			j.put("end_date", lpd.getEnd_date().toString());
+			Date enddate = lpd.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
 			jarr.add(j);
 
 		}
@@ -453,7 +487,13 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("member_id", p.getMember_id());
 			j.put("creation_date", p.getCreation_date().toString());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
 			j.put("project_request_flag", p.getProject_request_flag());
 			j.put("project_onoff_flag", p.getProject_onoff_flag());
 			jarr.add(j);
@@ -484,7 +524,13 @@ public class MypageController {
 			j.put("project_name", lpj.getProject_name());
 			j.put("member_id", lpj.getMember_id());
 			j.put("creation_date", lpj.getCreation_date().toString());
-			j.put("end_date", lpj.getEnd_date().toString());
+			Date enddate = lpj.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
 			jarr.add(j);
 		}
 		json.put("slproject", jarr);
@@ -513,7 +559,14 @@ public class MypageController {
 			j.put("project_name", lpd.getProject_name());
 			j.put("member_id", lpd.getMember_id());
 			j.put("creation_date", lpd.getCreation_date().toString());
-			j.put("end_date", lpd.getEnd_date().toString());
+			Date enddate = lpd.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			jarr.add(j);
 		}
 		json.put("slproduct", jarr);
@@ -544,7 +597,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("payment_id", p.getPayment_id().toString());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);
@@ -577,7 +637,14 @@ public class MypageController {
 			j.put("project_name", p.getProject_name());
 			j.put("product_name", p.getProduct_name());
 			j.put("member_id", p.getMember_id());
-			j.put("end_date", p.getEnd_date().toString());
+			Date enddate = p.getEnd_date();
+			String enddateStr = "";
+			if(enddate == null) {
+				enddateStr = "NO DATE";
+			} else {
+				enddateStr = enddate.toString();
+			}
+			j.put("end_date", enddateStr);
 			j.put("payment_id", p.getPayment_id().toString());
 			j.put("pay_option", p.getPay_option());
 			jarr.add(j);

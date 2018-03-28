@@ -81,7 +81,7 @@ document.getElementById("inputMessage").addEventListener("keydown", Enter_Check)
 
         var textarea = document.getElementById("messageWindow");
 
-        var webSocket = new WebSocket('ws://192.168.30.122:8765/finalp/broadcasting');
+        var webSocket = new WebSocket('ws://192.168.30.119:8765/finalp/broadcasting');
 
         var inputMessage = document.getElementById('inputMessage');
 

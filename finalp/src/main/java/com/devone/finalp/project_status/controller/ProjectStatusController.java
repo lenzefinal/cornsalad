@@ -90,7 +90,7 @@ public class ProjectStatusController {
 	}
 	
 	@RequestMapping("fundingUpdateView.do")
-	public String fundingUpdateViewMethod(@RequestParam(value="projectId") String projectId,
+	public String fundingUpdateViewMethod(@RequestParam(value="project_id") String projectId,
 			Model model) {
 		
 		ProjectStatusUpdate project = projectStatusService.selectOneProjectStatusUpdateByProId(projectId);
@@ -292,6 +292,11 @@ public class ProjectStatusController {
 		
 		project.setProject_category_id(proCateId);
 		
+		//추가
+		if(project.getTarget_amount() <= 0) {
+			project.setTarget_amount(1);
+		}
+		
 		//sqe
 		int sqeNextval = projectStatusService.selectProjectIdSeqNextval();
 		
@@ -398,9 +403,14 @@ public class ProjectStatusController {
 		
 		try {
 			targetAmount = Integer.parseInt(targetAmountStr);
+			
+			//추가
+			if(targetAmount <= 0) {
+				targetAmount = 1;
+			}
 		} catch(NumberFormatException e) {
 			System.out.println("targetAmount가 형변환안됨 :["+targetAmountStr);
-			targetAmount = 0;
+			targetAmount = 1;
 		}
 		
 		project.setTarget_amount(targetAmount);

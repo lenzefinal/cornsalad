@@ -1,5 +1,7 @@
 package com.devone.finalp;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,6 @@ public class HomeController {
 		model.addAttribute("comingEndProject", projectListService.selectEndProjectList());
 		model.addAttribute("comingEndProduct", projectListService.selectEndProductList());
 		model.addAttribute("wclist", wService.selecthomeList());
-		
-		System.out.println(projectListService.selectEndProjectList());
-		System.out.println(projectListService.selectEndProductList());
 		
 		return "home";
 	}

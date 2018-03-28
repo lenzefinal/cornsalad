@@ -508,6 +508,9 @@
 		min-height: 200px;
 		overflow-y:scroll;
 	}
+	.mce-notification-warning{
+    display:none;
+ }
 	
 </style>
 
